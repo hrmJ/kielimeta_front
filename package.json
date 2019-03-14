@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --mode development"
+    "start": "webpack-dev-server --mode development",
+    "build": "rm -rf dist/ && webpack",
+    "serve-pm2": "npx pm2 start node_modules/http-server/bin/http-server --name tlfrontend -- dist/"
   },
   "author": "Juho Härme",
   "license": "MIT",
