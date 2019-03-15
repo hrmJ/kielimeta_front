@@ -1,5 +1,8 @@
-import React from 'react';
-import { Component } from 'react';
+import React from "react";
+import { Component } from "react";
+import DatasetList from "../content/datasetlist/index.jsx";
+import Header from "../layout/header/index.jsx";
+import Footer from "../layout/footer/index.jsx";
 
 export default class Main extends Component {
   constructor(props) {
@@ -7,6 +10,12 @@ export default class Main extends Component {
   }
 
   render() {
-    return <main>here's the main!</main>;
+    return (
+      <main>
+        <Header />
+        <DatasetList />
+        <Footer />
+      </main>
+    );
   }
 }
