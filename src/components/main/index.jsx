@@ -10,10 +10,12 @@ export default class Main extends Component {
   }
 
   render() {
+    const { datasets, dispatch } = this.props;
+    console.log(datasets);
     return (
       <main>
         <Header />
-        <DatasetList />
+        <DatasetList datasets={datasets} dispatch={dispatch} />
         <Footer />
       </main>
     );

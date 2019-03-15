@@ -1,0 +1,26 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Selenium e2e",
+      "program": "/home/juho/.nvm/versions/node/v10.15.3/bin/npx",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "args": [
+        "dotenv",
+        "cucumber-js",
+        "features",
+        "--",
+        "--require-module",
+        "@babel/register",
+        "--require",
+        "features/steps"
+      ]
+    }
+  ]
+}

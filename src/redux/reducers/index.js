@@ -1,8 +1,8 @@
-import { combineReducers } from 'redux';
-import authorReducer from './author';
+import { combineReducers } from "redux";
+import datasetReducer from "./datasets";
 
 const appReducer = combineReducers({
-  authorlist: authorReducer,
+  datasets: datasetReducer
 });
 
 export default appReducer;

@@ -1,8 +1,8 @@
-import { connect } from 'react-redux';
-import Main from './components/main/index.jsx';
+import { connect } from "react-redux";
+import Main from "./components/main/index.jsx";
 
 function mapStateToProps(state) {
-  return {};
+  return { datasets: state.datasets };
 }
 
 const App = connect(mapStateToProps)(Main);
