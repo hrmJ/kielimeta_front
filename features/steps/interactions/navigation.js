@@ -3,8 +3,8 @@ import { By } from "selenium-webdriver";
 import "babel-polyfill"; // NOTE: needed for aync await
 import assert from "assert";
 
-const base_url = `http://${process.env.API_SERVER_HOST}:${
-  process.env.API_SERVER_PORT
+const base_url = `http://${process.env.FRONTEND_HOST}:${
+  process.env.FRONTEND_HOST
 }`;
 
 When(/the user navigates to ([^s]+)/, function(location) {
