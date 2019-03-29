@@ -1,14 +1,17 @@
+@import "src/general_styles/configs.scss";
+
 .topbar {
-  background: blue;
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
+  align-items: center;
   position: relative;
   margin-bottom: 1em;
+  padding: 1em 0.1em 1em 0.1em;
+  border-bottom: 1px solid darkgray;
 }
 
 .menulauncher {
-  background: green;
   position: absolute;
   left: 0px;
   top: 5px;

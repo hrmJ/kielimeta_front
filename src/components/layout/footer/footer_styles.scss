@@ -1,0 +1,10 @@
+@import "src/general_styles/configs.scss";
+
+.sitefooter {
+  color: white;
+  font-size: 0.6em;
+  background: $navbg;
+  min-height: 10em;
+  padding: 2em;
+  margin-top: 2em;
+}

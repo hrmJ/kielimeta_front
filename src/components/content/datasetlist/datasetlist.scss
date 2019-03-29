@@ -1,8 +1,16 @@
 @import "src/general_styles/configs.scss";
 
-.datasetlist {
-  list-style-type: none;
-  padding: 1em 0.1em 1em 0.1em;
-  box-shadow: -1px -1px 5px grey;
-  @include center_contained();
+.datasetlistContainer {
+  @include center_contained_relative();
+  ul {
+    box-shadow: -1px -1px 5px grey;
+    padding: 0em 0.1em 1em 0.1em;
+    list-style-type: none;
+  }
+}
+
+.datasetitemContainer {
+  & + & {
+    border-top: 1px solid lightgrey;
+  }
 }

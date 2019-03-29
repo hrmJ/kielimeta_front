@@ -1,2 +1,6 @@
 .datasetItem {
+  padding: 0.5em 0.5em 0.5em 0.5em;
+  & & {
+    border-top: 1px solid grey;
+  }
 }

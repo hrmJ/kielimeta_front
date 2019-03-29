@@ -1,18 +1,29 @@
-@mixin center_container {
+$navbg: darken(grey, 30%);
+$bodybg: lighten(grey, 40%);
+$contentbg: white;
+
+@mixin center_container($flow: row nowrap) {
   // wraps a centered content
-  background: red;
   width: 100%;
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: $flow;
   justify-content: center;
   align-items: center;
+}
+
+@mixin center_contained_relative($width: 80%) {
+  // content wrapped inside this will be aligned at center with margins
+  // on large screens
+
+  @media screen and (min-width: 900px) {
+    width: $width;
+  }
 }
 
 @mixin center_contained {
   // content wrapped inside this will be aligned at center with margins
   // on large screens
-  background: yellow;
   @media screen and (min-width: 900px) {
-    width: 60vw;
+    width: 80vw;
   }
 }

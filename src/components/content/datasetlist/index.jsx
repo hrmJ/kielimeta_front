@@ -11,10 +11,10 @@ export default class DatasetList extends Component {
   render() {
     const { datasets } = this.props;
     return (
-      <div id="resources">
-        <ul className={styles.datasetlist}>
+      <div id="resources" className={styles.datasetlistContainer}>
+        <ul>
           {datasets.map(dataset => (
-            <li key={dataset.id}>
+            <li key={dataset.id} className={styles.datasetitemContainer}>
               <DatasetItem {...dataset} />
             </li>
           ))}

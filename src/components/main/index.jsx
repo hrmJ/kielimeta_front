@@ -4,6 +4,7 @@ import TopBar from "../layout/navigation/topbar.jsx";
 import DatasetList from "../content/datasetlist/index.jsx";
 import Header from "../layout/header/index.jsx";
 import Footer from "../layout/footer/index.jsx";
+import styles from "../../general_styles/general_styles.scss";
 
 export default class Main extends Component {
   constructor(props) {
@@ -14,7 +15,7 @@ export default class Main extends Component {
     const { datasets, dispatch } = this.props;
     console.log(datasets);
     return (
-      <div>
+      <div className={styles.outerContainer}>
         <TopBar />
         <Header />
         <main>

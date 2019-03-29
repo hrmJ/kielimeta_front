@@ -7,8 +7,15 @@ body {
 }
 
 body > div {
+  @include center_container(column nowrap);
+  background: $bodybg;
 }
 
 main {
   @include center_container();
+}
+
+.outerContainer {
+  background: $contentbg;
+  @include center_contained();
 }
