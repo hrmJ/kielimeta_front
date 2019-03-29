@@ -1,5 +1,6 @@
 import React from "react";
 import { Component } from "react";
+import TopBar from "../layout/navigation/topbar.jsx";
 import DatasetList from "../content/datasetlist/index.jsx";
 import Header from "../layout/header/index.jsx";
 import Footer from "../layout/footer/index.jsx";
@@ -13,11 +14,14 @@ export default class Main extends Component {
     const { datasets, dispatch } = this.props;
     console.log(datasets);
     return (
-      <main>
+      <div>
+        <TopBar />
         <Header />
-        <DatasetList datasets={datasets} dispatch={dispatch} />
+        <main>
+          <DatasetList datasets={datasets} dispatch={dispatch} />
+        </main>
         <Footer />
-      </main>
+      </div>
     );
   }
 }

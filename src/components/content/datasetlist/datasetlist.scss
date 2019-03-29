@@ -1,0 +1,8 @@
+@import "src/general_styles/configs.scss";
+
+.datasetlist {
+  list-style-type: none;
+  padding: 1em 0.1em 1em 0.1em;
+  box-shadow: -1px -1px 5px grey;
+  @include center_contained();
+}

@@ -1,0 +1,15 @@
+.topbar {
+  background: blue;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 1em;
+}
+
+.menulauncher {
+  background: green;
+  position: absolute;
+  left: 0px;
+  top: 5px;
+}

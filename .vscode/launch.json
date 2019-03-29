@@ -8,7 +8,7 @@
       "type": "node",
       "request": "launch",
       "name": "Selenium e2e",
-      "program": "/home/juho/.nvm/versions/node/v10.15.3/bin/npx",
+      "program": "/home/juhoharme/.nvm/versions/node/v10.15.3/bin/npx",
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal",
       "args": [
@@ -19,8 +19,34 @@
         "--require-module",
         "@babel/register",
         "--require",
+        "features/steps",
+        "--debug-brk=34815"
+      ],
+      "env": { "TEST_BROWSER": "chrome" }
+    },
+    {
+      "name": "Selenium2",
+      "type": "node",
+      "request": "launch",
+      "protocol": "legacy",
+      "cwd": "${workspaceRoot}",
+      "runtimeExecutable": "yarn",
+      "runtimeArgs": ["run", "test:e2e:chrome"]
+    },
+    {
+      "name": "cucumber",
+      "type": "node",
+      "program": "/home/juhoharme/projects/digilang/kielimeta_front/node_modules/cucumber/bin/cucumber-js",
+      "stopOnEntry": false,
+      "args": [
+        "--require-module",
+        "@babel/register",
+        "--require",
         "features/steps"
-      ]
+      ],
+      "cwd": "${workspaceFolder}",
+      "request": "launch",
+      "runtimeExecutable": null
     }
   ]
 }

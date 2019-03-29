@@ -1,3 +1,3 @@
 import React from "react";
 
-export default () => <footer>lisätietoa ym. server is running at:</footer>;
+export default () => <footer>lisätietoa ym.</footer>;

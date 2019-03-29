@@ -1,0 +1,13 @@
+@import "src/general_styles/configs.scss";
+
+.siteheader {
+  @include center_container();
+
+  > div {
+    @include center_contained();
+  }
+
+  h1 {
+    text-align: left;
+  }
+}
