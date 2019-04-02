@@ -1,20 +1,25 @@
-import dataSetReducer from './datasets';
+/* eslint-disable no-undef */
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import { listAll } from '../actions/datasets';
 
-describe('The dataset reducer', () => {
-  it('should process action LIST_DATASETS_REQUEST', () => {
-    const initialState = {
-      datasets: [],
-      loadingDatasets: false,
-    };
+import datasetReducer from './datasets';
 
-    const initialJSON = JSON.stringify(initialState);
+let store;
 
-    expect(reducer(initialState, listAll())).toEqual({
-      loadingDatasets: true,
-      datasets: [],
-    });
+beforeEach(() => {
+  store = createStore(datasetReducer, applyMiddleware(thunk));
+});
 
-    expect(JSON.stringify(initialState)).toBe(initialJSON);
-  });
+test('initial state should be an empty list', () => {
+  expect(store.getState()).toEqual([]);
+});
+
+test('the listAll action should populate the datasets object with objects', () => {
+  const datasets = [
+    { title: 'test title', description: 'alsdkjasd' },
+    { title: 'test title2', description: 'alsdkjasd2' },
+  ];
+  fetch.mockResponseOnce(JSON.stringify(datasets));
+  store.dispatch(listAll()).then(() => expect(store.getState()).toEqual(datasets2));
 });

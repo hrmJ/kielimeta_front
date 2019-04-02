@@ -4,7 +4,6 @@ import loadingStateReducer from './loadingstate';
 
 const appReducer = combineReducers({
   datasets: datasetReducer,
-  loadingDatasetList: loadingStateReducer,
   loadingState: loadingStateReducer,
 });
 
