@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { listAll } from '../../../redux/actions/datasets';
-import DatasetItem from '../datasetitem/index.jsx';
+import DatasetItem from '../datasetitem';
 import styles from './datasetlist.scss';
 
 export default class DatasetList extends Component {

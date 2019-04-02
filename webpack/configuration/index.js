@@ -1,4 +1,5 @@
-import module from "./module";
-import plugins from "./plugins";
+import module from './module';
+import plugins from './plugins';
+import resolve from './resolve';
 
-export { module, plugins };
+export { module, plugins, resolve };

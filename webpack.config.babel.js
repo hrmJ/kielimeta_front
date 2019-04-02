@@ -1,13 +1,13 @@
-import {
-    module,
-    plugins,
-    resolve
-
-} from './webpack/configuration';
+import { module, plugins, resolve } from './webpack/configuration';
 
 export default {
-    module,
-    plugins
-
-}
-
+  module,
+  plugins,
+  resolve,
+  entry: {
+    app: './src/index.js',
+  },
+  output: {
+    filename: 'bundle.js',
+  },
+};
