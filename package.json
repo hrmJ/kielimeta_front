@@ -1,5 +1,5 @@
 {
-  "name": "tekstit-liikkeessa-react",
+  "name": "kielimeta_api_front",
   "version": "1.0.0",
   "description": "A front end for a bibliographical database",
   "main": "index.js",
@@ -11,7 +11,8 @@
     "test:e2e:firefox": "./scripts/e2e.test.sh firefox",
     "start": "npx dotenv  -- webpack-dev-server --mode development --history-api-fallback",
     "build": "rm -rf dist/ && webpack",
-    "serve-pm2": "npx pm2 start node_modules/http-server/bin/http-server --name tlfrontend -- dist/"
+    "serve-pm2": "npx pm2 start node_modules/http-server/bin/http-server --name tlfrontend -- dist/",
+    "serve": "./scripts/serve.sh"
   },
   "author": "Juho Härme",
   "license": "MIT",
@@ -36,6 +37,7 @@
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.12.4",
     "geckodriver": "^1.16.0",
+    "pushstate-server": "^3.1.0",
     "redux-devtools": "^3.5.0",
     "redux-devtools-dock-monitor": "^1.1.3",
     "redux-devtools-log-monitor": "^1.4.0",
@@ -51,6 +53,7 @@
     "babel-polyfill": "^6.26.0",
     "css-loader": "^2.1.0",
     "cuid": "^2.1.4",
+    "dotenv-export": "^2.0.0",
     "eslint": "^5.13.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-config-prettier": "^4.0.0",

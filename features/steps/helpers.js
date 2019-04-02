@@ -1,10 +1,11 @@
-import fs from "fs";
+/* eslint-disable import/prefer-default-export */
+import fs from 'fs';
 
-export function saveScreenshot(image, err) {
-  const fname = "sc";
-  fs.writeFile(`/tmp/${fname}.png`, image, "base64", err => {
-    if (err) {
-      console.log(err);
+export function saveScreenshot(image, err, fname) {
+  fname = fname || 'sc';
+  fs.writeFile(`/tmp/${fname}.png`, image, 'base64', (error) => {
+    if (error) {
+      console.log(error);
     }
   });
 }

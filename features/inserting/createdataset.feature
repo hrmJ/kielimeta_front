@@ -10,6 +10,7 @@ Feature: Creating a new dataset
     When the user navigates to /newdataset
     Then within 1 seconds the selector "#datasettitle" matches an element in the dom
 
+
   Scenario: Succesfully inserting a new dataset (by a researcher)
 
   Scenario: Succesfully inserting a new dataset (by a junior researcher)
