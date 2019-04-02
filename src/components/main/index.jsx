@@ -1,14 +1,14 @@
 import React from 'react';
-import { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import TopBar from '../layout/navigation/topbar.jsx';
-import DatasetList from '../content/datasetlist/index.jsx';
-import DatasetForm from '../content/datasetform/index.jsx';
-import Header from '../layout/header/index.jsx';
-import Footer from '../layout/footer/index.jsx';
+import PropTypes from 'prop-types';
+import TopBar from '../layout/navigation/topbar';
+import DatasetList from '../content/datasetlist';
+import DatasetForm from '../content/datasetform';
+import Header from '../layout/header';
+import Footer from '../layout/footer';
 import styles from '../../general_styles/general_styles.scss';
 
-export default props => {
+const main = (props) => {
   const { datasets, dispatch } = props;
 
   return (
@@ -30,3 +30,10 @@ export default props => {
     </BrowserRouter>
   );
 };
+
+main.propTypes = {
+  datasets: PropTypes.arrayOf(PropTypes.object).isRequired,
+  dispatch: PropTypes.func.isRequired,
+};
+
+export default main;
