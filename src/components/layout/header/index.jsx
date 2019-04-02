@@ -1,5 +1,5 @@
-import React from "react";
-import styles from "./header_styles.scss";
+import React from 'react';
+import styles from './header_styles.scss';
 
 export default () => (
   <header className={styles.siteheader}>

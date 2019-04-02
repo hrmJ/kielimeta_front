@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { listAll } from "../../../redux/actions/datasets";
-import DatasetItem from "../datasetitem/index.jsx";
-import styles from "./datasetlist.scss";
+import React, { Component } from 'react';
+import { listAll } from '../../../redux/actions/datasets';
+import DatasetItem from '../datasetitem/index.jsx';
+import styles from './datasetlist.scss';
 
 export default class DatasetList extends Component {
   componentDidMount() {
@@ -10,6 +10,7 @@ export default class DatasetList extends Component {
 
   render() {
     const { datasets } = this.props;
+
     return (
       <div id="resources" className={styles.datasetlistContainer}>
         <ul>

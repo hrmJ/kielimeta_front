@@ -7,6 +7,17 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "Jest Tests",
+      "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
+      // "args": ["-i"],
+      // "preLaunchTask": "build",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outFiles": ["${workspaceRoot}/src/**/*"],
+      "envFile": "${workspaceRoot}/.env"
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "Selenium e2e",
       "program": "/home/juhoharme/.nvm/versions/node/v10.15.3/bin/npx",
       "cwd": "${workspaceFolder}",

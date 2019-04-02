@@ -1,6 +1,6 @@
-import React from "react";
-import styles from "./nav_styles.scss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import styles from './nav_styles.scss';
 
 export default () => (
   <nav className={styles.topbar}>

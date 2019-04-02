@@ -19,8 +19,9 @@ When(/the user navigates to ([^s]+)/, function(location) {
 Then(
   /within (\d+) seconds the selector "([^"]+)" matches an element in the dom/,
   function(seconds, selector) {
-    expect(this.driver.wait(until.elementLocated(By.css(selector)), seconds)).to
-      .be.fulfilled;
+    return expect(
+      this.driver.wait(until.elementLocated(By.css(selector)), seconds)
+    ).to.be.fulfilled;
   }
 );
 

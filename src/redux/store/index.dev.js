@@ -12,7 +12,7 @@ function getSessionKey() {
 const enhancer = compose(
   middleware,
   DevTools.instrument(),
-  persistState(getSessionKey())
+  persistState(getSessionKey()),
 );
 
 export default function configureStore(initialState) {

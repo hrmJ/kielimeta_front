@@ -1,9 +1,14 @@
-import React, { Component } from "react";
-import styles from "./datasetitem.scss";
+import React from 'react';
+import PropTypes from 'prop-types';
+import styles from './datasetitem.scss';
 
-export default class DatasetItem extends Component {
-  render() {
-    const { title } = this.props;
-    return <div className={styles.datasetItem}>{title}</div>;
-  }
-}
+const datasetItem = (props) => {
+  const { title } = props;
+  return <div className={styles.datasetItem}>{title}</div>;
+};
+
+datasetItem.propTypes = {
+  title: PropTypes.string.isRequired,
+};
+
+export default datasetItem;

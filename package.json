@@ -9,7 +9,7 @@
     "test:e2e:all": "yarn run test:e2e:chrome firefox",
     "test:e2e:chrome": "./scripts/e2e.test.sh chrome",
     "test:e2e:firefox": "./scripts/e2e.test.sh firefox",
-    "start": "npx dotenv  -- webpack-dev-server --mode development",
+    "start": "npx dotenv  -- webpack-dev-server --mode development --history-api-fallback",
     "build": "rm -rf dist/ && webpack",
     "serve-pm2": "npx pm2 start node_modules/http-server/bin/http-server --name tlfrontend -- dist/"
   },
@@ -61,6 +61,7 @@
     "react-dom": "^16.7.0",
     "react-fontawesome": "^1.6.1",
     "react-redux": "^6.0.0",
+    "react-router-dom": "^5.0.0",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "sass-loader": "^7.1.0",

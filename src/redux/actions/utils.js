@@ -1,17 +1,17 @@
-export const thunkCreator = action => {
+export const thunkCreator = (action) => {
   const { types, promise, ...rest } = action;
   const [REQUESTED, RESOLVED, REJECTED] = types;
 
-  return dispatch => {
+  return (dispatch) => {
     dispatch({ ...rest, type: REQUESTED });
 
     return promise
-      .then(result => {
+      .then((result) => {
         if (result.error) throw new Error(result.error);
         dispatch({ ...rest, type: RESOLVED, result });
         return result;
       })
-      .catch(error => {
+      .catch((error) => {
         dispatch({ ...rest, type: REJECTED, error });
         throw error;
       });
