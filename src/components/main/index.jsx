@@ -4,21 +4,23 @@ import PropTypes from 'prop-types';
 import TopBar from '../layout/navigation/topbar';
 import DatasetList from '../content/datasetlist';
 import DatasetForm from '../content/datasetform';
-import Header from '../layout/header';
+// import Header from '../layout/header';
 import Footer from '../layout/footer';
 import styles from '../../general_styles/general_styles.scss';
 
 const main = (props) => {
-  const { datasets, dispatch } = props;
+  const { datasets, dispatch, datasetform } = props;
 
   return (
     <BrowserRouter>
       <div className={styles.outerContainer}>
         <TopBar />
-        <Header />
+        {
+          // <Header />
+        }
         <main>
           <Switch>
-            <Route path="/newdataset" render={() => <DatasetForm />} />
+            <Route path="/newdataset" render={() => <DatasetForm dispatch={dispatch} />} />
             <Route
               path="/"
               render={() => <DatasetList datasets={datasets} dispatch={dispatch} />}

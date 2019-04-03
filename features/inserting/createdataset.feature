@@ -9,6 +9,8 @@ Feature: Creating a new dataset
 
     When the user navigates to /newdataset
     Then within 1 seconds the selector "#datasettitle" matches an element in the dom
+    Then within 1 seconds the selector "#datasetdescription" matches an element in the dom
+  #LANGUAGES + annotations: "add language...> properties: annotations... variant...."
 
 
   Scenario: Succesfully inserting a new dataset (by a researcher)
