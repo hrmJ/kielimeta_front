@@ -8,8 +8,8 @@ const updateField = (name, val) => ({
 
 const submitDataset = (fields) => {
   const url = 'http://%%API_SERVER_HOST%%:%%API_SERVER_PORT%%/datasets';
-  console.log(url);
-  console.log(JSON.stringify(fields));
+
+  // TODO: client side field validation
 
   return thunkCreator({
     types: ['SUBMITDATASET_REQUEST', 'SUBMITDATASET_SUCCESS', 'SUBMITDATASET_ERROR'],
@@ -22,7 +22,7 @@ const submitDataset = (fields) => {
         // Authorization: 'Bearer ' + jwt.token,
       },
       body: JSON.stringify(fields),
-    }).then(response => response.json()),
+    }).then(response => response),
   });
 };
 

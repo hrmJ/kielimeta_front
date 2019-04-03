@@ -7,6 +7,11 @@ const thunkCreator = (action) => {
 
     return promise
       .then((result) => {
+        if (result.ok !== undefined) {
+          if (!result.ok) {
+            throw new Error(result.statusText);
+          }
+        }
         if (result.error) throw new Error(result.error);
         dispatch({ ...rest, type: RESOLVED, result });
         return result;

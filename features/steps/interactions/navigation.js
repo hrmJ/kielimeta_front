@@ -15,10 +15,27 @@ When(/the user navigates to ([^\s]+)/, function (location) {
   return this.driver.get(baseUrl + location);
 });
 
+When(/the user clicks "([^"]+)"/, function (selector) {
+  return this.driver.findElement(By.css(selector)).click();
+});
+
+When(/the user types "([^"]+)" in "([^"]+)"/, function (text, selector) {
+  const field = this.driver.findElement(By.css(selector));
+  return field.sendKeys(text);
+});
+
 Then(/within (\d+) seconds the selector "([^"]+)" matches an element in the dom/, function (
   milliseconds,
   selector,
 ) {
   return expect(this.driver.wait(until.elementLocated(By.css(selector)), milliseconds * 1000)).to.be
     .fulfilled;
+});
+
+Then(/within (\d+) seconds the selector "([^"]+)" does not match an element in the dom/, function (
+  milliseconds,
+  selector,
+) {
+  return expect(this.driver.wait(until.elementLocated(By.css(selector)), milliseconds * 1000)).not
+    .to.be.fulfilled;
 });

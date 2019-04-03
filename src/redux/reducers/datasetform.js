@@ -1,8 +1,8 @@
 const defaultPayload = {
   title: '',
-  description: '',
+  description: 'no description', // TODO: accept empty description in the API?
   languages: [],
-  resourcetype: 'parallel corpus',
+  resourcetype: 'unknown',
 };
 
 export default (state = defaultPayload, action) => {
