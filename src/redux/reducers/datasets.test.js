@@ -21,5 +21,5 @@ test('the listAll action should populate the datasets object with objects', () =
     { title: 'test title2', description: 'alsdkjasd2' },
   ];
   fetch.mockResponseOnce(JSON.stringify(datasets));
-  store.dispatch(listAll()).then(() => expect(store.getState()).toEqual(datasets2));
+  store.dispatch(listAll()).then(() => expect(store.getState()).toEqual(datasets));
 });

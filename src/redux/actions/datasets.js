@@ -1,4 +1,4 @@
-import { thunkCreator } from './utils.js';
+import { thunkCreator } from './utils';
 
 const listAll = () => {
   const url = 'http://%%API_SERVER_HOST%%:%%API_SERVER_PORT%%/datasets';

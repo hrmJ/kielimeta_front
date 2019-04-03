@@ -20,7 +20,10 @@ const main = (props) => {
         }
         <main>
           <Switch>
-            <Route path="/newdataset" render={() => <DatasetForm dispatch={dispatch} />} />
+            <Route
+              path="/newdataset"
+              render={() => <DatasetForm fields={datasetform} dispatch={dispatch} />}
+            />
             <Route
               path="/"
               render={() => <DatasetList datasets={datasets} dispatch={dispatch} />}

@@ -1,4 +1,4 @@
-export const thunkCreator = (action) => {
+const thunkCreator = (action) => {
   const { types, promise, ...rest } = action;
   const [REQUESTED, RESOLVED, REJECTED] = types;
 
@@ -17,3 +17,5 @@ export const thunkCreator = (action) => {
       });
   };
 };
+
+export { thunkCreator };

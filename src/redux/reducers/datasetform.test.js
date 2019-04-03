@@ -1,17 +1,20 @@
 /* eslint-disable no-undef */
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import { updateField } from '../actions/datasetform';
+import { updateField, submitDataset } from '../actions/datasetform';
 
 import appReducer from './index';
 import datasetformReducer, { defaultPayload } from './datasetform';
+import datasetformActionReducer from './datasetform_action';
 
 let generalstore;
 let store;
+let actionstore;
 
 beforeEach(() => {
   generalstore = createStore(appReducer, applyMiddleware(thunk));
   store = createStore(datasetformReducer, applyMiddleware(thunk));
+  actionstore = createStore(datasetformActionReducer, applyMiddleware(thunk));
 });
 
 test('generalstore should have a datasetform property', () => {
@@ -42,3 +45,18 @@ test('updating the same field  multiple times should change the store accordingl
   store.dispatch(updateField('title', 'the latest title'));
   expect(store.getState()).toEqual({ ...defaultPayload, ...{ title: 'the latest title' } });
 });
+
+// test('submitting the form should change the datasetformAction state to true', () => {
+//   actionstore.dispatch(submitDataset());
+//   expect(actionstore.getState()).toEqual({ submitted: true });
+// });
+//
+// test('submitting the form should result in on object', () => {
+//   const expected = { pk: 1 };
+//   fetch.mockResponseOnce(
+//     () => new Promise(resolve => setTimeout(() => resolve(JSON.stringify(expected))), 100),
+//   );
+//   expect(actionstore.getState().toEqual({ submitted: true }));
+//   actionstore.dispatch(submitDataset()).then(resp => expect(resp).toEqual(expected));
+// });
+//

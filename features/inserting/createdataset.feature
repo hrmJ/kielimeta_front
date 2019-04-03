@@ -5,11 +5,15 @@ Feature: Creating a new dataset
   will be added to the database
 
   @cur
-  Scenario: Succesfully inserting a new dataset
+  Scenario: Succesfully inserting a new  minimal dataset
 
     When the user navigates to /newdataset
     Then within 1 seconds the selector "#datasettitle" matches an element in the dom
-    Then within 1 seconds the selector "#datasetdescription" matches an element in the dom
+    And within 1 seconds the selector "#datasetdescription" matches an element in the dom
+    And within 1 seconds the selector "#datasetsubmit" matches an element in the dom
+    When the user clicks "#datasetsubmit"
+    Then within 3 seconds the selector "#datasettitle" does not match an element in the dom
+    And within 3 seconds a thank you message appears
   #LANGUAGES + annotations: "add language...> properties: annotations... variant...."
 
 
