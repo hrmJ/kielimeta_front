@@ -5,6 +5,7 @@ function mapStateToProps(state) {
   return {
     datasets: state.datasets,
     datasetform: state.datasetform,
+    loadingState: state.loadingState,
   };
 }
 

@@ -9,27 +9,37 @@ import Footer from '../layout/footer';
 import styles from '../../general_styles/general_styles.scss';
 
 const main = (props) => {
-  const { datasets, dispatch, datasetform } = props;
+  const {
+ datasets, dispatch, datasetform, loadingState 
+} = props;
 
   return (
     <BrowserRouter>
-      <div className={styles.outerContainer}>
-        <TopBar />
-        {
-          // <Header />
-        }
-        <main>
-          <Switch>
-            <Route
-              path="/newdataset"
-              render={() => <DatasetForm fields={datasetform} dispatch={dispatch} />}
-            />
-            <Route
-              path="/"
-              render={() => <DatasetList datasets={datasets} dispatch={dispatch} />}
-            />
-          </Switch>
-        </main>
+      <div>
+        <div className={styles.outerContainer}>
+          <TopBar />
+          {
+            // <Header />
+          }
+          <main>
+            <Switch>
+              <Route
+                path="/newdataset"
+                render={() => (
+                  <DatasetForm
+                    fields={datasetform}
+                    loadingState={loadingState}
+                    dispatch={dispatch}
+                  />
+                )}
+              />
+              <Route
+                path="/"
+                render={() => <DatasetList datasets={datasets} dispatch={dispatch} />}
+              />
+            </Switch>
+          </main>
+        </div>
         <Footer />
       </div>
     </BrowserRouter>
@@ -39,6 +49,8 @@ const main = (props) => {
 main.propTypes = {
   datasets: PropTypes.arrayOf(PropTypes.object).isRequired,
   dispatch: PropTypes.func.isRequired,
+  datasetform: PropTypes.objectOf(PropTypes.any).isRequired,
+  loadingState: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default main;

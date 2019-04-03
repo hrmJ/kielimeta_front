@@ -12,7 +12,7 @@ const submitDataset = (fields) => {
   // TODO: client side field validation
 
   return thunkCreator({
-    types: ['SUBMITDATASET_REQUEST', 'SUBMITDATASET_SUCCESS', 'SUBMITDATASET_ERROR'],
+    types: ['SUBMITDATASET_REQUEST', 'SUBMITDATASET_SUCCESS', 'SUBMITDATASET_FAILURE'],
     promise: fetch(url, {
       method: 'POST',
       mode: 'cors',

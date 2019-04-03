@@ -7,8 +7,8 @@ Feature: List all datasets
   Scenario: Seeing a list of datasets
 
     When the user navigates to /
-    Then within 1 seconds the selector "ul" matches an element in the dom
-    And within 3 seconds the selector "ul > li" matches an element in the dom
+    Then within 1000 milliseconds the selector "ul" matches an element in the dom
+    And within 3000 milliseconds the selector "ul > li" matches an element in the dom
   #And within 5 seconds the previous element should have a li as a child
   #    And the li should have a span as a child
   #    And the span should contain a name of a resource
@@ -17,4 +17,4 @@ Feature: List all datasets
   Scenario: Seeing a search field
 
     When the user navigates to /
-    Then within 1 seconds the selector "#searchfield" matches an element in the dom
+    Then within 1000 milliseconds the selector "#searchfield" matches an element in the dom

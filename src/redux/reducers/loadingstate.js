@@ -9,7 +9,7 @@ export default function loadingStateReducer(state = {}, action) {
   }
 
   if (action.type.endsWith('_FAILURE')) {
-    const requestName = action.type.replace('_SUCCESS', '');
+    const requestName = action.type.replace('_FAILURE', '');
     return { ...state, [requestName]: 'failure' };
   }
 

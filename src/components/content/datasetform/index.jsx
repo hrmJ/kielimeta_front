@@ -6,7 +6,8 @@ export default class InsertForm extends Component {
   static get propTypes() {
     return {
       dispatch: PropTypes.func.isRequired,
-      fields: PropTypes.arrayOf(PropTypes.object).isRequired,
+      fields: PropTypes.objectOf(PropTypes.any).isRequired,
+      loadingState: PropTypes.objectOf(PropTypes.any).isRequired,
     };
   }
 
@@ -23,6 +24,13 @@ export default class InsertForm extends Component {
 
   render() {
     // PROPS: usertype
+    const { loadingState } = this.props;
+
+    if (loadingState.SUBMITDATASET) {
+      if (loadingState.SUBMITDATASET === 'success') {
+        return <div id="savedmsg">Tallennettu</div>;
+      }
+    }
 
     return (
       <form onSubmit={event => this.submit(event)}>

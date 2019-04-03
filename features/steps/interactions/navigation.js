@@ -5,7 +5,7 @@ import { By, until } from 'selenium-webdriver';
 import 'babel-polyfill'; // NOTE: needed for aync await
 import chai, { expect } from 'chai';
 import ChaiAsPromised from 'chai-as-promised';
-// import { saveScreenshot } from '../helpers';
+import { saveScreenshot } from '../helpers';
 
 chai.use(ChaiAsPromised);
 
@@ -15,8 +15,9 @@ When(/the user navigates to ([^\s]+)/, function (location) {
   return this.driver.get(baseUrl + location);
 });
 
-When(/the user clicks "([^"]+)"/, function (selector) {
-  return this.driver.findElement(By.css(selector)).click();
+When(/the user clicks "([^"]+)"/, async function (selector) {
+  const element = await this.driver.findElement(By.css(selector));
+  return element.click();
 });
 
 When(/the user types "([^"]+)" in "([^"]+)"/, function (text, selector) {
@@ -24,18 +25,25 @@ When(/the user types "([^"]+)" in "([^"]+)"/, function (text, selector) {
   return field.sendKeys(text);
 });
 
-Then(/within (\d+) seconds the selector "([^"]+)" matches an element in the dom/, function (
+Then(/within (\d+) milliseconds the selector "([^"]+)" matches an element in the dom/, function (
   milliseconds,
   selector,
 ) {
-  return expect(this.driver.wait(until.elementLocated(By.css(selector)), milliseconds * 1000)).to.be
+  return expect(this.driver.wait(until.elementLocated(By.css(selector)), milliseconds)).to.be
     .fulfilled;
 });
 
-Then(/within (\d+) seconds the selector "([^"]+)" does not match an element in the dom/, function (
-  milliseconds,
-  selector,
-) {
-  return expect(this.driver.wait(until.elementLocated(By.css(selector)), milliseconds * 1000)).not
-    .to.be.fulfilled;
-});
+Then(
+  /within (\d+) milliseconds the selector "([^"]+)" does not match an element in the dom/,
+  function (milliseconds, selector) {
+    // Doesn't actually work...
+    return expect(
+      this.driver.wait(() => {
+        this.driver.findElement(By.css(selector)).then(null, (err) => {
+          if (err.name === 'NoSuchElementError') return true;
+        });
+        return false;
+      }, milliseconds),
+    ).not.to.be.fulfilled;
+  },
+);

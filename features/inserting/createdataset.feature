@@ -8,12 +8,12 @@ Feature: Creating a new dataset
   Scenario: Succesfully submitting a new  minimal dataset
 
     When the user navigates to /newdataset
-    Then within 1 seconds the selector "#datasettitle" matches an element in the dom
-    And within 1 seconds the selector "#datasetdescription" matches an element in the dom
-    And within 1 seconds the selector "#datasetsubmit" matches an element in the dom
+    Then within 1 milliseconds the selector "#datasettitle" matches an element in the dom
+    And within 1 milliseconds the selector "#datasetdescription" matches an element in the dom
+    And within 1 milliseconds the selector "#datasetsubmit" matches an element in the dom
     And the user types "a nice name" in "#datasettitle"
     And the user clicks "#datasetsubmit"
-    Then within 3 seconds the selector "#datasettitle" does not match an element in the dom
+    Then within 3000 milliseconds the selector "#savedmsg" matches an element in the dom
   #LANGUAGES + annotations: "add language...> properties: annotations... variant...."
 
 

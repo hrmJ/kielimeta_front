@@ -1,5 +1,5 @@
 // Styles applied to the entire application as a whole
-@import "./configs.scss";
+@import './configs.scss';
 
 body {
   padding: 0 0 0 0;
@@ -18,4 +18,5 @@ main {
 .outerContainer {
   background: $contentbg;
   @include center_contained();
+  min-height: 99vh;
 }
