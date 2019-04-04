@@ -1,6 +1,7 @@
 $navbg: darken(grey, 30%);
 $bodybg: lighten(grey, 40%);
 $contentbg: white;
+$utupurple: #8b5dcb;
 
 @mixin center_container($flow: row nowrap) {
   // wraps a centered content

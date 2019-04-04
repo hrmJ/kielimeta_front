@@ -1,0 +1,51 @@
+@import 'src/general_styles/configs.scss';
+
+$fieldwidth: 60%;
+
+fieldset {
+  @media screen and (min-width: 900px) {
+    min-width: 50vw;
+  }
+  border: 0px;
+  margin: 2em 1em 1em 1em;
+  padding: 1em 1em 1em 1em;
+  background: lighten(grey, 45%);
+}
+
+legend {
+  background: $utupurple;
+  padding: 0.3em;
+  color: white;
+}
+
+.fieldContainer {
+  display: flex;
+  align-items: center;
+
+  & + & {
+    margin-top: 2em;
+  }
+
+  label,
+  > div:first-child {
+    width: 6em;
+    margin-right: 1em;
+  }
+}
+
+input[type='text'] {
+  min-width: $fieldwidth;
+}
+
+textarea {
+  min-width: $fieldwidth;
+  min-height: 5em;
+}
+
+label {
+  margin-right: 3em;
+}
+
+.someTopMargin {
+  margin-top: 1em;
+}

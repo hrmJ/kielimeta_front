@@ -1,0 +1,7 @@
+.selectContainer {
+  padding: 1em;
+  border: 1px dashed grey;
+  & + & {
+    margin-top: 1em;
+  }
+}

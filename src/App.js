@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import Main from './components/main/index.jsx';
+import Main from './components/main';
 
 function mapStateToProps(state) {
   return {

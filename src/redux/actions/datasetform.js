@@ -6,6 +6,19 @@ const updateField = (name, val) => ({
   val,
 });
 
+const fetchLanguages = () => null;
+
+const addLanguage = language => ({
+  type: 'ADD_LANGUAGE',
+  language,
+});
+
+const updateLanguage = (language, idx) => ({
+  type: 'UPDATE_LANGUAGE',
+  language,
+  idx,
+});
+
 const submitDataset = (fields) => {
   const url = 'http://%%API_SERVER_HOST%%:%%API_SERVER_PORT%%/datasets';
 
@@ -26,4 +39,6 @@ const submitDataset = (fields) => {
   });
 };
 
-export { updateField, submitDataset };
+export {
+ updateField, submitDataset, fetchLanguages, addLanguage, updateLanguage 
+};
