@@ -6,18 +6,19 @@ import styles from './languageselect.scss';
 import formstyles from '../datasetform.scss';
 import AnnotationSelect from '../annotationselect';
 import { updateField } from '../../../../redux/actions/datasetform';
+import Closable from '../../../ui/closablebox';
 
 const options = [
   { value: 'chocolate', label: 'Chocolate' },
   { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' }
+  { value: 'vanilla', label: 'Vanilla' },
 ];
 
 export const selectStyle = {
   container: provided => ({
     ...provided,
-    width: '10em'
-  })
+    width: '10em',
+  }),
 };
 
 export default class LanguageSelect extends Component {
@@ -34,10 +35,12 @@ export default class LanguageSelect extends Component {
   }
 
   render() {
-    const { name, variant, languages, idx } = this.props;
+    const {
+ name, variant, languages, idx, dispatch 
+} = this.props;
     const annotations = languages[idx].annotations || [];
     return (
-      <div className={styles.selectContainer}>
+      <Closable className={styles.selectContainer}>
         <div className={formstyles.fieldContainer}>
           <div>Kieli</div>
           <Select
@@ -62,7 +65,9 @@ export default class LanguageSelect extends Component {
             <AnnotationSelect
               key={annotationIdx.toString()}
               idx={annotationIdx}
+              language_idx={idx}
               languages={languages}
+              dispatch={dispatch}
             />
           ))}
 
@@ -74,7 +79,7 @@ export default class LanguageSelect extends Component {
             Lisää uusi
           </button>
         </div>
-      </div>
+      </Closable>
     );
   }
 }

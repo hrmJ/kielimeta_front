@@ -23,12 +23,20 @@ test('Can update details of an already established language', () => {
     },
   ];
   const expected = { ...languages[1], name: 'testlang' };
-  const select = Enzyme.shallow(<LanguageSelect idx={1} languages={languages} />);
+  const dispatch = jest.fn();
+  const select = Enzyme.shallow(
+    <LanguageSelect idx={1} languages={languages} dispatch={dispatch} />,
+  );
+
   expect(select.instance().updateLanguage('name', 'testlang')[1]).toMatchObject(expected);
 });
 
 test('Can update new empty details', () => {
-  const select = Enzyme.shallow(<LanguageSelect idx={0} languages={[]} />);
+  const dispatch = jest.fn();
+  const languages = [{}];
+  const select = Enzyme.shallow(
+    <LanguageSelect idx={0} languages={languages} dispatch={dispatch} />,
+  );
   expect(select.instance().updateLanguage('name', 'testlang')).toMatchObject([
     { name: 'testlang' },
   ]);
