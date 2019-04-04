@@ -10,17 +10,14 @@ import { updateField } from '../../../../redux/actions/datasetform';
 const options = [
   { value: 'chocolate', label: 'Chocolate' },
   { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' },
+  { value: 'vanilla', label: 'Vanilla' }
 ];
 
-const selectStyle = {
-  option: (provided, state) => ({
-    ...provided,
-  }),
+export const selectStyle = {
   container: provided => ({
     ...provided,
-    width: '10em',
-  }),
+    width: '10em'
+  })
 };
 
 export default class LanguageSelect extends Component {
@@ -37,10 +34,8 @@ export default class LanguageSelect extends Component {
   }
 
   render() {
-    const {
- name, variant, annotations, languages 
-} = this.props;
-
+    const { name, variant, languages, idx } = this.props;
+    const annotations = languages[idx].annotations || [];
     return (
       <div className={styles.selectContainer}>
         <div className={formstyles.fieldContainer}>
@@ -62,12 +57,22 @@ export default class LanguageSelect extends Component {
           />
         </div>
         <div>
-          <h4>Annotaatiot</h4>
-          {
-            // <AnnotationSelect />
-          }
+          <h4>Annotoinnit</h4>
+          {annotations.map((annotation, annotationIdx) => (
+            <AnnotationSelect
+              key={annotationIdx.toString()}
+              idx={annotationIdx}
+              languages={languages}
+            />
+          ))}
 
-          <button type="button">Lisää uusi</button>
+          <button
+            type="button"
+            className={formstyles.someTopMargin}
+            onClick={() => this.updateLanguage('annotations', [...annotations, {}])}
+          >
+            Lisää uusi
+          </button>
         </div>
       </div>
     );

@@ -12,7 +12,7 @@ const store = configureStore();
 ReactDOM.render(
   <Provider store={store}>
     <App />
-    {process.env.NODE_ENV !== 'production' && <DevTools />}
+    {process.env.NODE_ENV == 'production' && <DevTools />}
   </Provider>,
   // eslint-disable-next-line no-undef
   document.getElementById('root'),
