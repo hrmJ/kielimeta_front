@@ -2,8 +2,7 @@ import React from 'react';
 import langmap from 'langmap';
 import styles from './languagebadge.scss';
 
-const LanguageBadge = (props) => {
-  const { code } = props;
+const printLanguageName = (code) => {
   let name = code;
 
   if (langmap[code]) {
@@ -13,7 +12,15 @@ const LanguageBadge = (props) => {
     name = 'English';
   }
 
+  return name;
+};
+
+const LanguageBadge = (props) => {
+  const { code } = props;
+  const name = printLanguageName(code);
+
   return <div className={styles.badge}>{name}</div>;
 };
 
 export default LanguageBadge;
+export { printLanguageName };
