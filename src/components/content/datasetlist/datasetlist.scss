@@ -1,16 +1,20 @@
-@import "src/general_styles/configs.scss";
+@import 'src/general_styles/configs.scss';
 
 .datasetlistContainer {
   @include center_contained_relative();
   ul {
-    box-shadow: -1px -1px 5px grey;
     padding: 0em 0.1em 1em 0.1em;
     list-style-type: none;
   }
 }
 
+.searchBarContainer {
+  margin: 4em 0em;
+  @include center_container();
+}
+
 .datasetitemContainer {
-  & + & {
-    border-top: 1px solid lightgrey;
-  }
+  // & + & {
+  //   border-top: 1px solid lightgrey;
+  // }
 }

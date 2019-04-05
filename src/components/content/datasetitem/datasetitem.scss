@@ -1,3 +1,33 @@
+@mixin itemBody {
+  padding: 0.6em 0.5em 0.6em 0.5em;
+}
+
 .datasetItem {
-  padding: 0.5em 0.5em 0.5em 0.5em;
+  @include itemBody();
+  //box-shadow: -1px -1px 5px grey;
+  //  transition: margin 75ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 75ms cubic-bezier(0.4, 0, 0.2, 1);
+  margin: 0em 0.7em;
+  background: white;
+  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.05), 0 0 2px rgba(0, 0, 0, 0.12),
+    0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.titleLine {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.liftedItem {
+  margin: 0.9em 0em;
+  box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12),
+    0 5px 5px -3px rgba(0, 0, 0, 0.2);
+  transition: margin 75ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 75ms cubic-bezier(0.4, 0, 0.2, 1);
+  @include itemBody();
+}
+
+.quickDetails {
+  margin-top: 0.2em;
+  display: flex;
+  flex-flow: row wrap;
 }

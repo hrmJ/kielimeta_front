@@ -1,0 +1,8 @@
+.badge {
+  padding: 0.3em;
+  background: lightblue;
+  font-size: 0.7em;
+  & + & {
+    margin-left: 0.3em;
+  }
+}

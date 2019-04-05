@@ -22,6 +22,9 @@ export default class DatasetList extends Component {
 
     return (
       <div id="resources" className={styles.datasetlistContainer}>
+        <div className={styles.searchBarContainer}>
+          <input id="searchfield" type="text" placeholder="HAKU: TODO..." />
+        </div>
         <ul>
           {datasets.map(dataset => (
             <li key={dataset.id} className={styles.datasetitemContainer}>

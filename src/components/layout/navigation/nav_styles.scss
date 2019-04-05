@@ -1,4 +1,4 @@
-@import "src/general_styles/configs.scss";
+@import 'src/general_styles/configs.scss';
 
 .topbar {
   display: flex;
@@ -15,4 +15,7 @@
   position: absolute;
   left: 0px;
   top: 5px;
+}
+
+.siteHeading {
 }
