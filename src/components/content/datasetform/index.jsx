@@ -87,7 +87,8 @@ export default class InsertForm extends Component {
           <section className={styles.someTopMargin}>
             <button
               type="button"
-              onClick={() => dispatch(updateField('languages', [...fields.languages, {}]))}
+              onClick={() => dispatch(updateField('languages', [...fields.languages, { annotations: [] }]))
+              }
             >
               Lisää uusi
             </button>

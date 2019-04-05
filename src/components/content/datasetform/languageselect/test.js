@@ -13,12 +13,12 @@ test('Can update details of an already established language', () => {
   const languages = [
     {
       name: 'Finnish',
-      variant: '',
+      variety: '',
       annotations: [{ type: 'MORPH', version: 'basic' }],
     },
     {
       name: 'Swedish',
-      variant: '',
+      variety: '',
       annotations: [{ type: 'MORPH', version: 'basic' }],
     },
   ];
@@ -40,7 +40,7 @@ test('Can update new empty details', () => {
   expect(select.instance().updateLanguage('name', 'testlang')).toMatchObject([
     { name: 'testlang' },
   ]);
-  expect(select.instance().updateLanguage('variant', 'testvariant')).toMatchObject([
-    { name: 'testlang', variant: 'testvariant' },
+  expect(select.instance().updateLanguage('variety', 'testvariety')).toMatchObject([
+    { name: 'testlang', variety: 'testvariety' },
   ]);
 });

@@ -2,7 +2,7 @@ const defaultPayload = {
   title: '',
   description: 'no description', // TODO: accept empty description in the API?
   languages: [],
-  resourcetype: 'unknown'
+  resourcetype: 'unknown',
 };
 
 export default (state = defaultPayload, action) => {

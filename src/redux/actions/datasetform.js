@@ -19,11 +19,32 @@ const updateLanguage = (language, idx) => ({
   idx,
 });
 
+const validateFields = (fields) => {
+  const validated = fields;
+  if (fields.languages) {
+    validated.languages = fields.languages.map((lang) => {
+      const validatedLanguage = lang;
+      if (lang.annotations) {
+        let validatedAnnotations = lang.annotations.filter(ann => Object.keys(ann).length);
+        if (validatedAnnotations.length) {
+          validatedAnnotations = validatedAnnotations.map((ann) => {
+            const { version = '' } = ann;
+            return { ...ann, version };
+          });
+          validatedLanguage.annotations = validatedAnnotations;
+        }
+      }
+      return validatedLanguage;
+    });
+  }
+
+  return validated;
+};
+
 const submitDataset = (fields) => {
   const url = 'http://%%API_SERVER_HOST%%:%%API_SERVER_PORT%%/datasets';
-
-  // TODO: client side field validation
-
+  const validatedFields = validateFields(fields);
+  console.log(validatedFields);
   return thunkCreator({
     types: ['SUBMITDATASET_REQUEST', 'SUBMITDATASET_SUCCESS', 'SUBMITDATASET_FAILURE'],
     promise: fetch(url, {
@@ -34,7 +55,7 @@ const submitDataset = (fields) => {
         'Content-Type': 'application/json',
         // Authorization: 'Bearer ' + jwt.token,
       },
-      body: JSON.stringify(fields),
+      body: JSON.stringify(validatedFields),
     }).then(response => response),
   });
 };

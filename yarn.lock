@@ -2977,7 +2977,7 @@ cucumber@^5.1.0:
     util-arity "^1.0.2"
     verror "^1.9.0"
 
-cuid@^2.1.4:
+cuid@^2.1.6:
   version "2.1.6"
   resolved "https://registry.yarnpkg.com/cuid/-/cuid-2.1.6.tgz#dc3a20b5a7497d36d32c0bf8a2997524c9c796c4"
   integrity sha512-ZFp7PS6cSYMJNch9fc3tyHdE4T8TDo3Y5qAxb0KSA9mpiYDo7z9ql1CznFuuzxea9STVIDy0tJWm2lYiX2ZU1Q==
@@ -6161,6 +6161,11 @@ knuth-shuffle-seeded@^1.0.6:
   integrity sha1-AfG2VzOqdUDuCNiwF0Fk0iCB5OE=
   dependencies:
     seed-random "~2.2.0"
+
+langmap@^0.0.16:
+  version "0.0.16"
+  resolved "https://registry.yarnpkg.com/langmap/-/langmap-0.0.16.tgz#2fe3e98a531fec0fec546624ebe168c2855bab56"
+  integrity sha512-AtYvBK7BsDvWwnSfmO7CfgeUy7GUT1wK3QX8eKH/Ey/eXodqoHuAtvdQ82hmWD9QVFVKnuiNjym9fGY4qSJeLA==
 
 lcid@^1.0.0:
   version "1.0.0"
