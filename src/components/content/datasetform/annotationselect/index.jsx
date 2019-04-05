@@ -26,7 +26,7 @@ export default class AnnotationSelect extends Component {
     }
     updated[language_idx].annotations[idx][key] = val;
     dispatch(updateField('languages', updated));
-    // for testing purposes
+    // the return statement is for testing purposes
     return updated;
   }
 

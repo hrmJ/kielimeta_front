@@ -66,7 +66,7 @@ export default class InsertForm extends Component {
               type="text"
               defaultValue=""
               id="resourcetype"
-              onChange={this.handleChange('title')}
+              onChange={this.handleChange('resourcetype')}
             />
           </div>
         </fieldset>
