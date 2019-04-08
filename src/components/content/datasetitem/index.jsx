@@ -35,10 +35,13 @@ export default class datasetItem extends Component {
   }
 
   printExpanded() {
-    const { languages, id, description } = this.props;
+    const { languages, id, description, resourcetype } = this.props;
 
     return (
       <div>
+        <p>
+          <em>{resourcetype}</em>
+        </p>
         <p>{description}</p>
         {languages.map((language, langId) => (
           <div key={createLanguageKey(id, language, langId)}>
