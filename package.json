@@ -6,6 +6,7 @@
   "scripts": {
     "test:unit": "npx jest src/",
     "test:e2e": "yarn run test:e2e:all",
+    "test:e2e:cur": "./scripts/e2e.test.cur.sh chrome",
     "test:e2e:quick": "./scripts/e2e.test_noserver.sh chrome",
     "test:e2e:debug": "./scripts/e2e_debug.sh chrome",
     "test:e2e:all": "yarn run test:e2e:chrome firefox",

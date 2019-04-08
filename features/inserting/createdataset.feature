@@ -4,7 +4,6 @@ Feature: Creating a new dataset
   in order to fill in a form based on which a new dataset
   will be added to the database
 
-  @cur
   Scenario: Succesfully submitting a new  minimal dataset
 
     When the user navigates to /newdataset

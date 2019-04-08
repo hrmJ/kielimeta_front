@@ -5,6 +5,9 @@ import styles from './datasetitem.scss';
 import formstyles from '../datasetform/datasetform.scss';
 import LanguageBadge, { printLanguageName } from '../languagebadge';
 
+const createLanguageKey = (id, language, langId) =>
+  `ds_${id}_lang_condendsed_${language.details.language_code}${language.details.variety}_${langId}`;
+
 export default class datasetItem extends Component {
   static get propTypes() {
     return {
@@ -17,26 +20,31 @@ export default class datasetItem extends Component {
     lifted: false
   };
 
-  printLanguagesCondensed() {
-    const { languages } = this.props;
+  printCondensed() {
+    const { languages, id } = this.props;
     return (
       <div className={styles.quickDetails}>
-        {languages.map(language => (
-          <LanguageBadge code={language.details.language_code} />
+        {languages.map((language, langId) => (
+          <LanguageBadge
+            key={createLanguageKey(id, language, langId)}
+            code={language.details.language_code}
+          />
         ))}
       </div>
     );
   }
 
-  printLanguagesExpanded() {
-    const { languages } = this.props;
+  printExpanded() {
+    const { languages, id, description } = this.props;
 
     return (
       <div>
-        {languages.map(language => (
-          <div>
+        <p>{description}</p>
+        {languages.map((language, langId) => (
+          <div key={createLanguageKey(id, language, langId)}>
             <h3>
               {printLanguageName(language.details.language_code)}
+
               {language.details.variety ? `: ${language.details.variety}` : ''}
             </h3>
             <ul>
@@ -68,7 +76,7 @@ export default class datasetItem extends Component {
         <div className={styles.titleLine} onClick={() => this.setState({ lifted: !lifted })}>
           {title}
         </div>
-        {lifted ? this.printLanguagesExpanded() : this.printLanguagesCondensed()}
+        {lifted ? this.printExpanded() : this.printCondensed()}
       </div>
     );
   }

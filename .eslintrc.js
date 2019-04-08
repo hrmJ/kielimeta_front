@@ -4,5 +4,8 @@ module.exports = {
   parser: 'babel-eslint',
   globals: {
     fetch: false
+  },
+  rules: {
+    'max-len': { code: 80 }
   }
 };
