@@ -32,7 +32,7 @@ test('updating multiple fields should change the store accordingly', () => {
   store.dispatch(updateField('description', 'a nice description'));
   expect(store.getState()).toEqual({
     ...defaultPayload,
-    ...{ title: 'a nice title', description: 'a nice description' },
+    ...{ title: 'a nice title', description: 'a nice description' }
   });
 });
 

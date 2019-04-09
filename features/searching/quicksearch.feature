@@ -5,7 +5,6 @@ Feature: Quick search
     on the top in order to filter the list
     of datasets
 
-    @cur
     Scenario: Succesfull filter
 
         When the user navigates to /

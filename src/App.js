@@ -6,6 +6,8 @@ function mapStateToProps(state) {
     datasets: state.datasets,
     datasetform: state.datasetform,
     loadingState: state.loadingState,
+    filters: state.datasetFilters,
+    originalFilterValues: state.originalFilterValues
   };
 }
 

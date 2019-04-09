@@ -15,5 +15,5 @@ ReactDOM.render(
     {process.env.NODE_ENV !== 'production' && <DevTools />}
   </Provider>,
   // eslint-disable-next-line no-undef
-  document.getElementById('root'),
+  document.getElementById('root')
 );
