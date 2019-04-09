@@ -51,11 +51,23 @@ const filterDatasets = (filters = {}) => {
   });
 };
 
+const _resetOriginalValues = () => {
+  const url = `${baseUrl}/datasets`;
+  return fetch(url).then(res => res.json());
+};
+
 const filterByQuery = filters => {
+  // CHECK if filters.query = '' and..
   return dispatch => {
     dispatch(filterDatasets(filters)).then(res => {
       dispatch(updateFilter('query', filters.query));
-      dispatch(setOriginalFilterValues(getOriginalValuesForFilters(res)));
+      if (filters.query === '') {
+        _resetOriginalValues().then(res =>
+          dispatch(setOriginalFilterValues(getOriginalValuesForFilters(res)))
+        );
+      } else {
+        dispatch(setOriginalFilterValues(getOriginalValuesForFilters(res)));
+      }
     });
   };
 };
