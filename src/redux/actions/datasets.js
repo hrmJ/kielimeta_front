@@ -101,6 +101,21 @@ const setOriginalFilterValues = vals => {
   };
 };
 
+const resetFilter = key => {
+  return {
+    type: 'RESET_FILTER',
+    key
+  };
+};
+
+const resetFilterAndRefresh = (keyName, filters) => {
+  return dispatch => {
+    const updatedFilters = filterReducer(filters, resetFilter(keyName));
+    dispatch(resetFilter(keyName));
+    dispatch(filterDatasets(updatedFilters));
+  };
+};
+
 export {
   listAll,
   filterByQuery,
@@ -108,5 +123,7 @@ export {
   updateFilter,
   formQueryFromFilters,
   filterDatasets,
-  updateAndFilter
+  updateAndFilter,
+  resetFilter,
+  resetFilterAndRefresh
 };

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styles from './filter.scss';
-import { updateFilter, filterDatasets, updateAndFilter } from '../../../redux/actions/datasets';
+import { updateAndFilter, resetFilterAndRefresh } from '../../../redux/actions/datasets';
 import { filter } from 'rsvp';
 import cuid from 'cuid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,6 +10,39 @@ export default class Filter extends Component {
   state = {
     menuOpen: false
   };
+
+  /**
+   * Checks if the filter is in use
+   *
+   * @returns boolean based on wether or not meaningful filter values found
+   * @memberof Filter
+   */
+  isInUse() {
+    const { filters = {}, keyName } = this.props;
+    if (keyName in filters) {
+      if (Array.isArray(filters[keyName])) {
+        if (filters[keyName].length) {
+          return true;
+        }
+      }
+    }
+    // TODO: other types than arrays
+
+    return false;
+  }
+
+  /**
+   *
+   * Resets the filter
+   *
+   * @param {*} ev the event that triggered the function
+   * @memberof Filter
+   */
+  reset(ev) {
+    ev.stopPropagation();
+    const { dispatch, keyName, filters } = this.props;
+    dispatch(resetFilterAndRefresh(keyName, filters));
+  }
 
   render() {
     const { children, dispatch, keyName, id, filters = {} } = this.props;
@@ -33,9 +66,9 @@ export default class Filter extends Component {
           <div>{children}</div>
           <div
             className={`${styles.closer} .clearfilter`}
-            style={{ display: keyName in filters ? 'block' : 'none' }}
+            style={{ display: this.isInUse() ? 'block' : 'none' }}
           >
-            <FontAwesomeIcon icon={faTimesCircle} onClick={() => null} />
+            <FontAwesomeIcon icon={faTimesCircle} onClick={ev => this.reset(ev)} />
           </div>
         </button>
         <div
@@ -50,6 +83,7 @@ export default class Filter extends Component {
                   <input
                     type="checkbox"
                     value={item.value}
+                    checked={filters[keyName] ? filters[keyName].includes(item.value) : false}
                     onClick={ev =>
                       dispatch(updateAndFilter(keyName, item.value, ev.target.checked, filters))
                     }

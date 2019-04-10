@@ -47,4 +47,11 @@ describe('datasetfilterReducer', () => {
     store.dispatch({ type: 'UPDATE_FILTER', checked: false, key: 'lang', val: 'Fi-fi' });
     expect(store.getState()).toEqual({ lang: ['Ru-ru'], query: '' });
   });
+
+  it('should be able to reset a filter', () => {
+    store.dispatch({ type: 'UPDATE_FILTER', checked: true, key: 'lang', val: 'Fi-fi' });
+    store.dispatch({ type: 'UPDATE_FILTER', checked: true, key: 'lang', val: 'Ru-ru' });
+    store.dispatch({ type: 'RESET_FILTER', key: 'lang' });
+    expect(store.getState()).toEqual({ query: '' });
+  });
 });

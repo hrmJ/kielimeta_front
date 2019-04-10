@@ -24,6 +24,9 @@
 
 .closer {
   margin-left: 0.5em;
+  &:hover {
+    color: black;
+  }
 }
 
 .menu {

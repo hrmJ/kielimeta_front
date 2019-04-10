@@ -1,5 +1,9 @@
 export default (state = { query: '' }, action) => {
   const { type, checked, key, val } = action;
+  if (type == 'RESET_FILTER') {
+    const { [key]: unused, ...rest } = state;
+    return rest;
+  }
   if (type == 'UPDATE_FILTER') {
     const oldvals = key in state ? state[key] : [];
     let newvals;
