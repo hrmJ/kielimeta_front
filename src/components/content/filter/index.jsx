@@ -19,6 +19,9 @@ export default class Filter extends Component {
       items = [];
     }
 
+    // TODO: search field inside the filter in some cases?
+    // TODO: X icon to reset the filter
+
     return (
       <div className={styles.container} id={id}>
         <button

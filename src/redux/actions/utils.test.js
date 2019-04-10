@@ -5,8 +5,6 @@ import { getOriginalValuesForFilters } from './utils';
 
 describe('getOriginalValuesForFilters', () => {
   it("should return a language list of type [{value:'',label:''}]", () => {
-    const dispatch = jest.fn();
-    const languages = [{}];
     const datasets = [
       {
         title: 'test',
@@ -19,7 +17,6 @@ describe('getOriginalValuesForFilters', () => {
   });
 
   it('it should not return duplicate languages', () => {
-    const dispatch = jest.fn();
     const datasets = [
       {
         title: 'test',
@@ -28,6 +25,25 @@ describe('getOriginalValuesForFilters', () => {
     ];
     expect(getOriginalValuesForFilters(datasets)).toMatchObject({
       lang: [{ label: 'Finnish', value: 'fi' }]
+    });
+  });
+
+  it('should return a list of resourcetypes', () => {
+    const datasets = [
+      {
+        title: 'test',
+        resourcetype: 'comparable corpus'
+      },
+      {
+        title: 'test2',
+        resourcetype: 'parallel corpus'
+      }
+    ];
+    expect(getOriginalValuesForFilters(datasets)).toMatchObject({
+      resourcetype: [
+        { label: 'comparable corpus', value: 'comparable corpus' },
+        { label: 'parallel corpus', value: 'parallel corpus' }
+      ]
     });
   });
 });

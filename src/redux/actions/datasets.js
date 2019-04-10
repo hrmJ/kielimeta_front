@@ -72,12 +72,6 @@ const filterByQuery = filters => {
   };
 };
 
-//  dispatch(updateFilter('query', query)(dispatch)).then(
-//    filterDatasets()(dispatch).then(res =>
-//      dispatch(setOriginalFilterValues(getOriginalValuesForFilters(res)))
-//    )
-//  );
-
 const _listAll = () => {
   const url = `${baseUrl}/datasets`;
   return thunkCreator({

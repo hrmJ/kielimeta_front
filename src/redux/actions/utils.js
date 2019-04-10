@@ -32,17 +32,26 @@ const getOriginalValuesForFilters = datasets => {
    *
    */
 
-  let langList = [
+  const langList = [
     ...new Set(
-      [].concat(...datasets.map(ds => ds.languages.map(lang => lang.details.language_code)))
+      [].concat(
+        ...datasets
+          .filter(ds => Object.keys(ds).includes('languages'))
+          .map(ds => ds.languages.map(lang => lang.details.language_code))
+      )
     )
-  ];
-  langList = langList.map(code => ({
+  ].map(code => ({
     label: printLanguageName(code),
     value: code
   }));
 
-  return { lang: langList };
+  const restypes = [
+    ...new Set(
+      datasets.filter(ds => Object.keys(ds).includes('resourcetype')).map(ds => ds.resourcetype)
+    )
+  ].map(restype => ({ label: restype, value: restype }));
+
+  return { lang: langList, resourcetype: restypes };
 };
 
 export { thunkCreator, getOriginalValuesForFilters };

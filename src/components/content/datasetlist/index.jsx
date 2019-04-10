@@ -44,12 +44,20 @@ export default class DatasetList extends Component {
             filters={filters}
             id="langfilter"
             keyName="lang"
-            items={originalFilterValues['lang']}
+            items={originalFilterValues.lang}
             dispatch={dispatch}
           >
             Kielet
           </Filter>
-          <Filter>Aineistotyypit</Filter>
+          <Filter
+            filters={filters}
+            id="typefilter"
+            keyName="resourcetype"
+            items={originalFilterValues.resourcetype}
+            dispatch={dispatch}
+          >
+            Aineistotyypit
+          </Filter>
           <Filter>Koko</Filter>
           <Filter>Lisää suodattimia </Filter>
         </section>

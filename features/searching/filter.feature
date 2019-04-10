@@ -39,3 +39,4 @@ Feature: Filtering datasets
         Then after 1000 milliseconds the selector "#resources > ul > li" matches less than 20 elements in the dom
         And the user clicks "#langfilter"
         Then within 1000 milliseconds the selector "#langfilter input" matches at least 7 elements in the dom
+#TODO: STILL NOT GOOD! after using the searchbox langfilters not working as expected
