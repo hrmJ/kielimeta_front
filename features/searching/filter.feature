@@ -14,12 +14,6 @@ Feature: Filtering datasets
         And the user clicks "#langfilter_menu input[value='af-ZA']"
         Then after 1000 milliseconds the selector "#resources > ul > li" matches less than 20 elements in the dom
 
-    # And the filter list contains as many elements as it did before the filter?
-    # BUT if the search was used, that should not be the case...
-    # TODO: by default all values clicked?
-    # TODO: make the checkboxes controlled
-    # TODO: button for resetting the search
-    # TODO: indicate if a filter is in use
 
     Scenario: Mixing the filtering methods
         #TODO: record the values and compare those, not bare numbers!

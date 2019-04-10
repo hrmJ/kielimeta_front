@@ -1,14 +1,19 @@
 @import 'src/general_styles/configs.scss';
 
 .topbar {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  align-items: center;
+  @include center_container();
+  // display: flex;
+  // flex-flow: row nowrap;
+  // justify-content: center;
+  // align-items: center;
   position: relative;
-  margin-bottom: 1em;
+  margin-bottom: 0em;
   padding: 1em 0.1em 1em 0.1em;
-  border-bottom: 1px solid darkgray;
+  > div {
+    @include center_contained_relative();
+    // border-bottom: 1px solid darkgray;
+    padding: 0.5em;
+  }
 }
 
 .menulauncher {
@@ -18,4 +23,10 @@
 }
 
 .siteHeading {
+  max-width: 10em;
+  font-size: 2.4em;
+  margin: 0em 0em;
+  font-family: $headerfont;
+  > span {
+  }
 }

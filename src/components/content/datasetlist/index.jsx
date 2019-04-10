@@ -36,7 +36,7 @@ export default class DatasetList extends Component {
             id="searchfield"
             type="text"
             onChange={ev => this.filterDatasets(ev.target.value)}
-            placeholder="Hae nimellä, x:llä..."
+            placeholder="Hae nimellä tai avainsanalla"
           />
         </section>
         <section className={styles.filterContainer}>
