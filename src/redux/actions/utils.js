@@ -25,13 +25,13 @@ const thunkCreator = action => {
   };
 };
 
+/**
+ * Resets the values for the filters
+ *
+ * @param {*} datasets an array containing all the datasets
+ * @returns an object with default values for each of the filters availble on the dataset list page
+ */
 const getOriginalValuesForFilters = datasets => {
-  /**
-   *
-   * Resets the values for filters
-   *
-   */
-
   const langList = [
     ...new Set(
       [].concat(

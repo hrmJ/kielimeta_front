@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import styles from './filter.scss';
-import { updateFilter, filterDatasets } from '../../../redux/actions/datasets';
+import { updateFilter, filterDatasets, updateAndFilter } from '../../../redux/actions/datasets';
 import { filter } from 'rsvp';
 import cuid from 'cuid';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
 export default class Filter extends Component {
   state = {
@@ -10,7 +12,7 @@ export default class Filter extends Component {
   };
 
   render() {
-    const { children, dispatch, keyName, id, filters } = this.props;
+    const { children, dispatch, keyName, id, filters = {} } = this.props;
     const { menuOpen } = this.state;
 
     let { items } = this.props;
@@ -28,7 +30,13 @@ export default class Filter extends Component {
           className={styles.filterButton}
           onClick={() => this.setState({ menuOpen: !menuOpen })}
         >
-          {children}
+          <div>{children}</div>
+          <div
+            className={`${styles.closer} .clearfilter`}
+            style={{ display: keyName in filters ? 'block' : 'none' }}
+          >
+            <FontAwesomeIcon icon={faTimesCircle} onClick={() => null} />
+          </div>
         </button>
         <div
           className={styles.menu}
@@ -42,18 +50,15 @@ export default class Filter extends Component {
                   <input
                     type="checkbox"
                     value={item.value}
-                    onClick={ev => dispatch(updateFilter(keyName, item.value, ev.target.checked))}
+                    onClick={ev =>
+                      dispatch(updateAndFilter(keyName, item.value, ev.target.checked, filters))
+                    }
                   />
                 </div>
                 <div>{item.label}</div>
               </li>
             ))}
           </ul>
-          <div>
-            <button type="button" onClick={() => dispatch(filterDatasets(filters))}>
-              Suodata
-            </button>
-          </div>
         </div>
       </div>
     );

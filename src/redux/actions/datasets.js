@@ -1,4 +1,5 @@
 import { thunkCreator, getOriginalValuesForFilters } from './utils';
+import filterReducer from '../reducers/datasetfilter';
 
 let baseUrl = 'http://%%API_SERVER_HOST%%:%%API_SERVER_PORT%%';
 
@@ -51,6 +52,14 @@ const filterDatasets = (filters = {}) => {
   });
 };
 
+const updateAndFilter = (keyName, value, checked, filters) => {
+  return dispatch => {
+    const updatedFilters = filterReducer(filters, updateFilter(keyName, value, checked));
+    dispatch(updateFilter(keyName, value, checked));
+    dispatch(filterDatasets(updatedFilters));
+  };
+};
+
 const _resetOriginalValues = () => {
   const url = `${baseUrl}/datasets`;
   return fetch(url).then(res => res.json());
@@ -92,4 +101,12 @@ const setOriginalFilterValues = vals => {
   };
 };
 
-export { listAll, filterByQuery, setBaseUrl, updateFilter, formQueryFromFilters, filterDatasets };
+export {
+  listAll,
+  filterByQuery,
+  setBaseUrl,
+  updateFilter,
+  formQueryFromFilters,
+  filterDatasets,
+  updateAndFilter
+};

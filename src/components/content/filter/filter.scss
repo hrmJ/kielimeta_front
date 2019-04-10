@@ -13,11 +13,17 @@
   border-radius: 3px;
   padding: 0.5em;
   background: white;
+  display: flex;
+  align-items: center;
   &:hover {
     cursor: pointer;
     background: lighten(grey, 20%);
     color: white;
   }
+}
+
+.closer {
+  margin-left: 0.5em;
 }
 
 .menu {
@@ -47,6 +53,10 @@
       color: $utupurple;
     }
     margin-bottom: 1em;
+  }
+
+  button + button {
+    margin-left: 2em;
   }
 }
 
