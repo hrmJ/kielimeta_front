@@ -65,7 +65,7 @@ export default class Filter extends Component {
         >
           <div>{children}</div>
           <div
-            className={`${styles.closer} .clearfilter`}
+            className={`${styles.closer} clearfilter`}
             style={{ display: this.isInUse() ? 'block' : 'none' }}
           >
             <FontAwesomeIcon icon={faTimesCircle} onClick={ev => this.reset(ev)} />

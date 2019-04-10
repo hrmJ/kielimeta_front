@@ -36,7 +36,6 @@ Feature: Filtering datasets
         Then within 1000 milliseconds the selector "#langfilter input" matches at least 7 elements in the dom
 
 
-    @cur
     Scenario: Using both lang and resourcetype filters
         #TODO: record the values and compare those, not bare numbers!
 
@@ -51,6 +50,7 @@ Feature: Filtering datasets
         And the user clicks "#typefilter_menu input[value='parallel corpus']"
         Then after 1000 milliseconds the selector "#resources > ul > li" matches less than 20 elements in the dom
 
+    @cur
     Scenario: Seeing the reset button
 
         When the user navigates to /
@@ -58,7 +58,6 @@ Feature: Filtering datasets
         And within 1000 milliseconds "#langfilter .clearfilter" is not visible
         But the user clicks "#langfilter"
         And the user clicks "#langfilter_menu input[value='fi'], #langfilter_menu input[value='fi-FI']"
-        And the user clicks "#langfilter_menu button"
         Then within 1000 milliseconds "#langfilter .clearfilter" is visible
 
     Scenario: Resetting an individual filter
