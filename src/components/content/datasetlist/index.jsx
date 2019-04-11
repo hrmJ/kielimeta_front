@@ -61,6 +61,9 @@ export default class DatasetList extends Component {
           <Filter>Koko</Filter>
           <Filter>Lisää suodattimia </Filter>
         </section>
+        <section className={styles.resultNumberContainer}>
+          Aineistoja näillä suodattimilla: {datasets.length}
+        </section>
         <ul>
           {datasets.map(dataset => (
             <li key={dataset.id} className={styles.datasetitemContainer}>

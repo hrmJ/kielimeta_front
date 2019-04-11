@@ -1,5 +1,12 @@
 @import 'src/general_styles/configs.scss';
 
+@mixin container {
+  display: flex;
+  flex-flow: row wrap;
+  margin: 0em 0em 3em 0em;
+  padding: 0em 0.1em 0em 0.7em;
+}
+
 .datasetlistContainer {
   @include center_contained_relative();
   ul {
@@ -14,10 +21,13 @@
 }
 
 .filterContainer {
-  display: flex;
-  flex-flow: row wrap;
-  margin: 0em 0em 3em 0em;
-  padding: 0em 0.1em 0em 0.7em;
+  @include container();
+}
+
+.resultNumberContainer {
+  @include container();
+  font-size: 0.8em;
+  margin-left: 0.6em;
 }
 
 .datasetitemContainer {
