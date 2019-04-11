@@ -64,4 +64,4 @@ Feature: Filtering datasets
         Then after 1000 milliseconds the selector "#resources > ul > li" matches less than 20 elements in the dom
         But the user clicks "#langfilter .close"
 
-#TODO: STILL NOT GOOD! after using the searchbox langfilters not working as expected
+#TODO: Pick "French" --> pick "special corpus" ...> suddenly unfiltered!
