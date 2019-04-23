@@ -1,7 +1,7 @@
 @import 'src/general_styles/configs.scss';
 
-@mixin container {
-  display: flex;
+@mixin container($disp: flex) {
+  display: $disp;
   flex-flow: row wrap;
   margin: 0em 0em 3em 0em;
   padding: 0em 0.1em 0em 0.7em;
@@ -25,9 +25,13 @@
 }
 
 .resultNumberContainer {
-  @include container();
+  @include container('block');
   font-size: 0.8em;
   margin-left: 0.6em;
+  margin-bottom: 0em;
+  div + div {
+    margin-top: 1em;
+  }
 }
 
 .datasetitemContainer {

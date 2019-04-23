@@ -18,12 +18,6 @@ const langOptions = Object.keys(langmap)
     label: langmap[code]['englishName']
   }));
 
-const options = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' }
-];
-
 export const selectStyle = {
   container: provided => ({
     ...provided,

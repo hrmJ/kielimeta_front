@@ -5,6 +5,7 @@ import Filter from '../filter';
 import DatasetItem from '../datasetitem';
 import styles from './datasetlist.scss';
 import { printLanguageName } from '../languagebadge';
+import OrderSelect from '../../ui/orderselect';
 
 export default class DatasetList extends Component {
   static get propTypes() {
@@ -62,7 +63,10 @@ export default class DatasetList extends Component {
           <Filter>Lisää suodattimia </Filter>
         </section>
         <section className={styles.resultNumberContainer}>
-          Aineistoja näillä suodattimilla: {datasets.length}
+          <div>Aineistoja näillä suodattimilla: {datasets.length}</div>
+          <div>
+            <OrderSelect items={['nimi', 'koko']} />
+          </div>
         </section>
         <ul>
           {datasets.map(dataset => (
