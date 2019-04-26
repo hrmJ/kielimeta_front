@@ -12,7 +12,27 @@
   > div {
     @include center_contained_relative();
     // border-bottom: 1px solid darkgray;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: end;
+    justify-content: space-between;
     padding: 0.5em;
+  }
+}
+
+.linkList {
+  list-style-type: none;
+  margin: 0px;
+  padding-left: 0px;
+  font-size: 0.8em;
+  a {
+    color: black;
+  }
+  li {
+    display: inline-block;
+  }
+  li + li {
+    margin-left: 1em;
   }
 }
 
