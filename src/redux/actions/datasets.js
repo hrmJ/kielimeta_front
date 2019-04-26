@@ -2,11 +2,17 @@ import { thunkCreator, getOriginalValuesForFilters } from './utils';
 import filterReducer from '../reducers/datasetfilter';
 
 let baseUrl = '%%API_SERVER_PROTOCOL%%://%%API_SERVER_HOST%%';
+if (window.location.href.includes('istest')) {
+  baseUrl = 'http://%%API_SERVER_HOST_TEST%%';
+}
 
+/**
+ *
+ * A way to mock the url for jest tests
+ *
+ * @param {string} url the url to be set
+ */
 const setBaseUrl = url => {
-  /**
-   * A way to mock the url for jest tests
-   */
   baseUrl = url;
 };
 

@@ -14,6 +14,10 @@ export default {
                 replace: process.env.API_SERVER_HOST
               },
               {
+                search: '%%API_SERVER_HOST_TEST%%',
+                replace: process.env.API_SERVER_HOST_TEST
+              },
+              {
                 search: '%%API_SERVER_PORT%%',
                 replace: process.env.API_SERVER_PORT
               },

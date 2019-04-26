@@ -9,7 +9,7 @@ import { saveScreenshot } from './helpers';
 
 chai.use(ChaiAsPromised);
 
-const baseUrl = `http://${process.env.FRONTEND_HOST}:${process.env.FRONTEND_PORT_TEST}`;
+const baseUrl = `http://${process.env.FRONTEND_HOST}:${process.env.FRONTEND_PORT_TEST}?istest=true`;
 
 When(/the user navigates to ([^\s]+)/, function(location) {
   return this.driver.get(baseUrl + location);
