@@ -1,12 +1,14 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, HashRouter, Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import TopBar from '../layout/navigation/topbar';
 import DatasetList from '../content/datasetlist';
 import DatasetForm from '../content/datasetform';
+import Login from '../auth/login';
 // import Header from '../layout/header';
 import Footer from '../layout/footer';
 import styles from '../../general_styles/general_styles.scss';
+import { getCookie } from '../../utils';
 
 const main = props => {
   const { dispatch, datasetform, loadingState, filters, originalFilterValues } = props;
@@ -15,9 +17,11 @@ const main = props => {
     console.log(datasets);
     datasets = [];
   }
+  const token = getCookie('jwt_token_access');
+  console.log(token);
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <div>
         <div className={styles.outerContainer}>
           <TopBar />
@@ -26,6 +30,7 @@ const main = props => {
           }
           <main>
             <Switch>
+              <Route path="/login" render={() => <Login />} />
               <Route
                 path="/newdataset"
                 render={() => (
@@ -52,7 +57,7 @@ const main = props => {
         </div>
         <Footer />
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 
