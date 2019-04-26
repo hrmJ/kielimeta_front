@@ -17,8 +17,7 @@ const main = props => {
     console.log(datasets);
     datasets = [];
   }
-  const token = getCookie('jwt_token_access');
-  console.log(token);
+  // const token = getCookie('jwt_token_access');
 
   return (
     <HashRouter>

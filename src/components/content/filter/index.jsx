@@ -84,7 +84,7 @@ export default class Filter extends Component {
                     type="checkbox"
                     value={item.value}
                     checked={filters[keyName] ? filters[keyName].includes(item.value) : false}
-                    onClick={ev =>
+                    onChange={ev =>
                       dispatch(updateAndFilter(keyName, item.value, ev.target.checked, filters))
                     }
                   />

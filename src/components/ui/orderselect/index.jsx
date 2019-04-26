@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styles from './orderselect.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretRight, faCaretDown } from '@fortawesome/free-solid-svg-icons';
+import cuid from 'cuid';
 
 export default class OrderSelect extends Component {
   state = {
@@ -19,8 +20,8 @@ export default class OrderSelect extends Component {
         </button>
         <div className={styles.dropDown} style={{ display: open ? 'block' : 'none' }}>
           <ul>
-            {items.map(item => (
-              <li>{item}</li>
+            {items.map((item, idx) => (
+              <li key={cuid()}>{item}</li>
             ))}
           </ul>
         </div>

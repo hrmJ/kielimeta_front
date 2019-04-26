@@ -44,7 +44,6 @@ Feature: Filtering datasets
         And the user clicks "#typefilter_menu input[value='parallel corpus']"
         Then after 1000 milliseconds the selector "#resources > ul > li" matches less than 20 elements in the dom
 
-    @cur
     Scenario: Seeing the reset button
 
         When the user navigates to /
