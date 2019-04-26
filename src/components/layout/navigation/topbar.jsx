@@ -2,6 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './nav_styles.scss';
 import LoginIdicator from '../../auth/indicator';
+import { Link } from 'react-router-dom';
 
 export default () => (
   <div className={styles.topbar}>
@@ -9,14 +10,14 @@ export default () => (
       <h1 className={styles.siteHeading}>Turun yliopiston kielianeistot</h1>
       <ul className={styles.linkList}>
         <li>
-          <a href="javascript:void(0);" id="fpLink">
+          <Link to="/" id="fpLink">
             Pääsivu
-          </a>
+          </Link>
         </li>
         <li>
-          <a href="javascript:void(0);" id="newdatasetLink">
+          <Link to="newdataset" id="newdatasetLink">
             Syötä tietoja
-          </a>
+          </Link>
         </li>
         <li>
           <LoginIdicator />
