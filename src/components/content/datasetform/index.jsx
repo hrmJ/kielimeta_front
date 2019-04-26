@@ -5,17 +5,18 @@ import PropTypes from 'prop-types';
 import { updateField, submitDataset } from '../../../redux/actions/datasetform';
 import styles from './datasetform.scss';
 import LanguageSelect from './languageselect';
+import AutoCompleteField from './autocompletefield';
 
 export default class InsertForm extends Component {
   static get propTypes() {
     return {
       dispatch: PropTypes.func.isRequired,
       fields: PropTypes.objectOf(PropTypes.any).isRequired,
-      loadingState: PropTypes.objectOf(PropTypes.any).isRequired,
+      loadingState: PropTypes.objectOf(PropTypes.any).isRequired
     };
   }
 
-  handleChange = name => (event) => {
+  handleChange = name => event => {
     const { dispatch } = this.props;
     dispatch(updateField(name, event.target.value));
   };
@@ -40,7 +41,6 @@ export default class InsertForm extends Component {
       <form onSubmit={event => this.submit(event)}>
         <fieldset>
           <legend>Yleistiedot</legend>
-
           <div className={styles.fieldContainer}>
             <label htmlFor="datasettitle">Nimi</label>
             <input
@@ -50,7 +50,6 @@ export default class InsertForm extends Component {
               onChange={this.handleChange('title')}
             />
           </div>
-
           <div className={styles.fieldContainer}>
             <label htmlFor="datasetdescription">Kuvaus</label>
             <textarea
@@ -59,16 +58,9 @@ export default class InsertForm extends Component {
               onChange={this.handleChange('description')}
             />
           </div>
-
-          <div className={styles.fieldContainer}>
-            <label htmlFor="resourcetype">Aineiston tyyppi</label>
-            <input
-              type="text"
-              defaultValue=""
-              id="resourcetype"
-              onChange={this.handleChange('resourcetype')}
-            />
-          </div>
+          <AutoCompleteField onChange={this.handleChange('resourcetype')}>
+            Aineiston tyyppi
+          </AutoCompleteField>
         </fieldset>
 
         <fieldset>
@@ -87,7 +79,8 @@ export default class InsertForm extends Component {
           <section className={styles.someTopMargin}>
             <button
               type="button"
-              onClick={() => dispatch(updateField('languages', [...fields.languages, { annotations: [] }]))
+              onClick={() =>
+                dispatch(updateField('languages', [...fields.languages, { annotations: [] }]))
               }
             >
               Lisää uusi
