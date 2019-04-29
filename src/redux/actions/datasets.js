@@ -131,5 +131,6 @@ export {
   filterDatasets,
   updateAndFilter,
   resetFilter,
-  resetFilterAndRefresh
+  resetFilterAndRefresh,
+  baseUrl
 };

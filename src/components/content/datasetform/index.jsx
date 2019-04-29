@@ -58,7 +58,13 @@ export default class InsertForm extends Component {
               onChange={this.handleChange('description')}
             />
           </div>
-          <AutoCompleteField onChange={this.handleChange('resourcetype')}>
+          <AutoCompleteField
+            id="resourcetype"
+            onChange={this.handleChange('resourcetype')}
+            categoryName="name"
+            tooltipName="description"
+            path={'resourcetypes'}
+          >
             Aineiston tyyppi
           </AutoCompleteField>
         </fieldset>

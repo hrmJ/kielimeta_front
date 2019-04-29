@@ -67,3 +67,15 @@ Then(/within (\d+) milliseconds "([^"]+)" is not visible/, function(milliseconds
     )
   ).not.to.be.fulfilled;
 });
+
+Then(/within (\d+) milliseconds a suggestion "([^"]+)" appears/, function(
+  milliseconds,
+  suggestion
+) {
+  return expect(
+    this.driver.wait(
+      until.elementIsVisible(this.driver.findElement(By.xpath(`//div[text()='${suggestion}']`))),
+      milliseconds
+    )
+  ).to.be.fulfilled;
+});

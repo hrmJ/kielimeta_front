@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import formstyles from '../datasetform.scss';
 import AsyncSelect from 'react-select/lib/AsyncCreatable';
 import { components } from 'react-select';
@@ -6,56 +6,56 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import styles from './autocompletefield.scss';
 import Tooltip from '@atlaskit/tooltip';
+import { baseUrl } from '../../../../redux/actions/datasets';
 
 const selectStyle = {
   container: provided => ({
     ...provided,
-    width: '10em'
-  }),
-  option: provided => ({
-    ...provided,
-    flex: '1 1'
+    width: '60%'
   })
 };
 
 const Option = props => {
   return (
-    <div className={styles.OptionContainer}>
+    <Tooltip content={props.data.tooltip}>
       <components.Option {...props} />
-      <Tooltip content="test">
-        <FontAwesomeIcon icon={faInfoCircle} />
-      </Tooltip>
-    </div>
+    </Tooltip>
   );
 };
 
-const promiseOptions = inputValue => {
-  const url = `http://%%API_SERVER_HOST_TEST%%/resourcetypes?search=${inputValue}`;
-  return fetch(url, { mode: 'cors' })
-    .then(response => response.json())
-    .then(options =>
-      options
-        // .filter(option => option.includes(inputValue))
-        .map(option => ({ label: option, value: option }))
-    );
-};
+export default class AutoCompleteField extends Component {
+  getOptions(inputValue) {
+    const { categoryName, tooltipName, path } = this.props;
+    const url = `${baseUrl}/${path}?search=${inputValue}`;
+    return fetch(url, { mode: 'cors' })
+      .then(response => response.json())
+      .then(options =>
+        options.map(option => ({
+          label: option[categoryName],
+          value: option[categoryName],
+          tooltip: option[tooltipName]
+        }))
+      );
+  }
 
-export default props => {
-  const { handleChange, children } = props;
+  render() {
+    const { handleChange, children, id } = this.props;
 
-  return (
-    <div className={formstyles.fieldContainer}>
-      <label htmlFor="resourcetype">{children}</label>
-      {/*
+    return (
+      <div className={formstyles.fieldContainer}>
+        <label htmlFor="resourcetype">{children}</label>
+        {/*
       <input type="text" defaultValue="" id="resourcetype" onChange={handleChange} />
       */}
-      <AsyncSelect
-        components={{ Option }}
-        styles={selectStyle}
-        cacheOptions
-        defaultOptions
-        loadOptions={promiseOptions}
-      />
-    </div>
-  );
-};
+        <AsyncSelect
+          id={id}
+          components={{ Option }}
+          styles={selectStyle}
+          cacheOptions
+          defaultOptions
+          loadOptions={inputValue => this.getOptions(inputValue)}
+        />
+      </div>
+    );
+  }
+}
