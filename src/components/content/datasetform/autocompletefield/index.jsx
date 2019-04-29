@@ -30,11 +30,21 @@ export default class AutoCompleteField extends Component {
     return fetch(url, { mode: 'cors' })
       .then(response => response.json())
       .then(options =>
-        options.map(option => ({
-          label: option[categoryName],
-          value: option[categoryName],
-          tooltip: option[tooltipName]
-        }))
+        options.map(option => {
+          if (categoryName === 'flat') {
+            return {
+              label: option,
+              value: option,
+              tooltip: undefined
+            };
+          } else {
+            return {
+              label: option[categoryName],
+              value: option[categoryName],
+              tooltip: option[tooltipName]
+            };
+          }
+        })
       );
   }
 

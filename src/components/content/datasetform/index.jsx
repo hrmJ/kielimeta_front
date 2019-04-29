@@ -70,10 +70,10 @@ export default class InsertForm extends Component {
           <AutoCompleteField
             id="keyword"
             isMulti={true}
-            onChange={this.handleChange('resourcetype')}
-            categoryName="name"
-            tooltipName="description"
-            path={'resourcetypes'}
+            onChange={this.handleChange('keyword')}
+            categoryName="flat"
+            tooltipName=""
+            path={'keywords'}
           >
             Avainsanat
           </AutoCompleteField>
