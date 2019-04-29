@@ -4,6 +4,7 @@ import langmap from 'langmap';
 import styles from './datasetitem.scss';
 import formstyles from '../datasetform/datasetform.scss';
 import LanguageBadge, { printLanguageName } from '../languagebadge';
+import cuid from 'cuid';
 
 const createLanguageKey = (id, language, langId) =>
   `ds_${id}_lang_condendsed_${language.details.language_code}${language.details.variety}_${langId}`;
@@ -35,14 +36,18 @@ export default class datasetItem extends Component {
   }
 
   printExpanded() {
-    const { languages, id, description, resourcetype } = this.props;
+    const { languages, id, description, resourcetype, keywords } = this.props;
 
     return (
       <div>
         <p>
           <em>{resourcetype}</em>
         </p>
-        <p>{description}</p>
+        <ul className={styles.kwList}>
+          {keywords.map(keyword => (
+            <li key={cuid()}>{keyword}</li>
+          ))}
+        </ul>
         {languages.map((language, langId) => (
           <div key={createLanguageKey(id, language, langId)}>
             <h3>

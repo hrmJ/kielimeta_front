@@ -47,3 +47,16 @@
 .sublist {
   margin-left: 1em;
 }
+
+.kwList {
+  li {
+    font-size: 0.8em;
+    display: inline-block;
+    background: lightgrey;
+    padding: 0.2em;
+  }
+
+  li + li {
+    margin-left: 1em;
+  }
+}
