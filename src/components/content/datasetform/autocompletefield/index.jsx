@@ -39,7 +39,7 @@ export default class AutoCompleteField extends Component {
   }
 
   render() {
-    const { handleChange, children, id } = this.props;
+    const { handleChange, children, id, isMulti = false } = this.props;
 
     return (
       <div className={formstyles.fieldContainer}>
@@ -49,6 +49,7 @@ export default class AutoCompleteField extends Component {
       */}
         <AsyncSelect
           id={id}
+          isMulti={isMulti}
           components={{ Option }}
           styles={selectStyle}
           cacheOptions

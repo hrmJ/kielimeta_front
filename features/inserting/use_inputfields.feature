@@ -4,7 +4,6 @@ Feature: Using inputfields
    Interact with different input elements on the page
    in order to type in my data
 
-   @cur
    Scenario: Specifying the resource type
 
       When the user navigates to /#/newdataset
@@ -12,4 +11,14 @@ Feature: Using inputfields
       When the user clicks "#resourcetype"
       And the user types "parallel" in "#resourcetype input[type='text']"
       Then within 1000 milliseconds a suggestion "parallel corpus" appears
+
+   @cur
+   Scenario: Specifying keywords
+
+      When the user navigates to /#/newdataset
+      Then within 1000 milliseconds the selector "#keyword" matches an element in the dom
+      When the user clicks "#keyword"
+      And the user types "dial" in "#keyword input[type='text']"
+      Then within 1000 milliseconds a suggestion "dialects" appears
+
 
