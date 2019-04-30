@@ -88,6 +88,11 @@ export default class InsertForm extends Component {
         <fieldset>
           <legend>Kielet</legend>
           <section>
+            <p className={styles.description}>
+              Monet ominaisuudet määritellään kieli- tai varianttikohtaisesti. Jos kieliä on vain
+              yksi, sellaiset ominaisuudet kuin korpuksen koko ja aikajänne määritellään tämän
+              kielen ominaisuuksiksi.
+            </p>
             {fields.languages.map((lang, idx) => (
               <LanguageSelect
                 languages={fields.languages}
@@ -101,6 +106,7 @@ export default class InsertForm extends Component {
           <section className={styles.someTopMargin}>
             <button
               type="button"
+              id="addlanguage"
               onClick={() =>
                 dispatch(updateField('languages', [...fields.languages, { annotations: [] }]))
               }

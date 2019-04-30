@@ -9,6 +9,7 @@ import AnnotationSelect from '../annotationselect';
 import { updateField } from '../../../../redux/actions/datasetform';
 import Closable from '../../../ui/closablebox';
 import langmap from 'langmap';
+import LanguageProp from '../languageprop';
 
 // NOTE: a temporary mock, to be replaced with database data
 const langOptions = Object.keys(langmap)
@@ -84,8 +85,7 @@ export default class LanguageSelect extends Component {
             id={`langvar_${uuid()}`}
           />
         </div>
-        <div>
-          <h4>Annotoinnit</h4>
+        <LanguageProp header="Annotoinnit">
           {annotations.map((annotation, annotationIdx) => (
             <AnnotationSelect
               key={annotationIdx.toString()}
@@ -104,7 +104,8 @@ export default class LanguageSelect extends Component {
           >
             Lisää uusi
           </button>
-        </div>
+        </LanguageProp>
+        <LanguageProp header="Ajanjakso" />
       </Closable>
     );
   }

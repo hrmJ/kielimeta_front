@@ -19,4 +19,5 @@ main {
   background: $contentbg;
   @include center_contained();
   min-height: 99vh;
+  max-width: 1200px;
 }
