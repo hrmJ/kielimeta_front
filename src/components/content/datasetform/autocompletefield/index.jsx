@@ -49,7 +49,7 @@ export default class AutoCompleteField extends Component {
   }
 
   render() {
-    const { handleChange, children, id, isMulti = false } = this.props;
+    const { handleChange, children, id, isMulti = false, onChange, fieldname } = this.props;
 
     return (
       <div className={formstyles.fieldContainer}>
@@ -62,6 +62,7 @@ export default class AutoCompleteField extends Component {
           isMulti={isMulti}
           components={{ Option }}
           styles={selectStyle}
+          onChange={onChange}
           cacheOptions
           defaultOptions
           loadOptions={inputValue => this.getOptions(inputValue)}

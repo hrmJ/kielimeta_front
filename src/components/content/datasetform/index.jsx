@@ -18,7 +18,13 @@ export default class InsertForm extends Component {
 
   handleChange = name => event => {
     const { dispatch } = this.props;
-    dispatch(updateField(name, event.target.value));
+    if (event.target) {
+      dispatch(updateField(name, event.target.value));
+    } else if (event.value) {
+      dispatch(updateField(name, event.value));
+    } else if (Array.isArray(event)) {
+      dispatch(updateField(name, event.map(item => item.value)));
+    }
   };
 
   submit(event) {
