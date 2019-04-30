@@ -76,7 +76,7 @@ export default class InsertForm extends Component {
           <AutoCompleteField
             id="keyword"
             isMulti={true}
-            onChange={this.handleChange('keyword')}
+            onChange={this.handleChange('keywords')}
             categoryName="flat"
             tooltipName=""
             path={'keywords'}
