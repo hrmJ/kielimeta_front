@@ -1,0 +1,35 @@
+.container {
+  background: yellow;
+  width: 100%;
+}
+
+.yearList {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  li {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.yearTick {
+  margin-bottom: 0.3em;
+  width: 20px;
+  height: 10px;
+  background: red;
+}
+
+.yearName {
+  transform: rotate(-90deg);
+}
+
+.aboveTimeLine {
+}
+.belowTimeLine {
+}

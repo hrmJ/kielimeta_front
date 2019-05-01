@@ -8,7 +8,7 @@ export default props => {
 
   return (
     <FoldableBox launchertype="heading" header={header}>
-      {children}
+      <div className={styles.propContent}>{children}</div>
     </FoldableBox>
   );
 };

@@ -8,6 +8,7 @@ import Login from '../auth/login';
 // import Header from '../layout/header';
 import Footer from '../layout/footer';
 import styles from '../../general_styles/general_styles.scss';
+import TimeLine from '../ui/timeline';
 import { getCookie } from '../../utils';
 
 const main = props => {
@@ -29,6 +30,7 @@ const main = props => {
           }
           <main>
             <Switch>
+              <Route path="/test" render={() => <TimeLine />} />
               <Route path="/login" render={() => <Login />} />
               <Route
                 path="/newdataset"

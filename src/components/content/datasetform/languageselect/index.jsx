@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { Component } from 'react';
 import Select from 'react-select';
+import DatePicker from 'react-datetime';
 import uuid from 'cuid';
 import styles from './languageselect.scss';
 import formstyles from '../datasetform.scss';
@@ -105,7 +106,41 @@ export default class LanguageSelect extends Component {
             Lisää uusi
           </button>
         </LanguageProp>
-        <LanguageProp header="Ajanjakso" />
+        <LanguageProp header="Ajanjakso">
+          <p className={formstyles.description}>
+            Mille ajanjaksolle tämän kielen / variantin aineistot sijoittuvat? Merkitse vähintään
+            alkuvuosi, vaikka kyseessä ei olisikaan lähtökohtaisesti diakroninen aineisto. Ajanjakso
+            voi olla myös pelkkä arvio. Jos ajankohta on mahdollista tai mielekstä määrittää
+            esimerkiksi teoskohtaisesti, voit antaa tarkemman määritelmän alla.
+            {/* TODO: käytä oletuksena ensimmäisen kielen valintaa tai lisää joku ruksi tms. */}
+          </p>
+          <div className={formstyles.fieldContainer}>
+            <label htmlFor="startyear">vuodesta</label>
+            <input
+              type="number"
+              defaultValue=""
+              min="1000"
+              max="2050"
+              id="startyear"
+              placeholder="vuosiluku"
+              onChange={() => null}
+            />
+          </div>
+          <div className={formstyles.fieldContainer}>
+            <label htmlFor="startyear"> vuoteen</label>
+            <input
+              type="number"
+              defaultValue=""
+              min="1000"
+              max="2050"
+              id="startyear"
+              placeholder="vuosiluku"
+              onChange={() => null}
+            />
+          </div>
+          <h5>Tarkempi määrittely</h5>
+          <div>Moro</div>
+        </LanguageProp>
       </Closable>
     );
   }
