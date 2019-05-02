@@ -1,5 +1,5 @@
 .container {
-  background: yellow;
+  // background: yellow;
   width: 100%;
 }
 
@@ -7,26 +7,41 @@
   padding: 0;
   margin: 0;
   list-style-type: none;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
+  column-width: 4em;
+  max-width: 90%;
+  max-height: 20em;
+  overflow-x: scroll;
+  // display: flex;
+  // flex-flow: row nowrap;
+  // justify-content: space-between;
   li {
     display: flex;
-    flex-flow: column nowrap;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+  }
+  li + li {
+    margin-top: 0.7em;
   }
 }
 
+.numberContainer {
+  display: flex;
+  align-items: center;
+  button {
+    font-size: 0.7em;
+    padding: 0;
+  }
+}
+
+.numberIndicator {
+}
+
 .yearTick {
-  margin-bottom: 0.3em;
-  width: 20px;
-  height: 10px;
-  background: red;
+  display: flex;
 }
 
 .yearName {
-  transform: rotate(-90deg);
+  flex: 0 0 4em;
 }
 
 .aboveTimeLine {

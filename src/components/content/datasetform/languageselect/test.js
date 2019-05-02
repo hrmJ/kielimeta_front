@@ -41,3 +41,61 @@ test('Can update new empty details', () => {
     { details: { variety: 'testvariety' } }
   ]);
 });
+
+describe('updateYears', () => {
+  it('Correctly updates a new max for covered_years', () => {
+    const languages = [
+      {
+        years_covered: [1972, 1974, 1980],
+        annotations: [{ type: 'MORPH', version: 'basic' }]
+      }
+    ];
+    const expected = [1972, 1974, 1985];
+    const select = Enzyme.shallow(
+      <LanguageSelect idx={0} languages={languages} dispatch={jest.fn()} />
+    );
+    expect(select.instance().updateYears(1985, 'max')).toMatchObject(expected);
+  });
+
+  it('Correctly updates a new min for covered_years', () => {
+    const languages = [
+      {
+        years_covered: [1972, 1974, 1980],
+        annotations: [{ type: 'MORPH', version: 'basic' }]
+      }
+    ];
+    const expected = [1970, 1974, 1980];
+    const select = Enzyme.shallow(
+      <LanguageSelect idx={0} languages={languages} dispatch={jest.fn()} />
+    );
+    expect(select.instance().updateYears(1970, 'min')).toMatchObject(expected);
+  });
+
+  it('Correctly updates a regular value covered_years', () => {
+    const languages = [
+      {
+        years_covered: [1972],
+        annotations: [{ type: 'MORPH', version: 'basic' }]
+      }
+    ];
+    const expected = [1972, 1973];
+    const select = Enzyme.shallow(
+      <LanguageSelect idx={0} languages={languages} dispatch={jest.fn()} />
+    );
+    expect(select.instance().updateYears(1973)).toMatchObject(expected);
+  });
+
+  it('Correctly updates a new min for covered_years if only 1 val ', () => {
+    const languages = [
+      {
+        years_covered: [1972],
+        annotations: [{ type: 'MORPH', version: 'basic' }]
+      }
+    ];
+    const expected = [1973];
+    const select = Enzyme.shallow(
+      <LanguageSelect idx={0} languages={languages} dispatch={jest.fn()} />
+    );
+    expect(select.instance().updateYears(1973, 'min')).toMatchObject(expected);
+  });
+});

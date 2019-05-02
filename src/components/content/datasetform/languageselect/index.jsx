@@ -11,6 +11,7 @@ import { updateField } from '../../../../redux/actions/datasetform';
 import Closable from '../../../ui/closablebox';
 import langmap from 'langmap';
 import LanguageProp from '../languageprop';
+import TimeLine from '../../../ui/timeline';
 
 // NOTE: a temporary mock, to be replaced with database data
 const langOptions = Object.keys(langmap)
@@ -43,6 +44,27 @@ export default class LanguageSelect extends Component {
     dispatch(updateField('languages', updated));
     // for testing purposes
     return updated;
+  }
+
+  updateYears(val, minormax) {
+    minormax = minormax || false;
+    const { languages, idx } = this.props;
+    let years = languages[idx].years_covered || [];
+    const thisyear = val * 1;
+    if (thisyear >= 1000 && thisyear <= 2100) {
+      if (years.length > 1) {
+        if (minormax == 'min') {
+          years[years.indexOf(Math.min(...years))] = thisyear;
+        }
+        if (minormax == 'max') {
+          years[years.indexOf(Math.max(...years))] = thisyear;
+        }
+      }
+      const updated = [...new Set([...years, val * 1])];
+      this.updateLanguage('years_covered', updated);
+      // for testing purposes
+      return updated;
+    }
   }
 
   removeLanguage() {
@@ -110,8 +132,7 @@ export default class LanguageSelect extends Component {
           <p className={formstyles.description}>
             Mille ajanjaksolle tämän kielen / variantin aineistot sijoittuvat? Merkitse vähintään
             alkuvuosi, vaikka kyseessä ei olisikaan lähtökohtaisesti diakroninen aineisto. Ajanjakso
-            voi olla myös pelkkä arvio. Jos ajankohta on mahdollista tai mielekstä määrittää
-            esimerkiksi teoskohtaisesti, voit antaa tarkemman määritelmän alla.
+            voi olla myös pelkkä arvio.
             {/* TODO: käytä oletuksena ensimmäisen kielen valintaa tai lisää joku ruksi tms. */}
           </p>
           <div className={formstyles.fieldContainer}>
@@ -123,7 +144,7 @@ export default class LanguageSelect extends Component {
               max="2050"
               id="startyear"
               placeholder="vuosiluku"
-              onChange={() => null}
+              onChange={ev => this.updateYears(ev.target.value, 'min')}
             />
           </div>
           <div className={formstyles.fieldContainer}>
@@ -135,11 +156,17 @@ export default class LanguageSelect extends Component {
               max="2050"
               id="startyear"
               placeholder="vuosiluku"
-              onChange={() => null}
+              onChange={ev => this.updateYears(ev.target.value, 'max')}
             />
           </div>
-          <h5>Tarkempi määrittely</h5>
-          <div>Moro</div>
+          <LanguageProp header="Tarkempi määrittely">
+            <p className={formstyles.description}>
+              Jos kyseessä on diakroninen aineisto ja ajankohta on mahdollista tai mielekstä
+              määrittää esimerkiksi teoskohtaisesti, voit antaa tarkemman määritelmän alla: rastita
+              kaikki ne vuosiluvut, joille aineiston tekstejä / muita osia osuu.
+            </p>
+            <TimeLine />
+          </LanguageProp>
         </LanguageProp>
       </Closable>
     );
