@@ -49,8 +49,8 @@ export default class LanguageSelect extends Component {
   updateYears(val, minormax) {
     minormax = minormax || false;
     const { languages, idx } = this.props;
-    let years = languages[idx].years_covered || [];
     const thisyear = val * 1;
+    let years = languages[idx].years_covered || [];
     if (thisyear < 0) {
       const yearindex = years.indexOf(thisyear * -1);
       if (yearindex > -1) {
@@ -66,12 +66,14 @@ export default class LanguageSelect extends Component {
         if (!minormax) {
           years = [...new Set([...years, thisyear])];
         } else if (minormax == 'min') {
-          if (currentmax > thisyear || currentmin === currentmax) {
-            years[years.indexOf(currentmin)] = thisyear;
-          } else if (years.length === 2 && thisyear == currentmax) {
+          if (years.length === 2 && thisyear == currentmax) {
             years = [currentmax];
           } else if (thisyear > currentmax) {
             years = [thisyear];
+          } else if (currentmax > thisyear || currentmin === currentmax) {
+            years.splice(years.indexOf(currentmin), 1);
+            years = years.filter(year => year >= thisyear);
+            years.push(thisyear);
           }
         } else if (minormax == 'max') {
           if (years.length === 1 && currentmax < thisyear) {

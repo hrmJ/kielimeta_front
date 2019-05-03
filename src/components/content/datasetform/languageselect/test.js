@@ -162,6 +162,19 @@ describe('updateYears', () => {
     expect(select.instance().updateYears(1800, 'max')).toMatchObject([1800]);
   });
 
+  it('removes all values under the new min', () => {
+    const languages = [
+      {
+        years_covered: [1972, 1974, 1980, 2005, 2010, 2019],
+        annotations: [{ type: 'MORPH', version: 'basic' }]
+      }
+    ];
+    const select = Enzyme.shallow(
+      <LanguageSelect idx={0} languages={languages} dispatch={jest.fn()} />
+    );
+    expect(select.instance().updateYears(2000, 'min')).toMatchObject([2005, 2010, 2019, 2000]);
+  });
+
   it('removes the old max if only two vals when updating max', () => {
     const languages = [
       {
