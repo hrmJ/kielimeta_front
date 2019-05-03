@@ -9,10 +9,11 @@
 
 .datasetlistContainer {
   @include center_contained_relative();
-  ul {
-    padding: 0em 0.1em 1em 0.1em;
-    list-style-type: none;
-  }
+}
+
+.datasetList {
+  padding: 0em 0.1em 1em 0.1em;
+  list-style-type: none;
 }
 
 .searchBarContainer {

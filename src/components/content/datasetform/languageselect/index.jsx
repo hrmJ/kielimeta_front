@@ -51,19 +51,47 @@ export default class LanguageSelect extends Component {
     const { languages, idx } = this.props;
     let years = languages[idx].years_covered || [];
     const thisyear = val * 1;
-    if (thisyear >= 1000 && thisyear <= 2100) {
-      if (years.length > 1) {
-        if (minormax == 'min') {
-          years[years.indexOf(Math.min(...years))] = thisyear;
-        }
-        if (minormax == 'max') {
-          years[years.indexOf(Math.max(...years))] = thisyear;
-        }
+    if (thisyear < 0) {
+      const yearindex = years.indexOf(thisyear * -1);
+      if (yearindex > -1) {
+        years.splice(yearindex, 1);
+        this.updateLanguage('years_covered', years);
+        return years;
       }
-      const updated = [...new Set([...years, val * 1])];
-      this.updateLanguage('years_covered', updated);
+    }
+    if (thisyear >= 1000 && thisyear <= 2100) {
+      if (years.length > 0) {
+        const currentmin = Math.min(...years);
+        const currentmax = Math.max(...years);
+        if (!minormax) {
+          years = [...new Set([...years, thisyear])];
+        } else if (minormax == 'min') {
+          if (currentmax > thisyear || currentmin === currentmax) {
+            years[years.indexOf(currentmin)] = thisyear;
+          } else if (years.length === 2 && thisyear == currentmax) {
+            years = [currentmax];
+          } else if (thisyear > currentmax) {
+            years = [thisyear];
+          }
+        } else if (minormax == 'max') {
+          if (years.length === 1 && currentmax < thisyear) {
+            years.push(thisyear);
+          } else if (years.length === 1 && currentmax > thisyear) {
+            years = years;
+          } else if (years.length === 2 && thisyear == currentmin) {
+            years = [currentmin];
+          } else if (currentmin < thisyear || currentmin === currentmax) {
+            years.splice(years.indexOf(currentmax), 1);
+            years = years.filter(year => year <= thisyear);
+            years.push(thisyear);
+          }
+        }
+      } else {
+        years = [thisyear];
+      }
+      this.updateLanguage('years_covered', years);
       // for testing purposes
-      return updated;
+      return years;
     }
   }
 
@@ -79,6 +107,7 @@ export default class LanguageSelect extends Component {
     const { details = {}, languages, idx, dispatch } = this.props;
     const annotations = languages[idx].annotations || [];
     const { language_code = '', variety = '' } = details;
+    const years = languages[idx].years_covered || [];
 
     let langselectval;
 
@@ -151,7 +180,7 @@ export default class LanguageSelect extends Component {
             <label htmlFor="startyear"> vuoteen</label>
             <input
               type="number"
-              defaultValue=""
+              defaultValue={years.length == 1 ? years[0] : ''}
               min="1000"
               max="2050"
               id="startyear"
@@ -165,7 +194,15 @@ export default class LanguageSelect extends Component {
               määrittää esimerkiksi teoskohtaisesti, voit antaa tarkemman määritelmän alla: rastita
               kaikki ne vuosiluvut, joille aineiston tekstejä / muita osia osuu.
             </p>
-            <TimeLine />
+            <TimeLine
+              onChange={ev =>
+                ev.target.checked
+                  ? this.updateYears(ev.target.value)
+                  : this.updateYears(-ev.target.value)
+              }
+              range={[Math.min(...years), Math.max(...years)]}
+              selectedYears={years}
+            />
           </LanguageProp>
         </LanguageProp>
       </Closable>

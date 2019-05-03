@@ -68,7 +68,7 @@ export default class DatasetList extends Component {
             <OrderSelect items={['nimi', 'koko']} />
           </div>
         </section>
-        <ul>
+        <ul className={styles.datasetList}>
           {datasets.map(dataset => (
             <li key={dataset.id} className={styles.datasetitemContainer}>
               <DatasetItem {...dataset} />
