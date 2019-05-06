@@ -5,6 +5,8 @@ import styles from './datasetitem.scss';
 import formstyles from '../datasetform/datasetform.scss';
 import LanguageBadge, { printLanguageName } from '../languagebadge';
 import cuid from 'cuid';
+import 'react-vis/dist/style.css';
+import TimelineChart from '../../ui/timeline/chart';
 
 const createLanguageKey = (id, language, langId) =>
   `ds_${id}_lang_condendsed_${language.details.language_code}${language.details.variety}_${langId}`;
@@ -57,7 +59,9 @@ export default class datasetItem extends Component {
             </h3>
             <ul className={styles.langDetailsList}>
               <li>xxx tokens </li>
-              <li>some additional statistics</li>
+              <li>
+                <TimelineChart years={language.years_covered} />
+              </li>
               <li>
                 <h4>Annotoinnit:</h4>
                 <ul className={styles.sublist}>

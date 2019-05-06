@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusSquare, faMinusCircle } from '@fortawesome/free-solid-svg-icons';
-import Tick from './tick';
 import styles from './timeline.scss';
-import cuid from 'cuid';
 
 function getRange(start, end) {
   start = Math.abs(start) === Infinity ? undefined : start;
