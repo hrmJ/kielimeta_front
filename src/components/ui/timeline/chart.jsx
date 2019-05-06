@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 import 'react-vis/dist/style.css';
-import { FlexibleWidthXYPlot, MarkSeries, XAxis, LabelSeries } from 'react-vis';
+import { FlexibleWidthXYPlot, XYPlot, MarkSeries, XAxis, LabelSeries } from 'react-vis';
 import { getRange } from './index';
 
 export default props => {
-  const { years = [1990, 1994] } = props;
+  const { years = [] } = props;
 
   if (years.length == 0) {
     return null;
   }
 
   const range = getRange(Math.min(...years), Math.max(...years));
-  console.log(range);
-  // const range = [new Date(Math.min(...years), 1), new Date(Math.max(...years), 1)];
   return (
     <FlexibleWidthXYPlot
       dontCheckIfEmpty={true}

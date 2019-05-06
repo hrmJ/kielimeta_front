@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styles from './foldablebox.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretRight, faCaretDown } from '@fortawesome/free-solid-svg-icons';
+import TimelineChart from '../../ui/timeline/chart';
 
 export default class FoldableBox extends Component {
   state = {
@@ -9,9 +10,15 @@ export default class FoldableBox extends Component {
   };
 
   render() {
-    const { items = [], header = '', children = '', launchertype = 'button' } = this.props;
-    // const { open } = this.state;
-    const open = true;
+    const {
+      items = [],
+      header = '',
+      children = '',
+      launchertype = 'button',
+      headerclass
+    } = this.props;
+    const { open } = this.state;
+    // const open = true;
     let launcher = (
       <button className={styles.orderButton} onClick={() => this.setState({ open: !open })}>
         <FontAwesomeIcon icon={open ? faCaretDown : faCaretRight} />
@@ -20,16 +27,27 @@ export default class FoldableBox extends Component {
     );
     if (launchertype == 'heading') {
       launcher = (
-        <h4 className={styles.orderHeading} onClick={() => this.setState({ open: !open })}>
+        <h4
+          className={`${styles.orderHeading} ${headerclass}`}
+          onClick={() => this.setState({ open: !open })}
+        >
           <FontAwesomeIcon icon={open ? faCaretDown : faCaretRight} />
           {header}
         </h4>
       );
     }
+    // TODO: move the visiblity definitions out of inline style attr
+    // NOTE: can't use display:block because of react-vis's flexiblXYplot
+
     return (
       <div className={styles.container}>
         {launcher}
-        <div className={styles.dropDown} style={{ display: open ? 'block' : 'none' }}>
+        <div
+          className={styles.dropDown}
+          style={
+            open ? { height: 'auto', visibility: 'visible' } : { height: '0', visibility: 'hidden' }
+          }
+        >
           {children}
         </div>
       </div>
