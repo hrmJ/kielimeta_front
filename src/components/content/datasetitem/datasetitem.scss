@@ -45,10 +45,20 @@
 }
 
 .sublist {
-  margin-left: 1em;
+  margin-left: 0.1em;
+  padding: 0px;
+}
+
+.langDetailsList {
+  padding: 0px;
+  li {
+    list-style-type: none;
+    padding: 0px;
+  }
 }
 
 .kwList {
+  padding: 0px;
   li {
     font-size: 0.8em;
     display: inline-block;

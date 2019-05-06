@@ -55,7 +55,7 @@ export default class datasetItem extends Component {
 
               {language.details.variety ? `: ${language.details.variety}` : ''}
             </h3>
-            <ul>
+            <ul className={styles.langDetailsList}>
               <li>xxx tokens </li>
               <li>some additional statistics</li>
               <li>
