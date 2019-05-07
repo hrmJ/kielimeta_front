@@ -9,11 +9,11 @@ import Login from '../auth/login';
 import Footer from '../layout/footer';
 import styles from '../../general_styles/general_styles.scss';
 import TimeLineChart from '../ui/timeline/chart';
-import { getCookie } from '../../utils';
 
 const main = props => {
   const { dispatch, datasetform, loadingState, filters, originalFilterValues } = props;
   let { datasets } = props;
+
   if (!Array.isArray(datasets)) {
     console.log(datasets);
     datasets = [];
