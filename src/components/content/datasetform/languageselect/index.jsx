@@ -97,6 +97,18 @@ export default class LanguageSelect extends Component {
     }
   }
 
+  updateSize(key, val) {
+    const { languages, idx } = this.props;
+    const size = languages[idx].size || {};
+    if (val === '') {
+      delete size[key];
+    } else {
+      size[key] = val;
+    }
+    this.updateLanguage('size', size);
+    return size;
+  }
+
   removeLanguage() {
     const { idx, languages, dispatch } = this.props;
     const updated = languages;
@@ -180,13 +192,13 @@ export default class LanguageSelect extends Component {
               />
             </div>
             <div className={formstyles.fieldContainer}>
-              <label htmlFor="startyear"> vuoteen</label>
+              <label htmlFor="startyear">vuoteen</label>
               <input
                 type="number"
                 defaultValue={years.length == 1 ? years[0] : ''}
                 min="1000"
                 max="2050"
-                id="startyear"
+                id="endyear"
                 placeholder="vuosiluku"
                 onChange={ev => this.updateYears(ev.target.value, 'max')}
               />
@@ -194,7 +206,7 @@ export default class LanguageSelect extends Component {
             <div className={styles.propSection}>
               <LanguageProp header="Tarkempi määrittely">
                 <p className={formstyles.description}>
-                  Jos kyseessä on diakroninen aineisto ja ajankohta on mahdollista tai mielekstä
+                  Jos kyseessä on diakroninen aineisto ja ajankohta on mahdollista tai mielekästä
                   määrittää esimerkiksi teoskohtaisesti, voit antaa tarkemman määritelmän alla:
                   rastita kaikki ne vuosiluvut, joille aineiston tekstejä / muita osia osuu.
                 </p>
@@ -208,6 +220,46 @@ export default class LanguageSelect extends Component {
                   selectedYears={years}
                 />
               </LanguageProp>
+            </div>
+          </LanguageProp>
+          <LanguageProp header="Koko">
+            <p className={formstyles.description}>
+              Jos kyseessä on esimerkiksi korpusaineisto, ilmoita tämän kielen / variantin
+              osakorpusten koot niin monella alla olevista mittareista kuin mahdollista, mutta täytä
+              vain aineistosi kannalta relevantit kentät. Jos tarkkoja lukuja ei tiedetä, koot
+              voivat olla vain arvioita.
+            </p>
+            <div className={formstyles.fieldContainer}>
+              <label htmlFor="wordcount">Sanoja</label>
+              <input
+                type="number"
+                id="wordcount"
+                onChange={ev => this.updateSize('words', ev.target.value)}
+              />
+            </div>
+            <div className={formstyles.fieldContainer}>
+              <label htmlFor="tokencount">Saneita</label>
+              <input
+                type="number"
+                id="tokencount"
+                onChange={ev => this.updateSize('tokens', ev.target.value)}
+              />
+            </div>
+            <div className={formstyles.fieldContainer}>
+              <label htmlFor="sentencecount">Virkkeitä</label>
+              <input
+                type="number"
+                id="sentencecount"
+                onChange={ev => this.updateSize('sentences', ev.target.value)}
+              />
+            </div>
+            <div className={formstyles.fieldContainer}>
+              <label htmlFor="textcount">Tekstejä</label>
+              <input
+                type="number"
+                id="textcount"
+                onChange={ev => this.updateSize('texts', ev.target.value)}
+              />
             </div>
           </LanguageProp>
         </section>

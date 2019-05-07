@@ -21,10 +21,19 @@ Feature: Using inputfields
       Then within 1000 milliseconds a suggestion "dialects" appears
 
 
-   @cur
    Scenario: Specifying temporal coverage
 
       When the user navigates to /#/newdataset
       Then within 1000 milliseconds the selector "#addlanguage" matches an element in the dom
       And the user clicks "#addlanguage"
-      And within 1000 milliseconds the selector "#temporalcoverage" matches an element in the dom
+      And within 1000 milliseconds the selector "#startyear" matches an element in the dom
+      And within 1000 milliseconds the selector "#endyear" matches an element in the dom
+
+
+   @cur
+   Scenario: Specifying size
+
+      When the user navigates to /#/newdataset
+      Then within 1000 milliseconds the selector "#addlanguage" matches an element in the dom
+      And the user clicks "#addlanguage"
+      And within 1000 milliseconds the selector "#wordcount" matches an element in the dom

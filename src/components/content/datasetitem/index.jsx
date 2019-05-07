@@ -56,13 +56,13 @@ export default class datasetItem extends Component {
             <div key={createLanguageKey(id, language, langId)} className={styles.langOuterCont}>
               <FoldableBox
                 launchertype="heading"
-                header={printLanguageName(language.details.language_code)}
+                header={`${printLanguageName(language.details.language_code)}${
+                  language.details.variety ? `: ${language.details.variety}` : ''
+                }`}
                 headerclass={styles.langHeading}
               >
                 <div className={styles.langContent}>
-                  {language.details.variety ? `: ${language.details.variety}` : ''}
                   <ul className={styles.langDetailsList}>
-                    <li>xxx tokens </li>
                     <li>
                       <h4>Annotoinnit:</h4>
                       <ul className={styles.sublist}>
@@ -71,6 +71,23 @@ export default class datasetItem extends Component {
                             {annotation.type} : {annotation.version}
                           </li>
                         ))}
+                      </ul>
+                    </li>
+                    <li>
+                      <h4>Koko</h4>
+                      <ul className={styles.sublist}>
+                        {language.size
+                          ? Object.keys(language.size)
+                              .filter(
+                                key => language.size[key] !== undefined && language.size[key] > 0
+                              )
+                              .map(key => (
+                                <li>
+                                  <span>{key}:&nbsp;</span>
+                                  {language.size[key]}
+                                </li>
+                              ))
+                          : null}
                       </ul>
                     </li>
                     <li>

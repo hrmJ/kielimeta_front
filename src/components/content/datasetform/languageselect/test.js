@@ -242,3 +242,43 @@ describe('updateYears', () => {
     expect(select.instance().updateYears(-1973)).toMatchObject([1972]);
   });
 });
+
+describe('updateSize', () => {
+  it('Adds a new key if doesnt exist', () => {
+    const languages = [
+      {
+        annotations: [{ type: 'MORPH', version: 'basic' }]
+      }
+    ];
+    const select = Enzyme.shallow(
+      <LanguageSelect idx={0} languages={languages} dispatch={jest.fn()} />
+    );
+    expect(select.instance().updateSize('tokens', 500)).toMatchObject({ tokens: 500 });
+  });
+
+  it('Updates a key if exists', () => {
+    const languages = [
+      {
+        size: { tokens: 9000, words: 8700 },
+        annotations: [{ type: 'MORPH', version: 'basic' }]
+      }
+    ];
+    const select = Enzyme.shallow(
+      <LanguageSelect idx={0} languages={languages} dispatch={jest.fn()} />
+    );
+    expect(select.instance().updateSize('tokens', 500)).toMatchObject({ tokens: 500, words: 8700 });
+  });
+
+  it('delets a key if empty value provided', () => {
+    const languages = [
+      {
+        size: { tokens: 9000, words: 8700 },
+        annotations: [{ type: 'MORPH', version: 'basic' }]
+      }
+    ];
+    const select = Enzyme.shallow(
+      <LanguageSelect idx={0} languages={languages} dispatch={jest.fn()} />
+    );
+    expect(select.instance().updateSize('tokens', '')).toMatchObject({ words: 8700 });
+  });
+});
