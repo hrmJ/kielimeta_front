@@ -139,74 +139,78 @@ export default class LanguageSelect extends Component {
             id={`langvar_${uuid()}`}
           />
         </div>
-        <LanguageProp header="Annotoinnit">
-          {annotations.map((annotation, annotationIdx) => (
-            <AnnotationSelect
-              key={annotationIdx.toString()}
-              idx={annotationIdx}
-              language_idx={idx}
-              languages={languages}
-              dispatch={dispatch}
-              {...annotation}
-            />
-          ))}
+        <section className={styles.propSection}>
+          <LanguageProp header="Annotoinnit">
+            {annotations.map((annotation, annotationIdx) => (
+              <AnnotationSelect
+                key={annotationIdx.toString()}
+                idx={annotationIdx}
+                language_idx={idx}
+                languages={languages}
+                dispatch={dispatch}
+                {...annotation}
+              />
+            ))}
 
-          <button
-            type="button"
-            className={formstyles.someTopMargin}
-            onClick={() => this.updateLanguage('annotations', [...annotations, {}])}
-          >
-            Lisää uusi
-          </button>
-        </LanguageProp>
-        <LanguageProp header="Ajanjakso">
-          <p className={formstyles.description}>
-            Mille ajanjaksolle tämän kielen / variantin aineistot sijoittuvat? Merkitse vähintään
-            alkuvuosi, vaikka kyseessä ei olisikaan lähtökohtaisesti diakroninen aineisto. Ajanjakso
-            voi olla myös pelkkä arvio.
-            {/* TODO: käytä oletuksena ensimmäisen kielen valintaa tai lisää joku ruksi tms. */}
-          </p>
-          <div className={formstyles.fieldContainer}>
-            <label htmlFor="startyear">vuodesta</label>
-            <input
-              type="number"
-              defaultValue=""
-              min="1000"
-              max="2050"
-              id="startyear"
-              placeholder="vuosiluku"
-              onChange={ev => this.updateYears(ev.target.value, 'min')}
-            />
-          </div>
-          <div className={formstyles.fieldContainer}>
-            <label htmlFor="startyear"> vuoteen</label>
-            <input
-              type="number"
-              defaultValue={years.length == 1 ? years[0] : ''}
-              min="1000"
-              max="2050"
-              id="startyear"
-              placeholder="vuosiluku"
-              onChange={ev => this.updateYears(ev.target.value, 'max')}
-            />
-          </div>
-          <LanguageProp header="Tarkempi määrittely">
-            <p className={formstyles.description}>
-              Jos kyseessä on diakroninen aineisto ja ajankohta on mahdollista tai mielekstä
-              määrittää esimerkiksi teoskohtaisesti, voit antaa tarkemman määritelmän alla: rastita
-              kaikki ne vuosiluvut, joille aineiston tekstejä / muita osia osuu.
-            </p>
-            <TimeLine
-              onChange={ev =>
-                ev.target.checked
-                  ? this.updateYears(ev.target.value)
-                  : this.updateYears(-ev.target.value)
-              }
-              range={[Math.min(...years), Math.max(...years)]}
-              selectedYears={years}
-            />
+            <button
+              type="button"
+              className={formstyles.someTopMargin}
+              onClick={() => this.updateLanguage('annotations', [...annotations, {}])}
+            >
+              Lisää uusi
+            </button>
           </LanguageProp>
-        </LanguageProp>
+          <LanguageProp header="Ajanjakso">
+            <p className={formstyles.description}>
+              Mille ajanjaksolle tämän kielen / variantin aineistot sijoittuvat? Merkitse vähintään
+              alkuvuosi, vaikka kyseessä ei olisikaan lähtökohtaisesti diakroninen aineisto.
+              Ajanjakso voi olla myös pelkkä arvio.
+              {/* TODO: käytä oletuksena ensimmäisen kielen valintaa tai lisää joku ruksi tms. */}
+            </p>
+            <div className={formstyles.fieldContainer}>
+              <label htmlFor="startyear">vuodesta</label>
+              <input
+                type="number"
+                defaultValue=""
+                min="1000"
+                max="2050"
+                id="startyear"
+                placeholder="vuosiluku"
+                onChange={ev => this.updateYears(ev.target.value, 'min')}
+              />
+            </div>
+            <div className={formstyles.fieldContainer}>
+              <label htmlFor="startyear"> vuoteen</label>
+              <input
+                type="number"
+                defaultValue={years.length == 1 ? years[0] : ''}
+                min="1000"
+                max="2050"
+                id="startyear"
+                placeholder="vuosiluku"
+                onChange={ev => this.updateYears(ev.target.value, 'max')}
+              />
+            </div>
+            <div className={styles.propSection}>
+              <LanguageProp header="Tarkempi määrittely">
+                <p className={formstyles.description}>
+                  Jos kyseessä on diakroninen aineisto ja ajankohta on mahdollista tai mielekstä
+                  määrittää esimerkiksi teoskohtaisesti, voit antaa tarkemman määritelmän alla:
+                  rastita kaikki ne vuosiluvut, joille aineiston tekstejä / muita osia osuu.
+                </p>
+                <TimeLine
+                  onChange={ev =>
+                    ev.target.checked
+                      ? this.updateYears(ev.target.value)
+                      : this.updateYears(-ev.target.value)
+                  }
+                  range={[Math.min(...years), Math.max(...years)]}
+                  selectedYears={years}
+                />
+              </LanguageProp>
+            </div>
+          </LanguageProp>
+        </section>
       </Closable>
     );
   }

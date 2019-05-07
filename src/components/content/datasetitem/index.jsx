@@ -5,6 +5,9 @@ import styles from './datasetitem.scss';
 import formstyles from '../datasetform/datasetform.scss';
 import LanguageBadge, { printLanguageName } from '../languagebadge';
 import cuid from 'cuid';
+import 'react-vis/dist/style.css';
+import TimelineChart from '../../ui/timeline/chart';
+import FoldableBox from '../../ui/foldablebox';
 
 const createLanguageKey = (id, language, langId) =>
   `ds_${id}_lang_condendsed_${language.details.language_code}${language.details.variety}_${langId}`;
@@ -48,29 +51,38 @@ export default class datasetItem extends Component {
             <li key={cuid()}>{keyword}</li>
           ))}
         </ul>
-        {languages.map((language, langId) => (
-          <div key={createLanguageKey(id, language, langId)}>
-            <h3>
-              {printLanguageName(language.details.language_code)}
-
-              {language.details.variety ? `: ${language.details.variety}` : ''}
-            </h3>
-            <ul className={styles.langDetailsList}>
-              <li>xxx tokens </li>
-              <li>some additional statistics</li>
-              <li>
-                <h4>Annotoinnit:</h4>
-                <ul className={styles.sublist}>
-                  {language.annotations.map(annotation => (
+        <section className={styles.itemProp}>
+          {languages.map((language, langId) => (
+            <div key={createLanguageKey(id, language, langId)} className={styles.langOuterCont}>
+              <FoldableBox
+                launchertype="heading"
+                header={printLanguageName(language.details.language_code)}
+                headerclass={styles.langHeading}
+              >
+                <div className={styles.langContent}>
+                  {language.details.variety ? `: ${language.details.variety}` : ''}
+                  <ul className={styles.langDetailsList}>
+                    <li>xxx tokens </li>
                     <li>
-                      {annotation.type} : {annotation.version}
+                      <h4>Annotoinnit:</h4>
+                      <ul className={styles.sublist}>
+                        {language.annotations.map(annotation => (
+                          <li>
+                            {annotation.type} : {annotation.version}
+                          </li>
+                        ))}
+                      </ul>
                     </li>
-                  ))}
-                </ul>
-              </li>
-            </ul>
-          </div>
-        ))}
+                    <li>
+                      <h4>Ajanjakso</h4>
+                      <TimelineChart years={language.years_covered} />
+                    </li>
+                  </ul>
+                </div>
+              </FoldableBox>
+            </div>
+          ))}
+        </section>
       </div>
     );
   }

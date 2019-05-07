@@ -55,6 +55,9 @@
     list-style-type: none;
     padding: 0px;
   }
+  li:last-child {
+    margin-bottom: 1.5em;
+  }
 }
 
 .kwList {
@@ -69,4 +72,26 @@
   li + li {
     margin-left: 1em;
   }
+}
+
+.langOuterCont {
+  padding: 0.7em;
+  background: #f3f6f9e6;
+  border-radius: 5px;
+}
+
+.langOuterCont + .langOuterCont {
+  margin-top: 0.3em;
+}
+
+.langHeading {
+  font-size: 1.1em;
+}
+
+.langContent {
+  margin-left: 1em;
+}
+
+.itemProp {
+  margin-top: 1.1em;
 }
