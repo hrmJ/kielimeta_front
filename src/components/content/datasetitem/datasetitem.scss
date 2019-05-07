@@ -45,10 +45,23 @@
 }
 
 .sublist {
-  margin-left: 1em;
+  margin-left: 0.1em;
+  padding: 0px;
+}
+
+.langDetailsList {
+  padding: 0px;
+  li {
+    list-style-type: none;
+    padding: 0px;
+  }
+  li:last-child {
+    margin-bottom: 1.5em;
+  }
 }
 
 .kwList {
+  padding: 0px;
   li {
     font-size: 0.8em;
     display: inline-block;
@@ -59,4 +72,26 @@
   li + li {
     margin-left: 1em;
   }
+}
+
+.langOuterCont {
+  padding: 0.7em;
+  background: #f3f6f9e6;
+  border-radius: 5px;
+}
+
+.langOuterCont + .langOuterCont {
+  margin-top: 0.3em;
+}
+
+.langHeading {
+  font-size: 1.1em;
+}
+
+.langContent {
+  margin-left: 1em;
+}
+
+.itemProp {
+  margin-top: 1.1em;
 }

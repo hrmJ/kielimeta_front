@@ -12,7 +12,6 @@ Feature: Using inputfields
       And the user types "parallel" in "#resourcetype input[type='text']"
       Then within 1000 milliseconds a suggestion "parallel corpus" appears
 
-   @cur
    Scenario: Specifying keywords
 
       When the user navigates to /#/newdataset
@@ -22,3 +21,10 @@ Feature: Using inputfields
       Then within 1000 milliseconds a suggestion "dialects" appears
 
 
+   @cur
+   Scenario: Specifying temporal coverage
+
+      When the user navigates to /#/newdataset
+      Then within 1000 milliseconds the selector "#addlanguage" matches an element in the dom
+      And the user clicks "#addlanguage"
+      And within 1000 milliseconds the selector "#temporalcoverage" matches an element in the dom

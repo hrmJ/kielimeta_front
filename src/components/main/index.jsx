@@ -8,11 +8,12 @@ import Login from '../auth/login';
 // import Header from '../layout/header';
 import Footer from '../layout/footer';
 import styles from '../../general_styles/general_styles.scss';
-import { getCookie } from '../../utils';
+import TimeLineChart from '../ui/timeline/chart';
 
 const main = props => {
   const { dispatch, datasetform, loadingState, filters, originalFilterValues } = props;
   let { datasets } = props;
+
   if (!Array.isArray(datasets)) {
     console.log(datasets);
     datasets = [];
@@ -29,6 +30,7 @@ const main = props => {
           }
           <main>
             <Switch>
+              <Route path="/test" render={() => <TimeLineChart />} />
               <Route path="/login" render={() => <Login />} />
               <Route
                 path="/newdataset"

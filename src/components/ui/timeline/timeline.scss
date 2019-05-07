@@ -1,0 +1,51 @@
+.container {
+  // background: yellow;
+  width: 100%;
+}
+
+.yearList {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  column-width: 4em;
+  max-width: 90%;
+  max-height: 20em;
+  overflow-x: scroll;
+  // display: flex;
+  // flex-flow: row nowrap;
+  // justify-content: space-between;
+  li {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 0;
+  }
+  li + li {
+    margin-top: 0.7em;
+  }
+}
+
+.numberContainer {
+  display: flex;
+  align-items: center;
+  button {
+    font-size: 0.7em;
+    padding: 0;
+  }
+}
+
+.numberIndicator {
+}
+
+.yearTick {
+  display: flex;
+}
+
+.yearName {
+  flex: 0 0 4em;
+}
+
+.aboveTimeLine {
+}
+.belowTimeLine {
+}
