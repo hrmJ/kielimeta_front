@@ -6,6 +6,7 @@ import { updateField, submitDataset } from '../../../redux/actions/datasetform';
 import styles from './datasetform.scss';
 import LanguageSelect from './languageselect';
 import AutoCompleteField from './autocompletefield';
+import GeneralInfo from './generalinfo';
 
 export default class InsertForm extends Component {
   static get propTypes() {
@@ -45,46 +46,7 @@ export default class InsertForm extends Component {
 
     return (
       <form onSubmit={event => this.submit(event)}>
-        <fieldset>
-          <legend>Yleistiedot</legend>
-          <div className={styles.fieldContainer}>
-            <label htmlFor="datasettitle">Nimi</label>
-            <input
-              type="text"
-              defaultValue=""
-              id="datasettitle"
-              onChange={this.handleChange('title')}
-            />
-          </div>
-          <div className={styles.fieldContainer}>
-            <label htmlFor="datasetdescription">Kuvaus</label>
-            <textarea
-              defaultValue=""
-              id="datasetdescription"
-              onChange={this.handleChange('description')}
-            />
-          </div>
-          <AutoCompleteField
-            id="resourcetype"
-            onChange={this.handleChange('resourcetype')}
-            categoryName="name"
-            tooltipName="description"
-            path={'resourcetypes'}
-          >
-            Aineiston tyyppi
-          </AutoCompleteField>
-          <AutoCompleteField
-            id="keyword"
-            isMulti={true}
-            onChange={this.handleChange('keywords')}
-            categoryName="flat"
-            tooltipName=""
-            path={'keywords'}
-          >
-            Avainsanat
-          </AutoCompleteField>
-        </fieldset>
-
+        <GeneralInfo handleChange={this.handleChange.bind(this)} />
         <fieldset>
           <legend>Kielet</legend>
           <section>
