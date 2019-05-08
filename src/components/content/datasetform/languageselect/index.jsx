@@ -13,6 +13,7 @@ import langmap from 'langmap';
 import LanguageProp from '../languageprop';
 import Annotations from '../languageprop/annotations';
 import TemporalCoverage from '../languageprop/temporalcoverage';
+import Size from '../languageprop/size';
 
 // NOTE: a temporary mock, to be replaced with database data
 const langOptions = Object.keys(langmap)
@@ -45,18 +46,6 @@ export default class LanguageSelect extends Component {
     dispatch(updateField('languages', updated));
     // for testing purposes
     return updated;
-  }
-
-  updateSize(key, val) {
-    const { languages, idx } = this.props;
-    const size = languages[idx].size || {};
-    if (val === '') {
-      delete size[key];
-    } else {
-      size[key] = val;
-    }
-    this.updateLanguage('size', size);
-    return size;
   }
 
   removeLanguage() {
@@ -102,46 +91,7 @@ export default class LanguageSelect extends Component {
         <section className={styles.propSection}>
           <Annotations {...this.props} onChange={this.updateLanguage.bind(this)} />
           <TemporalCoverage {...this.props} updateLanguage={this.updateLanguage.bind(this)} />
-          <LanguageProp header="Koko">
-            <p className={formstyles.description}>
-              Jos kyseessä on esimerkiksi korpusaineisto, ilmoita tämän kielen / variantin
-              osakorpusten koot niin monella alla olevista mittareista kuin mahdollista, mutta täytä
-              vain aineistosi kannalta relevantit kentät. Jos tarkkoja lukuja ei tiedetä, koot
-              voivat olla vain arvioita.
-            </p>
-            <div className={formstyles.fieldContainer}>
-              <label htmlFor="wordcount">Sanoja</label>
-              <input
-                type="number"
-                id="wordcount"
-                onChange={ev => this.updateSize('words', ev.target.value)}
-              />
-            </div>
-            <div className={formstyles.fieldContainer}>
-              <label htmlFor="tokencount">Saneita</label>
-              <input
-                type="number"
-                id="tokencount"
-                onChange={ev => this.updateSize('tokens', ev.target.value)}
-              />
-            </div>
-            <div className={formstyles.fieldContainer}>
-              <label htmlFor="sentencecount">Virkkeitä</label>
-              <input
-                type="number"
-                id="sentencecount"
-                onChange={ev => this.updateSize('sentences', ev.target.value)}
-              />
-            </div>
-            <div className={formstyles.fieldContainer}>
-              <label htmlFor="textcount">Tekstejä</label>
-              <input
-                type="number"
-                id="textcount"
-                onChange={ev => this.updateSize('texts', ev.target.value)}
-              />
-            </div>
-          </LanguageProp>
+          <Size {...this.props} updateLanguage={this.updateLanguage.bind(this)} />
         </section>
       </Closable>
     );
