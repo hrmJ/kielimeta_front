@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
-import { selectStyle } from '../languageselect';
+import { selectStyle } from '../languageprop/details';
 import formstyles from '../datasetform.scss';
 import styles from './annotationselect.scss';
 import Closable from '../../../ui/closablebox';
