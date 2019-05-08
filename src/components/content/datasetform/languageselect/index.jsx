@@ -12,6 +12,7 @@ import Closable from '../../../ui/closablebox';
 import langmap from 'langmap';
 import LanguageProp from '../languageprop';
 import TimeLine from '../../../ui/timeline';
+import Annotations from '../languageprop/annotations';
 
 // NOTE: a temporary mock, to be replaced with database data
 const langOptions = Object.keys(langmap)
@@ -152,26 +153,7 @@ export default class LanguageSelect extends Component {
           />
         </div>
         <section className={styles.propSection}>
-          <LanguageProp header="Annotoinnit">
-            {annotations.map((annotation, annotationIdx) => (
-              <AnnotationSelect
-                key={annotationIdx.toString()}
-                idx={annotationIdx}
-                language_idx={idx}
-                languages={languages}
-                dispatch={dispatch}
-                {...annotation}
-              />
-            ))}
-
-            <button
-              type="button"
-              className={formstyles.someTopMargin}
-              onClick={() => this.updateLanguage('annotations', [...annotations, {}])}
-            >
-              Lisää uusi
-            </button>
-          </LanguageProp>
+          <Annotations {...this.props} onChange={this.updateLanguage.bind(this)} />
           <LanguageProp header="Ajanjakso">
             <p className={formstyles.description}>
               Mille ajanjaksolle tämän kielen / variantin aineistot sijoittuvat? Merkitse vähintään

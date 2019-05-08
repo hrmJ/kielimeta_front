@@ -1,9 +1,10 @@
 import React from 'react';
 import LanguageProp from './index';
 import AnnotationSelect from '../annotationselect';
+import formstyles from '../datasetform.scss';
 
 export default props => {
-  const { onChange, annotations, dispatch } = props;
+  const { onChange, annotations, dispatch, idx, languages } = props;
 
   return (
     <LanguageProp header="Annotoinnit">
@@ -21,7 +22,7 @@ export default props => {
       <button
         type="button"
         className={formstyles.someTopMargin}
-        onClick={() => this.updateLanguage('annotations', [...annotations, {}])}
+        onClick={() => onChange('annotations', [...annotations, {}])}
       >
         Lisää uusi
       </button>
