@@ -1,11 +1,11 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
 import React, { Component } from 'react';
-import styles from './datasetform.scss';
-import generalStyles from '../../../general_styles/general_styles.scss';
-import AutoCompleteField from './autocompletefield';
-import CbItem from '../../ui/checkboxlistitem';
-import { updateField } from '../../../redux/actions/datasetform';
+import styles from '../../datasetform.scss';
+import generalStyles from '../../../../../general_styles/general_styles.scss';
+import AutoCompleteField from '../../../../ui/autocompletefield';
+import CbItem from '../../../../ui/checkboxlistitem';
+import { updateField } from '../../../../../redux/actions/datasetform';
 
 export default props => {
   const { handleChange, dispatch } = props;

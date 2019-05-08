@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import LanguageProp from './index';
-import formstyles from '../datasetform.scss';
+import LanguageProp from '../languageprop';
+import formstyles from '../../../../datasetform.scss';
 
 export default class Size extends Component {
   updateSize(key, val) {

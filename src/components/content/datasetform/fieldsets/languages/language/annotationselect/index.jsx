@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
-import { selectStyle } from '../languageprop/details';
-import formstyles from '../datasetform.scss';
+import { selectStyle } from '../languageprops/details';
+import formstyles from '../../../../datasetform.scss';
 import styles from './annotationselect.scss';
-import Closable from '../../../ui/closablebox';
-import { updateField } from '../../../../redux/actions/datasetform';
+import Closable from '../../../../../../ui/closablebox';
+import { updateField } from '../../../../../../../redux/actions/datasetform';
 
 export default class AnnotationSelect extends Component {
   removeAnnotation() {

@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
 import React from 'react';
-import styles from './datasetform.scss';
-import LanguageSelect from './languageselect';
-import { updateField } from '../../../redux/actions/datasetform';
+import styles from '../../datasetform.scss';
+import LanguageSelect from './language';
+import { updateField } from '../../../../../redux/actions/datasetform';
 
 export default props => {
   const { languages, dispatch } = props;

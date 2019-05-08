@@ -4,8 +4,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { updateField, submitDataset } from '../../../redux/actions/datasetform';
 import styles from './datasetform.scss';
-import GeneralInfo from './generalinfo';
-import Languages from './languages';
+import GeneralInfo from './fieldsets/generalinfo/index';
+import Languages from './fieldsets/languages';
 
 export default class InsertForm extends Component {
   static get propTypes() {

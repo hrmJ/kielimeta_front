@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import LanguageProp from './index';
-import TimeLine from '../../../ui/timeline';
-import formstyles from '../datasetform.scss';
-import styles from '../languageselect/languageselect.scss';
+import LanguageProp from '../languageprop';
+import TimeLine from '../../../../../../ui/timeline';
+import formstyles from '../../../../datasetform.scss';
+import styles from '../language.scss';
 
 export default class TemporalCoverage extends Component {
   updateYears(val, minormax) {

@@ -1,7 +1,7 @@
 import React from 'react';
-import LanguageProp from './index';
+import LanguageProp from '../languageprop';
 import AnnotationSelect from '../annotationselect';
-import formstyles from '../datasetform.scss';
+import formstyles from '../../../../datasetform.scss';
 
 export default props => {
   const { onChange, dispatch, idx, languages } = props;

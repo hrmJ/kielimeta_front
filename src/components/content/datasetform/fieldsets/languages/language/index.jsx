@@ -1,13 +1,13 @@
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { Component } from 'react';
-import styles from './languageselect.scss';
-import { updateField } from '../../../../redux/actions/datasetform';
-import Closable from '../../../ui/closablebox';
-import Annotations from '../languageprop/annotations';
-import TemporalCoverage from '../languageprop/temporalcoverage';
-import Size from '../languageprop/size';
-import Details from '../languageprop/details';
+import styles from './language.scss';
+import { updateField } from '../../../../../../redux/actions/datasetform';
+import Closable from '../../../../../ui/closablebox';
+import Annotations from './languageprops/annotations';
+import TemporalCoverage from './languageprops/temporalcoverage';
+import Size from './languageprops/size';
+import Details from './languageprops/details';
 
 export default class LanguageSelect extends Component {
   updateLanguage(key, val) {
