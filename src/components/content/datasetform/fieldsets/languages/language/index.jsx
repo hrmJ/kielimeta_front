@@ -36,15 +36,28 @@ export default class LanguageSelect extends Component {
   }
 
   render() {
-    const { details } = this.props;
+    const { details, mediaTypes = [] } = this.props;
+    const langprops = {
+      annotations: <Annotations {...this.props} onChange={this.updateLanguage.bind(this)} />,
+      temporalCoverage: (
+        <TemporalCoverage {...this.props} updateLanguage={this.updateLanguage.bind(this)} />
+      ),
+      size: <Size {...this.props} updateLanguage={this.updateLanguage.bind(this)} />
+    };
+
+    // Conditionally hiding language-specific props based on madia types
+
+    if (!mediaTypes.includes('text')) {
+      delete langprops['annotations'];
+    }
+
+    // ATTENTION! ADD a checkbox for 'one multilingual ' ... use that as a special value in the API
 
     return (
       <Closable className={styles.selectContainer} onClose={() => this.removeLanguage()}>
         <Details details={details} onChange={this.updateLanguage.bind(this)} />
         <section className={styles.propSection}>
-          <Annotations {...this.props} onChange={this.updateLanguage.bind(this)} />
-          <TemporalCoverage {...this.props} updateLanguage={this.updateLanguage.bind(this)} />
-          <Size {...this.props} updateLanguage={this.updateLanguage.bind(this)} />
+          {Object.keys(langprops).map(key => langprops[key])}
         </section>
       </Closable>
     );

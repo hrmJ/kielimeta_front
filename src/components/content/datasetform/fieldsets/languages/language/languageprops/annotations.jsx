@@ -8,7 +8,7 @@ export default props => {
   const annotations = languages[idx].annotations || [];
 
   return (
-    <LanguageProp header="Annotoinnit">
+    <LanguageProp id={`annotations_${idx}`} header="Annotoinnit">
       {annotations.map((annotation, annotationIdx) => (
         <AnnotationSelect
           key={annotationIdx.toString()}

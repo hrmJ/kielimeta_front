@@ -2,11 +2,11 @@
 /* eslint-disable jsx-a11y/label-has-for */
 import React from 'react';
 import styles from '../../datasetform.scss';
-import LanguageSelect from './language';
+import Language from './language';
 import { updateField } from '../../../../../redux/actions/datasetform';
 
 export default props => {
-  const { languages, dispatch } = props;
+  const { languages, dispatch, mediaTypes } = props;
 
   return (
     <fieldset>
@@ -18,9 +18,10 @@ export default props => {
           ominaisuuksiksi.
         </p>
         {languages.map((lang, idx) => (
-          <LanguageSelect
+          <Language
             languages={languages}
             dispatch={dispatch}
+            mediaTypes={mediaTypes}
             {...lang}
             key={idx.toString()}
             idx={idx}

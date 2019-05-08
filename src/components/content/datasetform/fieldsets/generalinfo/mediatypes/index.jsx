@@ -25,7 +25,11 @@ export default class MediaTypes extends Component {
         <div>
           <ul className={`${generalStyles.responsiveList} ${styles.mediatypeList}`}>
             {Object.keys(mediaTypes).map(key => (
-              <CbItem value={key} onChange={ev => this.update(ev.target.value, ev.target.checked)}>
+              <CbItem
+                value={key}
+                id={`mediatype_${key}`}
+                onChange={ev => this.update(ev.target.value, ev.target.checked)}
+              >
                 {mediaTypes[key]}
               </CbItem>
             ))}
