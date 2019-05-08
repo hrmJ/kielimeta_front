@@ -11,8 +11,8 @@ import { updateField } from '../../../../redux/actions/datasetform';
 import Closable from '../../../ui/closablebox';
 import langmap from 'langmap';
 import LanguageProp from '../languageprop';
-import TimeLine from '../../../ui/timeline';
 import Annotations from '../languageprop/annotations';
+import TemporalCoverage from '../languageprop/temporalcoverage';
 
 // NOTE: a temporary mock, to be replaced with database data
 const langOptions = Object.keys(langmap)
@@ -47,57 +47,6 @@ export default class LanguageSelect extends Component {
     return updated;
   }
 
-  updateYears(val, minormax) {
-    minormax = minormax || false;
-    const { languages, idx } = this.props;
-    const thisyear = val * 1;
-    let years = languages[idx].years_covered || [];
-    if (thisyear < 0) {
-      const yearindex = years.indexOf(thisyear * -1);
-      if (yearindex > -1) {
-        years.splice(yearindex, 1);
-        this.updateLanguage('years_covered', years);
-        return years;
-      }
-    }
-    if (thisyear >= 1000 && thisyear <= 2100) {
-      if (years.length > 0) {
-        const currentmin = Math.min(...years);
-        const currentmax = Math.max(...years);
-        if (!minormax) {
-          years = [...new Set([...years, thisyear])];
-        } else if (minormax == 'min') {
-          if (years.length === 2 && thisyear == currentmax) {
-            years = [currentmax];
-          } else if (thisyear > currentmax) {
-            years = [thisyear];
-          } else if (currentmax > thisyear || currentmin === currentmax) {
-            years.splice(years.indexOf(currentmin), 1);
-            years = years.filter(year => year >= thisyear);
-            years.push(thisyear);
-          }
-        } else if (minormax == 'max') {
-          if (years.length === 1 && currentmax < thisyear) {
-            years.push(thisyear);
-          } else if (years.length === 1 && currentmax > thisyear) {
-            years = years;
-          } else if (years.length === 2 && thisyear == currentmin) {
-            years = [currentmin];
-          } else if (currentmin < thisyear || currentmin === currentmax) {
-            years.splice(years.indexOf(currentmax), 1);
-            years = years.filter(year => year <= thisyear);
-            years.push(thisyear);
-          }
-        }
-      } else {
-        years = [thisyear];
-      }
-      this.updateLanguage('years_covered', years);
-      // for testing purposes
-      return years;
-    }
-  }
-
   updateSize(key, val) {
     const { languages, idx } = this.props;
     const size = languages[idx].size || {};
@@ -120,9 +69,7 @@ export default class LanguageSelect extends Component {
 
   render() {
     const { details = {}, languages, idx, dispatch } = this.props;
-    const annotations = languages[idx].annotations || [];
     const { language_code = '', variety = '' } = details;
-    const years = languages[idx].years_covered || [];
 
     let langselectval;
 
@@ -154,56 +101,7 @@ export default class LanguageSelect extends Component {
         </div>
         <section className={styles.propSection}>
           <Annotations {...this.props} onChange={this.updateLanguage.bind(this)} />
-          <LanguageProp header="Ajanjakso">
-            <p className={formstyles.description}>
-              Mille ajanjaksolle tämän kielen / variantin aineistot sijoittuvat? Merkitse vähintään
-              alkuvuosi, vaikka kyseessä ei olisikaan lähtökohtaisesti diakroninen aineisto.
-              Ajanjakso voi olla myös pelkkä arvio.
-              {/* TODO: käytä oletuksena ensimmäisen kielen valintaa tai lisää joku ruksi tms. */}
-            </p>
-            <div className={formstyles.fieldContainer}>
-              <label htmlFor="startyear">vuodesta</label>
-              <input
-                type="number"
-                defaultValue=""
-                min="1000"
-                max="2050"
-                id="startyear"
-                placeholder="vuosiluku"
-                onChange={ev => this.updateYears(ev.target.value, 'min')}
-              />
-            </div>
-            <div className={formstyles.fieldContainer}>
-              <label htmlFor="startyear">vuoteen</label>
-              <input
-                type="number"
-                defaultValue={years.length == 1 ? years[0] : ''}
-                min="1000"
-                max="2050"
-                id="endyear"
-                placeholder="vuosiluku"
-                onChange={ev => this.updateYears(ev.target.value, 'max')}
-              />
-            </div>
-            <div className={styles.propSection}>
-              <LanguageProp header="Tarkempi määrittely">
-                <p className={formstyles.description}>
-                  Jos kyseessä on diakroninen aineisto ja ajankohta on mahdollista tai mielekästä
-                  määrittää esimerkiksi teoskohtaisesti, voit antaa tarkemman määritelmän alla:
-                  rastita kaikki ne vuosiluvut, joille aineiston tekstejä / muita osia osuu.
-                </p>
-                <TimeLine
-                  onChange={ev =>
-                    ev.target.checked
-                      ? this.updateYears(ev.target.value)
-                      : this.updateYears(-ev.target.value)
-                  }
-                  range={[Math.min(...years), Math.max(...years)]}
-                  selectedYears={years}
-                />
-              </LanguageProp>
-            </div>
-          </LanguageProp>
+          <TemporalCoverage {...this.props} updateLanguage={this.updateLanguage.bind(this)} />
           <LanguageProp header="Koko">
             <p className={formstyles.description}>
               Jos kyseessä on esimerkiksi korpusaineisto, ilmoita tämän kielen / variantin

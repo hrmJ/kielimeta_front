@@ -4,7 +4,8 @@ import AnnotationSelect from '../annotationselect';
 import formstyles from '../datasetform.scss';
 
 export default props => {
-  const { onChange, annotations, dispatch, idx, languages } = props;
+  const { onChange, dispatch, idx, languages } = props;
+  const annotations = languages[idx].annotations || [];
 
   return (
     <LanguageProp header="Annotoinnit">
