@@ -2,13 +2,11 @@
 /* eslint-disable jsx-a11y/label-has-for */
 import React, { Component } from 'react';
 import styles from '../../datasetform.scss';
-import generalStyles from '../../../../../general_styles/general_styles.scss';
 import AutoCompleteField from '../../../../ui/autocompletefield';
-import CbItem from '../../../../ui/checkboxlistitem';
-import { updateField } from '../../../../../redux/actions/datasetform';
+import MediaTypes from './mediatypes';
 
 export default props => {
-  const { handleChange, dispatch } = props;
+  const { handleChange, dispatch, mediaTypes } = props;
 
   return (
     <fieldset>
@@ -40,18 +38,7 @@ export default props => {
       >
         Aineiston tyyppi
       </AutoCompleteField>
-      <div className={styles.fieldContainer}>
-        <label>Sisältää</label>
-        <div>
-          <ul className={`${generalStyles.responsiveList} ${styles.mediatypeList}`}>
-            <CbItem onChange={() => dispatch(updateField('mediatypes', 'text'))}>Tekstiä</CbItem>
-            <CbItem>Ääntä</CbItem>
-            <CbItem>Videoita</CbItem>
-            <CbItem>Kuvia</CbItem>
-            <CbItem>Muuta</CbItem>
-          </ul>
-        </div>
-      </div>
+      <MediaTypes dispatch={dispatch} mediaTypes={mediaTypes} />
     </fieldset>
   );
 };

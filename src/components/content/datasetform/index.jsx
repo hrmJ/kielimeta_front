@@ -45,7 +45,11 @@ export default class InsertForm extends Component {
 
     return (
       <form onSubmit={event => this.submit(event)}>
-        <GeneralInfo dispatch={dispatch} handleChange={this.handleChange.bind(this)} />
+        <GeneralInfo
+          mediaTypes={fields.mediatypes}
+          dispatch={dispatch}
+          handleChange={this.handleChange.bind(this)}
+        />
         <Languages languages={fields.languages} dispatch={dispatch} />
         <div>
           <button type="submit" id="datasetsubmit">
