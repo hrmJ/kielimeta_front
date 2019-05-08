@@ -4,9 +4,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { updateField, submitDataset } from '../../../redux/actions/datasetform';
 import styles from './datasetform.scss';
-import LanguageSelect from './languageselect';
-import AutoCompleteField from './autocompletefield';
 import GeneralInfo from './generalinfo';
+import Languages from './languages';
 
 export default class InsertForm extends Component {
   static get propTypes() {
@@ -47,37 +46,7 @@ export default class InsertForm extends Component {
     return (
       <form onSubmit={event => this.submit(event)}>
         <GeneralInfo handleChange={this.handleChange.bind(this)} />
-        <fieldset>
-          <legend>Kielet</legend>
-          <section>
-            <p className={styles.description}>
-              Monet ominaisuudet määritellään kieli- tai varianttikohtaisesti. Jos kieliä on vain
-              yksi, sellaiset ominaisuudet kuin korpuksen koko ja aikajänne määritellään tämän
-              kielen ominaisuuksiksi.
-            </p>
-            {fields.languages.map((lang, idx) => (
-              <LanguageSelect
-                languages={fields.languages}
-                dispatch={dispatch}
-                {...lang}
-                key={idx.toString()}
-                idx={idx}
-              />
-            ))}
-          </section>
-          <section className={styles.someTopMargin}>
-            <button
-              type="button"
-              id="addlanguage"
-              onClick={() =>
-                dispatch(updateField('languages', [...fields.languages, { annotations: [] }]))
-              }
-            >
-              Lisää uusi
-            </button>
-          </section>
-        </fieldset>
-
+        <Languages languages={fields.languages} dispatch={dispatch} />
         <div>
           <button type="submit" id="datasetsubmit">
             Tallenna
