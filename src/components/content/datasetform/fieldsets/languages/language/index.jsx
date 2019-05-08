@@ -6,7 +6,7 @@ import { updateField } from '../../../../../../redux/actions/datasetform';
 import Closable from '../../../../../ui/closablebox';
 import Annotations from './languageprops/annotations';
 import TemporalCoverage from './languageprops/temporalcoverage';
-import Size from './languageprops/size';
+import Size from './languageprops/size/index';
 import Details from './languageprops/details';
 
 export default class LanguageSelect extends Component {
@@ -38,17 +38,50 @@ export default class LanguageSelect extends Component {
   render() {
     const { details, mediaTypes = [] } = this.props;
     const langprops = {
-      annotations: <Annotations {...this.props} onChange={this.updateLanguage.bind(this)} />,
+      annotations: null,
+      size: [],
       temporalCoverage: (
         <TemporalCoverage {...this.props} updateLanguage={this.updateLanguage.bind(this)} />
-      ),
-      size: <Size {...this.props} updateLanguage={this.updateLanguage.bind(this)} />
+      )
     };
-
     // Conditionally hiding language-specific props based on madia types
-
-    if (!mediaTypes.includes('text')) {
-      delete langprops['annotations'];
+    if (mediaTypes.includes('text')) {
+      langprops.annotations = (
+        <Annotations {...this.props} onChange={this.updateLanguage.bind(this)} />
+      );
+      langprops.size.push(
+        <Size
+          {...this.props}
+          header="Tekstiaineistojen laajuus"
+          updateLanguage={this.updateLanguage.bind(this)}
+          fields={[
+            { key: 'words', label: 'Sanoja' },
+            { key: 'tokens', label: 'Saneita' },
+            { key: 'sentences', label: 'Virkkeitä' },
+            { key: 'texts', label: 'Tekstejä' }
+          ]}
+        />
+      );
+    }
+    if (mediaTypes.includes('audio')) {
+      langprops.size.push(
+        <Size
+          {...this.props}
+          header="Ääniaineistojen laajuus"
+          updateLanguage={this.updateLanguage.bind(this)}
+          fields={[{ key: 'audiohours', label: 'Tuntia' }]}
+        />
+      );
+    }
+    if (mediaTypes.includes('video')) {
+      langprops.size.push(
+        <Size
+          {...this.props}
+          header="Videoaineistojen laajuus"
+          updateLanguage={this.updateLanguage.bind(this)}
+          fields={[{ key: 'videohours', label: 'Tuntia' }]}
+        />
+      );
     }
 
     // ATTENTION! ADD a checkbox for 'one multilingual ' ... use that as a special value in the API

@@ -12,7 +12,9 @@ export default class MediaTypes extends Component {
   }
 
   render() {
-    const mediaTypes = {
+    const { dispatch, mediaTypes = [] } = this.props;
+
+    const availableMediaTypes = {
       text: 'Tekstiä',
       audio: 'Ääntä',
       video: 'Videoita',
@@ -24,13 +26,14 @@ export default class MediaTypes extends Component {
         <label>Sisältää</label>
         <div>
           <ul className={`${generalStyles.responsiveList} ${styles.mediatypeList}`}>
-            {Object.keys(mediaTypes).map(key => (
+            {Object.keys(availableMediaTypes).map(key => (
               <CbItem
                 value={key}
                 id={`mediatype_${key}`}
                 onChange={ev => this.update(ev.target.value, ev.target.checked)}
+                checked={mediaTypes.includes(key)}
               >
-                {mediaTypes[key]}
+                {availableMediaTypes[key]}
               </CbItem>
             ))}
           </ul>
