@@ -8,7 +8,7 @@ export default class MediaTypes extends Component {
   update(key, checked) {
     const { dispatch, mediaTypes = [] } = this.props;
     const newvals = checked ? [...mediaTypes, key] : mediaTypes.filter(thisval => thisval !== key);
-    dispatch(updateField('mediatypes', newvals));
+    dispatch(updateField('mediatype', newvals));
   }
 
   render() {
@@ -18,7 +18,8 @@ export default class MediaTypes extends Component {
       text: 'Tekstiä',
       audio: 'Ääntä',
       video: 'Videoita',
-      images: 'Kuvia'
+      images: 'Kuvia',
+      other: 'Muuta'
     };
 
     return (

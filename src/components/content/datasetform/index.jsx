@@ -36,7 +36,7 @@ export default class InsertForm extends Component {
   render() {
     // PROPS: usertype
     const { loadingState, dispatch, fields } = this.props;
-    const { mediatypes, languages } = fields;
+    const { mediatype, languages } = fields;
 
     if (loadingState.SUBMITDATASET) {
       if (loadingState.SUBMITDATASET === 'success') {
@@ -47,11 +47,11 @@ export default class InsertForm extends Component {
     return (
       <form onSubmit={event => this.submit(event)}>
         <GeneralInfo
-          mediaTypes={mediatypes}
+          mediaTypes={mediatype}
           dispatch={dispatch}
           handleChange={this.handleChange.bind(this)}
         />
-        <Languages languages={languages} dispatch={dispatch} mediaTypes={mediatypes} />
+        <Languages languages={languages} dispatch={dispatch} mediaTypes={mediatype} />
         <div>
           <button type="submit" id="datasetsubmit">
             Tallenna

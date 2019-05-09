@@ -36,7 +36,7 @@ export default class LanguageSelect extends Component {
   }
 
   render() {
-    const { details, mediaTypes = [] } = this.props;
+    const { details, mediaTypes = [], languages } = this.props;
     const langprops = {
       annotations: null,
       size: [],
@@ -60,6 +60,8 @@ export default class LanguageSelect extends Component {
             { key: 'sentences', label: 'Virkkeitä' },
             { key: 'texts', label: 'Tekstejä' }
           ]}
+          notincludedname="tekstiaineistoja"
+          languagetotal={languages.length}
         />
       );
     }
@@ -70,6 +72,8 @@ export default class LanguageSelect extends Component {
           header="Ääniaineistojen laajuus"
           updateLanguage={this.updateLanguage.bind(this)}
           fields={[{ key: 'audiohours', label: 'Tuntia' }]}
+          notincludedname="äänitteitä"
+          languagetotal={languages.length}
         />
       );
     }
@@ -80,6 +84,8 @@ export default class LanguageSelect extends Component {
           header="Videoaineistojen laajuus"
           updateLanguage={this.updateLanguage.bind(this)}
           fields={[{ key: 'videohours', label: 'Tuntia' }]}
+          notincludedname="videoita"
+          languagetotal={languages.length}
         />
       );
     }

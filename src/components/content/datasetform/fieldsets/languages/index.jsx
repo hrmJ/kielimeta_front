@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/label-has-for */
 import React from 'react';
 import styles from '../../datasetform.scss';
+import generalStyles from '../../../../../general_styles/general_styles.scss';
 import Language from './language';
 import { updateField } from '../../../../../redux/actions/datasetform';
 
@@ -28,7 +29,7 @@ export default props => {
           />
         ))}
       </section>
-      <section className={styles.someTopMargin}>
+      <section className={generalStyles.someTopMargin}>
         <button
           type="button"
           id="addlanguage"
