@@ -7,7 +7,22 @@ import AutoCompleteField from '../../../../ui/autocompletefield';
 import MediaTypes from './mediatypes';
 
 export default props => {
-  const { handleChange, dispatch, mediaTypes = [] } = props;
+  const { handleChange, dispatch, mediaTypes = [], originalFormValues, resourcetype } = props;
+  let resourcetypeDescription = null;
+  if (Array.isArray(originalFormValues.resourcetypes)) {
+    if (!originalFormValues.resourcetypes.includes(resourcetype)) {
+      resourcetypeDescription = (
+        <div className={`${generalstyles.someTopMargin} ${styles.additionalField}`}>
+          <div className={styles.fieldContainer}>
+            <label htmlFor="mediatypedescription">
+              Määrittele lyhyesti antamasi aineistotyyppi
+            </label>
+            <textarea defaultValue="" id="resourcetypedescription" onChange={() => null} />
+          </div>
+        </div>
+      );
+    }
+  }
 
   return (
     <fieldset>
@@ -39,6 +54,7 @@ export default props => {
       >
         Aineiston tyyppi
       </AutoCompleteField>
+      {resourcetypeDescription}
       <MediaTypes dispatch={dispatch} mediaTypes={mediaTypes} />
       {mediaTypes.includes('other') ? (
         <div className={`${generalstyles.someTopMargin} ${styles.additionalField}`}>

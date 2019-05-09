@@ -11,7 +11,14 @@ import styles from '../../general_styles/general_styles.scss';
 import TimeLineChart from '../ui/timeline/chart';
 
 const main = props => {
-  const { dispatch, datasetform, loadingState, filters, originalFilterValues } = props;
+  const {
+    dispatch,
+    datasetform,
+    loadingState,
+    filters,
+    originalFilterValues,
+    originalFormValues
+  } = props;
   let { datasets } = props;
 
   if (!Array.isArray(datasets)) {
@@ -37,6 +44,7 @@ const main = props => {
                 render={() => (
                   <DatasetForm
                     fields={datasetform}
+                    originalFormValues={originalFormValues}
                     loadingState={loadingState}
                     dispatch={dispatch}
                   />

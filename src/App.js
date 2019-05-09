@@ -7,7 +7,8 @@ function mapStateToProps(state) {
     datasetform: state.datasetform,
     loadingState: state.loadingState,
     filters: state.datasetFilters,
-    originalFilterValues: state.originalFilterValues
+    originalFilterValues: state.originalFilterValues,
+    originalFormValues: state.originalFormValues
   };
 }
 

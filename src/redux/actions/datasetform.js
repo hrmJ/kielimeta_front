@@ -1,5 +1,6 @@
 import { thunkCreator } from './utils';
 import { getCookie } from '../../utils';
+import { baseUrl } from './datasets';
 
 const updateField = (name, val) => ({
   type: 'UPDATE_DATASETFORM_FIELD',
@@ -62,4 +63,28 @@ const submitDataset = fields => {
   });
 };
 
-export { updateField, submitDataset, fetchLanguages, addLanguage, updateLanguage };
+const fetchOriginalFieldValues = fieldname => {
+  const url = `${baseUrl}/${fieldname}`;
+  return thunkCreator({
+    types: [
+      'FETCH_ORIGINAL_FIELD_VALUES_REQUEST',
+      'FETCH_ORIGINAL_FIELD_VALUES_SUCCESS',
+      'FETCH_ORIGINAL_FIELD_VALUES_FAILURE'
+    ],
+    promise: fetch(url, { mode: 'cors' })
+      .then(response => response.json())
+      .then(vals => ({
+        vals: vals,
+        fieldname: fieldname
+      }))
+  });
+};
+
+export {
+  updateField,
+  submitDataset,
+  fetchLanguages,
+  addLanguage,
+  updateLanguage,
+  fetchOriginalFieldValues
+};
