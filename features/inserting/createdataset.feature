@@ -1,6 +1,6 @@
 Feature: Creating a new dataset
 
-  As a (TODO: authenticated) user I open the correct url
+  As a user I open the correct url
   in order to fill in a form based on which a new dataset
   will be added to the database
 

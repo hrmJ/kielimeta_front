@@ -30,7 +30,6 @@ Feature: Using inputfields
       And within 1000 milliseconds the selector "#endyear" matches an element in the dom
 
 
-   @cur
    Scenario: Specifying size
 
       When the user navigates to /#/newdataset

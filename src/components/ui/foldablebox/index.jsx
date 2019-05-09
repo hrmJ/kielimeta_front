@@ -15,7 +15,8 @@ export default class FoldableBox extends Component {
       header = '',
       children = '',
       launchertype = 'button',
-      headerclass
+      headerclass,
+      id
     } = this.props;
     const { open } = this.state;
     // const open = true;
@@ -40,7 +41,7 @@ export default class FoldableBox extends Component {
     // NOTE: can't use display:block because of react-vis's flexiblXYplot
 
     return (
-      <div className={styles.container}>
+      <div className={styles.container} id={id}>
         {launcher}
         <div
           className={styles.dropDown}

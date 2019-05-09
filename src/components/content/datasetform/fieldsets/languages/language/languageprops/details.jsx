@@ -1,5 +1,5 @@
 import React from 'react';
-import formstyles from '../datasetform.scss';
+import formstyles from '../../../../datasetform.scss';
 import Select from 'react-select';
 import langmap from 'langmap';
 import uuid from 'cuid';

@@ -41,6 +41,13 @@ legend {
   margin: 1em 0em 2em 0em;
 }
 
+.mediatypeList {
+  font-size: 0.8em;
+  li {
+    list-style-type: none;
+  }
+}
+
 input[type='text'] {
   min-width: $fieldwidth;
 }
@@ -52,8 +59,4 @@ textarea {
 
 label {
   margin-right: 3em;
-}
-
-.someTopMargin {
-  margin-top: 1em;
 }

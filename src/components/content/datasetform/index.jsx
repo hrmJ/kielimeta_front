@@ -4,8 +4,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { updateField, submitDataset } from '../../../redux/actions/datasetform';
 import styles from './datasetform.scss';
-import LanguageSelect from './languageselect';
-import AutoCompleteField from './autocompletefield';
+import GeneralInfo from './fieldsets/generalinfo/index';
+import Languages from './fieldsets/languages';
 
 export default class InsertForm extends Component {
   static get propTypes() {
@@ -36,6 +36,7 @@ export default class InsertForm extends Component {
   render() {
     // PROPS: usertype
     const { loadingState, dispatch, fields } = this.props;
+    const { mediatype, languages } = fields;
 
     if (loadingState.SUBMITDATASET) {
       if (loadingState.SUBMITDATASET === 'success') {
@@ -45,77 +46,12 @@ export default class InsertForm extends Component {
 
     return (
       <form onSubmit={event => this.submit(event)}>
-        <fieldset>
-          <legend>Yleistiedot</legend>
-          <div className={styles.fieldContainer}>
-            <label htmlFor="datasettitle">Nimi</label>
-            <input
-              type="text"
-              defaultValue=""
-              id="datasettitle"
-              onChange={this.handleChange('title')}
-            />
-          </div>
-          <div className={styles.fieldContainer}>
-            <label htmlFor="datasetdescription">Kuvaus</label>
-            <textarea
-              defaultValue=""
-              id="datasetdescription"
-              onChange={this.handleChange('description')}
-            />
-          </div>
-          <AutoCompleteField
-            id="resourcetype"
-            onChange={this.handleChange('resourcetype')}
-            categoryName="name"
-            tooltipName="description"
-            path={'resourcetypes'}
-          >
-            Aineiston tyyppi
-          </AutoCompleteField>
-          <AutoCompleteField
-            id="keyword"
-            isMulti={true}
-            onChange={this.handleChange('keywords')}
-            categoryName="flat"
-            tooltipName=""
-            path={'keywords'}
-          >
-            Avainsanat
-          </AutoCompleteField>
-        </fieldset>
-
-        <fieldset>
-          <legend>Kielet</legend>
-          <section>
-            <p className={styles.description}>
-              Monet ominaisuudet määritellään kieli- tai varianttikohtaisesti. Jos kieliä on vain
-              yksi, sellaiset ominaisuudet kuin korpuksen koko ja aikajänne määritellään tämän
-              kielen ominaisuuksiksi.
-            </p>
-            {fields.languages.map((lang, idx) => (
-              <LanguageSelect
-                languages={fields.languages}
-                dispatch={dispatch}
-                {...lang}
-                key={idx.toString()}
-                idx={idx}
-              />
-            ))}
-          </section>
-          <section className={styles.someTopMargin}>
-            <button
-              type="button"
-              id="addlanguage"
-              onClick={() =>
-                dispatch(updateField('languages', [...fields.languages, { annotations: [] }]))
-              }
-            >
-              Lisää uusi
-            </button>
-          </section>
-        </fieldset>
-
+        <GeneralInfo
+          mediaTypes={mediatype}
+          dispatch={dispatch}
+          handleChange={this.handleChange.bind(this)}
+        />
+        <Languages languages={languages} dispatch={dispatch} mediaTypes={mediatype} />
         <div>
           <button type="submit" id="datasetsubmit">
             Tallenna

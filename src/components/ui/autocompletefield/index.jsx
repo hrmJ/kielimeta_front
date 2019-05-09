@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import formstyles from '../datasetform.scss';
+import formstyles from '../../content/datasetform/datasetform.scss';
 import AsyncSelect from 'react-select/lib/AsyncCreatable';
 import { components } from 'react-select';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import styles from './autocompletefield.scss';
 import Tooltip from '@atlaskit/tooltip';
-import { baseUrl } from '../../../../redux/actions/datasets';
+import { baseUrl } from '../../../redux/actions/datasets';
 
 const selectStyle = {
   container: provided => ({
