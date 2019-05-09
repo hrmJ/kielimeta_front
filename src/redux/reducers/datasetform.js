@@ -3,7 +3,7 @@ const defaultPayload = {
   description: 'no description', // TODO: accept empty description in the API?
   languages: [],
   resourcetype: 'unknown',
-  mediatypes: ['text']
+  mediatype: ['text']
 };
 
 export default (state = defaultPayload, action) => {

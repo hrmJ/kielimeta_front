@@ -15,7 +15,7 @@ const langOptions = Object.keys(langmap)
 export const selectStyle = {
   container: provided => ({
     ...provided,
-    width: '10em'
+    width: '60%'
   })
 };
 
@@ -49,6 +49,20 @@ export default props => {
           onChange={ev => onChange('variety', ev.target.value)}
           placeholder="Jätä tyhjäksi, jos ei määritelty"
           id={`langvar_${uuid()}`}
+        />
+      </div>
+      <div className={formstyles.fieldContainer}>
+        <label htmlFor={`langvar_${uuid()}`}>Kielimuoto</label>
+        <Select
+          isMulti
+          styles={selectStyle}
+          onChange={selected => onChange('modality', selected.map(s => s.value))}
+          options={[
+            { value: 'written', label: 'Kirjoitettu kieli' },
+            { value: 'spoken', label: 'Puhuttu kieli' },
+            { value: 'internet', label: 'Internetkieli' },
+            { value: 'mixed', label: 'Vaikeasti määriteltävissä' }
+          ]}
         />
       </div>
     </section>
