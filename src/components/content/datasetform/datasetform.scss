@@ -1,6 +1,7 @@
 @import 'src/general_styles/configs.scss';
 
 $fieldwidth: 60%;
+$labelwidth: 6em;
 
 fieldset {
   @media screen and (min-width: 900px) {
@@ -29,8 +30,18 @@ legend {
 
   label,
   > div:first-child {
-    width: 6em;
+    width: $labelwidth;
     margin-right: 1em;
+  }
+}
+
+.additionalField {
+  margin-left: $labelwidth + 3em;
+  width: 60%;
+  font-size: 0.8em;
+  border-radius: 3px;
+  > label {
+    margin-right: 2em;
   }
 }
 
