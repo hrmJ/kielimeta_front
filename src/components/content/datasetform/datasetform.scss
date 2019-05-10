@@ -24,7 +24,8 @@ legend {
   display: flex;
   align-items: center;
 
-  & + & {
+  & + &,
+  & + .upperContainer {
     margin-top: 2em;
   }
 
@@ -35,14 +36,8 @@ legend {
   }
 }
 
-.additionalField {
-  margin-left: $labelwidth + 3em;
-  width: 60%;
-  font-size: 0.8em;
-  border-radius: 3px;
-  > label {
-    margin-right: 2em;
-  }
+.upperContainer + .upperContainer {
+  margin-top: 2em;
 }
 
 .description {

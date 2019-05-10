@@ -27,6 +27,17 @@ test('updating a field should change the store accordingly', () => {
   expect(store.getState()).toEqual({ ...defaultPayload, ...{ title: 'a nice title' } });
 });
 
+test('updating a field with dict should work', () => {
+  let expected = defaultPayload;
+  expected['resourcetype'] = { name: 'test', description: 'describing the test2' };
+  store.dispatch(updateField('resourcetype', 'blaalba'));
+  store.dispatch(updateField('resourcetype', { name: 'test', description: 'describing the test' }));
+  store.dispatch(
+    updateField('resourcetype', { name: 'test', description: 'describing the test2' })
+  );
+  expect(store.getState()).toMatchObject(expected);
+});
+
 test('updating multiple fields should change the store accordingly', () => {
   store.dispatch(updateField('title', 'a nice title'));
   store.dispatch(updateField('description', 'a nice description'));
