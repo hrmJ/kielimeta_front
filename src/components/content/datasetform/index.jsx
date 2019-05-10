@@ -63,6 +63,30 @@ export default class InsertForm extends Component {
           resourcetype={resourcetype}
         />
         <Languages languages={languages} dispatch={dispatch} mediaTypes={mediatype} />
+        <fieldset>
+          <legend>Ylläpito ja saatavuus</legend>
+          <div className={styles.upperContainer}>
+            <h4>Projektin yhteyshenkilöt</h4>
+            <div className={styles.fieldContainer}>
+              <label>nimi</label>
+            </div>
+            <div className={styles.fieldContainer}>
+              <label>sähköposti</label>
+            </div>
+            <div className={styles.fieldContainer}>
+              <label>rooli</label>
+            </div>
+          </div>
+          <div className={styles.fieldContainer}>
+            <label>URL-osoite</label>
+          </div>
+          <div className={styles.fieldContainer}>
+            <label>Muu saatavuustieto</label>
+          </div>
+          <div className={styles.fieldContainer}>
+            <label>Käyttöoikeus</label>
+          </div>
+        </fieldset>
         <div>
           <button type="submit" id="datasetsubmit">
             Tallenna

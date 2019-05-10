@@ -1,8 +1,7 @@
 const defaultPayload = {
   title: '',
-  description: 'no description', // TODO: accept empty description in the API?
+  description: 'no description',
   languages: [],
-  resourcetype: 'unknown',
   mediatype: ['text']
 };
 

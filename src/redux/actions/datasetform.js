@@ -17,6 +17,7 @@ const addLanguage = language => ({
 
 const updateLanguage = (language, idx) => ({
   type: 'UPDATE_LANGUAGE',
+
   language,
   idx
 });
