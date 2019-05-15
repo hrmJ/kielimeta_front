@@ -8,7 +8,8 @@ function mapStateToProps(state) {
     loadingState: state.loadingState,
     filters: state.datasetFilters,
     originalFilterValues: state.originalFilterValues,
-    originalFormValues: state.originalFormValues
+    originalFormValues: state.originalFormValues,
+    languageVarieties: state.languageVarieties,
   };
 }
 

@@ -22,7 +22,11 @@ export default class LanguageSelect extends Component {
     } else {
       updated[idx][key] = val;
     }
-    dispatch(updateField('languages', updated));
+    if (key === 'language_code') {
+      dispatch(updateField('languages', updated, val));
+    } else {
+      dispatch(updateField('languages', updated));
+    }
     // for testing purposes
     return updated;
   }
@@ -36,13 +40,15 @@ export default class LanguageSelect extends Component {
   }
 
   render() {
-    const { details, mediaTypes = [], languages } = this.props;
+    const {
+      details, mediaTypes = [], languages, dispatch, varieties
+    } = this.props;
     const langprops = {
       annotations: null,
       size: [],
       temporalCoverage: (
         <TemporalCoverage {...this.props} updateLanguage={this.updateLanguage.bind(this)} />
-      )
+      ),
     };
     // Conditionally hiding language-specific props based on madia types
     if (mediaTypes.includes('text')) {
@@ -58,11 +64,11 @@ export default class LanguageSelect extends Component {
             { key: 'words', label: 'Sanoja' },
             { key: 'tokens', label: 'Saneita' },
             { key: 'sentences', label: 'Virkkeitä' },
-            { key: 'texts', label: 'Tekstejä' }
+            { key: 'texts', label: 'Tekstejä' },
           ]}
           notincludedname="tekstiaineistoja"
           languagetotal={languages.length}
-        />
+        />,
       );
     }
     if (mediaTypes.includes('audio')) {
@@ -74,7 +80,7 @@ export default class LanguageSelect extends Component {
           fields={[{ key: 'audiohours', label: 'Tuntia' }]}
           notincludedname="äänitteitä"
           languagetotal={languages.length}
-        />
+        />,
       );
     }
     if (mediaTypes.includes('video')) {
@@ -86,7 +92,7 @@ export default class LanguageSelect extends Component {
           fields={[{ key: 'videohours', label: 'Tuntia' }]}
           notincludedname="videoita"
           languagetotal={languages.length}
-        />
+        />,
       );
     }
 
@@ -94,7 +100,7 @@ export default class LanguageSelect extends Component {
 
     return (
       <Closable className={styles.selectContainer} onClose={() => this.removeLanguage()}>
-        <Details details={details} onChange={this.updateLanguage.bind(this)} />
+        <Details dispatch={dispatch} details={details} onChange={this.updateLanguage.bind(this)} varieties={varieties} />
         <section className={styles.propSection}>
           {Object.keys(langprops).map(key => langprops[key])}
         </section>

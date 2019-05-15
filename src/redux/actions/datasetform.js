@@ -1,36 +1,45 @@
 import { thunkCreator } from './utils';
 import { getCookie } from '../../utils';
 import { baseUrl } from './datasets';
+import { getVarieties } from './languageactions';
 
-const updateField = (name, val) => ({
+const _updateField = (name, val) => ({
   type: 'UPDATE_DATASETFORM_FIELD',
   name,
-  val
+  val,
 });
+
+const updateField = (name, val, variety) => (dispatch) => {
+  if (variety) {
+    dispatch(getVarieties(variety)).then(() => dispatch(_updateField(name, val)));
+  } else {
+    dispatch(_updateField(name, val));
+  }
+};
 
 const fetchLanguages = () => null;
 
 const addLanguage = language => ({
   type: 'ADD_LANGUAGE',
-  language
+  language,
 });
 
 const updateLanguage = (language, idx) => ({
   type: 'UPDATE_LANGUAGE',
 
   language,
-  idx
+  idx,
 });
 
-const validateFields = fields => {
+const validateFields = (fields) => {
   const validated = fields;
   if (fields.languages) {
-    validated.languages = fields.languages.map(lang => {
+    validated.languages = fields.languages.map((lang) => {
       const validatedLanguage = lang;
       if (lang.annotations) {
         let validatedAnnotations = lang.annotations.filter(ann => Object.keys(ann).length);
         if (validatedAnnotations.length) {
-          validatedAnnotations = validatedAnnotations.map(ann => {
+          validatedAnnotations = validatedAnnotations.map((ann) => {
             const { version = '' } = ann;
             return { ...ann, version };
           });
@@ -44,7 +53,7 @@ const validateFields = fields => {
   return validated;
 };
 
-const submitDataset = fields => {
+const submitDataset = (fields) => {
   const url = '%%API_SERVER_PROTOCOL%%://%%API_SERVER_HOST%%/datasets';
   const validatedFields = validateFields(fields);
   const csrf = getCookie('csrftoken');
@@ -56,28 +65,28 @@ const submitDataset = fields => {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        'X-CSRFToken': csrf
+        'X-CSRFToken': csrf,
         // Authorization: 'Bearer ' + jwt.token,
       },
-      body: JSON.stringify(validatedFields)
-    }).then(response => response)
+      body: JSON.stringify(validatedFields),
+    }).then(response => response),
   });
 };
 
-const fetchOriginalFieldValues = fieldname => {
+const fetchOriginalFieldValues = (fieldname) => {
   const url = `${baseUrl}/${fieldname}`;
   return thunkCreator({
     types: [
       'FETCH_ORIGINAL_FIELD_VALUES_REQUEST',
       'FETCH_ORIGINAL_FIELD_VALUES_SUCCESS',
-      'FETCH_ORIGINAL_FIELD_VALUES_FAILURE'
+      'FETCH_ORIGINAL_FIELD_VALUES_FAILURE',
     ],
     promise: fetch(url, { mode: 'cors' })
       .then(response => response.json())
       .then(vals => ({
-        vals: vals,
-        fieldname: fieldname
-      }))
+        vals,
+        fieldname,
+      })),
   });
 };
 
@@ -87,5 +96,5 @@ export {
   fetchLanguages,
   addLanguage,
   updateLanguage,
-  fetchOriginalFieldValues
+  fetchOriginalFieldValues,
 };

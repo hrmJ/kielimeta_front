@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import {
   updateField,
   submitDataset,
-  fetchOriginalFieldValues
+  fetchOriginalFieldValues,
 } from '../../../redux/actions/datasetform';
 import styles from './datasetform.scss';
 import GeneralInfo from './fieldsets/generalinfo/index';
@@ -16,11 +16,11 @@ export default class InsertForm extends Component {
     return {
       dispatch: PropTypes.func.isRequired,
       fields: PropTypes.objectOf(PropTypes.any).isRequired,
-      loadingState: PropTypes.objectOf(PropTypes.any).isRequired
+      loadingState: PropTypes.objectOf(PropTypes.any).isRequired,
     };
   }
 
-  handleChange = name => event => {
+  handleChange = name => (event) => {
     const { dispatch } = this.props;
     if (event.target) {
       dispatch(updateField(name, event.target.value));
@@ -44,7 +44,9 @@ export default class InsertForm extends Component {
 
   render() {
     // PROPS: usertype
-    const { loadingState, dispatch, fields, originalFormValues } = this.props;
+    const {
+      loadingState, dispatch, fields, originalFormValues, languageVarieties,
+    } = this.props;
     const { mediatype, languages, resourcetype } = fields;
 
     if (loadingState.SUBMITDATASET) {
@@ -62,7 +64,12 @@ export default class InsertForm extends Component {
           originalFormValues={originalFormValues}
           resourcetype={resourcetype}
         />
-        <Languages languages={languages} dispatch={dispatch} mediaTypes={mediatype} />
+        <Languages
+          languages={languages}
+          dispatch={dispatch}
+          mediaTypes={mediatype}
+          languageVarieties={languageVarieties}
+        />
         <fieldset>
           <legend>Ylläpito ja saatavuus</legend>
           <div className={styles.upperContainer}>

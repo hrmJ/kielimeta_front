@@ -7,7 +7,9 @@ import Language from './language';
 import { updateField } from '../../../../../redux/actions/datasetform';
 
 export default (props) => {
-  const { languages, dispatch, mediaTypes } = props;
+  const {
+    languages, dispatch, mediaTypes, languageVarieties,
+  } = props;
 
   return (
     <fieldset>
@@ -20,6 +22,7 @@ export default (props) => {
         </p>
         {languages.map((lang, idx) => (
           <Language
+            varieties={languageVarieties}
             languages={languages}
             dispatch={dispatch}
             mediaTypes={mediaTypes}

@@ -5,6 +5,7 @@ import datasetformReducer from './datasetform';
 import datasetfilterReducer from './datasetfilter';
 import originalfilterReducer from './originalfilter';
 import originalFormValueReducer from './originalformvalues';
+import languageVarietyReducer from './languagevariety';
 
 const appReducer = combineReducers({
   datasets: datasetReducer,
@@ -12,7 +13,8 @@ const appReducer = combineReducers({
   datasetform: datasetformReducer,
   datasetFilters: datasetfilterReducer,
   originalFilterValues: originalfilterReducer,
-  originalFormValues: originalFormValueReducer
+  originalFormValues: originalFormValueReducer,
+  languageVarieties: languageVarietyReducer,
 });
 
 export default appReducer;
