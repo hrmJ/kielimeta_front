@@ -6,7 +6,7 @@ import generalStyles from '../../../../../general_styles/general_styles.scss';
 import Language from './language';
 import { updateField } from '../../../../../redux/actions/datasetform';
 
-export default props => {
+export default (props) => {
   const { languages, dispatch, mediaTypes } = props;
 
   return (

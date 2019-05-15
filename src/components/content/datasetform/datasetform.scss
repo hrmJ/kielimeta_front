@@ -24,6 +24,7 @@ legend {
   display: flex;
   align-items: center;
 
+  .upperContainer + &,
   & + &,
   & + .upperContainer {
     margin-top: 2em;
