@@ -15,9 +15,6 @@ const checkCondition = (originalFormValues, resourcetype) => {
 
 export default props => {
   const { handleChange, originalFormValues, resourcetype, dispatch } = props;
-  console.log(originalFormValues);
-  console.log('LOOK');
-  console.log(resourcetype);
 
   return (
     <div className={styles.upperContainer}>

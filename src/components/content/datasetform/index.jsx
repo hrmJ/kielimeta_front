@@ -86,6 +86,9 @@ export default class InsertForm extends Component {
           <div className={styles.fieldContainer}>
             <label>Käyttöoikeus</label>
           </div>
+          <div className={styles.fieldContainer}>
+            <label>Viittausohje</label>
+          </div>
         </fieldset>
         <div>
           <button type="submit" id="datasetsubmit">

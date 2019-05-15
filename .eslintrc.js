@@ -6,6 +6,6 @@ module.exports = {
     fetch: false
   },
   rules: {
-    'max-len': { code: 80 }
+    'max-len': 1
   }
 };

@@ -16,8 +16,7 @@ const printLanguageName = (code) => {
 };
 
 const LanguageBadge = (props) => {
-  const { code } = props;
-  const name = printLanguageName(code);
+  const { name } = props;
 
   return <div className={styles.badge}>{name}</div>;
 };

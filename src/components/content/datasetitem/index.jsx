@@ -1,37 +1,33 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import langmap from 'langmap';
-import styles from './datasetitem.scss';
-import formstyles from '../datasetform/datasetform.scss';
-import LanguageBadge, { printLanguageName } from '../languagebadge';
 import cuid from 'cuid';
+import styles from './datasetitem.scss';
+import LanguageBadge, { printLanguageName } from '../languagebadge';
 import 'react-vis/dist/style.css';
 import TimelineChart from '../../ui/timeline/chart';
 import FoldableBox from '../../ui/foldablebox';
 
-const createLanguageKey = (id, language, langId) =>
-  `ds_${id}_lang_condendsed_${language.details.language_code}${language.details.variety}_${langId}`;
+const createLanguageKey = (id, language, langId) => `ds_${id}_lang_condendsed_${language.details.language_code}${language.details.variety}_${langId}`;
 
 export default class datasetItem extends Component {
   static get propTypes() {
     return {
       title: PropTypes.string.isRequired,
-      languages: PropTypes.arrayOf(PropTypes.object).isRequired
+      languages: PropTypes.arrayOf(PropTypes.object).isRequired,
     };
   }
 
-  state = {
-    lifted: false
-  };
+  state = { lifted: false };
 
   printCondensed() {
     const { languages, id } = this.props;
+
     return (
       <div className={styles.quickDetails}>
         {languages.map((language, langId) => (
           <LanguageBadge
             key={createLanguageKey(id, language, langId)}
-            code={language.details.language_code}
+            name={language.details.name}
           />
         ))}
       </div>
@@ -39,12 +35,17 @@ export default class datasetItem extends Component {
   }
 
   printExpanded() {
-    const { languages, id, description, resourcetype, keywords } = this.props;
+    const {
+      languages, id, description, resourcetype, keywords,
+    } = this.props;
 
     return (
       <div>
         <p>
           <em>{resourcetype}</em>
+        </p>
+        <p>
+          <em>{description}</em>
         </p>
         <ul className={styles.kwList}>
           {keywords.map(keyword => (
@@ -56,7 +57,7 @@ export default class datasetItem extends Component {
             <div key={createLanguageKey(id, language, langId)} className={styles.langOuterCont}>
               <FoldableBox
                 launchertype="heading"
-                header={`${printLanguageName(language.details.language_code)}${
+                header={`${language.details.name}${
                   language.details.variety ? `: ${language.details.variety}` : ''
                 }`}
                 headerclass={styles.langHeading}
@@ -68,7 +69,9 @@ export default class datasetItem extends Component {
                       <ul className={styles.sublist}>
                         {language.annotations.map(annotation => (
                           <li>
-                            {annotation.type} : {annotation.version}
+                            <span>{annotation.type}</span>
+                            <span>:</span>
+                            <span>{annotation.version}</span>
                           </li>
                         ))}
                       </ul>
@@ -78,15 +81,18 @@ export default class datasetItem extends Component {
                       <ul className={styles.sublist}>
                         {language.size
                           ? Object.keys(language.size)
-                              .filter(
-                                key => language.size[key] !== undefined && language.size[key] > 0
-                              )
-                              .map(key => (
-                                <li>
-                                  <span>{key}:&nbsp;</span>
-                                  {language.size[key]}
-                                </li>
-                              ))
+                            .filter(
+                              key => language.size[key] !== undefined && language.size[key] > 0,
+                            )
+                            .map(key => (
+                              <li>
+                                <span>
+                                  {key}
+                                    :&nbsp;
+                                </span>
+                                {language.size[key]}
+                              </li>
+                            ))
                           : null}
                       </ul>
                     </li>
@@ -110,7 +116,13 @@ export default class datasetItem extends Component {
 
     return (
       <div className={lifted ? styles.liftedItem : styles.datasetItem}>
-        <div className={styles.titleLine} onClick={() => this.setState({ lifted: !lifted })}>
+        <div
+          role="button"
+          tabIndex={0}
+          className={styles.titleLine}
+          onClick={() => this.setState({ lifted: !lifted })}
+          onKeyDown={() => this.setState({ lifted: !lifted })}
+        >
           {title}
         </div>
         {lifted ? this.printExpanded() : this.printCondensed()}
