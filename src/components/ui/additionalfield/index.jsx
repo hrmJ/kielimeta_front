@@ -13,10 +13,16 @@ const checkCondition = (originalValues, val) => {
 
 export default (props) => {
   const {
-    handleChange, label, id, originalValues, currentVal,
+    handleChange, label, id, originalValues, currentVal, condition,
   } = props;
 
-  if (!checkCondition(originalValues, currentVal)) {
+  if (condition === undefined) {
+    if (!checkCondition(originalValues, currentVal)) {
+      return null;
+    }
+  }
+
+  if (condition !== undefined && !condition) {
     return null;
   }
 

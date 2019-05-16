@@ -69,18 +69,19 @@ export default class Details extends Component {
           >
             Tarkempi variantti
           </AutoCompleteField>
-          <AdditionalField
-            condition={checkCondition(originalFormValues, resourcetype)}
-            handleChange={ev => dispatch(
-              updateField('resourcetype', {
-                name: resourcetype.name || resourcetype,
-                description: ev.target.value,
-              }),
-            )
-            }
-            label="Määrittele lyhyesti antamasi aineistotyyppi"
-            id="resourcetypedescription"
-          />
+					<AdditionalField
+						originalValues={resourcetypes}
+						currentVal={resourcetype}
+						handleChange={ev => dispatch(
+							updateField('resourcetype', {
+								name: resourcetype.name || resourcetype,
+								description: ev.target.value,
+							}),
+						)
+						}
+						label="Määrittele lyhyesti antamasi aineistotyyppi"
+						id="resourcetypedescription"
+					/>
         </div>
         <div className={formstyles.fieldContainer}>
           <label htmlFor={`langvar_${uuid()}`}>Kielimuoto</label>
