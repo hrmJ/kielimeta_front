@@ -5,6 +5,7 @@ import uuid from 'cuid';
 import formstyles from '../../../../datasetform.scss';
 import AutoCompleteField from '../../../../../../ui/autocompletefield';
 import { getVarieties } from '../../../../../../../redux/actions/languageactions';
+import AdditionalField from '../../../../../../ui/additionalfield';
 
 // NOTE: a temporary mock, to be replaced with database data
 const langOptions = Object.keys(langmap)
@@ -34,7 +35,7 @@ export default class Details extends Component {
     let varietyOptions = [];
     if (varieties[language_code]) {
       varietyOptions = varieties[language_code].map(obj => ({
-        label: obj.variety,
+        label: obj.variety.replace('generic', 'ei tarkempaa varianttia'),
         value: obj.variety,
       }));
     }
@@ -68,6 +69,18 @@ export default class Details extends Component {
           >
             Tarkempi variantti
           </AutoCompleteField>
+          <AdditionalField
+            condition={checkCondition(originalFormValues, resourcetype)}
+            handleChange={ev => dispatch(
+              updateField('resourcetype', {
+                name: resourcetype.name || resourcetype,
+                description: ev.target.value,
+              }),
+            )
+            }
+            label="Määrittele lyhyesti antamasi aineistotyyppi"
+            id="resourcetypedescription"
+          />
         </div>
         <div className={formstyles.fieldContainer}>
           <label htmlFor={`langvar_${uuid()}`}>Kielimuoto</label>

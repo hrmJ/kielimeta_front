@@ -2,10 +2,21 @@ import React, { Component } from 'react';
 import styles from './additionalfield.scss';
 import generalStyles from '../../../general_styles/general_styles.scss';
 
-export default props => {
-  const { handleChange, label, condition, id } = props;
+const checkCondition = (originalValues, val) => {
+  if (val && Array.isArray(originalValues)) {
+    if (!originalValues.includes(val)) {
+      return true;
+    }
+  }
+  return false;
+};
 
-  if (!condition) {
+export default (props) => {
+  const {
+    handleChange, label, id, originalValues, currentVal,
+  } = props;
+
+  if (!checkCondition(originalValues, currentVal)) {
     return null;
   }
 
