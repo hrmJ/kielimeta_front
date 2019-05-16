@@ -24,7 +24,7 @@ const Option = props => (
 export default class AutoCompleteField extends Component {
   getOptions(inputValue) {
     const {
-      categoryName, tooltipName, path, labelName, maxEntries = 500,
+      categoryName, tooltipName, path, labelName, maxEntries = 10,
     } = this.props;
     const url = `${baseUrl}/${path}?search=${inputValue}`;
     return fetch(url, { mode: 'cors' })
@@ -55,7 +55,7 @@ export default class AutoCompleteField extends Component {
       fieldname,
       defaultOptions = true,
     } = this.props;
-		console.log(defaultOptions)
+    console.log(defaultOptions);
 
     return (
       <div className={formstyles.fieldContainer}>

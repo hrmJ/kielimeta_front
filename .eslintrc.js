@@ -6,6 +6,16 @@ module.exports = {
     fetch: false
   },
   rules: {
-    'max-len': 1
+    'max-len': 1,
+    'jsx-a11y/label-has-for': [
+      2,
+      {
+        components: ['Label'],
+        required: {
+          some: ['nesting', 'id']
+        },
+        allowChildren: false
+      }
+    ]
   }
 };

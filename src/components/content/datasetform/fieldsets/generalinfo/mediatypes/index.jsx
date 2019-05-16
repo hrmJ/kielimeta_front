@@ -20,7 +20,7 @@ export default class MediaTypes extends Component {
       audio: 'Ääntä',
       video: 'Videoita',
       images: 'Kuvia',
-      other: 'Jotain muuta'
+      other: 'Jotain muuta',
     };
 
     return (

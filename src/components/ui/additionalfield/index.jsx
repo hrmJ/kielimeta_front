@@ -13,7 +13,7 @@ const checkCondition = (originalValues, val) => {
 
 export default (props) => {
   const {
-    handleChange, label, id, originalValues, currentVal, condition,
+    handleChange, label, id, originalValues, currentVal, condition, children,
   } = props;
 
   if (condition === undefined) {
@@ -28,10 +28,12 @@ export default (props) => {
 
   return (
     <div className={`${generalStyles.someTopMargin} ${styles.additionalField}`}>
-      <div className={styles.fieldContainer}>
-        <label htmlFor={id}>{label}</label>
-        <textarea defaultValue="" id={id} onChange={handleChange} />
-      </div>
+      {children || (
+        <div className={styles.fieldContainer}>
+          <label htmlFor={id}>{label}</label>
+          <textarea defaultValue="" id={id} onChange={handleChange} />
+        </div>
+      )}
     </div>
   );
 };

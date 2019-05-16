@@ -1,0 +1,28 @@
+$labelwidth: 6em;
+
+.additionalField {
+  margin-top: 2em;
+  margin-left: $labelwidth + 3em;
+  width: 60%;
+  font-size: 0.8em;
+  border-radius: 3px;
+  > label {
+    margin-right: 2em;
+  }
+}
+
+.fieldContainer {
+  display: flex;
+  align-items: center;
+
+  & + &,
+  & + .upperContainer {
+    margin-top: 2em;
+  }
+
+  label,
+  > div:first-child {
+    width: $labelwidth;
+    margin-right: 3em;
+  }
+}
