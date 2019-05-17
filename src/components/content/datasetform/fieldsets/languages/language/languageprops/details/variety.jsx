@@ -7,18 +7,20 @@ import LabelledInput from '../../../../../../../ui/labelledinput';
 import { selectStyle } from './index';
 import formstyles from '../../../../../datasetform.scss';
 
-export default (props) => {
-  const {
-    varieties, language_code, onChange, variety,
-  } = props;
+export default props => {
+  const { varieties, language_code, onChange, variety } = props;
+  let varietyOptions = [];
 
-  if (!varieties[language_code]) {
+  if (!language_code) {
     return null;
   }
-  const varietyOptions = varieties[language_code].map(obj => ({
-    label: obj.variety.replace('generic', 'ei tarkempaa varianttia'),
-    value: obj.variety,
-  }));
+
+  if (varieties[language_code]) {
+    varietyOptions = varieties[language_code].map(obj => ({
+      label: obj.variety.replace('generic', 'ei tarkempaa varianttia'),
+      value: obj.variety
+    }));
+  }
 
   return (
     <div className={`${formstyles.upperContainer} ${formstyles.smallerFields}`}>
@@ -51,7 +53,7 @@ export default (props) => {
             { value: 'written', label: 'Kirjoitettu kieli' },
             { value: 'spoken', label: 'Puhuttu kieli' },
             { value: 'internet', label: 'Internetkieli' },
-            { value: 'mixed', label: 'Vaikeasti määriteltävissä' },
+            { value: 'mixed', label: 'Vaikeasti määriteltävissä' }
           ]}
         />
       </LabelledInput>

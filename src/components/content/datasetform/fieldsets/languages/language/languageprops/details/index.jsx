@@ -1,6 +1,8 @@
 import React from 'react';
 
+import AdditionalField from '../../../../../../../ui/additionalfield';
 import AutoCompleteField from '../../../../../../../ui/autocompletefield';
+import LabelledInput from '../../../../../../../ui/labelledinput';
 import Variety from './variety';
 import formstyles from '../../../../../datasetform.scss';
 
@@ -15,11 +17,14 @@ export default props => {
   const { onChange, details = {}, varieties, idx, names } = props;
   const { language_code: code = '', variety = '' } = details;
   let selectValue;
+  let newlanguageCondition = false;
   if (code && names) {
-    selectValue = { value: code, label: names[code] };
+    selectValue = { value: code, label: names[code] || code };
   }
-  console.debug('RENDERING');
-  console.debug(selectValue);
+  if (code) {
+    // TODO a more robust check?
+    newlanguageCondition = code.length > 3;
+  }
 
   return (
     <section>
@@ -34,6 +39,13 @@ export default props => {
         >
           Kieli
         </AutoCompleteField>
+        <AdditionalField
+          condition={newlanguageCondition}
+          originalValues={Object.keys(names)}
+          currentVal={code}
+        >
+          <LabelledInput label={'Kielikoodi tälle kielelle'} onChange={() => null} />
+        </AdditionalField>
       </div>
       <Variety
         varieties={varieties}

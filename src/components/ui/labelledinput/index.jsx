@@ -4,17 +4,13 @@ import styles from './labelledinput.scss';
 import formstyles from '../../content/datasetform/datasetform.scss';
 import generalStyles from '../../../general_styles/general_styles.scss';
 
-export default (props) => {
-  const {
-    id, label, type, handleChange, children,
-  } = props;
+export default props => {
+  const { id, label, type, handleChange, children } = props;
+  const inputProps = { id: id, defaultValue: '', onChange: handleChange };
   let input;
-  switch (type) {
-    case 'textarea':
-      input = <textarea defaultValue="" id={id} onChange={handleChange} />;
-      break;
-    default:
-      input = <input type="text" id={id} onChange={handleChange} />;
+  if (!children) {
+    input =
+      type === 'textarea' ? <textarea {...inputProps} /> : <input type="text" {...inputProps} />;
   }
 
   return (
