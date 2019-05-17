@@ -16,18 +16,17 @@ export default class LanguageSelect extends Component {
     if (!languages[idx] && (languages.length - 1 >= idx || languages.length === 0)) {
       languages[idx] = {};
     }
-    if (['language_code', 'variety'].includes(key)) {
-      // grouping certain keys under the "details"  prop
+    if (key === 'language_code') {
+      updated[idx].details = { ...updated[idx].details, [key]: val.value };
+      dispatch(updateField('languages', updated, val));
+      return updated;
+    }
+    if (key === 'variety') {
       updated[idx].details = { ...updated[idx].details, [key]: val };
     } else {
       updated[idx][key] = val;
     }
-    if (key === 'language_code') {
-      dispatch(updateField('languages', updated, val));
-    } else {
-      dispatch(updateField('languages', updated));
-    }
-    // for testing purposes
+    dispatch(updateField('languages', updated));
     return updated;
   }
 
@@ -35,7 +34,6 @@ export default class LanguageSelect extends Component {
     const { idx, languages, dispatch } = this.props;
     const updated = languages;
     updated.splice(idx, 1);
-    updated.map(u => console.log(u.variety));
     dispatch(updateField('languages', updated));
   }
 

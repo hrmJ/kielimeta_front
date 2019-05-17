@@ -45,7 +45,7 @@ export default class InsertForm extends Component {
   render() {
     // PROPS: usertype
     const {
-      loadingState, dispatch, fields, originalFormValues, languageVarieties,
+      loadingState, dispatch, fields, originalFormValues, languageVarieties, languageNames
     } = this.props;
     const { mediatype, languages, resourcetype } = fields;
 
@@ -69,6 +69,7 @@ export default class InsertForm extends Component {
           dispatch={dispatch}
           mediaTypes={mediatype}
           languageVarieties={languageVarieties}
+          languageNames={languageNames}
         />
         <fieldset>
           <legend>Ylläpito ja saatavuus</legend>

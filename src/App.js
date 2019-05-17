@@ -10,6 +10,7 @@ function mapStateToProps(state) {
     originalFilterValues: state.originalFilterValues,
     originalFormValues: state.originalFormValues,
     languageVarieties: state.languageVarieties,
+    languageNames: state.languageNames,
   };
 }
 

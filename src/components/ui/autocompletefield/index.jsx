@@ -54,17 +54,28 @@ export default class AutoCompleteField extends Component {
       onChange,
       fieldname,
       defaultOptions = true,
+      value,
     } = this.props;
-    console.log(defaultOptions);
 
-    return (
-      <div className={formstyles.fieldContainer}>
-        <label htmlFor="resourcetype">{children}</label>
-        {/*
-      <input type="text" defaultValue="" id="resourcetype" onChange={handleChange} />
-      */}
+    let select;
+    if (value) {
+      select = (
         <AsyncSelect
           id={id}
+          isMulti={isMulti}
+          components={{ Option }}
+          styles={selectStyle}
+          onChange={onChange}
+          value={value}
+          loadOptions={inputValue => this.getOptions(inputValue)}
+          defaultOptions
+        />
+      );
+    } else {
+      select = (
+        <AsyncSelect
+          id={id}
+          defaultInputValue={value}
           isMulti={isMulti}
           components={{ Option }}
           styles={selectStyle}
@@ -72,6 +83,13 @@ export default class AutoCompleteField extends Component {
           defaultOptions={defaultOptions}
           loadOptions={inputValue => this.getOptions(inputValue)}
         />
+      );
+    }
+
+    return (
+      <div className={formstyles.fieldContainer}>
+        <label htmlFor="resourcetype">{children}</label>
+        {select}
       </div>
     );
   }

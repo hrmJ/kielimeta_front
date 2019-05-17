@@ -1,12 +1,7 @@
-import React, { Component } from 'react';
-import Select from 'react-select';
-import langmap from 'langmap';
-import uuid from 'cuid';
+import React from 'react';
 import Variety from './variety';
 
-import AdditionalField from '../../../../../../../ui/additionalfield';
 import AutoCompleteField from '../../../../../../../ui/autocompletefield';
-import LabelledInput from '../../../../../../../ui/labelledinput';
 import formstyles from '../../../../../datasetform.scss';
 
 export const selectStyle = {
@@ -16,39 +11,35 @@ export const selectStyle = {
   }),
 };
 
-export default class Details extends Component {
-  componentDidMount() {
-    const { dispatch, details = {} } = this.props;
-    const { language_code = '', variety = '' } = details;
-    // dispatch(getVarieties(language_code));
+export default (props) => {
+  const {
+    onChange, details = {}, varieties, idx, names,
+  } = props;
+  const { language_code: code = '', variety = '' } = details;
+  let selectValue;
+  if (code && names) {
+    selectValue = { value: code, label: names[code] };
   }
-
-  render() {
-    const {
-      onChange, details = {}, varieties, idx,
-    } = this.props;
-    const { language_code = '', variety = '' } = details;
-
-    return (
-      <section>
-        <div className={formstyles.upperContainer}>
-          <AutoCompleteField
-            onChange={selectedoption => onChange('language_code', selectedoption.value)}
-            categoryName="code"
-            labelName="name"
-            path="languages"
-            id={`lang_${idx}_langselect`}
-          >
-            Kieli
-          </AutoCompleteField>
-        </div>
-        <Variety
-          varieties={varieties}
-          language_code={language_code}
-          onChange={onChange}
-          variety={details.variety}
-        />
-      </section>
-    );
-  }
-}
+  return (
+    <section>
+      <div className={formstyles.upperContainer}>
+        <AutoCompleteField
+          onChange={selectedoption => onChange('language_code', selectedoption)}
+          categoryName="code"
+          labelName="name"
+          path="languages"
+          id={`lang_${idx}_langselect`}
+          value={selectValue}
+        >
+          Kieli
+        </AutoCompleteField>
+      </div>
+      <Variety
+        varieties={varieties}
+        language_code={code}
+        onChange={onChange}
+        variety={details.variety}
+      />
+    </section>
+  );
+};

@@ -1,7 +1,7 @@
 import { thunkCreator } from './utils';
 import { getCookie } from '../../utils';
 import { baseUrl } from './datasets';
-import { getVarieties } from './languageactions';
+import { getVarieties, updateLanguageName } from './languageactions';
 
 const _updateField = (name, val) => ({
   type: 'UPDATE_DATASETFORM_FIELD',
@@ -9,9 +9,11 @@ const _updateField = (name, val) => ({
   val,
 });
 
-const updateField = (name, val, variety) => (dispatch) => {
-  if (variety) {
-    dispatch(getVarieties(variety)).then(() => dispatch(_updateField(name, val)));
+const updateField = (name, val, language) => (dispatch) => {
+  if (language) {
+    dispatch(getVarieties(language.value))
+      .then(() => dispatch(updateLanguageName(language.value, language.label)))
+      .then(() => dispatch(_updateField(name, val)));
   } else {
     dispatch(_updateField(name, val));
   }
@@ -19,14 +21,8 @@ const updateField = (name, val, variety) => (dispatch) => {
 
 const fetchLanguages = () => null;
 
-const addLanguage = language => ({
-  type: 'ADD_LANGUAGE',
-  language,
-});
-
 const updateLanguage = (language, idx) => ({
   type: 'UPDATE_LANGUAGE',
-
   language,
   idx,
 });
@@ -91,10 +87,5 @@ const fetchOriginalFieldValues = (fieldname) => {
 };
 
 export {
-  updateField,
-  submitDataset,
-  fetchLanguages,
-  addLanguage,
-  updateLanguage,
-  fetchOriginalFieldValues,
+  updateField, submitDataset, fetchLanguages, updateLanguage, fetchOriginalFieldValues,
 };
