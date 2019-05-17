@@ -38,7 +38,26 @@ Feature: Using inputfields
       And within 1000 milliseconds the selector "#wordcount" matches an element in the dom
 
 	@cur
-	Scenario: Deleting added language
+	Scenario: Deleting added language when two languages set
+
+      When the user navigates to /#/newdataset
+      Then within 1000 milliseconds the selector "#addlanguage" matches an element in the dom
+			Then within 1000 milliseconds "#addlanguage" is visible
+      And the user clicks "#addlanguage"
+      Then within 3000 milliseconds the selector "#lang_0" matches an element in the dom
+      And the user clicks "#lang_0_langselect"
+      And the user types "suomi" in "#lang_0_langselect input[type='text']"
+      And after 1000 milliseconds the user types "ENTER" in "#lang_0_langselect input[type='text']"
+			And within 1000 milliseconds the xpath "//div[@id='lang_0_langselect']//div[text()='suomi']" matches an element in the dom
+			But the user clicks "#addlanguage"
+      And the user types "ruotsi" in "#lang_1_langselect input[type='text']"
+      And after 1000 milliseconds the user types "ENTER" in "#lang_1_langselect input[type='text']"
+			And the user clicks "#lang_0>.fa-window-close"
+			And within 1000 milliseconds the xpath "//div[@id='lang_0_langselect']//div[text()='suomi']" doesn't match an element in the dom
+
+
+	@cur
+	Scenario: Deleting added language when only first language
 
       When the user navigates to /#/newdataset
       Then within 1000 milliseconds the selector "#addlanguage" matches an element in the dom
@@ -52,6 +71,3 @@ Feature: Using inputfields
 			But the user clicks "#addlanguage"
 			And the user clicks "#lang_0>.fa-window-close"
 			And within 1000 milliseconds the xpath "//div[@id='lang_0_langselect']//div[text()='suomi']" doesn't match an element in the dom
-
-
-

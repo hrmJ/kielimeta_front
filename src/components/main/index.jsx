@@ -1,6 +1,4 @@
-import {
-  BrowserRouter, HashRouter, Switch, Route,
-} from 'react-router-dom';
+import { BrowserRouter, HashRouter, Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -12,7 +10,7 @@ import Login from '../auth/login';
 import TopBar from '../layout/navigation/topbar';
 import styles from '../../general_styles/general_styles.scss';
 
-const main = (props) => {
+const main = props => {
   const {
     dispatch,
     datasetform,
@@ -21,12 +19,11 @@ const main = (props) => {
     originalFilterValues,
     originalFormValues,
     languageVarieties,
-		languageNames
+    languageNames
   } = props;
   let { datasets } = props;
 
   if (!Array.isArray(datasets)) {
-    console.log(datasets);
     datasets = [];
   }
   // const token = getCookie('jwt_token_access');
@@ -80,7 +77,7 @@ main.propTypes = {
   datasets: PropTypes.arrayOf(PropTypes.object).isRequired,
   dispatch: PropTypes.func.isRequired,
   datasetform: PropTypes.objectOf(PropTypes.any).isRequired,
-  loadingState: PropTypes.objectOf(PropTypes.any).isRequired,
+  loadingState: PropTypes.objectOf(PropTypes.any).isRequired
 };
 
 export default main;

@@ -1,25 +1,26 @@
 import React from 'react';
-import Variety from './variety';
 
 import AutoCompleteField from '../../../../../../../ui/autocompletefield';
+import Variety from './variety';
 import formstyles from '../../../../../datasetform.scss';
 
 export const selectStyle = {
   container: provided => ({
     ...provided,
-    width: '60%',
-  }),
+    width: '60%'
+  })
 };
 
-export default (props) => {
-  const {
-    onChange, details = {}, varieties, idx, names,
-  } = props;
+export default props => {
+  const { onChange, details = {}, varieties, idx, names } = props;
   const { language_code: code = '', variety = '' } = details;
   let selectValue;
   if (code && names) {
     selectValue = { value: code, label: names[code] };
   }
+  console.debug('RENDERING');
+  console.debug(selectValue);
+
   return (
     <section>
       <div className={formstyles.upperContainer}>
@@ -29,7 +30,7 @@ export default (props) => {
           labelName="name"
           path="languages"
           id={`lang_${idx}_langselect`}
-          value={selectValue}
+          value={selectValue || ''}
         >
           Kieli
         </AutoCompleteField>

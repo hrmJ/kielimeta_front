@@ -38,15 +38,13 @@ export default class LanguageSelect extends Component {
   }
 
   render() {
-    const {
-      details, mediaTypes = [], languages, dispatch, varieties, idx,
-    } = this.props;
+    const { details, mediaTypes = [], languages, dispatch, varieties, idx, names } = this.props;
     const langprops = {
       annotations: null,
       size: [],
       temporalCoverage: (
         <TemporalCoverage {...this.props} updateLanguage={this.updateLanguage.bind(this)} />
-      ),
+      )
     };
     // Conditionally hiding language-specific props based on madia types
     if (mediaTypes.includes('text')) {
@@ -62,11 +60,11 @@ export default class LanguageSelect extends Component {
             { key: 'words', label: 'Sanoja' },
             { key: 'tokens', label: 'Saneita' },
             { key: 'sentences', label: 'Virkkeitä' },
-            { key: 'texts', label: 'Tekstejä' },
+            { key: 'texts', label: 'Tekstejä' }
           ]}
           notincludedname="tekstiaineistoja"
           languagetotal={languages.length}
-        />,
+        />
       );
     }
     if (mediaTypes.includes('audio')) {
@@ -78,7 +76,7 @@ export default class LanguageSelect extends Component {
           fields={[{ key: 'audiohours', label: 'Tuntia' }]}
           notincludedname="äänitteitä"
           languagetotal={languages.length}
-        />,
+        />
       );
     }
     if (mediaTypes.includes('video')) {
@@ -90,7 +88,7 @@ export default class LanguageSelect extends Component {
           fields={[{ key: 'videohours', label: 'Tuntia' }]}
           notincludedname="videoita"
           languagetotal={languages.length}
-        />,
+        />
       );
     }
 
@@ -103,6 +101,7 @@ export default class LanguageSelect extends Component {
         id={`lang_${idx}`}
       >
         <Details
+          names={names}
           idx={idx}
           dispatch={dispatch}
           details={details}
