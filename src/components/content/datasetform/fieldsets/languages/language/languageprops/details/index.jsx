@@ -24,7 +24,9 @@ export default class Details extends Component {
   }
 
   render() {
-    const { onChange, details = {}, varieties } = this.props;
+    const {
+      onChange, details = {}, varieties, idx,
+    } = this.props;
     const { language_code = '', variety = '' } = details;
 
     return (
@@ -35,6 +37,7 @@ export default class Details extends Component {
             categoryName="code"
             labelName="name"
             path="languages"
+            id={`lang_${idx}_langselect`}
           >
             Kieli
           </AutoCompleteField>

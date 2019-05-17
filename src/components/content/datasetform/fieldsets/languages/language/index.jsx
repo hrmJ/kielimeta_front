@@ -41,7 +41,7 @@ export default class LanguageSelect extends Component {
 
   render() {
     const {
-      details, mediaTypes = [], languages, dispatch, varieties
+      details, mediaTypes = [], languages, dispatch, varieties, idx,
     } = this.props;
     const langprops = {
       annotations: null,
@@ -99,8 +99,18 @@ export default class LanguageSelect extends Component {
     // ATTENTION! ADD a checkbox for 'one multilingual ' ... use that as a special value in the API
 
     return (
-      <Closable className={styles.selectContainer} onClose={() => this.removeLanguage()}>
-        <Details dispatch={dispatch} details={details} onChange={this.updateLanguage.bind(this)} varieties={varieties} />
+      <Closable
+        className={styles.selectContainer}
+        onClose={() => this.removeLanguage()}
+        id={`lang_${idx}`}
+      >
+        <Details
+          idx={idx}
+          dispatch={dispatch}
+          details={details}
+          onChange={this.updateLanguage.bind(this)}
+          varieties={varieties}
+        />
         <section className={styles.propSection}>
           {Object.keys(langprops).map(key => langprops[key])}
         </section>

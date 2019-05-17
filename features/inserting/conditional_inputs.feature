@@ -3,7 +3,6 @@ Feature: Conditional inputs
     Some of the form fields are visible to the user only depending on the
     values of other fields
 
-    @cur
     Scenario: Inserting a dataset that doesn't include text and not seeing annotations
 
         When the user navigates to /#/newdataset

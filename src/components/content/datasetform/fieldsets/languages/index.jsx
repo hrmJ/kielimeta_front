@@ -12,7 +12,7 @@ export default (props) => {
   } = props;
 
   return (
-    <fieldset>
+    <fieldset id="languages">
       <legend>Kielet</legend>
       <section>
         <p className={styles.description}>
