@@ -16,12 +16,20 @@ export default class LanguageSelect extends Component {
     if (!languages[idx] && (languages.length - 1 >= idx || languages.length === 0)) {
       languages[idx] = {};
     }
-    if (key === 'language_code') {
+    if (key === 'new_language_code') {
+      if (!updated[idx].details.language_name) {
+        updated[idx].details = {
+          ...updated[idx].details,
+          language_name: updated[idx].details.language_code
+        };
+      }
+    }
+    if (['language_code', 'new_language_code'].includes(key)) {
       updated[idx].details = { ...updated[idx].details, [key]: val.value };
       dispatch(updateField('languages', updated, val));
       return updated;
     }
-    if (key === 'variety') {
+    if (['variety', 'variety_type'].includes(key)) {
       updated[idx].details = { ...updated[idx].details, [key]: val };
     } else {
       updated[idx][key] = val;
@@ -38,7 +46,16 @@ export default class LanguageSelect extends Component {
   }
 
   render() {
-    const { details, mediaTypes = [], languages, dispatch, varieties, idx, names } = this.props;
+    const {
+      details,
+      mediaTypes = [],
+      languages,
+      dispatch,
+      varieties,
+      idx,
+      names,
+      languageVarietyTypes
+    } = this.props;
     const langprops = {
       annotations: null,
       size: [],
@@ -46,6 +63,7 @@ export default class LanguageSelect extends Component {
         <TemporalCoverage {...this.props} updateLanguage={this.updateLanguage.bind(this)} />
       )
     };
+
     // Conditionally hiding language-specific props based on madia types
     if (mediaTypes.includes('text')) {
       langprops.annotations = (
@@ -107,6 +125,7 @@ export default class LanguageSelect extends Component {
           details={details}
           onChange={this.updateLanguage.bind(this)}
           varieties={varieties}
+          varietyTypes={languageVarietyTypes}
         />
         <section className={styles.propSection}>
           {Object.keys(langprops).map(key => langprops[key])}

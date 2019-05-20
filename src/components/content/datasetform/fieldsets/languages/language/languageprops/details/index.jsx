@@ -14,18 +14,16 @@ export const selectStyle = {
 };
 
 export default props => {
-  const { onChange, details = {}, varieties, idx, names } = props;
+  const { onChange, details = {}, varieties, idx, names, varietyTypes, dispatch } = props;
   const { language_code: code = '', variety = '' } = details;
   let selectValue;
   let newlanguageCondition = false;
   if (code && names) {
     selectValue = { value: code, label: names[code] || code };
+    if (code === names[code]) {
+      newlanguageCondition = true;
+    }
   }
-  if (code) {
-    // TODO a more robust check?
-    newlanguageCondition = code.length > 3;
-  }
-
   return (
     <section>
       <div className={formstyles.upperContainer}>
@@ -39,12 +37,11 @@ export default props => {
         >
           Kieli
         </AutoCompleteField>
-        <AdditionalField
-          condition={newlanguageCondition}
-          originalValues={Object.keys(names)}
-          currentVal={code}
-        >
-          <LabelledInput label={'Kielikoodi tälle kielelle'} onChange={() => null} />
+        <AdditionalField condition={newlanguageCondition}>
+          <LabelledInput
+            label={'Kielikoodi tälle kielelle'}
+            onChange={selected => onChange('new_language_code', selected.value)}
+          />
         </AdditionalField>
       </div>
       <Variety
@@ -52,6 +49,8 @@ export default props => {
         language_code={code}
         onChange={onChange}
         variety={details.variety}
+        dispatch={dispatch}
+        varietyTypes={varietyTypes}
       />
     </section>
   );

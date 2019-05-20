@@ -1,26 +1,28 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+
 import {
   updateField,
   submitDataset,
-  fetchOriginalFieldValues,
+  fetchOriginalFieldValues
 } from '../../../redux/actions/datasetform';
-import styles from './datasetform.scss';
 import GeneralInfo from './fieldsets/generalinfo/index';
+import LabelledInput from '../../ui/labelledinput';
 import Languages from './fieldsets/languages';
+import styles from './datasetform.scss';
 
 export default class InsertForm extends Component {
   static get propTypes() {
     return {
       dispatch: PropTypes.func.isRequired,
       fields: PropTypes.objectOf(PropTypes.any).isRequired,
-      loadingState: PropTypes.objectOf(PropTypes.any).isRequired,
+      loadingState: PropTypes.objectOf(PropTypes.any).isRequired
     };
   }
 
-  handleChange = name => (event) => {
+  handleChange = name => event => {
     const { dispatch } = this.props;
     if (event.target) {
       dispatch(updateField(name, event.target.value));
@@ -45,7 +47,13 @@ export default class InsertForm extends Component {
   render() {
     // PROPS: usertype
     const {
-      loadingState, dispatch, fields, originalFormValues, languageVarieties, languageNames
+      loadingState,
+      dispatch,
+      fields,
+      originalFormValues,
+      languageVarieties,
+      languageNames,
+      languageVarietyTypes
     } = this.props;
     const { mediatype, languages, resourcetype } = fields;
 
@@ -69,33 +77,22 @@ export default class InsertForm extends Component {
           dispatch={dispatch}
           mediaTypes={mediatype}
           languageVarieties={languageVarieties}
+          languageVarietyTypes={languageVarietyTypes}
           languageNames={languageNames}
         />
         <fieldset>
           <legend>Ylläpito ja saatavuus</legend>
           <div className={styles.upperContainer}>
             <h4>Projektin yhteyshenkilöt</h4>
-            <div className={styles.fieldContainer}>
-              <label>nimi</label>
-            </div>
-            <div className={styles.fieldContainer}>
-              <label>sähköposti</label>
-            </div>
-            <div className={styles.fieldContainer}>
-              <label>rooli</label>
-            </div>
+            {['nimi', 'sähköposti', 'rooli'].map(lab => (
+              <LabelledInput label={lab} />
+            ))}
           </div>
-          <div className={styles.fieldContainer}>
-            <label>URL-osoite</label>
-          </div>
-          <div className={styles.fieldContainer}>
-            <label>Muu saatavuustieto</label>
-          </div>
-          <div className={styles.fieldContainer}>
-            <label>Käyttöoikeus</label>
-          </div>
-          <div className={styles.fieldContainer}>
-            <label>Viittausohje</label>
+          <div className={styles.upperContainer}>
+            <h4>Aineiston saatavuustiedot</h4>
+            {['URL-osoite', 'käyttöoikeus', 'viittausohje'].map(lab => (
+              <LabelledInput label={lab} />
+            ))}
           </div>
         </fieldset>
         <div>

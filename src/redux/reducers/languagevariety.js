@@ -1,4 +1,4 @@
-export default function languageVarietyReducer(state = {}, action) {
+export function languageVarietyReducer(state = {}, action) {
   const { type, ...rest } = action;
 
   switch (type) {
@@ -16,6 +16,22 @@ export default function languageVarietyReducer(state = {}, action) {
       return { ...state, ...varieties };
       break;
     case 'VARIETIES_ERROR':
+      break;
+  }
+
+  return state;
+}
+
+export function languageVarietyTypeReducer(state = [], action) {
+  const { type, ...rest } = action;
+
+  switch (type) {
+    case 'VARIETYTYPES_REQUEST':
+      break;
+    case 'VARIETYTYPES_SUCCESS':
+      return rest.result;
+      break;
+    case 'VARIETYTYPES_ERROR':
       break;
   }
 

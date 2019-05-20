@@ -7,13 +7,14 @@ import 'react-vis/dist/style.css';
 import TimelineChart from '../../ui/timeline/chart';
 import FoldableBox from '../../ui/foldablebox';
 
-const createLanguageKey = (id, language, langId) => `ds_${id}_lang_condendsed_${language.details.language_code}${language.details.variety}_${langId}`;
+const createLanguageKey = (id, language, langId) =>
+  `ds_${id}_lang_condendsed_${language.details.language_code}${language.details.variety}_${langId}`;
 
 export default class datasetItem extends Component {
   static get propTypes() {
     return {
       title: PropTypes.string.isRequired,
-      languages: PropTypes.arrayOf(PropTypes.object).isRequired,
+      languages: PropTypes.arrayOf(PropTypes.object).isRequired
     };
   }
 
@@ -21,23 +22,26 @@ export default class datasetItem extends Component {
 
   printCondensed() {
     const { languages, id } = this.props;
-
-    return (
-      <div className={styles.quickDetails}>
-        {languages.map((language, langId) => (
+    const languageNames = [];
+    const languageBadges = [];
+    for (let langId = 0; langId < languages.length; langId++) {
+      let language = languages[langId];
+      if (!languageNames.includes(language.details.name)) {
+        languageNames.push(language.details.name);
+        languageBadges.push(
           <LanguageBadge
             key={createLanguageKey(id, language, langId)}
             name={language.details.name}
           />
-        ))}
-      </div>
-    );
+        );
+      }
+    }
+
+    return <div className={styles.quickDetails}>{languageBadges}</div>;
   }
 
   printExpanded() {
-    const {
-      languages, id, description, resourcetype, keywords,
-    } = this.props;
+    const { languages, id, description, resourcetype, keywords } = this.props;
 
     return (
       <div>
@@ -81,18 +85,18 @@ export default class datasetItem extends Component {
                       <ul className={styles.sublist}>
                         {language.size
                           ? Object.keys(language.size)
-                            .filter(
-                              key => language.size[key] !== undefined && language.size[key] > 0,
-                            )
-                            .map(key => (
-                              <li>
-                                <span>
-                                  {key}
+                              .filter(
+                                key => language.size[key] !== undefined && language.size[key] > 0
+                              )
+                              .map(key => (
+                                <li>
+                                  <span>
+                                    {key}
                                     :&nbsp;
-                                </span>
-                                {language.size[key]}
-                              </li>
-                            ))
+                                  </span>
+                                  {language.size[key]}
+                                </li>
+                              ))
                           : null}
                       </ul>
                     </li>

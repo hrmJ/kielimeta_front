@@ -19,6 +19,7 @@ const main = props => {
     originalFilterValues,
     originalFormValues,
     languageVarieties,
+    languageVarietyTypes,
     languageNames
   } = props;
   let { datasets } = props;
@@ -49,6 +50,7 @@ const main = props => {
                     loadingState={loadingState}
                     dispatch={dispatch}
                     languageVarieties={languageVarieties}
+                    languageVarietyTypes={languageVarietyTypes}
                     languageNames={languageNames}
                   />
                 )}
