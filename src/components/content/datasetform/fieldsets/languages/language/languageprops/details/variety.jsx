@@ -58,6 +58,7 @@ export default class Variety extends Component {
       if (variety !== 'generic') {
         varietyDetailsCondition = true;
         varietySelectValue = { value: variety, label: variety };
+        varietyOptions = [{ label: 'ei tarkempaa varianttia', value: 'generic' }];
       }
     }
 
