@@ -21,11 +21,12 @@ export default class Variety extends Component {
       idx,
       varieties,
       language_code,
+      language_name,
       onChange,
       variety,
       varietyTypes = [],
       dispatch,
-      isNewLanguage = false
+      isNewLanguage = false,
     } = this.props;
     let varietyOptions = [];
     let varietyDetailsCondition = false;
@@ -41,8 +42,9 @@ export default class Variety extends Component {
     if (varieties[language_code]) {
       varietyOptions = varieties[language_code].map(obj => ({
         label: obj.variety.replace('generic', 'ei tarkempaa varianttia'),
-        value: obj.variety
+        value: obj.variety,
       }));
+
       if (!varieties[language_code].map(obj => obj.variety).includes(variety)) {
         // a new variant was given
         varietyOptions.push({ label: variety, value: variety });
@@ -52,8 +54,11 @@ export default class Variety extends Component {
       if (!varietySelectValue.length) {
         varietySelectValue = { value: 'generic', label: 'ei tarkempaa varianttia' };
       }
-    } else if (2 < 3) {
-      const x = 8;
+    } else if (isNewLanguage) {
+      if (variety !== 'generic') {
+        varietyDetailsCondition = true;
+        varietySelectValue = { value: variety, label: variety };
+      }
     }
 
     return (
@@ -96,7 +101,7 @@ export default class Variety extends Component {
               { value: 'written', label: 'Kirjoitettu kieli' },
               { value: 'spoken', label: 'Puhuttu kieli' },
               { value: 'internet', label: 'Internetkieli' },
-              { value: 'mixed', label: 'Vaikeasti määriteltävissä' }
+              { value: 'mixed', label: 'Vaikeasti määriteltävissä' },
             ]}
           />
         </LabelledInput>
