@@ -18,6 +18,7 @@ export default class Variety extends Component {
 
   render() {
     const {
+      idx,
       varieties,
       language_code,
       onChange,
@@ -51,6 +52,8 @@ export default class Variety extends Component {
       if (!varietySelectValue.length) {
         varietySelectValue = { value: 'generic', label: 'ei tarkempaa varianttia' };
       }
+    } else if (2 < 3) {
+      const x = 8;
     }
 
     return (
@@ -62,11 +65,13 @@ export default class Variety extends Component {
               options={varietyOptions}
               value={varietySelectValue}
               styles={selectStyle}
+              id={`lang_${idx}_variantselect`}
             />
           </LabelledInput>
           <AdditionalField condition={varietyDetailsCondition}>
             <LabelledInput label="Variantin tyyppi" id={`langvartype${language_code}`}>
               <Select
+                id={`lang_${idx}_variant_type_select`}
                 styles={selectStyle}
                 options={typeOptions}
                 onChange={selected => onChange('variety_type', selected.value)}

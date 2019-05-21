@@ -15,10 +15,13 @@ export const selectStyle = {
 
 export default props => {
   const { onChange, details = {}, varieties, idx, names, varietyTypes, dispatch } = props;
-  const { language_code: code = '', variety = '' } = details;
+  const { language_code: code = '', variety = '', language_name } = details;
   let selectValue;
   let newlanguageCondition = false;
-  if (code && names) {
+  if (language_name) {
+    newlanguageCondition = true;
+    selectValue = { value: code, label: language_name };
+  } else if (code && names) {
     selectValue = { value: code, label: names[code] || code };
     if (code === names[code]) {
       newlanguageCondition = true;
@@ -39,12 +42,14 @@ export default props => {
         </AutoCompleteField>
         <AdditionalField condition={newlanguageCondition}>
           <LabelledInput
+            id={`lang_${idx}_newcode`}
             label={'Kielikoodi tälle kielelle'}
-            onChange={selected => onChange('new_language_code', selected.value)}
+            handleChange={ev => onChange('new_language_code', ev.target.value)}
           />
         </AdditionalField>
       </div>
       <Variety
+        idx={idx}
         varieties={varieties}
         language_code={code}
         onChange={onChange}

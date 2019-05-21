@@ -18,22 +18,22 @@ export default class LanguageSelect extends Component {
     }
     if (key === 'new_language_code') {
       if (!updated[idx].details.language_name) {
-        updated[idx].details = {
-          ...updated[idx].details,
-          language_name: updated[idx].details.language_code
-        };
+        updated[idx].details.language_name = updated[idx].details.language_code;
       }
-    }
-    if (['language_code', 'new_language_code'].includes(key)) {
-      updated[idx].details = { ...updated[idx].details, language_code: val.value };
-      updated[idx].details.variety = 'generic';
-      dispatch(updateField('languages', updated, val));
-      return updated;
-    }
-    if (['variety', 'variety_type'].includes(key)) {
-      updated[idx].details = { ...updated[idx].details, [key]: val };
+      updated[idx].details = { ...updated[idx].details, language_code: val };
     } else {
-      updated[idx][key] = val;
+      if (key === 'language_code') {
+        updated[idx].details = { ...updated[idx].details, language_code: val.value };
+        updated[idx].details.variety = 'generic';
+        delete updated[idx].details.language_name;
+        dispatch(updateField('languages', updated, val));
+        return updated;
+      }
+      if (['variety', 'variety_type'].includes(key)) {
+        updated[idx].details = { ...updated[idx].details, [key]: val };
+      } else {
+        updated[idx][key] = val;
+      }
     }
     dispatch(updateField('languages', updated));
     return updated;
