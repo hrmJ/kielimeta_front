@@ -17,8 +17,18 @@ export default class Variety extends Component {
   }
 
   render() {
-    const { varieties, language_code, onChange, variety, varietyTypes = [], dispatch } = this.props;
+    const {
+      varieties,
+      language_code,
+      onChange,
+      variety,
+      varietyTypes = [],
+      dispatch,
+      isNewLanguage = false
+    } = this.props;
     let varietyOptions = [];
+    let varietyDetailsCondition = false;
+    let varietySelectValue = { value: 'generic', label: 'ei tarkempaa varianttia' };
     const typeOptions = varietyTypes
       .filter(t => t !== 'generic')
       .map(t => ({ label: t, value: t }));
@@ -32,6 +42,15 @@ export default class Variety extends Component {
         label: obj.variety.replace('generic', 'ei tarkempaa varianttia'),
         value: obj.variety
       }));
+      if (!varieties[language_code].map(obj => obj.variety).includes(variety)) {
+        // a new variant was given
+        varietyOptions.push({ label: variety, value: variety });
+        varietyDetailsCondition = true;
+      }
+      varietySelectValue = varietyOptions.filter(o => o.value === variety);
+      if (!varietySelectValue.length) {
+        varietySelectValue = { value: 'generic', label: 'ei tarkempaa varianttia' };
+      }
     }
 
     return (
@@ -41,13 +60,11 @@ export default class Variety extends Component {
             <CreatableSelect
               onChange={selected => onChange('variety', selected.value)}
               options={varietyOptions}
+              value={varietySelectValue}
               styles={selectStyle}
             />
           </LabelledInput>
-          <AdditionalField
-            originalValues={varietyOptions.map(obj => obj.value)}
-            currentVal={variety}
-          >
+          <AdditionalField condition={varietyDetailsCondition}>
             <LabelledInput label="Variantin tyyppi" id={`langvartype${language_code}`}>
               <Select
                 styles={selectStyle}

@@ -25,7 +25,8 @@ export default class LanguageSelect extends Component {
       }
     }
     if (['language_code', 'new_language_code'].includes(key)) {
-      updated[idx].details = { ...updated[idx].details, [key]: val.value };
+      updated[idx].details = { ...updated[idx].details, language_code: val.value };
+      updated[idx].details.variety = 'generic';
       dispatch(updateField('languages', updated, val));
       return updated;
     }

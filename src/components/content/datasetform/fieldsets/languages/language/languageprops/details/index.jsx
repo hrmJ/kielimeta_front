@@ -51,6 +51,7 @@ export default props => {
         variety={details.variety}
         dispatch={dispatch}
         varietyTypes={varietyTypes}
+        isNewLanguage={newlanguageCondition}
       />
     </section>
   );
