@@ -13,7 +13,8 @@ export default props => {
     mediaTypes,
     languageVarieties,
     languageNames,
-    languageVarietyTypes
+    languageVarietyTypes,
+		annotationLevels=[]
   } = props;
 
   return (
@@ -36,6 +37,7 @@ export default props => {
             key={idx.toString()}
             idx={idx}
             languageVarietyTypes={languageVarietyTypes}
+						annotationLevels={annotationLevels}
           />
         ))}
       </section>

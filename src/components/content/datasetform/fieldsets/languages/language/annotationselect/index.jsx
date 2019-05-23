@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
 
-import { selectStyle } from '../../../../../../../general_styles/jsStyles';
 import { updateField } from '../../../../../../../redux/actions/datasetform';
 import Closable from '../../../../../../ui/closablebox';
+import TooltippedSelect from '../../../../../../ui/tooltippedSelect';
 import formstyles from '../../../../datasetform.scss';
 import styles from './annotationselect.scss';
 
@@ -36,34 +36,26 @@ export default class AnnotationSelect extends Component {
   }
 
   render() {
-    const { idx, level = '', description } = this.props;
-    // TODO
-    const annotationLevels = [
-      { value: 'SYNT', label: 'syntaksi' },
-      { value: 'MORPH', label: 'morfologia' },
-      { value: 'OTHER', label: 'muut' },
-    ];
-    let annselectval;
-
-    if (level) {
-      const label = annotationLevels.filter(lev => lev.value === level).map(obj => obj.label);
-      annselectval = { label, value: level };
-    }
+    const {
+      idx, level = '', description, annotationLevels = [],
+    } = this.props;
 
     return (
       <Closable className={styles.annotationSelect} onClose={() => this.removeAnnotation()}>
         <div className={formstyles.fieldContainer}>
           <div>Annotoitu kohde</div>
-          <Select
-            styles={selectStyle}
+          <TooltippedSelect
             options={annotationLevels}
-            value={annselectval}
+            valueName="level"
+            tooltipName="definition"
+            value={level ? { label: level, value: level } : null}
             onChange={selected => this.updateAnnotation('level', selected.value)}
+            creatable={false}
           />
         </div>
 
         <div className={formstyles.fieldContainer}>
-          <label htmlFor={`annoversion${idx}`}>Käytetty skeema / versio</label>
+          <label htmlFor={`annoversion${idx}`}>Tarkempi kuvaus</label>
           <input
             type="text"
             value={description}

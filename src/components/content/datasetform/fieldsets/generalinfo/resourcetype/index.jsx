@@ -20,6 +20,7 @@ export default (props) => {
           valueName="name"
           tooltipName="description"
           onChange={handleChange('resourcetype')}
+          creatable
         />
       </LabelledInput>
       <AdditionalField

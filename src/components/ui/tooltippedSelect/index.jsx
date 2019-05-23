@@ -1,5 +1,6 @@
-import { components } from 'react-select';
+import Select, { components } from 'react-select';
 import CreatableSelect from 'react-select/lib/Creatable';
+
 import React from 'react';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -13,7 +14,14 @@ const Option = props => (
 
 export default (props) => {
   const {
-    options, tooltipName, valueName, labelName, onChange,
+    options,
+    tooltipName,
+    valueName,
+    labelName,
+    onChange,
+    value,
+    creatable,
+    isSearchable = false,
   } = props;
   const formattedOptions = options.map(o => ({
     value: o[valueName],
@@ -21,12 +29,16 @@ export default (props) => {
     tooltip: o[tooltipName],
   }));
 
-  return (
-    <CreatableSelect
-      options={formattedOptions}
-      components={{ Option }}
-      styles={selectStyle}
-      onChange={onChange}
-    />
+  const passedProps = {
+    options: formattedOptions,
+    styles: selectStyle,
+    onChange,
+    value,
+    components: { Option },
+  };
+  return creatable ? (
+    <CreatableSelect {...passedProps} />
+  ) : (
+    <Select {...passedProps} isSearchable={isSearchable} />
   );
 };

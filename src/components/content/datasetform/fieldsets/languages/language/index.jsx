@@ -57,6 +57,7 @@ export default class LanguageSelect extends Component {
       idx,
       names,
       languageVarietyTypes,
+      annotationLevels,
     } = this.props;
     const langprops = {
       annotations: null,

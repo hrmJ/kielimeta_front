@@ -3,8 +3,10 @@ import LanguageProp from '../languageprop';
 import AnnotationSelect from '../annotationselect';
 import formstyles from '../../../../datasetform.scss';
 
-export default props => {
-  const { onChange, dispatch, idx, languages } = props;
+export default (props) => {
+  const {
+    onChange, dispatch, idx, languages, annotationLevels,
+  } = props;
   const annotations = languages[idx].annotations || [];
 
   return (
@@ -16,6 +18,7 @@ export default props => {
           language_idx={idx}
           languages={languages}
           dispatch={dispatch}
+          annotationLevels={annotationLevels}
           {...annotation}
         />
       ))}

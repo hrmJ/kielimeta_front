@@ -3,10 +3,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
-import {
-  updateField,
-  submitDataset,
-} from '../../../redux/actions/datasetform';
+import { updateField, submitDataset } from '../../../redux/actions/datasetform';
 import { prepopulateFormSelects } from '../../../redux/actions/formSelectPrepopulation';
 import GeneralInfo from './fieldsets/generalinfo/index';
 import LabelledInput from '../../ui/labelledinput';
@@ -81,6 +78,7 @@ export default class InsertForm extends Component {
           languageVarieties={languageVarieties}
           languageVarietyTypes={languageVarietyTypes}
           languageNames={languageNames}
+          annotationLevels={annotationLevels}
         />
         <fieldset>
           <legend>Ylläpito ja saatavuus</legend>
