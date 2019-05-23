@@ -66,6 +66,7 @@ export default class datasetItem extends Component {
                   language.details.variety ? `: ${language.details.variety}` : ''
                 }`}
                 headerclass={styles.langHeading}
+                useHack
               >
                 <div className={styles.langContent}>
                   <ul className={styles.langDetailsList}>

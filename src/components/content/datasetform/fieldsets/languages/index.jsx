@@ -6,7 +6,7 @@ import generalStyles from '../../../../../general_styles/general_styles.scss';
 import Language from './language';
 import { updateField } from '../../../../../redux/actions/datasetform';
 
-export default props => {
+export default (props) => {
   const {
     languages,
     dispatch,
@@ -14,7 +14,7 @@ export default props => {
     languageVarieties,
     languageNames,
     languageVarietyTypes,
-		annotationLevels=[]
+    annotationLevels = [],
   } = props;
 
   return (
@@ -37,7 +37,7 @@ export default props => {
             key={idx.toString()}
             idx={idx}
             languageVarietyTypes={languageVarietyTypes}
-						annotationLevels={annotationLevels}
+            annotationLevels={annotationLevels}
           />
         ))}
       </section>
