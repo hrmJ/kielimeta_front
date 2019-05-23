@@ -16,14 +16,27 @@ export default class LanguageSelect extends Component {
     if (!languages[idx] && (languages.length - 1 >= idx || languages.length === 0)) {
       languages[idx] = {};
     }
-    if (['language_code', 'variety'].includes(key)) {
-      // grouping certain keys under the "details"  prop
-      updated[idx].details = { ...updated[idx].details, [key]: val };
+    if (key === 'new_language_code') {
+      if (!updated[idx].details.language_name) {
+        updated[idx].details.language_name = updated[idx].details.language_code;
+      }
+      updated[idx].details = { ...updated[idx].details, language_code: val };
     } else {
-      updated[idx][key] = val;
+      if (key === 'language_code') {
+        updated[idx].details = { ...updated[idx].details, language_code: val.value };
+        updated[idx].details.variety = 'generic';
+        updated[idx].details.variety_type = 'generic';
+        delete updated[idx].details.language_name;
+        dispatch(updateField('languages', updated, val));
+        return updated;
+      }
+      if (['variety', 'variety_type'].includes(key)) {
+        updated[idx].details = { ...updated[idx].details, [key]: val };
+      } else {
+        updated[idx][key] = val;
+      }
     }
     dispatch(updateField('languages', updated));
-    // for testing purposes
     return updated;
   }
 
@@ -31,19 +44,29 @@ export default class LanguageSelect extends Component {
     const { idx, languages, dispatch } = this.props;
     const updated = languages;
     updated.splice(idx, 1);
-    updated.map(u => console.log(u.variety));
     dispatch(updateField('languages', updated));
   }
 
   render() {
-    const { details, mediaTypes = [], languages } = this.props;
+    const {
+      details,
+      mediaTypes = [],
+      languages,
+      dispatch,
+      varieties,
+      idx,
+      names,
+      languageVarietyTypes,
+      annotationLevels,
+    } = this.props;
     const langprops = {
       annotations: null,
       size: [],
       temporalCoverage: (
         <TemporalCoverage {...this.props} updateLanguage={this.updateLanguage.bind(this)} />
-      )
+      ),
     };
+
     // Conditionally hiding language-specific props based on madia types
     if (mediaTypes.includes('text')) {
       langprops.annotations = (
@@ -58,11 +81,11 @@ export default class LanguageSelect extends Component {
             { key: 'words', label: 'Sanoja' },
             { key: 'tokens', label: 'Saneita' },
             { key: 'sentences', label: 'Virkkeitä' },
-            { key: 'texts', label: 'Tekstejä' }
+            { key: 'texts', label: 'Tekstejä' },
           ]}
           notincludedname="tekstiaineistoja"
           languagetotal={languages.length}
-        />
+        />,
       );
     }
     if (mediaTypes.includes('audio')) {
@@ -74,7 +97,7 @@ export default class LanguageSelect extends Component {
           fields={[{ key: 'audiohours', label: 'Tuntia' }]}
           notincludedname="äänitteitä"
           languagetotal={languages.length}
-        />
+        />,
       );
     }
     if (mediaTypes.includes('video')) {
@@ -86,15 +109,27 @@ export default class LanguageSelect extends Component {
           fields={[{ key: 'videohours', label: 'Tuntia' }]}
           notincludedname="videoita"
           languagetotal={languages.length}
-        />
+        />,
       );
     }
 
     // ATTENTION! ADD a checkbox for 'one multilingual ' ... use that as a special value in the API
 
     return (
-      <Closable className={styles.selectContainer} onClose={() => this.removeLanguage()}>
-        <Details details={details} onChange={this.updateLanguage.bind(this)} />
+      <Closable
+        className={styles.selectContainer}
+        onClose={() => this.removeLanguage()}
+        id={`lang_${idx}`}
+      >
+        <Details
+          names={names}
+          idx={idx}
+          dispatch={dispatch}
+          details={details}
+          onChange={this.updateLanguage.bind(this)}
+          varieties={varieties}
+          varietyTypes={languageVarietyTypes}
+        />
         <section className={styles.propSection}>
           {Object.keys(langprops).map(key => langprops[key])}
         </section>

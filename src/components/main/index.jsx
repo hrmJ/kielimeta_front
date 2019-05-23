@@ -1,14 +1,14 @@
-import React from 'react';
 import { BrowserRouter, HashRouter, Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import TopBar from '../layout/navigation/topbar';
-import DatasetList from '../content/datasetlist';
+import React from 'react';
+
 import DatasetForm from '../content/datasetform';
-import Login from '../auth/login';
-// import Header from '../layout/header';
+import DatasetList from '../content/datasetlist';
 import Footer from '../layout/footer';
+import LabelledInput from '../ui/labelledinput';
+import Login from '../auth/login';
+import TopBar from '../layout/navigation/topbar';
 import styles from '../../general_styles/general_styles.scss';
-import TimeLineChart from '../ui/timeline/chart';
 
 const main = props => {
   const {
@@ -17,12 +17,15 @@ const main = props => {
     loadingState,
     filters,
     originalFilterValues,
-    originalFormValues
+    originalFormValues,
+    languageVarieties,
+    languageVarietyTypes,
+    languageNames,
+		preloadedSelects
   } = props;
   let { datasets } = props;
 
   if (!Array.isArray(datasets)) {
-    console.log(datasets);
     datasets = [];
   }
   // const token = getCookie('jwt_token_access');
@@ -37,7 +40,7 @@ const main = props => {
           }
           <main>
             <Switch>
-              <Route path="/test" render={() => <TimeLineChart />} />
+              <Route path="/test" render={() => <LabelledInput label="Testi" />} />
               <Route path="/login" render={() => <Login />} />
               <Route
                 path="/newdataset"
@@ -47,6 +50,10 @@ const main = props => {
                     originalFormValues={originalFormValues}
                     loadingState={loadingState}
                     dispatch={dispatch}
+                    languageVarieties={languageVarieties}
+                    languageVarietyTypes={languageVarietyTypes}
+                    preloadedSelects={preloadedSelects}
+                    languageNames={languageNames}
                   />
                 )}
               />

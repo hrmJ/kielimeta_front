@@ -6,11 +6,19 @@ import generalStyles from '../../../../../general_styles/general_styles.scss';
 import Language from './language';
 import { updateField } from '../../../../../redux/actions/datasetform';
 
-export default props => {
-  const { languages, dispatch, mediaTypes } = props;
+export default (props) => {
+  const {
+    languages,
+    dispatch,
+    mediaTypes,
+    languageVarieties,
+    languageNames,
+    languageVarietyTypes,
+    annotationLevels = [],
+  } = props;
 
   return (
-    <fieldset>
+    <fieldset id="languages">
       <legend>Kielet</legend>
       <section>
         <p className={styles.description}>
@@ -20,12 +28,16 @@ export default props => {
         </p>
         {languages.map((lang, idx) => (
           <Language
+            varieties={languageVarieties}
+            names={languageNames}
             languages={languages}
             dispatch={dispatch}
             mediaTypes={mediaTypes}
             {...lang}
             key={idx.toString()}
             idx={idx}
+            languageVarietyTypes={languageVarietyTypes}
+            annotationLevels={annotationLevels}
           />
         ))}
       </section>

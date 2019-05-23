@@ -1,10 +1,13 @@
 import { combineReducers } from 'redux';
+
+import { languageVarietyReducer, languageVarietyTypeReducer } from './languagevariety';
 import datasetReducer from './datasets';
-import loadingStateReducer from './loadingstate';
-import datasetformReducer from './datasetform';
 import datasetfilterReducer from './datasetfilter';
+import datasetformReducer from './datasetform';
+import languageNameReducer from './languagenames';
+import loadingStateReducer from './loadingstate';
 import originalfilterReducer from './originalfilter';
-import originalFormValueReducer from './originalformvalues';
+import preloadedSelectsReducer from './preloadedSelects';
 
 const appReducer = combineReducers({
   datasets: datasetReducer,
@@ -12,7 +15,10 @@ const appReducer = combineReducers({
   datasetform: datasetformReducer,
   datasetFilters: datasetfilterReducer,
   originalFilterValues: originalfilterReducer,
-  originalFormValues: originalFormValueReducer
+  languageVarieties: languageVarietyReducer,
+  languageNames: languageNameReducer,
+  languageVarietyTypes: languageVarietyTypeReducer,
+  preloadedSelects: preloadedSelectsReducer,
 });
 
 export default appReducer;

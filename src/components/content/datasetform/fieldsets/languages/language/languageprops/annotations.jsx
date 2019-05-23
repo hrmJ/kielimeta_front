@@ -1,10 +1,12 @@
 import React from 'react';
 import LanguageProp from '../languageprop';
 import AnnotationSelect from '../annotationselect';
-import formstyles from '../../../../datasetform.scss';
+import generalStyles from '../../../../../../../general_styles/general_styles.scss';
 
-export default props => {
-  const { onChange, dispatch, idx, languages } = props;
+export default (props) => {
+  const {
+    onChange, dispatch, idx, languages, annotationLevels,
+  } = props;
   const annotations = languages[idx].annotations || [];
 
   return (
@@ -16,13 +18,14 @@ export default props => {
           language_idx={idx}
           languages={languages}
           dispatch={dispatch}
+          annotationLevels={annotationLevels}
           {...annotation}
         />
       ))}
 
       <button
         type="button"
-        className={formstyles.someTopMargin}
+        className={generalStyles.someTopMargin}
         onClick={() => onChange('annotations', [...annotations, {}])}
       >
         Lisää uusi

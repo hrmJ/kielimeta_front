@@ -1,13 +1,24 @@
 import React, { Component } from 'react';
-import styles from './foldablebox.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretRight, faCaretDown } from '@fortawesome/free-solid-svg-icons';
-import TimelineChart from '../../ui/timeline/chart';
+import styles from './foldablebox.scss';
+import TimelineChart from '../timeline/chart';
 
 export default class FoldableBox extends Component {
   state = {
-    open: false
+    open: false,
   };
+
+  setVisibilityStyle() {
+    const { open } = this.state;
+    const { useHack } = this.props;
+    if (useHack) {
+      return open
+        ? { height: 'auto', visibility: 'visible', overflow: 'hidden' }
+        : { height: '0', visibility: 'hidden', overflow: 'hidden' };
+    }
+    return open ? { display: 'block' } : { display: 'none' };
+  }
 
   render() {
     const {
@@ -16,7 +27,7 @@ export default class FoldableBox extends Component {
       children = '',
       launchertype = 'button',
       headerclass,
-      id
+      id,
     } = this.props;
     const { open } = this.state;
     // const open = true;
@@ -43,12 +54,7 @@ export default class FoldableBox extends Component {
     return (
       <div className={styles.container} id={id}>
         {launcher}
-        <div
-          className={styles.dropDown}
-          style={
-            open ? { height: 'auto', visibility: 'visible' } : { height: '0', visibility: 'hidden' }
-          }
-        >
+        <div className={styles.dropDown} style={this.setVisibilityStyle()}>
           {children}
         </div>
       </div>

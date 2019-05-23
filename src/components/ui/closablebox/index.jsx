@@ -4,10 +4,12 @@ import { faWindowClose, faTrash } from '@fortawesome/free-solid-svg-icons';
 import styles from './closablebox.scss';
 
 const ClosableBox = (props) => {
-  const { children, className, onClose } = props;
+  const {
+    children, className, onClose, id,
+  } = props;
 
   return (
-    <div className={`${styles.closableBox} ${className}`}>
+    <div className={`${styles.closableBox} ${className}`} id={id}>
       <FontAwesomeIcon className={styles.closer} icon={faWindowClose} onClick={() => onClose()} />
       {children}
     </div>

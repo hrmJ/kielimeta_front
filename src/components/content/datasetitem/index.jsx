@@ -21,17 +21,22 @@ export default class datasetItem extends Component {
 
   printCondensed() {
     const { languages, id } = this.props;
-
-    return (
-      <div className={styles.quickDetails}>
-        {languages.map((language, langId) => (
+    const languageNames = [];
+    const languageBadges = [];
+    for (let langId = 0; langId < languages.length; langId++) {
+      const language = languages[langId];
+      if (!languageNames.includes(language.details.name)) {
+        languageNames.push(language.details.name);
+        languageBadges.push(
           <LanguageBadge
             key={createLanguageKey(id, language, langId)}
             name={language.details.name}
-          />
-        ))}
-      </div>
-    );
+          />,
+        );
+      }
+    }
+
+    return <div className={styles.quickDetails}>{languageBadges}</div>;
   }
 
   printExpanded() {
@@ -61,6 +66,7 @@ export default class datasetItem extends Component {
                   language.details.variety ? `: ${language.details.variety}` : ''
                 }`}
                 headerclass={styles.langHeading}
+                useHack
               >
                 <div className={styles.langContent}>
                   <ul className={styles.langDetailsList}>
@@ -69,9 +75,9 @@ export default class datasetItem extends Component {
                       <ul className={styles.sublist}>
                         {language.annotations.map(annotation => (
                           <li>
-                            <span>{annotation.type}</span>
+                            <span>{annotation.level}</span>
                             <span>:</span>
-                            <span>{annotation.version}</span>
+                            <span>{annotation.description}</span>
                           </li>
                         ))}
                       </ul>

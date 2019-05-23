@@ -24,6 +24,7 @@ legend {
   display: flex;
   align-items: center;
 
+  .upperContainer + &,
   & + &,
   & + .upperContainer {
     margin-top: 2em;
@@ -52,6 +53,9 @@ legend {
   li {
     list-style-type: none;
   }
+}
+
+.smallerFields {
 }
 
 input[type='text'] {
