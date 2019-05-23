@@ -1,19 +1,14 @@
-import React, { Component } from 'react';
-import AsyncSelect from 'react-select/lib/AsyncCreatable';
-import { components } from 'react-select';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { components } from 'react-select';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import AsyncSelect from 'react-select/lib/AsyncCreatable';
+import React, { Component } from 'react';
 import Tooltip from '@atlaskit/tooltip';
-import styles from './autocompletefield.scss';
-import formstyles from '../../content/datasetform/datasetform.scss';
-import { baseUrl } from '../../../redux/actions/datasets';
 
-const selectStyle = {
-  container: provided => ({
-    ...provided,
-    width: '60%'
-  })
-};
+import { baseUrl } from '../../../redux/actions/datasets';
+import { selectStyle } from '../../../general_styles/jsStyles';
+import formstyles from '../../content/datasetform/datasetform.scss';
+import styles from './autocompletefield.scss';
 
 const Option = props => (
   <Tooltip content={props.data.tooltip}>
@@ -23,26 +18,26 @@ const Option = props => (
 
 export default class AutoCompleteField extends Component {
   getOptions(inputValue) {
-    const { categoryName, tooltipName, path, labelName, maxEntries = 10 } = this.props;
+    const {
+      categoryName, tooltipName, path, labelName, maxEntries = 10,
+    } = this.props;
     const url = `${baseUrl}/${path}?search=${inputValue}`;
     return fetch(url, { mode: 'cors' })
       .then(response => response.json())
-      .then(options =>
-        options.slice(0, maxEntries).map(option => {
-          if (categoryName === 'flat') {
-            return {
-              label: option,
-              value: option,
-              tooltip: undefined
-            };
-          }
+      .then(options => options.slice(0, maxEntries).map((option) => {
+        if (categoryName === 'flat') {
           return {
-            label: option[labelName || categoryName],
-            value: option[categoryName],
-            tooltip: option[tooltipName]
+            label: option,
+            value: option,
+            tooltip: undefined,
           };
-        })
-      );
+        }
+        return {
+          label: option[labelName || categoryName],
+          value: option[categoryName],
+          tooltip: option[tooltipName],
+        };
+      }));
   }
 
   render() {
@@ -54,7 +49,7 @@ export default class AutoCompleteField extends Component {
       onChange,
       fieldname,
       defaultOptions = true,
-      value
+      value,
     } = this.props;
 
     let select;

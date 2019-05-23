@@ -6,8 +6,8 @@ import React, { Component } from 'react';
 import {
   updateField,
   submitDataset,
-  fetchOriginalFieldValues
 } from '../../../redux/actions/datasetform';
+import { prepopulateFormSelects } from '../../../redux/actions/formSelectPrepopulation';
 import GeneralInfo from './fieldsets/generalinfo/index';
 import LabelledInput from '../../ui/labelledinput';
 import Languages from './fieldsets/languages';
@@ -18,11 +18,16 @@ export default class InsertForm extends Component {
     return {
       dispatch: PropTypes.func.isRequired,
       fields: PropTypes.objectOf(PropTypes.any).isRequired,
-      loadingState: PropTypes.objectOf(PropTypes.any).isRequired
+      loadingState: PropTypes.objectOf(PropTypes.any).isRequired,
     };
   }
 
-  handleChange = name => event => {
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(prepopulateFormSelects());
+  }
+
+  handleChange = name => (event) => {
     const { dispatch } = this.props;
     if (event.target) {
       dispatch(updateField(name, event.target.value));
@@ -39,11 +44,6 @@ export default class InsertForm extends Component {
     dispatch(submitDataset(fields));
   }
 
-  componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(fetchOriginalFieldValues('resourcetypes'));
-  }
-
   render() {
     // PROPS: usertype
     const {
@@ -53,9 +53,11 @@ export default class InsertForm extends Component {
       originalFormValues,
       languageVarieties,
       languageNames,
-      languageVarietyTypes
+      languageVarietyTypes,
+      preloadedSelects,
     } = this.props;
     const { mediatype, languages, resourcetype } = fields;
+    const { annotationLevels, resourceTypes } = preloadedSelects;
 
     if (loadingState.SUBMITDATASET) {
       if (loadingState.SUBMITDATASET === 'success') {
@@ -69,7 +71,7 @@ export default class InsertForm extends Component {
           mediaTypes={mediatype}
           dispatch={dispatch}
           handleChange={this.handleChange.bind(this)}
-          originalFormValues={originalFormValues}
+          resourceTypes={resourceTypes}
           resourcetype={resourcetype}
         />
         <Languages

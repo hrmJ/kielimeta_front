@@ -6,8 +6,8 @@ import datasetfilterReducer from './datasetfilter';
 import datasetformReducer from './datasetform';
 import languageNameReducer from './languagenames';
 import loadingStateReducer from './loadingstate';
-import originalFormValueReducer from './originalformvalues';
 import originalfilterReducer from './originalfilter';
+import preloadedSelectsReducer from './preloadedSelects';
 
 const appReducer = combineReducers({
   datasets: datasetReducer,
@@ -15,10 +15,10 @@ const appReducer = combineReducers({
   datasetform: datasetformReducer,
   datasetFilters: datasetfilterReducer,
   originalFilterValues: originalfilterReducer,
-  originalFormValues: originalFormValueReducer,
   languageVarieties: languageVarietyReducer,
   languageNames: languageNameReducer,
-  languageVarietyTypes: languageVarietyTypeReducer
+  languageVarietyTypes: languageVarietyTypeReducer,
+  preloadedSelects: preloadedSelectsReducer,
 });
 
 export default appReducer;

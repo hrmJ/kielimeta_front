@@ -2,10 +2,10 @@ import CreatableSelect from 'react-select/lib/Creatable';
 import React, { Component } from 'react';
 import Select from 'react-select';
 
-import { selectStyle } from './index';
+import { getVarietyTypes } from '../../../../../../../../redux/actions/languageactions';
+import { selectStyle } from '../../../../../../../../general_styles/jsStyles';
 import AdditionalField from '../../../../../../../ui/additionalfield';
 import LabelledInput from '../../../../../../../ui/labelledinput';
-import { getVarietyTypes } from '../../../../../../../../redux/actions/languageactions';
 import formstyles from '../../../../../datasetform.scss';
 
 export default class Variety extends Component {

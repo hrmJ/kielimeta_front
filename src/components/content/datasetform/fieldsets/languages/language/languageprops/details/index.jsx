@@ -6,12 +6,6 @@ import LabelledInput from '../../../../../../../ui/labelledinput';
 import Variety from './variety';
 import formstyles from '../../../../../datasetform.scss';
 
-export const selectStyle = {
-  container: provided => ({
-    ...provided,
-    width: '60%'
-  })
-};
 
 export default props => {
   const { onChange, details = {}, varieties, idx, names, varietyTypes, dispatch } = props;

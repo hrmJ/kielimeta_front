@@ -20,7 +20,8 @@ const main = props => {
     originalFormValues,
     languageVarieties,
     languageVarietyTypes,
-    languageNames
+    languageNames,
+		preloadedSelects
   } = props;
   let { datasets } = props;
 
@@ -51,6 +52,7 @@ const main = props => {
                     dispatch={dispatch}
                     languageVarieties={languageVarieties}
                     languageVarietyTypes={languageVarietyTypes}
+                    preloadedSelects={preloadedSelects}
                     languageNames={languageNames}
                   />
                 )}

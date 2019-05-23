@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
-import { selectStyle } from '../languageprops/details';
+
+import { selectStyle } from '../../../../../../../general_styles/jsStyles';
+import { updateField } from '../../../../../../../redux/actions/datasetform';
+import Closable from '../../../../../../ui/closablebox';
 import formstyles from '../../../../datasetform.scss';
 import styles from './annotationselect.scss';
-import Closable from '../../../../../../ui/closablebox';
-import { updateField } from '../../../../../../../redux/actions/datasetform';
 
 export default class AnnotationSelect extends Component {
   removeAnnotation() {
@@ -35,7 +36,8 @@ export default class AnnotationSelect extends Component {
   }
 
   render() {
-    const { idx, version = '', type } = this.props;
+    const { idx, level = '', description } = this.props;
+    // TODO
     const annotationLevels = [
       { value: 'SYNT', label: 'syntaksi' },
       { value: 'MORPH', label: 'morfologia' },
@@ -43,9 +45,9 @@ export default class AnnotationSelect extends Component {
     ];
     let annselectval;
 
-    if (type) {
-      const label = annotationLevels.filter(lev => lev.value === type).map(obj => obj.label);
-      annselectval = { label, value: type };
+    if (level) {
+      const label = annotationLevels.filter(lev => lev.value === level).map(obj => obj.label);
+      annselectval = { label, value: level };
     }
 
     return (
@@ -56,7 +58,7 @@ export default class AnnotationSelect extends Component {
             styles={selectStyle}
             options={annotationLevels}
             value={annselectval}
-            onChange={selected => this.updateAnnotation('type', selected.value)}
+            onChange={selected => this.updateAnnotation('level', selected.value)}
           />
         </div>
 
@@ -64,8 +66,8 @@ export default class AnnotationSelect extends Component {
           <label htmlFor={`annoversion${idx}`}>Käytetty skeema / versio</label>
           <input
             type="text"
-            value={version}
-            onChange={ev => this.updateAnnotation('version', ev.target.value)}
+            value={description}
+            onChange={ev => this.updateAnnotation('description', ev.target.value)}
             id={`annoversion${idx}`}
           />
         </div>

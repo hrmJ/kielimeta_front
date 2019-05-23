@@ -17,5 +17,8 @@ module.exports = {
         allowChildren: false
       }
     ]
+  },
+  env: {
+    jest: true
   }
 };
