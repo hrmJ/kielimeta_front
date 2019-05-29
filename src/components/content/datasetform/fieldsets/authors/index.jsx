@@ -18,7 +18,7 @@ export default (props) => {
         yliopistosta.
       </p>
       {authors.map((author, idx) => (
-        <Author dispatch={dispatch} authors={authors} idx={idx} />
+        <Author dispatch={dispatch} authors={authors} idx={idx} author={author} />
       ))}
       <section className={generalStyles.someTopMargin}>
         <button
