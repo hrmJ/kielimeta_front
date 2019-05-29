@@ -6,10 +6,9 @@ import React, { Component } from 'react';
 import { prepopulateFormSelects } from '../../../redux/actions/formSelectPrepopulation';
 import { updateField, submitDataset } from '../../../redux/actions/datasetform';
 import Administration from './fieldsets/administration';
+import Authors from './fieldsets/authors';
 import GeneralInfo from './fieldsets/generalinfo/index';
-import LabelledInput from '../../ui/labelledinput';
 import Languages from './fieldsets/languages';
-import styles from './datasetform.scss';
 
 export default class InsertForm extends Component {
   static get propTypes() {
@@ -54,7 +53,9 @@ export default class InsertForm extends Component {
       languageVarietyTypes,
       preloadedSelects,
     } = this.props;
-    const { mediatype, languages, resourcetype } = fields;
+    const {
+      mediatype, languages, resourcetype, authors,
+    } = fields;
     const { annotationLevels, resourceTypes } = preloadedSelects;
 
     if (loadingState.SUBMITDATASET) {
@@ -81,7 +82,8 @@ export default class InsertForm extends Component {
           languageNames={languageNames}
           annotationLevels={annotationLevels}
         />
-        <Administration />
+        <Authors dispatch={dispatch} authors={authors} />
+        <Administration dispatch={dispatch} />
         <div>
           <button type="submit" id="datasetsubmit">
             Tallenna

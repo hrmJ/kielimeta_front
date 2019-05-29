@@ -5,7 +5,7 @@ import styles from './closablebox.scss';
 
 const ClosableBox = (props) => {
   const {
-    children, className, onClose, id,
+    children, className = styles.boxContainer, onClose, id,
   } = props;
 
   return (

@@ -3,6 +3,7 @@ import Select from 'react-select';
 
 import { updateField } from '../../../../../../../redux/actions/datasetform';
 import Closable from '../../../../../../ui/closablebox';
+import LabelledInput from '../../../../../../ui/labelledinput';
 import TooltippedSelect from '../../../../../../ui/tooltippedSelect';
 import formstyles from '../../../../datasetform.scss';
 import styles from './annotationselect.scss';
@@ -42,8 +43,7 @@ export default class AnnotationSelect extends Component {
 
     return (
       <Closable className={styles.annotationSelect} onClose={() => this.removeAnnotation()}>
-        <div className={formstyles.fieldContainer}>
-          <div>Annotoitu kohde</div>
+        <LabelledInput label="Annotoitu kohde">
           <TooltippedSelect
             options={annotationLevels}
             valueName="level"
@@ -52,17 +52,13 @@ export default class AnnotationSelect extends Component {
             onChange={selected => this.updateAnnotation('level', selected.value)}
             creatable={false}
           />
-        </div>
-
-        <div className={formstyles.fieldContainer}>
-          <label htmlFor={`annoversion${idx}`}>Tarkempi kuvaus</label>
-          <input
-            type="text"
-            value={description}
-            onChange={ev => this.updateAnnotation('description', ev.target.value)}
-            id={`annoversion${idx}`}
-          />
-        </div>
+        </LabelledInput>
+        <LabelledInput
+          label="Tarkempi kuvaus"
+          handleChange={ev => this.updateAnnotation('description', ev.target.value)}
+          value={description || ''}
+          id={`annoversion${idx}`}
+        />
       </Closable>
     );
   }
