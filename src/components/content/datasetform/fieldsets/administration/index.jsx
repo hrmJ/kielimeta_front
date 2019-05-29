@@ -10,7 +10,6 @@ export default (props) => {
   return (
     <fieldset>
       <legend>Hallinta ja saatavuus</legend>
-			<LabelledInput>
     </fieldset>
   );
 };

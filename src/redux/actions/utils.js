@@ -43,8 +43,8 @@ const getOriginalValuesForFilters = (datasets) => {
     }
   }
   const langList = langObjList.map(obj => ({
-    label: obj.code,
-    value: obj.name,
+    label: obj.name,
+    value: obj.code,
   }));
 
   const restypes = [

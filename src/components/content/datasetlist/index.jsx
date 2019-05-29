@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
 import { listAll, filterByQuery } from '../../../redux/actions/datasets';
-import { printLanguageName } from '../languagebadge';
 import DatasetItem from '../datasetitem';
 import DelayedSearchField from '../../ui/DelayedSearchField';
 import Filter from '../filter';
