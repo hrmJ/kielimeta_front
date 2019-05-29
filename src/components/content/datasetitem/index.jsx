@@ -1,11 +1,13 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import cuid from 'cuid';
-import styles from './datasetitem.scss';
-import LanguageBadge, { printLanguageName } from '../languagebadge';
 import 'react-vis/dist/style.css';
-import TimelineChart from '../../ui/timeline/chart';
+
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import cuid from 'cuid';
+
 import FoldableBox from '../../ui/foldablebox';
+import LanguageBadge from '../../ui/languagebadge';
+import TimelineChart from '../../ui/timeline/chart';
+import styles from './datasetitem.scss';
 
 const createLanguageKey = (id, language, langId) => `ds_${id}_lang_condendsed_${language.details.language_code}${language.details.variety}_${langId}`;
 

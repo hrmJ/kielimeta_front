@@ -46,6 +46,8 @@ export default class DelayedSearchField extends Component {
         onChange={e => this.handleChange(e.target.value)}
         onKeyDown={this.handleKeyDown.bind(this)}
       />
+
+
     );
   }
 }

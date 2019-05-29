@@ -3,8 +3,9 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
-import { updateField, submitDataset } from '../../../redux/actions/datasetform';
 import { prepopulateFormSelects } from '../../../redux/actions/formSelectPrepopulation';
+import { updateField, submitDataset } from '../../../redux/actions/datasetform';
+import Administration from './fieldsets/administration';
 import GeneralInfo from './fieldsets/generalinfo/index';
 import LabelledInput from '../../ui/labelledinput';
 import Languages from './fieldsets/languages';
@@ -80,21 +81,7 @@ export default class InsertForm extends Component {
           languageNames={languageNames}
           annotationLevels={annotationLevels}
         />
-        <fieldset>
-          <legend>Ylläpito ja saatavuus</legend>
-          <div className={styles.upperContainer}>
-            <h4>Projektin yhteyshenkilöt</h4>
-            {['nimi', 'sähköposti', 'rooli'].map(lab => (
-              <LabelledInput label={lab} />
-            ))}
-          </div>
-          <div className={styles.upperContainer}>
-            <h4>Aineiston saatavuustiedot</h4>
-            {['URL-osoite', 'käyttöoikeus', 'viittausohje'].map(lab => (
-              <LabelledInput label={lab} />
-            ))}
-          </div>
-        </fieldset>
+        <Administration />
         <div>
           <button type="submit" id="datasetsubmit">
             Tallenna

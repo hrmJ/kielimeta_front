@@ -1,14 +1,12 @@
-import { printLanguageName } from '../../components/content/languagebadge';
-
-const thunkCreator = action => {
+const thunkCreator = (action) => {
   const { types, promise, ...rest } = action;
   const [REQUESTED, RESOLVED, REJECTED] = types;
 
-  return dispatch => {
+  return (dispatch) => {
     dispatch({ ...rest, type: REQUESTED });
 
     return promise
-      .then(result => {
+      .then((result) => {
         if (result.ok !== undefined) {
           if (!result.ok) {
             throw new Error(result.statusText);
@@ -18,7 +16,7 @@ const thunkCreator = action => {
         dispatch({ ...rest, type: RESOLVED, result });
         return result;
       })
-      .catch(error => {
+      .catch((error) => {
         dispatch({ ...rest, type: REJECTED, error });
         throw error;
       });
@@ -31,24 +29,28 @@ const thunkCreator = action => {
  * @param {*} datasets an array containing all the datasets
  * @returns an object with default values for each of the filters availble on the dataset list page
  */
-const getOriginalValuesForFilters = datasets => {
-  const langList = [
-    ...new Set(
-      [].concat(
-        ...datasets
-          .filter(ds => Object.keys(ds).includes('languages'))
-          .map(ds => ds.languages.map(lang => lang.details.language_code))
-      )
-    )
-  ].map(code => ({
-    label: printLanguageName(code),
-    value: code
+const getOriginalValuesForFilters = (datasets) => {
+  const flags = {};
+  const langObjList = [];
+  for (const ds of datasets) {
+    if (Object.keys(ds).includes('languages')) {
+      for (const lang of ds.languages) {
+        if (!flags[lang.details.code]) {
+          flags[lang.details.code] = true;
+          langObjList.push(lang.details);
+        }
+      }
+    }
+  }
+  const langList = langObjList.map(obj => ({
+    label: obj.code,
+    value: obj.name,
   }));
 
   const restypes = [
     ...new Set(
-      datasets.filter(ds => Object.keys(ds).includes('resourcetype')).map(ds => ds.resourcetype)
-    )
+      datasets.filter(ds => Object.keys(ds).includes('resourcetype')).map(ds => ds.resourcetype),
+    ),
   ].map(restype => ({ label: restype, value: restype }));
 
   return { lang: langList, resourcetype: restypes };
