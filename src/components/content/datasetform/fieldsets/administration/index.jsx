@@ -23,8 +23,27 @@ export default (props) => {
         handleChange={ev => dispatch(updateField('data_location', ev.target.value))}
       />
       <License dispatch={dispatch} />
-      <LabelledInput label="Aineiston pysyväistunniste (esim. URN tai doi)" />
-      <LabelledInput label="Viittausohje" />
+      <LabelledInput
+        label="Aineiston pysyväistunniste (esim. URN tai doi)"
+        handleChange={ev => dispatch(
+          updateField('place_of_publication', {
+            ...placeOfPublication,
+            ...{ identifier: ev.target.value },
+          }),
+        )
+        }
+      />
+      <LabelledInput
+        label="Viittausohje"
+        type="textarea"
+        handleChange={ev => dispatch(
+          updateField('place_of_publication', {
+            ...placeOfPublication,
+            ...{ citation_info: ev.target.value },
+          }),
+        )
+        }
+      />
       <LabelledInput label="Aineiston sensitiivisyys" />
       <LabelledInput label="Aineiston omistaja(t)" />
     </fieldset>

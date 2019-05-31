@@ -41,7 +41,7 @@ export default class AccessInfo extends Component {
           label="Anna osoite"
           type="text"
           handleChange={ev => dispatch(
-            updateField('placeOfPublication', {
+            updateField('place_of_publication', {
               ...placeOfPublication,
               ...{ location: ev.target.value },
             }),
