@@ -23,7 +23,9 @@ export default class Author extends Component {
 
   render() {
     const { idx, author = {} } = this.props;
-    const { discipline = '', name, id } = author;
+    const {
+      discipline = '', name = '', id = '', role = '',
+    } = author;
 
     return (
       <ClosableBox onClose={() => this.remove()}>
@@ -36,6 +38,7 @@ export default class Author extends Component {
         <LabelledInput
           label="Rooli tutkimuksessa"
           handleChange={ev => this.update('role', ev.target.value)}
+          value={role}
         />
       </ClosableBox>
     );
