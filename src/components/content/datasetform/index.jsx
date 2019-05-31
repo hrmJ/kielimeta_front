@@ -83,7 +83,7 @@ export default class InsertForm extends Component {
           annotationLevels={annotationLevels}
         />
         <Authors dispatch={dispatch} authors={authors} />
-        <Administration dispatch={dispatch} authors={authors} contactPerson={contact_person}/>
+        <Administration dispatch={dispatch} authors={authors} contactPersons={contact_person}/>
         <div>
           <button type="submit" id="datasetsubmit">
             Tallenna

@@ -25,7 +25,7 @@ export default class Author extends Component {
     const { idx, author = {} } = this.props;
     const {
       discipline = '', name = '', id = '', role = '',
-    } = author;
+    } = author
 
     return (
       <ClosableBox onClose={() => this.remove()}>
