@@ -8,7 +8,7 @@ import LabelledInput from '../../../../../ui/labelledinput';
 import formStyles from '../../../datasetform.scss';
 
 const options = [
-  { label: 'Url-osoite', value: 'url' },
+  { label: 'Verkko-osoite', value: 'url' },
   { label: 'Yhteyshenkilön kautta', value: 'contactperson' },
   { label: 'Muulla tavoin', value: 'other' },
 ];

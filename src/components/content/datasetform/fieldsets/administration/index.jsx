@@ -1,20 +1,28 @@
 import React from 'react';
 import Select from 'react-select';
 
+import { selectStyle } from '../../../../../general_styles/jsStyles';
+import { updateField } from '../../../../../redux/actions/datasetform';
 import AccessInfo from './accessinfo';
+import AccessType from './accesstype';
+import AdditionalField from '../../../../ui/additionalfield';
 import ContactPerson from './contactperson';
 import LabelledInput from '../../../../ui/labelledinput';
+import License from './license';
 
 export default (props) => {
-  const { dispatch, placeOfPublication } = props;
+  const { dispatch, placeOfPublication, accessType } = props;
   return (
     <fieldset>
       <legend>Hallinta ja saatavuus</legend>
       <ContactPerson {...props} />
       <AccessInfo dispatch={dispatch} placeOfPublication={placeOfPublication} />
-      <LabelledInput label="Aineiston tallennuspaikka" />
-      <LabelledInput label="Aineiston avoimuus" />
-      <LabelledInput label="Käyttölisenssi" />
+      <AccessType accessType={accessType} dispatch={dispatch} />
+      <LabelledInput
+        label="Aineiston tallennuspaikka"
+        handleChange={ev => dispatch(updateField('data_location', ev.target.value))}
+      />
+      <License dispatch={dispatch} />
       <LabelledInput label="Aineiston pysyväistunniste (esim. URN tai doi)" />
       <LabelledInput label="Viittausohje" />
       <LabelledInput label="Aineiston sensitiivisyys" />

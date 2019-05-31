@@ -60,6 +60,7 @@ export default class InsertForm extends Component {
       authors,
       contact_person,
       place_of_publication,
+			access_type
     } = fields;
     const { annotationLevels, resourceTypes } = preloadedSelects;
 
@@ -93,6 +94,7 @@ export default class InsertForm extends Component {
           authors={authors}
           contactPersons={contact_person}
           placeOfPublication={place_of_publication}
+          accessType={access_type}
         />
         <div>
           <button type="submit" id="datasetsubmit">
