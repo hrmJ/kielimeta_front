@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 
 import { prepopulateFormSelects } from '../../../redux/actions/formSelectPrepopulation';
 import { updateField, submitDataset } from '../../../redux/actions/datasetform';
+import Access from './fieldsets/access';
 import Administration from './fieldsets/administration';
 import Authors from './fieldsets/authors';
 import GeneralInfo from './fieldsets/generalinfo/index';
@@ -60,7 +61,7 @@ export default class InsertForm extends Component {
       authors,
       contact_person,
       place_of_publication,
-			access_type
+      access_type,
     } = fields;
     const { annotationLevels, resourceTypes } = preloadedSelects;
 
@@ -89,10 +90,14 @@ export default class InsertForm extends Component {
           annotationLevels={annotationLevels}
         />
         <Authors dispatch={dispatch} authors={authors} />
-        <Administration
+        <Access
           dispatch={dispatch}
           authors={authors}
           contactPersons={contact_person}
+          placeOfPublication={place_of_publication}
+        />
+        <Administration
+          dispatch={dispatch}
           placeOfPublication={place_of_publication}
           accessType={access_type}
         />
