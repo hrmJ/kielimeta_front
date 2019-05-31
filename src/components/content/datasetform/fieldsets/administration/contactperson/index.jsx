@@ -29,7 +29,7 @@ export default class ContactPerson extends Component {
         && newPerson !== false)
       || (this.addedPersons.length === 0 && newPerson !== false);
     return (
-      <div className={formStyles.upperField}>
+      <div className={formStyles.upperContainer}>
         <LabelledInput label="Yhteyshenkilö(t)">
           <Select
             value={contactPersons.map(p => ({ label: p.name, value: p }))}

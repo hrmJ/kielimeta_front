@@ -54,7 +54,12 @@ export default class InsertForm extends Component {
       preloadedSelects,
     } = this.props;
     const {
-      mediatype, languages, resourcetype, authors, contact_person
+      mediatype,
+      languages,
+      resourcetype,
+      authors,
+      contact_person,
+      place_of_publication,
     } = fields;
     const { annotationLevels, resourceTypes } = preloadedSelects;
 
@@ -83,7 +88,12 @@ export default class InsertForm extends Component {
           annotationLevels={annotationLevels}
         />
         <Authors dispatch={dispatch} authors={authors} />
-        <Administration dispatch={dispatch} authors={authors} contactPersons={contact_person}/>
+        <Administration
+          dispatch={dispatch}
+          authors={authors}
+          contactPersons={contact_person}
+          placeOfPublication={place_of_publication}
+        />
         <div>
           <button type="submit" id="datasetsubmit">
             Tallenna
