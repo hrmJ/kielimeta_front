@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
-import CreatableSelect from 'react-select/lib/Creatable';
+import Select from 'react-select';
 import React, { Component } from 'react';
 
 import generalStyles from '../../../../../general_styles/general_styles.scss';
@@ -24,9 +24,6 @@ export default class Administration extends Component {
     const options = authors.map(a => ({ label: a.name, value: { email: a.id, name: a.name } }));
     contactPersons.forEach((p) => {
       options.push({ label: p.name, value: p });
-      // if (options.filter(o => JSON.stringify(o.value) === JSON.stringify(p)).length === 0) {
-      //   options.push({ label: p.name, value: p });
-      // }
     });
     options.push({ label: 'Uusi henkilö', value: { email: '', name: '' } });
     const newPersonCond = (contactPersons.length > 0
@@ -38,7 +35,7 @@ export default class Administration extends Component {
       <fieldset>
         <legend>Hallinta ja saatavuus</legend>
         <LabelledInput label="Yhteyshenkilö(t)">
-          <CreatableSelect
+          <Select
             value={contactPersons.map(p => ({ label: p.name, value: p }))}
             styles={selectStyle}
             options={options}
