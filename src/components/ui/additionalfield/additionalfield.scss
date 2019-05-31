@@ -1,4 +1,4 @@
-$labelwidth: 6em;
+$labelwidth: 8em;
 
 .additionalField {
   margin-top: 2em;
@@ -23,6 +23,7 @@ $labelwidth: 6em;
   label,
   > div:first-child {
     width: $labelwidth;
-    margin-right: 3em;
+    margin-right: 1em;
+    flex: 0 0 auto;
   }
 }

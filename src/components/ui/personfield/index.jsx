@@ -10,7 +10,7 @@ const PersonSelect = (props) => {
 };
 
 const PersonInput = (props) => {
-  const { handleChange, name = '', personId = '' } = props;
+  const { handleChange, name = '', personId = '', emailLabel='id' } = props;
 
   return (
     <div className={formstyles.upperContainer}>
@@ -22,7 +22,7 @@ const PersonInput = (props) => {
       />
       <LabelledInput
         label="Sähköposti tai tunnus"
-        handleChange={ev => handleChange('id', ev.target.value)}
+        handleChange={ev => handleChange(emailLabel, ev.target.value)}
         value={personId}
       />
     </div>
