@@ -6,12 +6,10 @@ import generalStyles from '../../../../../general_styles/general_styles.scss';
 import styles from '../../datasetform.scss';
 
 export default props => {
-  const { handleChange, dispatch, authors = [] } = props;
-  console.log(authors);
+  const { dispatch, authors = [] } = props;
 
   return (
-    <fieldset>
-      <legend>Tekijät</legend>
+    <div>
       <p className={styles.description}>
         Määrittele tähän tutkimusaineiston tekemiseen osallistuneet henkilöt ilmoittamalla kustakin
         nimi, sähköposti sekä rooli aineiston koonnissa. Sähköpostikenttään voi sähköpostin sijasta
@@ -30,6 +28,6 @@ export default props => {
           Lisää uusi
         </button>
       </section>
-    </fieldset>
+    </div>
   );
 };

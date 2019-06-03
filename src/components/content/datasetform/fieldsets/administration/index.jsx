@@ -8,8 +8,7 @@ import License from './license';
 export default props => {
   const { dispatch, accessType } = props;
   return (
-    <fieldset>
-      <legend>Hallinnolliset tiedot </legend>
+    <div>
       <License dispatch={dispatch} />
       <AccessType accessType={accessType} dispatch={dispatch} />
       <LabelledInput label="Aineiston omistaja(t)" />
@@ -18,6 +17,6 @@ export default props => {
         label="Aineiston tallennuspaikka"
         handleChange={ev => dispatch(updateField('data_location', ev.target.value))}
       />
-    </fieldset>
+    </div>
   );
 };

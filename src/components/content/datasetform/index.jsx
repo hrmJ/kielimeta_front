@@ -1,3 +1,5 @@
+import Stepper from '../../ui/stepper';
+
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
 import PropTypes from 'prop-types';
@@ -10,6 +12,7 @@ import Administration from './fieldsets/administration';
 import Authors from './fieldsets/authors';
 import GeneralInfo from './fieldsets/generalinfo/index';
 import Languages from './fieldsets/languages';
+import Step from '../../ui/step';
 
 export default class InsertForm extends Component {
   static get propTypes() {
@@ -71,36 +74,65 @@ export default class InsertForm extends Component {
       }
     }
 
-    return (
-      <form onSubmit={event => this.submit(event)}>
-        <GeneralInfo
-          mediaTypes={mediatype}
-          dispatch={dispatch}
-          handleChange={this.handleChange.bind(this)}
-          resourceTypes={resourceTypes}
-          resourcetype={resourcetype}
-        />
-        <Languages
-          languages={languages}
-          dispatch={dispatch}
-          mediaTypes={mediatype}
-          languageVarieties={languageVarieties}
-          languageVarietyTypes={languageVarietyTypes}
-          languageNames={languageNames}
-          annotationLevels={annotationLevels}
-        />
+    const steps = [
+      {
+        legend: 'Yleistiedot',
+        component: (
+          <GeneralInfo
+            mediaTypes={mediatype}
+            dispatch={dispatch}
+            handleChange={this.handleChange.bind(this)}
+            resourceTypes={resourceTypes}
+            resourcetype={resourcetype}
+          />
+        )
+      },
+      {
+        legend: 'Kielet',
+        component: (
+          <Languages
+            languages={languages}
+            dispatch={dispatch}
+            mediaTypes={mediatype}
+            languageVarieties={languageVarieties}
+            languageVarietyTypes={languageVarietyTypes}
+            languageNames={languageNames}
+            annotationLevels={annotationLevels}
+          />
+        )
+      },
+      {
+        legend: 'Tekijät',
+        component: (
         <Authors dispatch={dispatch} authors={authors} />
+        )
+      },
+      {
+        legend: 'Saatavuus',
+        component: (
         <Access
           dispatch={dispatch}
           authors={authors}
           contactPersons={contact_person}
           placeOfPublication={place_of_publication}
         />
+        )
+      },
+      {
+        legend: 'Hallinta',
+        component: (
         <Administration
           dispatch={dispatch}
           placeOfPublication={place_of_publication}
           accessType={access_type}
         />
+        )
+      }
+    ];
+
+    return (
+      <form onSubmit={event => this.submit(event)}>
+        <Stepper steps={steps} />
         <div>
           <button type="submit" id="datasetsubmit">
             Tallenna

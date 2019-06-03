@@ -6,7 +6,7 @@ import generalStyles from '../../../../../general_styles/general_styles.scss';
 import Language from './language';
 import { updateField } from '../../../../../redux/actions/datasetform';
 
-export default (props) => {
+export default props => {
   const {
     languages,
     dispatch,
@@ -14,12 +14,11 @@ export default (props) => {
     languageVarieties,
     languageNames,
     languageVarietyTypes,
-    annotationLevels = [],
+    annotationLevels = []
   } = props;
 
   return (
-    <fieldset id="languages">
-      <legend>Kielet</legend>
+    <div>
       <section>
         <p className={styles.description}>
           Monet ominaisuudet määritellään kieli- tai varianttikohtaisesti. Jos kieliä on vain yksi,
@@ -50,6 +49,6 @@ export default (props) => {
           Lisää uusi
         </button>
       </section>
-    </fieldset>
+    </div>
   );
 };
