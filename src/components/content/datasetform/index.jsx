@@ -16,7 +16,7 @@ export default class InsertForm extends Component {
     return {
       dispatch: PropTypes.func.isRequired,
       fields: PropTypes.objectOf(PropTypes.any).isRequired,
-      loadingState: PropTypes.objectOf(PropTypes.any).isRequired,
+      loadingState: PropTypes.objectOf(PropTypes.any).isRequired
     };
   }
 
@@ -25,7 +25,7 @@ export default class InsertForm extends Component {
     dispatch(prepopulateFormSelects());
   }
 
-  handleChange = name => (event) => {
+  handleChange = name => event => {
     const { dispatch } = this.props;
     if (event.target) {
       dispatch(updateField(name, event.target.value));
@@ -52,7 +52,7 @@ export default class InsertForm extends Component {
       languageVarieties,
       languageNames,
       languageVarietyTypes,
-      preloadedSelects,
+      preloadedSelects
     } = this.props;
     const {
       mediatype,
@@ -61,12 +61,12 @@ export default class InsertForm extends Component {
       authors,
       contact_person,
       place_of_publication,
-      access_type,
+      access_type
     } = fields;
     const { annotationLevels, resourceTypes } = preloadedSelects;
 
     if (loadingState.SUBMITDATASET) {
-      if (loadingState.SUBMITDATASET === 'success') {
+      if (loadingState.SUBMITDATASET == 'success') {
         return <div id="savedmsg">Tallennettu</div>;
       }
     }

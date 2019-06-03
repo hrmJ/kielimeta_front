@@ -5,7 +5,7 @@ import AccessType from './accesstype';
 import LabelledInput from '../../../../ui/labelledinput';
 import License from './license';
 
-export default (props) => {
+export default props => {
   const { dispatch, accessType } = props;
   return (
     <fieldset>

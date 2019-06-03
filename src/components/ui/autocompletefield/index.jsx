@@ -18,26 +18,26 @@ const Option = props => (
 
 export default class AutoCompleteField extends Component {
   getOptions(inputValue) {
-    const {
-      categoryName, tooltipName, path, labelName, maxEntries = 10,
-    } = this.props;
+    const { categoryName, tooltipName, path, labelName, maxEntries = 10 } = this.props;
     const url = `${baseUrl}/${path}?search=${inputValue}`;
     return fetch(url, { mode: 'cors' })
       .then(response => response.json())
-      .then(options => options.slice(0, maxEntries).map((option) => {
-        if (categoryName === 'flat') {
+      .then(options =>
+        options.slice(0, maxEntries).map(option => {
+          if (categoryName === 'flat') {
+            return {
+              label: option,
+              value: option,
+              tooltip: undefined
+            };
+          }
           return {
-            label: option,
-            value: option,
-            tooltip: undefined,
+            label: option[labelName || categoryName],
+            value: option[categoryName],
+            tooltip: option[tooltipName]
           };
-        }
-        return {
-          label: option[labelName || categoryName],
-          value: option[categoryName],
-          tooltip: option[tooltipName],
-        };
-      }));
+        })
+      );
   }
 
   render() {
@@ -49,7 +49,7 @@ export default class AutoCompleteField extends Component {
       onChange,
       fieldname,
       defaultOptions = true,
-      value,
+      value
     } = this.props;
 
     let select;

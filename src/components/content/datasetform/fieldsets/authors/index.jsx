@@ -5,8 +5,9 @@ import Author from './author';
 import generalStyles from '../../../../../general_styles/general_styles.scss';
 import styles from '../../datasetform.scss';
 
-export default (props) => {
+export default props => {
   const { handleChange, dispatch, authors = [] } = props;
+  console.log(authors);
 
   return (
     <fieldset>

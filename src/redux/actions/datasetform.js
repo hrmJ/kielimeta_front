@@ -6,10 +6,10 @@ import { getVarieties, updateLanguageName } from './languageactions';
 const _updateField = (name, val) => ({
   type: 'UPDATE_DATASETFORM_FIELD',
   name,
-  val,
+  val
 });
 
-const updateField = (name, val, language) => (dispatch) => {
+const updateField = (name, val, language) => dispatch => {
   if (language) {
     dispatch(getVarieties(language.value))
       .then(() => dispatch(updateLanguageName(language.value, language.label)))
@@ -24,18 +24,18 @@ const fetchLanguages = () => null;
 const updateLanguage = (language, idx) => ({
   type: 'UPDATE_LANGUAGE',
   language,
-  idx,
+  idx
 });
 
-const validateFields = (fields) => {
-  const validated = fields;
+const validateFields = fields => {
+  const validated = Object.assign({}, fields);
   if (fields.languages) {
-    validated.languages = fields.languages.map((lang) => {
+    validated.languages = fields.languages.map(lang => {
       const validatedLanguage = lang;
       if (lang.annotations) {
         let validatedAnnotations = lang.annotations.filter(ann => Object.keys(ann).length);
         if (validatedAnnotations.length) {
-          validatedAnnotations = validatedAnnotations.map((ann) => {
+          validatedAnnotations = validatedAnnotations.map(ann => {
             const { version = '' } = ann;
             return { ...ann, version };
           });
@@ -45,11 +45,12 @@ const validateFields = (fields) => {
       return validatedLanguage;
     });
   }
-
+  // NOTE: authors is a json field
+  validated.authors = JSON.stringify(validated.authors);
   return validated;
 };
 
-const submitDataset = (fields) => {
+const submitDataset = fields => {
   const url = '%%API_SERVER_PROTOCOL%%://%%API_SERVER_HOST%%/datasets';
   const validatedFields = validateFields(fields);
   const csrf = getCookie('csrftoken');
@@ -61,15 +62,12 @@ const submitDataset = (fields) => {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        'X-CSRFToken': csrf,
+        'X-CSRFToken': csrf
         // Authorization: 'Bearer ' + jwt.token,
       },
-      body: JSON.stringify(validatedFields),
-    }).then(response => response),
+      body: JSON.stringify(validatedFields)
+    }).then(response => response)
   });
 };
 
-
-export {
-  updateField, submitDataset, fetchLanguages, updateLanguage, 
-};
+export { updateField, submitDataset, fetchLanguages, updateLanguage };
