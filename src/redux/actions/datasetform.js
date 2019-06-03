@@ -47,6 +47,9 @@ const validateFields = fields => {
   }
   // NOTE: authors is a json field
   validated.authors = JSON.stringify(validated.authors);
+  validated.keywords = validated.keywords || [];
+  validated.resourcetype = validated.resourcetype || 'unknown';
+  validated.place_of_publication = [validated.place_of_publication];
   return validated;
 };
 
