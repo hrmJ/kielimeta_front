@@ -20,7 +20,6 @@ class index extends Component {
   render() {
     const { steps } = this.props;
     const { currentStep } = this.state;
-    console.log(currentStep);
     return (
       <div>
         {steps.map((step, stepIdx) => (
@@ -29,6 +28,7 @@ class index extends Component {
             stepIdx={stepIdx + 1}
             active={stepIdx === currentStep}
             move={direction => this.move(direction)}
+            totalSteps={steps.length}
           >
             {step.component}
           </Step>
