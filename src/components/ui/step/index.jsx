@@ -1,11 +1,14 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { faCheck as iconOk } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Move from '../buttons/move';
 import styles from './step.scss';
 
 const index = props => {
-  const { children, legend, id, active, stepIdx, move, totalSteps, moveTo } = props;
+  const { children, legend, id, active, stepIdx, move, totalSteps, moveTo, isValid } = props;
+  console.info(isValid);
   return (
     <div className={styles.step}>
       <fieldset id={id} className={!active ? styles.inactive : ''}>
@@ -17,7 +20,7 @@ const index = props => {
             onClick={moveTo}
             onKeyDown={moveTo}
           >
-            {stepIdx}. {legend}
+            {stepIdx}. {legend} &nbsp; {isValid && <FontAwesomeIcon icon={iconOk} />}
           </div>
         </legend>
         {active && children}
@@ -37,6 +40,7 @@ index.propTypes = {
   legend: PropTypes.string,
   id: PropTypes.string,
   active: PropTypes.bool,
+  isValid: PropTypes.bool,
   stepIdx: PropTypes.number.isRequired,
   move: PropTypes.func.isRequired,
   moveTo: PropTypes.func.isRequired,
@@ -45,7 +49,8 @@ index.propTypes = {
 index.defaultProps = {
   legend: '',
   id: '',
-  active: false
+  active: false,
+  isValid: false
 };
 
 export default index;

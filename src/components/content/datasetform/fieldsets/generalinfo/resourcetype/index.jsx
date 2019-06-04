@@ -7,10 +7,8 @@ import LabelledInput from '../../../../../ui/labelledinput';
 import TooltippedSelect from '../../../../../ui/tooltippedSelect';
 import styles from '../../../datasetform.scss';
 
-export default (props) => {
-  const {
-    handleChange, originalFormValues, resourcetype, dispatch, resourceTypes = [],
-  } = props;
+export default props => {
+  const { handleChange, originalFormValues, resourcetype, dispatch, resourceTypes = [] } = props;
 
   return (
     <div className={styles.upperContainer}>
@@ -20,18 +18,20 @@ export default (props) => {
           valueName="name"
           tooltipName="description"
           onChange={handleChange('resourcetype')}
+          value={resourcetype && { label: resourcetype, value: resourcetype }}
           creatable
         />
       </LabelledInput>
       <AdditionalField
         originalValues={resourceTypes.map(rt => rt.name)}
         currentVal={resourcetype}
-        handleChange={ev => dispatch(
-          updateField('resourcetype', {
-            name: resourcetype.name || resourcetype,
-            description: ev.target.value,
-          }),
-        )
+        handleChange={ev =>
+          dispatch(
+            updateField('resourcetype', {
+              name: resourcetype.name || resourcetype,
+              description: ev.target.value
+            })
+          )
         }
         label="Määrittele lyhyesti antamasi aineistotyyppi"
         id="resourcetypedescription"

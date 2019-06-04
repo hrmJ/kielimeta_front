@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 export default () => (
   <div className={styles.topbar}>
     <div>
-      <h1 className={styles.siteHeading}>Turun yliopiston kielianeistot</h1>
+      <h1 className={styles.siteHeading}>Turun yliopiston kieliaineistot</h1>
       <ul className={styles.linkList}>
         <li>
           <Link to="/" id="fpLink">

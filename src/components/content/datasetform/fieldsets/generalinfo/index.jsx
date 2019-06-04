@@ -8,14 +8,21 @@ import ResourceType from './resourcetype';
 import styles from '../../datasetform.scss';
 
 export default props => {
-  const { handleChange, dispatch, mediaTypes = [], originalFormValues, resourcetype } = props;
+  const {
+    handleChange,
+    dispatch,
+    mediaTypes = [],
+    originalFormValues,
+    resourcetype,
+    title
+  } = props;
   let resourcetypeDescription = null;
 
   return (
     <div>
       <div className={styles.fieldContainer}>
         <label htmlFor="datasettitle">Nimi</label>
-        <input type="text" defaultValue="" id="datasettitle" onChange={handleChange('title')} />
+        <input type="text" value={title} id="datasettitle" onChange={handleChange('title')} />
       </div>
       <div className={styles.fieldContainer}>
         <label htmlFor="datasetdescription">Kuvaus</label>

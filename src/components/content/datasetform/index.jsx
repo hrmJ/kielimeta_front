@@ -14,6 +14,25 @@ import GeneralInfo from './fieldsets/generalinfo/index';
 import Languages from './fieldsets/languages';
 import Step from '../../ui/step';
 
+/**
+ * validateLanguageStep
+ *
+ * Checks wether or not there is valid data in the languages step
+ *
+ * @param languages
+ * @returns {boolean}
+ */
+const validateLanguageStep = languages => {
+  try {
+    if (languages[0].details.language_code) {
+      return true;
+    }
+  } catch (err) {
+    return false;
+  }
+  return false;
+};
+
 export default class InsertForm extends Component {
   static get propTypes() {
     return {
@@ -64,7 +83,8 @@ export default class InsertForm extends Component {
       authors,
       contact_person,
       place_of_publication,
-      access_type
+      access_type,
+      title
     } = fields;
     const { annotationLevels, resourceTypes } = preloadedSelects;
 
@@ -84,8 +104,10 @@ export default class InsertForm extends Component {
             handleChange={this.handleChange.bind(this)}
             resourceTypes={resourceTypes}
             resourcetype={resourcetype}
+            title={title}
           />
-        )
+        ),
+        isValid: title !== '' && resourcetype
       },
       {
         legend: 'Kielet',
@@ -99,34 +121,36 @@ export default class InsertForm extends Component {
             languageNames={languageNames}
             annotationLevels={annotationLevels}
           />
-        )
+        ),
+        isValid: validateLanguageStep(languages)
       },
       {
         legend: 'Tekijät',
-        component: (
-        <Authors dispatch={dispatch} authors={authors} />
-        )
+        component: <Authors dispatch={dispatch} authors={authors} />,
+        isValid: false
       },
       {
         legend: 'Saatavuus',
         component: (
-        <Access
-          dispatch={dispatch}
-          authors={authors}
-          contactPersons={contact_person}
-          placeOfPublication={place_of_publication}
-        />
-        )
+          <Access
+            dispatch={dispatch}
+            authors={authors}
+            contactPersons={contact_person}
+            placeOfPublication={place_of_publication}
+          />
+        ),
+        isValid: contact_person !== undefined
       },
       {
         legend: 'Hallinta',
         component: (
-        <Administration
-          dispatch={dispatch}
-          placeOfPublication={place_of_publication}
-          accessType={access_type}
-        />
-        )
+          <Administration
+            dispatch={dispatch}
+            placeOfPublication={place_of_publication}
+            accessType={access_type}
+          />
+        ),
+        isValid: false
       }
     ];
 

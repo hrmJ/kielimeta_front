@@ -34,6 +34,7 @@ class index extends Component {
             move={direction => this.move(direction)}
             totalSteps={steps.length}
             moveTo={() => this.moveTo(stepIdx)}
+            isValid={step.isValid}
           >
             {step.component}
           </Step>
