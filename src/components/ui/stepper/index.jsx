@@ -17,6 +17,10 @@ class index extends Component {
     }
   }
 
+  moveTo(idx) {
+    this.setState({ currentStep: idx });
+  }
+
   render() {
     const { steps } = this.props;
     const { currentStep } = this.state;
@@ -29,6 +33,7 @@ class index extends Component {
             active={stepIdx === currentStep}
             move={direction => this.move(direction)}
             totalSteps={steps.length}
+            moveTo={() => this.moveTo(stepIdx)}
           >
             {step.component}
           </Step>

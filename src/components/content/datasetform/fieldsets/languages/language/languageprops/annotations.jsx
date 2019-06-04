@@ -1,12 +1,12 @@
 import React from 'react';
-import LanguageProp from '../languageprop';
+
+import Add from '../../../../../../ui/buttons/add';
 import AnnotationSelect from '../annotationselect';
+import LanguageProp from '../languageprop';
 import generalStyles from '../../../../../../../general_styles/general_styles.scss';
 
-export default (props) => {
-  const {
-    onChange, dispatch, idx, languages, annotationLevels,
-  } = props;
+export default props => {
+  const { onChange, dispatch, idx, languages, annotationLevels } = props;
   const annotations = languages[idx].annotations || [];
 
   return (
@@ -22,14 +22,9 @@ export default (props) => {
           {...annotation}
         />
       ))}
-
-      <button
-        type="button"
-        className={generalStyles.someTopMargin}
-        onClick={() => onChange('annotations', [...annotations, {}])}
-      >
-        Lisää uusi
-      </button>
+      <div className={generalStyles.someTopMargin}>
+        <Add onClick={() => onChange('annotations', [...annotations, {}])} />
+      </div>
     </LanguageProp>
   );
 };

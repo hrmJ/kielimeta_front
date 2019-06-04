@@ -5,12 +5,20 @@ import Move from '../buttons/move';
 import styles from './step.scss';
 
 const index = props => {
-  const { children, legend, id, active, stepIdx, move, totalSteps } = props;
+  const { children, legend, id, active, stepIdx, move, totalSteps, moveTo } = props;
   return (
     <div className={styles.step}>
       <fieldset id={id} className={!active ? styles.inactive : ''}>
         <legend>
-          {stepIdx}. {legend}
+          <div
+            className={styles.moveLauncher}
+            role="button"
+            tabIndex={0}
+            onClick={moveTo}
+            onKeyDown={moveTo}
+          >
+            {stepIdx}. {legend}
+          </div>
         </legend>
         {active && children}
       </fieldset>
@@ -31,6 +39,7 @@ index.propTypes = {
   active: PropTypes.bool,
   stepIdx: PropTypes.number.isRequired,
   move: PropTypes.func.isRequired,
+  moveTo: PropTypes.func.isRequired,
   totalSteps: PropTypes.number.isRequired
 };
 index.defaultProps = {

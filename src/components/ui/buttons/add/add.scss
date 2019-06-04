@@ -1,0 +1,19 @@
+@import 'src/general_styles/configs.scss';
+.container {
+  font-size: 0.8em;
+  display: flex;
+  padding: 0.3em;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  background: $utupurple;
+  cursor: pointer;
+  color: white;
+  max-width: 5em;
+  > *:first-child {
+    margin-right: 0.5em;
+  }
+  &:hover {
+    text-decoration: underline;
+  }
+}

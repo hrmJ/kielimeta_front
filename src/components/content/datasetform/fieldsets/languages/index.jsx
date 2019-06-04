@@ -1,10 +1,12 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
 import React from 'react';
-import styles from '../../datasetform.scss';
-import generalStyles from '../../../../../general_styles/general_styles.scss';
-import Language from './language';
+
 import { updateField } from '../../../../../redux/actions/datasetform';
+import Add from '../../../../ui/buttons/add';
+import Language from './language';
+import generalStyles from '../../../../../general_styles/general_styles.scss';
+import styles from '../../datasetform.scss';
 
 export default props => {
   const {
@@ -41,13 +43,10 @@ export default props => {
         ))}
       </section>
       <section className={generalStyles.someTopMargin}>
-        <button
-          type="button"
+        <Add
           id="addlanguage"
           onClick={() => dispatch(updateField('languages', [...languages, { annotations: [] }]))}
-        >
-          Lisää uusi
-        </button>
+        />
       </section>
     </div>
   );

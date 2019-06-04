@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { updateField } from '../../../../../redux/actions/datasetform';
+import Add from '../../../../ui/buttons/add';
 import Author from './author';
 import generalStyles from '../../../../../general_styles/general_styles.scss';
 import styles from '../../datasetform.scss';
@@ -20,13 +21,7 @@ export default props => {
         <Author dispatch={dispatch} authors={authors} idx={idx} author={author} />
       ))}
       <section className={generalStyles.someTopMargin}>
-        <button
-          type="button"
-          id="addauthor"
-          onClick={() => dispatch(updateField('authors', [...authors, {}]))}
-        >
-          Lisää uusi
-        </button>
+        <Add id="addauthor" onClick={() => dispatch(updateField('authors', [...authors, {}]))} />
       </section>
     </div>
   );
