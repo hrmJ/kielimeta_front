@@ -50,6 +50,7 @@ const validateFields = fields => {
   validated.keywords = validated.keywords || [];
   validated.resourcetype = validated.resourcetype || 'unknown';
   validated.place_of_publication = [validated.place_of_publication];
+  validated.owner = validated.owner.split(/,\s*/);
   return validated;
 };
 

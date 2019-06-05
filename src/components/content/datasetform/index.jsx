@@ -1,5 +1,3 @@
-import Stepper from '../../ui/stepper';
-
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
 import PropTypes from 'prop-types';
@@ -12,7 +10,7 @@ import Administration from './fieldsets/administration';
 import Authors from './fieldsets/authors';
 import GeneralInfo from './fieldsets/generalinfo/index';
 import Languages from './fieldsets/languages';
-import Step from '../../ui/step';
+import Stepper from '../../ui/stepper';
 
 /**
  * validateLanguageStep

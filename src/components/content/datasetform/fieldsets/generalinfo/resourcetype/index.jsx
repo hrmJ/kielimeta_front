@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import { updateField } from '../../../../../../redux/actions/datasetform';
 import AdditionalField from '../../../../../ui/additionalfield';
-import AutoCompleteField from '../../../../../ui/autocompletefield';
 import LabelledInput from '../../../../../ui/labelledinput';
 import TooltippedSelect from '../../../../../ui/tooltippedSelect';
 import styles from '../../../datasetform.scss';
