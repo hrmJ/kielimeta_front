@@ -82,7 +82,13 @@ export default class InsertForm extends Component {
       contact_person,
       place_of_publication,
       access_type,
-      title
+      title,
+      project,
+      license,
+      sensitivity,
+      owner,
+      data_location,
+      access_information
     } = fields;
     const { annotationLevels, resourceTypes } = preloadedSelects;
 
@@ -135,6 +141,7 @@ export default class InsertForm extends Component {
             authors={authors}
             contactPersons={contact_person}
             placeOfPublication={place_of_publication}
+            access_information={access_information}
           />
         ),
         isValid: contact_person !== undefined
@@ -146,6 +153,11 @@ export default class InsertForm extends Component {
             dispatch={dispatch}
             placeOfPublication={place_of_publication}
             accessType={access_type}
+            project={project}
+            owner={owner}
+            license={license}
+            sensitivity={sensitivity}
+            data_location={data_location}
           />
         ),
         isValid: false

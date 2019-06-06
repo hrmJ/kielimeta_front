@@ -83,7 +83,7 @@ export default class AutoCompleteField extends Component {
 
     return (
       <div className={formstyles.fieldContainer}>
-        <label htmlFor="resourcetype">{children}</label>
+        {children && <label htmlFor="resourcetype">{children}</label>}
         {select}
       </div>
     );

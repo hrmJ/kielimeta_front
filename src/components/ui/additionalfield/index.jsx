@@ -11,7 +11,7 @@ const checkCondition = (originalValues, val) => {
   return false;
 };
 
-export default props => {
+const additionalField = props => {
   const {
     handleChange,
     label,
@@ -20,7 +20,8 @@ export default props => {
     currentVal,
     condition,
     children,
-    type = 'textarea'
+    type = 'textarea',
+    value
   } = props;
 
   if (currentVal || originalValues || condition === undefined) {
@@ -33,7 +34,7 @@ export default props => {
     return null;
   }
 
-  const inputProps = { defaultValue: '', id: id, onChange: handleChange };
+  const inputProps = { id: id, onChange: handleChange, value: value };
 
   return (
     <div className={`${generalStyles.someTopMargin} ${styles.additionalField}`}>
@@ -50,3 +51,9 @@ export default props => {
     </div>
   );
 };
+
+additionalField.defaultProps = {
+  value: ''
+};
+
+export default additionalField;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { updateField } from '../../../../../../redux/actions/datasetform';
 import LabelledInput from '../../../../../ui/labelledinput';
@@ -11,7 +12,7 @@ const options = [
     description: `This license lets others distribute, remix, tweak, and build upon your
     work, even commercially, as long as they credit you for the original
     creation. This is the most accommodating of licenses offered. Recommended
-    for maximum dissemination and use of licensed materials.`,
+    for maximum dissemination and use of licensed materials.`
   },
   {
     val: 'CC BY-SA',
@@ -23,14 +24,14 @@ const options = [
     works based on yours will carry the same license, so any derivatives will
     also allow commercial use. This is the license used by Wikipedia, and is
     recommended for materials that would benefit from incorporating content
-    from Wikipedia and similarly licensed projects.`,
+    from Wikipedia and similarly licensed projects.`
   },
   {
     val: 'CC BY-ND',
     name: 'Attribution-NoDerivs (CC BY-ND)',
     description: `This license lets others reuse the work for any purpose, including
     commercially; however, it cannot be shared with others in adapted form, and
-    credit must be provided to you.`,
+    credit must be provided to you.`
   },
   {
     val: 'CC BY-NC',
@@ -38,14 +39,14 @@ const options = [
     description: `This license lets others remix, tweak, and build upon your
     work non-commercially, and although their new works must also acknowledge
     you and be non-commercial, they don’t have to license their derivative
-    works on the same terms.`,
+    works on the same terms.`
   },
   {
     val: 'CC BY-NC-SA',
     name: 'Attribution-NonCommercial-ShareAlike (CC BY-NC-SA)',
     description: `This license lets others remix, tweak, and build upon your
     work non-commercially, as long as they credit you and license their new
-    creations under the identical terms.`,
+    creations under the identical terms.`
   },
   {
     val: 'CC BY-NC-ND',
@@ -53,17 +54,17 @@ const options = [
     description: `This license is the most restrictive of our six main licenses, only
     allowing others to download your works and share them with others as long
     as they credit you, but they can’t change them in any way or use them
-    commercially.`,
+    commercially.`
   },
   {
     val: 'undefined',
     name: 'Ei määritetty / tiedossa',
-    description: '',
-  },
+    description: ''
+  }
 ];
 
-export default (props) => {
-  const { dispatch } = props;
+const index = props => {
+  const { dispatch, license } = props;
 
   return (
     <LabelledInput label="Käyttölisenssi">
@@ -72,8 +73,20 @@ export default (props) => {
         tooltipName="description"
         valueName="val"
         options={options}
+        value={license && { label: license, value: license }}
         onChange={selected => dispatch(updateField('license', selected.value))}
       />
     </LabelledInput>
   );
 };
+
+index.propTypes = {
+  license: PropTypes.string,
+  dispatch: PropTypes.func.isRequired
+};
+
+index.defaultProps = {
+  license: ''
+};
+
+export default index;

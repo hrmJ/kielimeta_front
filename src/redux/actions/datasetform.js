@@ -10,7 +10,12 @@ const _updateField = (name, val) => ({
 });
 
 const updateField = (name, val, language) => dispatch => {
-  if (language) {
+  if (name === 'place_of_publication') {
+    // If giving a url as a place_of_publication, clear the 'access_information
+    // field since they are mutually exclusive
+    dispatch(_updateField('access_information', ''));
+    dispatch(_updateField(name, val));
+  } else if (language) {
     dispatch(getVarieties(language.value))
       .then(() => dispatch(updateLanguageName(language.value, language.label)))
       .then(() => dispatch(_updateField(name, val)));
@@ -50,7 +55,7 @@ const validateFields = fields => {
   validated.keywords = validated.keywords || [];
   validated.resourcetype = validated.resourcetype || 'unknown';
   validated.place_of_publication = [validated.place_of_publication];
-  validated.owner = validated.owner.split(/,\s*/);
+  validated.owner = validated.owner && validated.owner.split(/,\s*/);
   return validated;
 };
 

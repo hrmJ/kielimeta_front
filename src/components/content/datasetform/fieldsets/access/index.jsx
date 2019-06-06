@@ -8,11 +8,15 @@ import ContactPerson from './contactperson';
 import LabelledInput from '../../../../ui/labelledinput';
 
 const index = props => {
-  const { dispatch, placeOfPublication } = props;
+  const { dispatch, placeOfPublication, access_information } = props;
   return (
     <div>
       <ContactPerson {...props} />
-      <AccessInfo dispatch={dispatch} placeOfPublication={placeOfPublication} />
+      <AccessInfo
+        dispatch={dispatch}
+        placeOfPublication={placeOfPublication}
+        access_information={access_information}
+      />
       <LabelledInput
         label="Aineiston pysyväistunniste (esim. URN tai doi)"
         handleChange={ev =>
