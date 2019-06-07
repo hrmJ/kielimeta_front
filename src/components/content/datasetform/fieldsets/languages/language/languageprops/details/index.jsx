@@ -6,9 +6,8 @@ import LabelledInput from '../../../../../../../ui/labelledinput';
 import Variety from './variety';
 import formstyles from '../../../../../datasetform.scss';
 
-
 export default props => {
-  const { onChange, details = {}, varieties, idx, names, varietyTypes, dispatch } = props;
+  const { onChange, details = {}, varieties, idx, names, varietyTypes, dispatch, modality } = props;
   const { language_code: code = '', variety = '', language_name } = details;
   let selectValue;
   let newlanguageCondition = false;
@@ -37,8 +36,9 @@ export default props => {
         <AdditionalField condition={newlanguageCondition}>
           <LabelledInput
             id={`lang_${idx}_newcode`}
-            label={'Kielikoodi tälle kielelle'}
+            label="Kielikoodi tälle kielelle"
             handleChange={ev => onChange('new_language_code', ev.target.value)}
+            value={code}
           />
         </AdditionalField>
       </div>
@@ -48,8 +48,10 @@ export default props => {
         language_code={code}
         onChange={onChange}
         variety={details.variety}
+        varietyType={details.variety_type}
         dispatch={dispatch}
         varietyTypes={varietyTypes}
+        modality={modality}
         isNewLanguage={newlanguageCondition}
       />
     </section>

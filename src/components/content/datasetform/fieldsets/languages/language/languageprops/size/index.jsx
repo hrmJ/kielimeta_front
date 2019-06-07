@@ -19,7 +19,7 @@ export default class Size extends Component {
   }
 
   render() {
-    const { fields, header, notincludedname, languagetotal } = this.props;
+    const { fields, header, notincludedname, languagetotal, size } = this.props;
     return (
       <LanguageProp header={header}>
         <div>
@@ -30,6 +30,7 @@ export default class Size extends Component {
                 type="number"
                 id={`${field.key}count`}
                 onChange={ev => this.updateSize(field.key, ev.target.value)}
+                value={size && size[field.key]}
               />
             </div>
           ))}

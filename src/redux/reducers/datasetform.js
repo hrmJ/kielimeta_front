@@ -1,6 +1,6 @@
 const defaultPayload = {
   title: '',
-  description: 'no description',
+  description: '',
   languages: [],
   mediatype: ['text']
 };

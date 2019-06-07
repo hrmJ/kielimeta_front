@@ -88,9 +88,12 @@ export default class InsertForm extends Component {
       sensitivity,
       owner,
       data_location,
-      access_information
+      access_information,
+      genre,
+      description,
+      keywords
     } = fields;
-    const { annotationLevels, resourceTypes } = preloadedSelects;
+    const { annotationLevels, resourceTypes, textGenres } = preloadedSelects;
 
     if (loadingState.SUBMITDATASET) {
       if (loadingState.SUBMITDATASET == 'success') {
@@ -108,7 +111,11 @@ export default class InsertForm extends Component {
             handleChange={this.handleChange.bind(this)}
             resourceTypes={resourceTypes}
             resourcetype={resourcetype}
+            description={description}
             title={title}
+            textGenres={textGenres}
+            genre={genre}
+            keywords={keywords}
           />
         ),
         isValid: title !== '' && resourcetype

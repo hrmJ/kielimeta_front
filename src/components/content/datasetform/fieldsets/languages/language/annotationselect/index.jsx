@@ -1,34 +1,28 @@
 import React, { Component } from 'react';
-import Select from 'react-select';
 
 import { updateField } from '../../../../../../../redux/actions/datasetform';
 import Closable from '../../../../../../ui/closablebox';
 import LabelledInput from '../../../../../../ui/labelledinput';
 import TooltippedSelect from '../../../../../../ui/tooltippedSelect';
-import formstyles from '../../../../datasetform.scss';
 import styles from './annotationselect.scss';
 
 export default class AnnotationSelect extends Component {
   removeAnnotation() {
-    const {
-      language_idx, idx, languages, dispatch,
-    } = this.props;
+    const { language_idx, idx, languages, dispatch } = this.props;
     const updated = languages;
     updated[language_idx].annotations.splice(idx, 1);
     dispatch(updateField('languages', updated));
   }
 
   updateAnnotation(key, val) {
-    const {
-      dispatch, languages, idx, language_idx,
-    } = this.props;
+    const { dispatch, languages, idx, language_idx } = this.props;
     const updated = languages;
     if (
-      !languages[language_idx].annotations
-      && (languages[language_idx].annotations.length - 1 >= idx
-        || languages[language_idx].annotation.length === 0)
+      !languages[language_idx].annotations &&
+      (languages[language_idx].annotations.length - 1 >= idx ||
+        languages[language_idx].annotation.length === 0)
     ) {
-      languages[languages_idx].annotations[idx] = {};
+      languages[language_idx].annotations[idx] = {};
     }
     updated[language_idx].annotations[idx][key] = val;
     dispatch(updateField('languages', updated));
@@ -37,9 +31,7 @@ export default class AnnotationSelect extends Component {
   }
 
   render() {
-    const {
-      idx, level = '', description, annotationLevels = [],
-    } = this.props;
+    const { idx, level = '', description, annotationLevels = [] } = this.props;
 
     return (
       <Closable className={styles.annotationSelect} onClose={() => this.removeAnnotation()}>

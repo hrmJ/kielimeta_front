@@ -8,6 +8,13 @@ import AdditionalField from '../../../../../../../ui/additionalfield';
 import LabelledInput from '../../../../../../../ui/labelledinput';
 import formstyles from '../../../../../datasetform.scss';
 
+const modalityOptions = [
+  { value: 'written', label: 'Kirjoitettu kieli' },
+  { value: 'spoken', label: 'Puhuttu kieli' },
+  { value: 'internet', label: 'Internetkieli' },
+  { value: 'mixed', label: 'Vaikeasti määriteltävissä' }
+];
+
 export default class Variety extends Component {
   componentDidMount() {
     const { dispatch, varietyTypes = [] } = this.props;
@@ -26,7 +33,9 @@ export default class Variety extends Component {
       variety,
       varietyTypes = [],
       dispatch,
+      varietyType = '',
       isNewLanguage = false,
+      modality
     } = this.props;
     let varietyOptions = [];
     let varietyDetailsCondition = false;
@@ -42,7 +51,7 @@ export default class Variety extends Component {
     if (varieties[language_code]) {
       varietyOptions = varieties[language_code].map(obj => ({
         label: obj.variety.replace('generic', 'ei tarkempaa varianttia'),
-        value: obj.variety,
+        value: obj.variety
       }));
 
       if (!varieties[language_code].map(obj => obj.variety).includes(variety)) {
@@ -80,6 +89,7 @@ export default class Variety extends Component {
                 id={`lang_${idx}_variant_type_select`}
                 styles={selectStyle}
                 options={typeOptions}
+                value={varietyType !== 'generic' && { label: varietyType, value: varietyType }}
                 onChange={selected => onChange('variety_type', selected.value)}
               />
             </LabelledInput>
@@ -98,12 +108,8 @@ export default class Variety extends Component {
             isMulti
             styles={selectStyle}
             onChange={selected => onChange('modality', selected.map(s => s.value))}
-            options={[
-              { value: 'written', label: 'Kirjoitettu kieli' },
-              { value: 'spoken', label: 'Puhuttu kieli' },
-              { value: 'internet', label: 'Internetkieli' },
-              { value: 'mixed', label: 'Vaikeasti määriteltävissä' },
-            ]}
+            options={modalityOptions}
+            value={modality && modality.map(m => ({ label: m, value: m }))}
           />
         </LabelledInput>
       </div>

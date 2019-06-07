@@ -8,7 +8,6 @@ import styles from './step.scss';
 
 const index = props => {
   const { children, legend, id, active, stepIdx, move, totalSteps, moveTo, isValid } = props;
-  console.info(isValid);
   return (
     <div className={styles.step}>
       <fieldset id={id} className={!active ? styles.inactive : ''}>

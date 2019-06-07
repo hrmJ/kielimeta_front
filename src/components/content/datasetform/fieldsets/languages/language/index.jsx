@@ -58,13 +58,14 @@ export default class LanguageSelect extends Component {
       names,
       languageVarietyTypes,
       annotationLevels,
+      modality
     } = this.props;
     const langprops = {
       annotations: null,
       size: [],
       temporalCoverage: (
         <TemporalCoverage {...this.props} updateLanguage={this.updateLanguage.bind(this)} />
-      ),
+      )
     };
 
     // Conditionally hiding language-specific props based on madia types
@@ -81,11 +82,11 @@ export default class LanguageSelect extends Component {
             { key: 'words', label: 'Sanoja' },
             { key: 'tokens', label: 'Saneita' },
             { key: 'sentences', label: 'Virkkeitä' },
-            { key: 'texts', label: 'Tekstejä' },
+            { key: 'texts', label: 'Tekstejä' }
           ]}
           notincludedname="tekstiaineistoja"
           languagetotal={languages.length}
-        />,
+        />
       );
     }
     if (mediaTypes.includes('audio')) {
@@ -97,7 +98,7 @@ export default class LanguageSelect extends Component {
           fields={[{ key: 'audiohours', label: 'Tuntia' }]}
           notincludedname="äänitteitä"
           languagetotal={languages.length}
-        />,
+        />
       );
     }
     if (mediaTypes.includes('video')) {
@@ -109,7 +110,7 @@ export default class LanguageSelect extends Component {
           fields={[{ key: 'videohours', label: 'Tuntia' }]}
           notincludedname="videoita"
           languagetotal={languages.length}
-        />,
+        />
       );
     }
 
@@ -129,6 +130,7 @@ export default class LanguageSelect extends Component {
           onChange={this.updateLanguage.bind(this)}
           varieties={varieties}
           varietyTypes={languageVarietyTypes}
+          modality={modality}
         />
         <section className={styles.propSection}>
           {Object.keys(langprops).map(key => langprops[key])}

@@ -5,6 +5,14 @@ import formstyles from '../../../../datasetform.scss';
 import styles from '../language.scss';
 
 export default class TemporalCoverage extends Component {
+  state = { min: 2000, max: 2000 };
+
+  recievedprops = false;
+
+  componentWillReceiveProps() {
+    this.recievedprops = true;
+  }
+
   updateYears(val, minormax) {
     minormax = minormax || false;
     const { languages, idx, updateLanguage } = this.props;
@@ -18,47 +26,63 @@ export default class TemporalCoverage extends Component {
         return years;
       }
     }
-    if (thisyear >= 1000 && thisyear <= 2100) {
-      if (years.length > 0) {
-        const currentmin = Math.min(...years);
-        const currentmax = Math.max(...years);
-        if (!minormax) {
-          years = [...new Set([...years, thisyear])];
-        } else if (minormax == 'min') {
-          if (years.length === 2 && thisyear == currentmax) {
-            years = [currentmax];
-          } else if (thisyear > currentmax) {
-            years = [thisyear];
-          } else if (currentmax > thisyear || currentmin === currentmax) {
-            years.splice(years.indexOf(currentmin), 1);
-            years = years.filter(year => year >= thisyear);
-            years.push(thisyear);
-          }
-        } else if (minormax == 'max') {
-          if (years.length === 1 && currentmax < thisyear) {
-            years.push(thisyear);
-          } else if (years.length === 1 && currentmax > thisyear) {
-            years = years;
-          } else if (years.length === 2 && thisyear == currentmin) {
-            years = [currentmin];
-          } else if (currentmin < thisyear || currentmin === currentmax) {
-            years.splice(years.indexOf(currentmax), 1);
-            years = years.filter(year => year <= thisyear);
-            years.push(thisyear);
-          }
+    if (years.length > 0) {
+      const currentmin = Math.min(...years);
+      const currentmax = Math.max(...years);
+      if (!minormax) {
+        years = [...new Set([...years, thisyear])];
+      } else if (minormax == 'min') {
+        if (years.length === 2 && thisyear == currentmax) {
+          years = [currentmax];
+        } else if (thisyear > currentmax) {
+          years = [thisyear];
+        } else if (currentmax > thisyear || currentmin === currentmax) {
+          years.splice(years.indexOf(currentmin), 1);
+          years = years.filter(year => year >= thisyear);
+          years.push(thisyear);
         }
-      } else {
-        years = [thisyear];
+      } else if (minormax == 'max') {
+        if (years.length === 1 && currentmax < thisyear) {
+          years.push(thisyear);
+        } else if (years.length === 1 && currentmax > thisyear) {
+          years = years;
+        } else if (years.length === 2 && thisyear == currentmin) {
+          years = [currentmin];
+        } else if (currentmin < thisyear || currentmin === currentmax) {
+          years.splice(years.indexOf(currentmax), 1);
+          years = years.filter(year => year <= thisyear);
+          years.push(thisyear);
+        }
       }
-      updateLanguage('years_covered', years);
-      // for testing purposes
-      return years;
+    } else {
+      years = [thisyear];
     }
+    updateLanguage('years_covered', years);
+    // for testing purposes
+    return years;
+  }
+
+  textfieldUpdate(key, val) {
+    this.setState({ [key]: val });
+    this.updateYears(val, key);
+    // const { min, max } = this.state;
+    // if (min) {
+    //   this.updateYears(min, 'min');
+    // }
+    // if (max) {
+    //   this.updateYears(max, 'max');
+    // }
   }
 
   render() {
     const { languages, idx } = this.props;
     const years = languages[idx].years_covered || [];
+    const { min, max } = this.state;
+
+    if (!this.recievedprops && years.length > 0) {
+      this.recievedprops = true;
+      this.setState({ min: Math.min(...years), max: Math.max(...years) });
+    }
 
     return (
       <LanguageProp header="Ajanjakso">
@@ -72,24 +96,20 @@ export default class TemporalCoverage extends Component {
           <label htmlFor="startyear">vuodesta</label>
           <input
             type="number"
-            defaultValue=""
-            min="1000"
-            max="2050"
             id="startyear"
             placeholder="vuosiluku"
-            onChange={ev => this.updateYears(ev.target.value, 'min')}
+            value={min}
+            onChange={ev => this.textfieldUpdate('min', ev.target.value)}
           />
         </div>
         <div className={formstyles.fieldContainer}>
           <label htmlFor="startyear">vuoteen</label>
           <input
+            value={max}
             type="number"
-            defaultValue={years.length == 1 ? years[0] : ''}
-            min="1000"
-            max="2050"
             id="endyear"
             placeholder="vuosiluku"
-            onChange={ev => this.updateYears(ev.target.value, 'max')}
+            onChange={ev => this.textfieldUpdate('max', ev.target.value)}
           />
         </div>
         <div className={styles.propSection}>
