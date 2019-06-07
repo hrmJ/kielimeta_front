@@ -69,10 +69,11 @@ export default class LanguageSelect extends Component {
     };
 
     // Conditionally hiding language-specific props based on madia types
+    // if (mediaTypes.includes('text')) {
+    langprops.annotations = (
+      <Annotations {...this.props} onChange={this.updateLanguage.bind(this)} />
+    );
     if (mediaTypes.includes('text')) {
-      langprops.annotations = (
-        <Annotations {...this.props} onChange={this.updateLanguage.bind(this)} />
-      );
       langprops.size.push(
         <Size
           {...this.props}

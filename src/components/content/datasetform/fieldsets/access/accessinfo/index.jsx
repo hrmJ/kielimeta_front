@@ -19,7 +19,6 @@ export default class AccessInfo extends Component {
 
   componentDidMount() {
     const { access_information, placeOfPublication } = this.props;
-    console.log(access_information);
     if (access_information === 'contactperson') {
       this.setState({ accessType: access_information });
     } else if (placeOfPublication.location) {
@@ -40,7 +39,6 @@ export default class AccessInfo extends Component {
   render() {
     const { dispatch, placeOfPublication, access_information } = this.props;
     const { accessType } = this.state;
-    console.log(access_information);
     return (
       <div className={formStyles.upperContainer}>
         <LabelledInput label="Miten aineistoa pääsee käyttämään?">
