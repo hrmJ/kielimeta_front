@@ -5,7 +5,7 @@ import CbItem from '../../../../../ui/checkboxlistitem';
 import { updateField } from '../../../../../../redux/actions/datasetform';
 import AdditionalField from '../../../../../ui/additionalfield';
 
-export default class MediaTypes extends Component {
+class MediaTypes extends Component {
   update(key, checked) {
     const { dispatch, mediaTypes = [] } = this.props;
     const newvals = checked ? [...mediaTypes, key] : mediaTypes.filter(thisval => thisval !== key);
@@ -13,14 +13,14 @@ export default class MediaTypes extends Component {
   }
 
   render() {
-    const { mediaTypes = [], handleChange } = this.props;
+    const { mediaTypes = [], handleChange, media_description } = this.props;
 
     const availableMediaTypes = {
       text: 'Tekstiä',
       audio: 'Ääntä',
       video: 'Videoita',
       images: 'Kuvia',
-      other: 'Jotain muuta',
+      other: 'Jotain muuta'
     };
 
     return (
@@ -47,8 +47,15 @@ export default class MediaTypes extends Component {
           handleChange={handleChange('media_description')}
           label="Kuvaile aineistojen koostumusta tarkemmin"
           id="mediatypedescription"
+          value={media_description}
         />
       </div>
     );
   }
 }
+
+MediaTypes.defaultProps = {
+  media_description: ''
+};
+
+export default MediaTypes;

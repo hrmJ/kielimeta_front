@@ -19,7 +19,8 @@ export default class AccessInfo extends Component {
 
   componentDidMount() {
     const { access_information, placeOfPublication } = this.props;
-    if (['contactperson'].includes(access_information)) {
+    console.log(access_information);
+    if (access_information === 'contactperson') {
       this.setState({ accessType: access_information });
     } else if (placeOfPublication.location) {
       this.setState({ accessType: 'url' });
@@ -39,6 +40,7 @@ export default class AccessInfo extends Component {
   render() {
     const { dispatch, placeOfPublication, access_information } = this.props;
     const { accessType } = this.state;
+    console.log(access_information);
     return (
       <div className={formStyles.upperContainer}>
         <LabelledInput label="Miten aineistoa pääsee käyttämään?">
@@ -66,7 +68,15 @@ export default class AccessInfo extends Component {
         <AdditionalField
           condition={accessType === 'other'}
           label="Ohjeet aineiston saamiseksi"
-          handleChange={ev => dispatch(updateField('access_information', ev.target.value))}
+          handleChange={ev =>
+            dispatch(
+              updateField('access_information', {
+                placeOfPublication,
+                access_information: ev.target.value
+              })
+            )
+          }
+          value={access_information !== 'contactperson' ? access_information : ''}
         />
       </div>
     );

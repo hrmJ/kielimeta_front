@@ -91,7 +91,8 @@ export default class InsertForm extends Component {
       access_information,
       genre,
       description,
-      keywords
+      keywords,
+      media_description
     } = fields;
     const { annotationLevels, resourceTypes, textGenres } = preloadedSelects;
 
@@ -116,6 +117,7 @@ export default class InsertForm extends Component {
             textGenres={textGenres}
             genre={genre}
             keywords={keywords}
+            media_description={media_description}
           />
         ),
         isValid: title !== '' && resourcetype

@@ -10,7 +10,13 @@ const _updateField = (name, val) => ({
 });
 
 const updateField = (name, val, language) => dispatch => {
-  if (name === 'place_of_publication') {
+  if (name === 'access_information' && val !== 'contactperson') {
+    // If giving an 'other' as a way of accessing, clear the 'location'
+    // field since they are mutually exclusive
+    const { placeOfPublication, access_information } = val;
+    dispatch(_updateField('place_of_publication', { ...placeOfPublication, location: '' }));
+    dispatch(_updateField('access_information', access_information));
+  } else if (name === 'place_of_publication') {
     // If giving a url as a place_of_publication, clear the 'access_information
     // field since they are mutually exclusive
     dispatch(_updateField('access_information', ''));

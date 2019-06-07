@@ -18,6 +18,7 @@ const generalInfo = props => {
     title,
     textGenres,
     mediatypes,
+    media_description,
     genre,
     description,
     keywords

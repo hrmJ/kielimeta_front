@@ -9,6 +9,7 @@ import LabelledInput from '../../../../ui/labelledinput';
 
 const index = props => {
   const { dispatch, placeOfPublication, access_information } = props;
+  const { identifier, citation_info } = placeOfPublication;
   return (
     <div>
       <ContactPerson {...props} />
@@ -19,6 +20,7 @@ const index = props => {
       />
       <LabelledInput
         label="Aineiston pysyväistunniste (esim. URN tai doi)"
+        value={identifier}
         handleChange={ev =>
           dispatch(
             updateField('place_of_publication', {
@@ -31,6 +33,7 @@ const index = props => {
       <LabelledInput
         label="Viittausohje"
         type="textarea"
+        value={citation_info}
         handleChange={ev =>
           dispatch(
             updateField('place_of_publication', {
@@ -45,7 +48,16 @@ const index = props => {
 };
 
 index.propTypes = {
-  dispatch: PropTypes.string.isRequired
+  dispatch: PropTypes.string.isRequired,
+  placeOfPublication: PropTypes.shape({
+    location: PropTypes.string,
+    identifier: PropTypes.string,
+    citation_info: PropTypes.string
+  })
+};
+
+index.defaultProps = {
+  placeOfPublication: { location: '', identifier: '', citation_info: '' }
 };
 
 export default index;
