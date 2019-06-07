@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Select from 'react-select';
+import { Select } from '../../../../../ui/localizedSelect';
 
 import { PersonInput } from '../../../../../ui/personfield';
 import { selectStyle } from '../../../../../../general_styles/jsStyles';
@@ -19,15 +19,16 @@ export default class ContactPerson extends Component {
     const { newPerson } = this.state;
 
     const options = authors.map(a => ({ label: a.name, value: { email: a.id, name: a.name } }));
-    contactPersons.forEach((p) => {
+    contactPersons.forEach(p => {
       options.push({ label: p.name, value: p });
     });
     options.push({ label: 'Uusi henkilö', value: { email: '', name: '' } });
-    const newPersonCond = (contactPersons.length > 0
-        && !this.addedPersons.includes(JSON.stringify(newPerson))
-        && newPerson !== {}
-        && newPerson !== false)
-      || (this.addedPersons.length === 0 && newPerson !== false);
+    const newPersonCond =
+      (contactPersons.length > 0 &&
+        !this.addedPersons.includes(JSON.stringify(newPerson)) &&
+        newPerson !== {} &&
+        newPerson !== false) ||
+      (this.addedPersons.length === 0 && newPerson !== false);
     return (
       <div className={formStyles.upperContainer}>
         <LabelledInput label="Yhteyshenkilö(t)">
@@ -35,7 +36,7 @@ export default class ContactPerson extends Component {
             value={contactPersons.map(p => ({ label: p.name, value: p }))}
             styles={selectStyle}
             options={options}
-            onChange={(selected) => {
+            onChange={selected => {
               let doDispatch = true;
               if (selected.length) {
                 if (selected[selected.length - 1].label === 'Uusi henkilö') {
@@ -68,8 +69,8 @@ export default class ContactPerson extends Component {
               dispatch(
                 updateField('contact_person', [
                   ...contactPersons.filter(p => p.name || p.email),
-                  newPerson,
-                ]),
+                  newPerson
+                ])
               );
             }}
           >

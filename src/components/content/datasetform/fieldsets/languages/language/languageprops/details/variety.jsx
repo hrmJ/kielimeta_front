@@ -1,6 +1,5 @@
-import CreatableSelect from 'react-select/lib/Creatable';
 import React, { Component } from 'react';
-import Select from 'react-select';
+import { Select, CreatableSelect } from '../../../../../../../ui/localizedSelect';
 
 import { getVarietyTypes } from '../../../../../../../../redux/actions/languageactions';
 import { selectStyle } from '../../../../../../../../general_styles/jsStyles';
@@ -91,6 +90,7 @@ export default class Variety extends Component {
                 options={typeOptions}
                 value={varietyType !== 'generic' && { label: varietyType, value: varietyType }}
                 onChange={selected => onChange('variety_type', selected.value)}
+                isSearchable={false}
               />
             </LabelledInput>
             {/*
@@ -109,7 +109,14 @@ export default class Variety extends Component {
             styles={selectStyle}
             onChange={selected => onChange('modality', selected.map(s => s.value))}
             options={modalityOptions}
-            value={modality && modality.map(m => ({ label: m, value: m }))}
+            value={
+              modality &&
+              modality.map(m => ({
+                label: modalityOptions.filter(o => o.value === m)[0].label,
+                value: m
+              }))
+            }
+            isSearchable={false}
           />
         </LabelledInput>
       </div>

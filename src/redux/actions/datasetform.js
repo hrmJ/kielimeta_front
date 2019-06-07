@@ -10,17 +10,17 @@ const _updateField = (name, val) => ({
 });
 
 const updateField = (name, val, language) => dispatch => {
-  if (name === 'access_information' && val !== 'contactperson') {
+  if (name === 'access_information') {
     // If giving an 'other' as a way of accessing, clear the 'location'
     // field since they are mutually exclusive
     const { placeOfPublication, access_information } = val;
     dispatch(_updateField('place_of_publication', { ...placeOfPublication, location: '' }));
     dispatch(_updateField('access_information', access_information));
-  } else if (name === 'place_of_publication') {
+  } else if (name === 'place_of_publication_location') {
     // If giving a url as a place_of_publication, clear the 'access_information
     // field since they are mutually exclusive
     dispatch(_updateField('access_information', ''));
-    dispatch(_updateField(name, val));
+    dispatch(_updateField('place_of_publication', val));
   } else if (language) {
     dispatch(getVarieties(language.value))
       .then(() => dispatch(updateLanguageName(language.value, language.label)))

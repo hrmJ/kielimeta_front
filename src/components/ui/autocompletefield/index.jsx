@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { components } from 'react-select';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
-import AsyncSelect from 'react-select/lib/AsyncCreatable';
+import { AsyncSelectCreatable } from '../../ui/localizedSelect';
 import React, { Component } from 'react';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -55,7 +55,7 @@ export default class AutoCompleteField extends Component {
     let select;
     if (value !== undefined) {
       select = (
-        <AsyncSelect
+        <AsyncSelectCreatable
           id={id}
           isMulti={isMulti}
           components={{ Option }}
@@ -68,7 +68,7 @@ export default class AutoCompleteField extends Component {
       );
     } else {
       select = (
-        <AsyncSelect
+        <AsyncSelectCreatable
           id={id}
           defaultInputValue={value}
           isMulti={isMulti}

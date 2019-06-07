@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import Select from 'react-select';
+import { Select } from '../../../../ui/localizedSelect';
 
 import { selectStyle } from '../../../../../general_styles/jsStyles';
 import { updateField } from '../../../../../redux/actions/datasetform';

@@ -5,7 +5,7 @@ import formstyles from '../../../../datasetform.scss';
 import styles from '../language.scss';
 
 export default class TemporalCoverage extends Component {
-  state = { min: 2000, max: 2000 };
+  state = { min: 0, max: 0 };
 
   recievedprops = false;
 

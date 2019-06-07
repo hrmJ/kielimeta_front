@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import Select from 'react-select';
+import { Select } from '../../../../../ui/localizedSelect';
 
 import { selectStyle } from '../../../../../../general_styles/jsStyles';
 import { updateField } from '../../../../../../redux/actions/datasetform';
@@ -29,9 +29,14 @@ export default class AccessInfo extends Component {
   }
 
   selectType(selected) {
-    const { dispatch } = this.props;
+    const { dispatch, placeOfPublication } = this.props;
     if (selected.value === 'contactperson') {
-      dispatch(updateField('access_information', selected.value));
+      dispatch(
+        updateField('access_information', {
+          placeOfPublication,
+          access_information: selected.value
+        })
+      );
     }
     this.setState({ accessType: selected.value });
   }
@@ -47,6 +52,7 @@ export default class AccessInfo extends Component {
             styles={selectStyle}
             onChange={selected => this.selectType(selected)}
             value={accessType && options.filter(o => o.value === accessType)}
+            isSearchable={false}
           />
         </LabelledInput>
         <AdditionalField
@@ -56,7 +62,7 @@ export default class AccessInfo extends Component {
           value={placeOfPublication.location}
           handleChange={ev =>
             dispatch(
-              updateField('place_of_publication', {
+              updateField('place_of_publication_location', {
                 ...placeOfPublication,
                 ...{ location: ev.target.value }
               })
