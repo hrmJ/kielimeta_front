@@ -11,6 +11,7 @@ import Authors from './fieldsets/authors';
 import GeneralInfo from './fieldsets/generalinfo/index';
 import Languages from './fieldsets/languages';
 import Stepper from '../../ui/stepper';
+import styles from '../../../general_styles/general_styles.scss';
 
 /**
  * validateLanguageStep
@@ -32,6 +33,8 @@ const validateLanguageStep = languages => {
 };
 
 export default class InsertForm extends Component {
+  state = { invalidFields: [] };
+
   static get propTypes() {
     return {
       dispatch: PropTypes.func.isRequired,
@@ -56,10 +59,30 @@ export default class InsertForm extends Component {
     }
   };
 
+  checkErrors() {
+    const { fields } = this.props;
+    const { title, contact_person } = fields;
+    const invalidFields = [];
+    if (!title) {
+      invalidFields.push({ step: 0, error: 'Aineistolla pitää olla nimi', link: '#datasettitle' });
+    }
+    if (!contact_person) {
+      invalidFields.push({
+        step: 3,
+        error: 'Ilmoita ainakin yksi yhteyshenkilö',
+        link: '#datasettitle'
+      });
+    }
+    return invalidFields;
+  }
+
   submit(event) {
     const { dispatch, fields } = this.props;
+    const { invalidFields } = this.state;
     event.preventDefault();
-    dispatch(submitDataset(fields));
+    if (invalidFields.length === 0) {
+      dispatch(submitDataset(fields));
+    }
   }
 
   render() {
@@ -78,13 +101,14 @@ export default class InsertForm extends Component {
       mediatype,
       languages,
       resourcetype,
-      authors,
+      authors = [],
       contact_person,
       place_of_publication,
       access_type,
       title,
       project,
       license,
+      license_info,
       sensitivity,
       owner,
       data_location,
@@ -92,13 +116,24 @@ export default class InsertForm extends Component {
       genre,
       description,
       keywords,
-      media_description
+      media_description,
+      data_location_status
     } = fields;
     const { annotationLevels, resourceTypes, textGenres } = preloadedSelects;
+    const { invalidFields } = this.state;
 
     if (loadingState.SUBMITDATASET) {
       if (loadingState.SUBMITDATASET == 'success') {
-        return <div id="savedmsg">Tallennettu</div>;
+        return (
+          <div id="savedmsg" className={styles.someTopMargin}>
+            <p>Tiedot tallennettu.</p>
+            <p>
+              <button type="button" onClick={() => window.location.reload()}>
+                Lisää uusi
+              </button>
+            </p>
+          </div>
+        );
       }
     }
 
@@ -135,12 +170,14 @@ export default class InsertForm extends Component {
             annotationLevels={annotationLevels}
           />
         ),
-        isValid: validateLanguageStep(languages)
+        isValid: validateLanguageStep(languages),
+        doesNotPreventSave: true
       },
       {
         legend: 'Tekijät',
         component: <Authors dispatch={dispatch} authors={authors} />,
-        isValid: false
+        isValid: authors.length > 0 && authors[0].id,
+        doesNotPreventSave: true
       },
       {
         legend: 'Saatavuus',
@@ -165,22 +202,20 @@ export default class InsertForm extends Component {
             project={project}
             owner={owner}
             license={license}
+            license_info={license_info}
             sensitivity={sensitivity}
             data_location={data_location}
+            dataLocationStatus={data_location_status}
           />
         ),
-        isValid: false
+        isValid: data_location && owner,
+        doesNotPreventSave: true
       }
     ];
 
     return (
       <form onSubmit={event => this.submit(event)}>
-        <Stepper steps={steps} />
-        <div>
-          <button type="submit" id="datasetsubmit">
-            Tallenna
-          </button>
-        </div>
+        <Stepper steps={steps} errors={this.checkErrors()} />
       </form>
     );
   }

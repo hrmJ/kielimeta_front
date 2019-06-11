@@ -29,7 +29,13 @@ const generalInfo = props => {
     <div>
       <div className={styles.fieldContainer}>
         <label htmlFor="datasettitle">Nimi</label>
-        <input type="text" value={title} id="datasettitle" onChange={handleChange('title')} />
+        <input
+          type="text"
+          value={title}
+          id="datasettitle"
+          onChange={handleChange('title')}
+          required
+        />
       </div>
       <div className={styles.fieldContainer}>
         <label htmlFor="datasetdescription">Kuvaus</label>

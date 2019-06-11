@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { updateField } from '../../../../../../redux/actions/datasetform';
 import LabelledInput from '../../../../../ui/labelledinput';
-import TooltippedSelect from '../../../../../ui/tooltippedSelect';
+import AdditionalInfoSelect from '../../../../../ui/additionalInfoselect';
 
 const options = [
   {
@@ -64,29 +64,33 @@ const options = [
 ];
 
 const index = props => {
-  const { dispatch, license } = props;
+  const { dispatch, license, license_info } = props;
 
   return (
-    <LabelledInput label="Käyttölisenssi">
-      <TooltippedSelect
-        labelName="name"
-        tooltipName="description"
-        valueName="val"
-        options={options}
-        value={license && { label: license, value: license }}
-        onChange={selected => dispatch(updateField('license', selected.value))}
-      />
-    </LabelledInput>
+    <AdditionalInfoSelect
+      labelName="name"
+      tooltipName="description"
+      valueName="val"
+      options={options}
+      value={license && { label: license, value: license }}
+      onChange={selected => dispatch(updateField('license', selected.value))}
+      additionalFieldChange={ev => dispatch(updateField('license_info', ev.target.value))}
+      additionalFieldValue={license_info}
+      condition={license === 'undefined'}
+      label="Käyttölisenssi"
+    />
   );
 };
 
 index.propTypes = {
   license: PropTypes.string,
-  dispatch: PropTypes.func.isRequired
+  dispatch: PropTypes.func.isRequired,
+  license_info: PropTypes.string
 };
 
 index.defaultProps = {
-  license: ''
+  license: '',
+  license_info: ''
 };
 
 export default index;

@@ -1,7 +1,7 @@
-import CreatableSelect from 'react-select/lib/Creatable';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import { CreatableSelect } from '../../../../../ui/localizedSelect';
 import { selectStyle } from '../../../../../../general_styles/jsStyles';
 import { updateField } from '../../../../../../redux/actions/datasetform';
 import LabelledInput from '../../../../../ui/labelledinput';

@@ -63,6 +63,10 @@ const validateFields = fields => {
   validated.place_of_publication = [validated.place_of_publication];
   validated.owner = validated.owner && validated.owner.split(/,\s*/);
   validated.description = validated.description || 'no description';
+  if (validated.license_info && validated.license === 'undefined') {
+    validated.license = validated.license_info;
+    delete validated.license_info;
+  }
   return validated;
 };
 

@@ -5,33 +5,40 @@ import PropTypes from 'prop-types';
 
 import React from 'react';
 
+const formatPlaceholder = (isSearchable, isMulti) => {
+  let placeholder = 'Valitse';
+  if (isSearchable) {
+    placeholder += ' / kirjoita';
+  }
+  if (isMulti) {
+    placeholder += ' yksi tai useita';
+  }
+  placeholder += '...';
+  return placeholder;
+};
+
 const CreatableSelect = props => {
+  const { isMulti, isSearchable, ...otherProps } = props;
+
   return (
     <CreatableSelectOriginal
-      {...props}
+      {...otherProps}
+      isMulti={isMulti}
+      isSearchable={isSearchable}
+      placeholder={formatPlaceholder(isSearchable, isMulti)}
       formatCreateLabel={val => `Uusi kategoria: ${val}`}
-      placeholder="Valitse/kirjoita..."
       noOptionsMessage={() => 'Ei tallennettuja: luo uusi kirjoittamalla.'}
     />
   );
 };
 
-const formatPlaceholder = isMulti => {
-  let formatted = 'Valitse/kirjoita';
-  if (isMulti) {
-    formatted += ' yksi tai useita..';
-  } else {
-    formatted += '...';
-  }
-  return formatted;
-};
-
 const AsyncSelectCreatable = props => {
-  const { isMulti, placeholder, ...otherProps } = props;
+  const { isMulti, isSearchable, placeholder, ...otherProps } = props;
   return (
     <OriginalAsyncSelectCreatbale
       {...otherProps}
-      placeholder={placeholder || formatPlaceholder(isMulti)}
+      placeholder={placeholder || formatPlaceholder(isSearchable, isMulti)}
+      isSearchable={isSearchable}
       isMulti={isMulti}
       formatCreateLabel={val => `Uusi kategoria: ${val}`}
     />
@@ -39,28 +46,48 @@ const AsyncSelectCreatable = props => {
 };
 
 const Select = props => {
-  const { isMulti, ...otherProps } = props;
+  const { isMulti, isSearchable, ...otherProps } = props;
 
-  const placeholder = isMulti ? 'Valitse yksi tai useita...' : 'Valitse...';
-  return <OriginalSelect {...otherProps} placeholder={placeholder} isMulti={isMulti} />;
+  return (
+    <OriginalSelect
+      {...otherProps}
+      placeholder={formatPlaceholder(isSearchable, isMulti)}
+      isMulti={isMulti}
+      isSearchable={isSearchable}
+    />
+  );
 };
 
 AsyncSelectCreatable.propTypes = {
   isMulti: PropTypes.bool,
+  isSearchable: PropTypes.bool,
   placeholder: PropTypes.string
 };
 
 AsyncSelectCreatable.defaultProps = {
   isMulti: false,
+  isSearchable: true,
   placeholder: undefined
 };
 
 Select.propTypes = {
-  isMulti: PropTypes.bool
+  isMulti: PropTypes.bool,
+  isSearchable: PropTypes.bool
 };
 
 Select.defaultProps = {
-  isMulti: false
+  isMulti: false,
+  isSearchable: true
+};
+
+CreatableSelect.propTypes = {
+  isMulti: PropTypes.bool,
+  isSearchable: PropTypes.bool
+};
+
+CreatableSelect.defaultProps = {
+  isMulti: false,
+  isSearchable: true
 };
 
 export { CreatableSelect, Select, AsyncSelectCreatable };

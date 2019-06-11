@@ -17,7 +17,16 @@ const sensitivityOptions = [
 ];
 
 const index = props => {
-  const { dispatch, project, license, sensitivity, owner, data_location } = props;
+  const {
+    dispatch,
+    project,
+    license,
+    sensitivity,
+    owner,
+    data_location,
+    license_info,
+    dataLocationStatus
+  } = props;
   return (
     <div>
       <AutoCompleteField
@@ -28,7 +37,7 @@ const index = props => {
       >
         Projekti, johon aineisto kuuluu
       </AutoCompleteField>
-      <License dispatch={dispatch} license={license} />
+      <License dispatch={dispatch} license={license} license_info={license_info} />
       <LabelledInput label="Suojaustarve">
         <Select
           options={sensitivityOptions}
@@ -48,6 +57,19 @@ const index = props => {
         handleChange={ev => dispatch(updateField('data_location', ev.target.value))}
         value={data_location}
       />
+      <LabelledInput
+        label="Nykyisen tallennusratkaisun toimivuus"
+        handleChange={ev => dispatch(updateField('data_location', ev.target.value))}
+        value={data_location}
+      >
+        <Select
+          options={['Kunnossa', 'Vaatii parannusta'].map(o => ({ value: o, label: o }))}
+          isSearchable={false}
+          styles={selectStyle}
+          value={dataLocationStatus && { label: dataLocationStatus, value: dataLocationStatus }}
+          onChange={selected => dispatch(updateField('data_location_status', selected.value))}
+        />
+      </LabelledInput>
     </div>
   );
 };
@@ -58,7 +80,8 @@ index.propTypes = {
   license: PropTypes.string,
   sensitivity: PropTypes.string,
   owner: PropTypes.string,
-  data_location: PropTypes.string
+  data_location: PropTypes.string,
+  dataLocationStatus: PropTypes.string
 };
 
 index.defaultProps = {
@@ -66,8 +89,8 @@ index.defaultProps = {
   license: '',
   sensitivity: '',
   owner: '',
-  data_location: ''
+  data_location: '',
+  dataLocationStatus: ''
 };
 
 export default index;
-

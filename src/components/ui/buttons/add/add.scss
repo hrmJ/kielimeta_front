@@ -1,5 +1,6 @@
 @import 'src/general_styles/configs.scss';
 .container {
+  border: none;
   font-size: 0.8em;
   display: flex;
   padding: 0.3em;
@@ -15,5 +16,13 @@
   }
   &:hover {
     text-decoration: underline;
+  }
+}
+
+.container[disabled] {
+  background: grey;
+  color: lightgrey;
+  &:hover {
+    text-decoration: none;
   }
 }

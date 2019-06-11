@@ -1,0 +1,26 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import styles from '../add/add.scss';
+
+const index = props => {
+  const { text, id, disabled } = props;
+  return (
+    <button className={styles.container} tabIndex={0} type="submit" id={id} disabled={disabled}>
+      <div>{text}</div>
+    </button>
+  );
+};
+
+index.propTypes = {
+  text: PropTypes.string,
+  id: PropTypes.string,
+  disabled: PropTypes.bool
+};
+
+index.defaultProps = {
+  text: 'Tallenna',
+  id: '',
+  disabled: false
+};
+
+export default index;
