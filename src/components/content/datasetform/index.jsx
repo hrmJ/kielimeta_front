@@ -61,17 +61,27 @@ export default class InsertForm extends Component {
 
   checkErrors() {
     const { fields } = this.props;
-    const { title, contact_person } = fields;
+    const { title, contact_person, resourcetype, authors = [] } = fields;
     const invalidFields = [];
-    if (!title) {
-      invalidFields.push({ step: 0, error: 'Aineistolla pitää olla nimi', link: '#datasettitle' });
+    if (authors.length === 0) {
+      invalidFields.push({
+        step: 2,
+        msg: 'Aineistolle ei ole merkitty tekijöitä',
+        level: 'warning'
+      });
     }
-    if (!contact_person) {
+    if (!resourcetype) {
+      invalidFields.push({ step: 0, msg: 'Valitse aineiston tyyppi', level: 'error' });
+    }
+    if (!contact_person || contact_person.length === 0) {
       invalidFields.push({
         step: 3,
-        error: 'Ilmoita ainakin yksi yhteyshenkilö',
-        link: '#datasettitle'
+        msg: 'Ilmoita ainakin yksi yhteyshenkilö',
+        level: 'error'
       });
+    }
+    if (!title) {
+      invalidFields.push({ step: 0, msg: 'Aineistolla pitää olla nimi', level: 'error' });
     }
     return invalidFields;
   }

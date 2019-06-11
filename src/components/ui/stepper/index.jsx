@@ -33,7 +33,9 @@ class index extends Component {
     const { steps, errors } = this.props;
     const { currentStep } = this.state;
     // const allValid = steps.filter(s => s.isValid || s.doesNotPreventSave).length === steps.length;
-    const hasErrors = errors.length > 0;
+    const criticalErrors = errors.filter(e => e.level === 'error');
+    const otherErrors = errors.filter(e => e.level !== 'error');
+    const hasErrors = criticalErrors.length > 0;
     return (
       <div>
         {steps.map((step, stepIdx) => (
@@ -50,14 +52,28 @@ class index extends Component {
             {step.component}
           </Step>
         ))}
-        {errors.length > 0 && currentStep === steps.length - 1 && (
+        {criticalErrors.length > 0 && currentStep === steps.length - 1 && (
           <div className={styles.errorList}>
             <p>Lomakkeelta puuttuu pakollisia tietoja:</p>
             <ol>
-              {errors.map(e => (
+              {criticalErrors.map(e => (
                 <li>
                   <button type="button" onClick={() => this.setState({ currentStep: e.step })}>
-                    {e.error}
+                    {e.msg}
+                  </button>
+                </li>
+              ))}
+            </ol>
+          </div>
+        )}
+        {otherErrors.length > 0 && currentStep === steps.length - 1 && (
+          <div className={styles.warningList}>
+            <p>Haluatko varmasti lähettää lomakkeen ilman seuraavia tietoja?</p>
+            <ol>
+              {otherErrors.map(e => (
+                <li>
+                  <button type="button" onClick={() => this.setState({ currentStep: e.step })}>
+                    {e.msg}
                   </button>
                 </li>
               ))}

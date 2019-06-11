@@ -1,16 +1,22 @@
-.errorList {
-  background: pink;
+.errorList,
+.warningList {
   font-size: 0.8em;
   margin-left: 1.5em;
   padding: 0.6em;
   border-radius: 2px;
   margin-bottom: 2em;
-  ol {
-  }
   button {
     text-decoration: underline;
     border: none;
     background: none;
     cursor: pointer;
   }
+}
+
+.warningList {
+  background: lightyellow;
+}
+
+.errorList {
+  background: pink;
 }
