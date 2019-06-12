@@ -58,7 +58,8 @@ export default class LanguageSelect extends Component {
       names,
       languageVarietyTypes,
       annotationLevels,
-      modality
+      modality,
+      speaker_status
     } = this.props;
     const langprops = {
       annotations: null,
@@ -132,6 +133,7 @@ export default class LanguageSelect extends Component {
           varieties={varieties}
           varietyTypes={languageVarietyTypes}
           modality={modality}
+          speakerStatus={speaker_status}
         />
         <section className={styles.propSection}>
           {Object.keys(langprops).map(key => langprops[key])}

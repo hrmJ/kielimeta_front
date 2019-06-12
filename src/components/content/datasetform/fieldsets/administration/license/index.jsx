@@ -58,7 +58,7 @@ const options = [
   },
   {
     val: 'undefined',
-    name: 'Ei määritetty / tiedossa',
+    name: 'Muu, mikä',
     description: ''
   }
 ];

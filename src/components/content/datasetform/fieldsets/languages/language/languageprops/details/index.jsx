@@ -5,9 +5,20 @@ import AutoCompleteField from '../../../../../../../ui/autocompletefield';
 import LabelledInput from '../../../../../../../ui/labelledinput';
 import Variety from './variety';
 import formstyles from '../../../../../datasetform.scss';
+import Speaker from './speaker';
 
 export default props => {
-  const { onChange, details = {}, varieties, idx, names, varietyTypes, dispatch, modality } = props;
+  const {
+    onChange,
+    details = {},
+    varieties,
+    idx,
+    names,
+    varietyTypes,
+    dispatch,
+    modality,
+    speakerStatus
+  } = props;
   const { language_code: code = '', variety = '', language_name } = details;
   let selectValue;
   let newlanguageCondition = false;
@@ -49,10 +60,16 @@ export default props => {
         onChange={onChange}
         variety={details.variety}
         varietyType={details.variety_type}
-        dispatch={dispatch}
         varietyTypes={varietyTypes}
         modality={modality}
         isNewLanguage={newlanguageCondition}
+        dispatch={dispatch}
+      />
+      <Speaker
+        dispatch={dispatch}
+        languageCode={code}
+        speakerStatus={speakerStatus}
+        onChange={onChange}
       />
     </section>
   );
