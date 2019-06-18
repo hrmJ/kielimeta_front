@@ -88,8 +88,8 @@ class index extends Component {
 index.propTypes = {
   steps: PropTypes.arrayOf(
     PropTypes.shape({
-      legend: PropTypes.string.isRequired,
-      components: PropTypes.node.isRequired
+      legend: PropTypes.string,
+      components: PropTypes.node
     })
   ).isRequired,
   errors: PropTypes.arrayOf(PropTypes.shape({ error: PropTypes.string, step: PropTypes.idx }))

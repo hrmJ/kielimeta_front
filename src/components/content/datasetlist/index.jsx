@@ -12,7 +12,7 @@ export default class DatasetList extends Component {
   static get propTypes() {
     return {
       dispatch: PropTypes.func.isRequired,
-      datasets: PropTypes.arrayOf(PropTypes.object).isRequired,
+      datasets: PropTypes.arrayOf(PropTypes.object).isRequired
     };
   }
 
@@ -24,15 +24,12 @@ export default class DatasetList extends Component {
   }
 
   filterDatasets(query) {
-    console.debug(query);
     const { dispatch, filters } = this.props;
     dispatch(filterByQuery({ ...filters, query }));
   }
 
   render() {
-    const {
-      datasets, dispatch, filters, originalFilterValues,
-    } = this.props;
+    const { datasets, dispatch, filters, originalFilterValues } = this.props;
 
     return (
       <div id="resources" className={styles.datasetlistContainer}>
