@@ -13,7 +13,7 @@ import Size from './languageprops/size/index';
 import TemporalCoverage from './languageprops/temporalcoverage';
 import styles from './language.scss';
 
-export default class LanguageSelect extends Component {
+class LanguageSelect extends Component {
   updateLanguage(key, val) {
     const { dispatch, languages, idx } = this.props;
     const updated = languages;
@@ -70,18 +70,23 @@ export default class LanguageSelect extends Component {
       annotations: null,
       size: [],
       temporalCoverage: (
-        <TemporalCoverage {...this.props} updateLanguage={this.updateLanguage.bind(this)} />
+        <TemporalCoverage
+          {...this.props}
+          updateLanguage={this.updateLanguage.bind(this)}
+          key="temporalcoverage"
+        />
       )
     };
 
     // Conditionally hiding language-specific props based on madia types
     // if (mediaTypes.includes('text')) {
     langprops.annotations = (
-      <Annotations {...this.props} onChange={this.updateLanguage.bind(this)} />
+      <Annotations {...this.props} onChange={this.updateLanguage.bind(this)} key="annotations" />
     );
     if (mediaTypes.includes('text')) {
       langprops.size.push(
         <Size
+          key="textsize"
           {...this.props}
           header="Tekstiaineistojen laajuus"
           updateLanguage={this.updateLanguage.bind(this)}
@@ -99,6 +104,7 @@ export default class LanguageSelect extends Component {
     if (mediaTypes.includes('audio')) {
       langprops.size.push(
         <Size
+          key="audiosize"
           {...this.props}
           header="Ääniaineistojen laajuus"
           updateLanguage={this.updateLanguage.bind(this)}
@@ -111,6 +117,7 @@ export default class LanguageSelect extends Component {
     if (mediaTypes.includes('video')) {
       langprops.size.push(
         <Size
+          key="videosize"
           {...this.props}
           header="Videoaineistojen laajuus"
           updateLanguage={this.updateLanguage.bind(this)}
@@ -178,3 +185,9 @@ export default class LanguageSelect extends Component {
     );
   }
 }
+
+LanguageSelect.defaultProps = {
+  notes: ''
+};
+
+export default LanguageSelect;

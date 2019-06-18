@@ -7,6 +7,7 @@ import Connection from './connection';
 import formStyles from '../../../datasetform.scss';
 import generalStyles from '../../../../../../general_styles/general_styles.scss';
 import styles from './styles.scss';
+import { uid } from 'react-uid';
 
 class index extends Component {
   state = { hasTranslations: false };
@@ -24,7 +25,7 @@ class index extends Component {
           <input
             type="checkbox"
             checked={hasTranslations}
-            onClick={ev => this.setState({ hasTranslations: ev.target.checked })}
+            onChange={ev => this.setState({ hasTranslations: ev.target.checked })}
           />
           Määrittele aineiston käännössuunnat
         </div>
@@ -35,6 +36,7 @@ class index extends Component {
             </p>
             {connections.map((c, idx) => (
               <Connection
+                key={uid(c)}
                 connections={connections}
                 languages={languages}
                 onChange={() => null}

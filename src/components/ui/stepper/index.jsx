@@ -1,3 +1,5 @@
+import { uid } from 'react-uid';
+import cuid from 'cuid';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import styles from './stepper.scss';
@@ -40,6 +42,7 @@ class index extends Component {
       <div>
         {steps.map((step, stepIdx) => (
           <Step
+            key={step.legend}
             legend={step.legend}
             stepIdx={stepIdx + 1}
             active={stepIdx === currentStep}
