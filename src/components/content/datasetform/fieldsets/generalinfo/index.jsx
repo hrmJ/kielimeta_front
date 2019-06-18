@@ -3,8 +3,9 @@
 import React from 'react';
 
 import AutoCompleteField from '../../../../ui/autocompletefield';
-import MediaTypes from './mediatypes';
 import Genre from './genre';
+import LabelledInput from '../../../../ui/labelledinput';
+import MediaTypes from './mediatypes';
 import ResourceType from './resourcetype';
 import styles from '../../datasetform.scss';
 
@@ -25,34 +26,37 @@ const generalInfo = props => {
   } = props;
   let resourcetypeDescription = null;
 
+  const descriptionTooltip = `Kuvaile aineistoa ja pyri kertomaan myös,
+    minkälaisiin tutkimustarkoituksiin aineisto eritisesti soveltuu. Tänne voit
+    kirjoittaa myös huomiot, joille ei lomakkeella ole valmista kenttää.`;
+
   return (
     <div>
-      <div className={styles.fieldContainer}>
-        <label htmlFor="datasettitle">Nimi</label>
-        <input
-          type="text"
-          value={title}
-          id="datasettitle"
-          onChange={handleChange('title')}
-          required
-        />
-      </div>
-      <div className={styles.fieldContainer}>
-        <label htmlFor="datasetdescription">Kuvaus</label>
-        <textarea
-          value={description}
-          id="datasetdescription"
-          onChange={handleChange('description')}
-        />
-      </div>
+      <LabelledInput
+        label="Nimi"
+        tooltip="Aineiston nimi"
+        id="datasettitle"
+        value={title}
+        handleChange={handleChange('title')}
+      />
+      <LabelledInput
+        label="Kuvaus"
+        type="textarea"
+        tooltip={descriptionTooltip}
+        id="datasetdescription"
+        value={description}
+        handleChange={handleChange('description')}
+      />
       <AutoCompleteField
         id="keyword"
         isMulti
         onChange={handleChange('keywords')}
         categoryName="flat"
         tooltipName=""
-        path={'keywords'}
+        path="keywords"
         value={keywords.map(kw => ({ label: kw, value: kw }))}
+        tooltip={`Kirjoita mahdollisimman monta avainsanaa (suomeksi). Jos
+          mahdollista, käytä jo olemassa olevia, mutta voit myös luoda uusia.`}
       >
         Avainsanat
       </AutoCompleteField>

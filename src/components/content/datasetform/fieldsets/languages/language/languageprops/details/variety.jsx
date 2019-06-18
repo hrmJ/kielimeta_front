@@ -73,7 +73,14 @@ export default class Variety extends Component {
     return (
       <div className={`${formstyles.upperContainer} ${formstyles.smallerFields}`}>
         <div className={formstyles.upperContainer}>
-          <LabelledInput label="Tarkempi variantti" id={`langvar_${language_code}`}>
+          <LabelledInput
+            label="Tarkempi variantti"
+            id={`langvar_${language_code}`}
+            tooltip={`Tarkempi variantti voi
+              olla alueellinen (kuten amerikanenglanti), murre tai tarvittaessa
+              edustaa jotakin muuta tyyppiä. Jos varianttia ei löydy
+              listasta, lisää se itse ja määrittele alle variantin tyyppi.`}
+          >
             <CreatableSelect
               onChange={selected => onChange('variety', selected.value)}
               options={varietyOptions}

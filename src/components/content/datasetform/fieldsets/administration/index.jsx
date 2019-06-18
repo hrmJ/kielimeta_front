@@ -38,7 +38,11 @@ const index = props => {
         Projekti, johon aineisto kuuluu
       </AutoCompleteField>
       <License dispatch={dispatch} license={license} license_info={license_info} />
-      <LabelledInput label="Suojaustarve">
+      <LabelledInput
+        label="Suojaustarve tai sensitiivisyys"
+        tooltip={`Ilmoita
+        tässä, jos aineistoon liittyy esimerkiksi salassapidettäviä tietoja.`}
+      >
         <Select
           options={sensitivityOptions}
           onChange={selected => dispatch(updateField('sensitivity', selected.value))}
@@ -50,17 +54,22 @@ const index = props => {
         label="Aineiston omistaja(t)"
         handleChange={ev => dispatch(updateField('owner', ev.target.value))}
         placeholder="Jos useita, erota pilkulla"
+        tooltip={`Tavallisesti yksinkertaisesti "Turun yliopisto"`}
         value={owner}
       />
       <LabelledInput
         label="Aineiston tallennuspaikka"
         handleChange={ev => dispatch(updateField('data_location', ev.target.value))}
         value={data_location}
+        tooltip={`Sijaitseeko varsinainen data esim. verkkolevyllä,
+            pilvipalvelussa, muistitikulla vai jossain muualla`}
       />
       <LabelledInput
         label="Nykyisen tallennusratkaisun toimivuus"
         handleChange={ev => dispatch(updateField('data_location', ev.target.value))}
         value={data_location}
+        tooltip={`Jos aineiston tallennuspaikka ei tällä hetkellä ole
+          optimaalinen, ilmoita siitä tässä`}
       >
         <Select
           options={['Kunnossa', 'Vaatii parannusta'].map(o => ({ value: o, label: o }))}

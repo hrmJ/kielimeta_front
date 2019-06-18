@@ -1,10 +1,9 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { components } from 'react-select';
-import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
-import { AsyncSelectCreatable } from '../../ui/localizedSelect';
 import React, { Component } from 'react';
 import Tooltip from '@atlaskit/tooltip';
 
+import FieldInfo from '../fieldInfo';
+import { AsyncSelectCreatable } from '../../ui/localizedSelect';
 import { baseUrl } from '../../../redux/actions/datasets';
 import { selectStyle } from '../../../general_styles/jsStyles';
 import formstyles from '../../content/datasetform/datasetform.scss';
@@ -19,7 +18,7 @@ const Option = props => (
 export default class AutoCompleteField extends Component {
   getOptions(inputValue) {
     const { categoryName, tooltipName, path, labelName, maxEntries = 10 } = this.props;
-    const url = `${baseUrl}/${path}?search=${inputValue}`;
+    const url = `${baseUrl}/${path}?search=${encodeURI(inputValue)}`;
     return fetch(url, { mode: 'cors' })
       .then(response => response.json())
       .then(options =>
@@ -49,7 +48,8 @@ export default class AutoCompleteField extends Component {
       onChange,
       fieldname,
       defaultOptions = true,
-      value
+      value,
+      tooltip
     } = this.props;
 
     let select;
@@ -85,6 +85,11 @@ export default class AutoCompleteField extends Component {
       <div className={formstyles.fieldContainer}>
         {children && <label htmlFor="resourcetype">{children}</label>}
         {select}
+        {tooltip && (
+          <div className={styles.tooltip}>
+            <FieldInfo text={tooltip} />{' '}
+          </div>
+        )}
       </div>
     );
   }

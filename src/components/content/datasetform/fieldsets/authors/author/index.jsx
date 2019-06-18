@@ -62,6 +62,8 @@ export default class Author extends Component {
           path="author_roles"
           tooltipName=""
           value={role && { value: role, label: role }}
+          tooltip={`Valitse jokin jo aiemmin lisätyistä rooleista tai luo uusi
+            rooli (tutkija, haastattelija, litteroija, kääntäjä jne.)`}
         >
           Rooli tutkimuksessa
         </AutoCompleteField>

@@ -35,7 +35,14 @@ export default class AnnotationSelect extends Component {
 
     return (
       <Closable className={styles.annotationSelect} onClose={() => this.removeAnnotation()}>
-        <LabelledInput label="Annotoitu kohde">
+        <LabelledInput
+          label="Annotoitu kohde"
+          tooltip={`Lisää omina
+          annotointeinaan morfologian kuvaukset, lemmatisointi ym. Voit käyttää
+          tätä kenttää myös luovasti kertomaan aineistoon lisätyistä
+          merkinnöistä laajemmin, jos listassa ei ole sopivaa tasoa (valitse
+          tällöin kohta 'muu')`}
+        >
           <TooltippedSelect
             options={annotationLevels}
             valueName="level"
@@ -50,6 +57,8 @@ export default class AnnotationSelect extends Component {
           handleChange={ev => this.updateAnnotation('description', ev.target.value)}
           value={description || ''}
           id={`annoversion${idx}`}
+          tooltip={`Esimerkiksi käytetyn lemmatisaattorin nimi, käytetty
+            tagset, jäsentimen nimi ym.`}
         />
       </Closable>
     );

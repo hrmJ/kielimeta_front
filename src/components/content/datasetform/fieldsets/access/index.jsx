@@ -20,6 +20,8 @@ const index = props => {
       />
       <LabelledInput
         label="Aineiston pysyväistunniste (esim. URN tai doi)"
+        tooltip={`Jos aineistolla on esimerkiksi Metashare-palveluun viittaava
+          URN-muotoinen pysyväisosoite, anna se tähän.`}
         value={identifier}
         handleChange={ev =>
           dispatch(

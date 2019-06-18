@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './add.scss';
 
 const index = props => {
-  const { onClick, id } = props;
+  const { onClick, id, text } = props;
   return (
     <div
       id={id}
@@ -15,7 +15,7 @@ const index = props => {
       onKeyDown={onClick}
       className={styles.container}
     >
-      <div>Lisää</div>
+      <div>{text}</div>
       <div>
         <FontAwesomeIcon role="button" icon={plusIcon} />
       </div>
@@ -25,11 +25,13 @@ const index = props => {
 
 index.propTypes = {
   onClick: PropTypes.func,
-  id: PropTypes.string
+  id: PropTypes.string,
+  text: PropTypes.string
 };
 index.defaultProps = {
   onClick: () => null,
-  id: ''
+  id: '',
+  text: 'Lisää'
 };
 
 export default index;

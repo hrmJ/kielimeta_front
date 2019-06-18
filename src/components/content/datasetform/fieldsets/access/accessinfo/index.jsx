@@ -46,7 +46,14 @@ export default class AccessInfo extends Component {
     const { accessType } = this.state;
     return (
       <div className={formStyles.upperContainer}>
-        <LabelledInput label="Miten aineistoa pääsee käyttämään?">
+        <LabelledInput
+          label="Miten aineistoa pääsee käyttämään?"
+          tooltip={`Jos
+          aineisto on saatavilla esimerkiksi kielipankin korp-käyttöliittymän
+          kautta, lisää tämä verkko-osoitteena. Jos aineiston käyttö tapahtuu
+          ottamalla yhteyttä johonkin yhteyshenkilöistä, valitse keskimmäinen
+          vaihtoehto tai tarvittaessa anna vapaasanainen kuvaus.`}
+        >
           <Select
             options={options}
             styles={selectStyle}
