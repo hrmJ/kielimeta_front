@@ -127,7 +127,8 @@ export default class InsertForm extends Component {
       description,
       keywords,
       media_description,
-      data_location_status
+      data_location_status,
+      connections
     } = fields;
     const { annotationLevels, resourceTypes, textGenres } = preloadedSelects;
     const { invalidFields } = this.state;
@@ -178,6 +179,7 @@ export default class InsertForm extends Component {
             languageVarietyTypes={languageVarietyTypes}
             languageNames={languageNames}
             annotationLevels={annotationLevels}
+            connections={connections}
           />
         ),
         isValid: validateLanguageStep(languages),

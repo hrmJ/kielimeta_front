@@ -4,6 +4,7 @@ import React from 'react';
 
 import { updateField } from '../../../../../redux/actions/datasetform';
 import Add from '../../../../ui/buttons/add';
+import Connections from './connections';
 import Language from './language';
 import generalStyles from '../../../../../general_styles/general_styles.scss';
 import styles from '../../datasetform.scss';
@@ -16,7 +17,8 @@ export default props => {
     languageVarieties,
     languageNames,
     languageVarietyTypes,
-    annotationLevels = []
+    annotationLevels = [],
+    connections
   } = props;
 
   return (
@@ -48,6 +50,14 @@ export default props => {
           onClick={() => dispatch(updateField('languages', [...languages, { annotations: [] }]))}
         />
       </section>
+      {languages.length > 1 && (
+        <Connections
+          languages={languages}
+          dispatch={dispatch}
+          connections={connections}
+          languageNames={languageNames}
+        />
+      )}
     </div>
   );
 };

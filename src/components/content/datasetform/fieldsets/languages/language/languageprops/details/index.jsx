@@ -41,6 +41,10 @@ export default props => {
           path="languages"
           id={`lang_${idx}_langselect`}
           value={selectValue || ''}
+          tooltip={`Aloita kirjoittamaan kielen suomenkielistä nimeä ja valitse
+            listalta sille ilmestyvistä vaihtoehdoista. Ääritapauksissa myös
+            uuden kielen lisääminen on mahdollista, mutta huomaa, että saman
+            kielen eri variantit määritellään erikseen omassa kentässään. `}
         >
           Kieli
         </AutoCompleteField>

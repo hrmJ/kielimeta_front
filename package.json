@@ -13,7 +13,7 @@
     "test:e2e:chrome": "./scripts/e2e.test.sh chrome",
     "test:e2e:firefox": "./scripts/e2e.test.sh firefox",
     "start": "npx dotenv  -- webpack-dev-server --mode development --history-api-fallback",
-    "build": "rm -rf dist/ && webpack",
+    "build": "rm -rf dist/ && npx dotenv -- webpack --mode production",
     "build-dev": "rm -rf dist/ && webpack --mode development ",
     "serve-pm2": "npx pm2 start node_modules/http-server/bin/http-server --name tlfrontend -- dist/",
     "serve": "./scripts/serve.sh"

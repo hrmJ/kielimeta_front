@@ -15,9 +15,13 @@ export default props => {
     selectValue = { label: resourcetype, value: resourcetype };
   }
 
+  const tooltip = `Määrittele tässä, onko aineisto esimerkiksi korpus,
+    sanalista, työkalu jne. Jos sopivaa tyyppiä ei ole listalla, lisää uusi ja
+    anna lyhyt kuvaus siitä, mikä tämänlaisessa aineistossa on erityistä.`;
+
   return (
     <div className={styles.upperContainer}>
-      <LabelledInput label="Aineiston tyyppi">
+      <LabelledInput label="Aineiston tyyppi" tooltip={tooltip}>
         <TooltippedSelect
           options={resourceTypes}
           valueName="name"

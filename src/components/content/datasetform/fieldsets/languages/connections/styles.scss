@@ -1,0 +1,24 @@
+.container {
+  justify-content: space-between;
+  font-size: 0.8em;
+}
+
+.selectContainer {
+  display: flex;
+  > div:first-child {
+    margin-right: 2em;
+  }
+  > div {
+    flex: 1 0 46%;
+  }
+}
+
+.container + .container {
+  margin-top: 2em;
+}
+
+.subfield {
+  margin: 2em 0em 1em 2em;
+  padding: 0.5em;
+  background: lighten(lightgrey, 10%);
+}

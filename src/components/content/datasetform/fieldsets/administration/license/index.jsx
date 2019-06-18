@@ -78,6 +78,9 @@ const index = props => {
       additionalFieldValue={license_info}
       condition={license === 'undefined'}
       label="Käyttölisenssi"
+      tooltip={`Jos tiedossa, ilmoita tässä lisenssi, jonka alla aineistoa saa
+        käyttää. Voit valita tähän listatuista creative commons -lisensseistä
+        tai määritellä omasi muu-vaihtoehdolla.`}
     />
   );
 };

@@ -20,7 +20,8 @@ const index = props => {
     tooltipName,
     valueName,
     labelName,
-    additionalFieldValue
+    additionalFieldValue,
+    tooltip
   } = props;
 
   const basicProps = { options, onChange, styles: selectStyle };
@@ -28,7 +29,7 @@ const index = props => {
 
   return (
     <div className={formStyles.upperContainer}>
-      <LabelledInput label={label}>
+      <LabelledInput label={label} tooltip={tooltip}>
         {tooltipName ? (
           <TooltippedSelect {...basicProps} {...tooltipProps} />
         ) : (
@@ -56,7 +57,8 @@ index.propTypes = {
   additionalLabel: PropTypes.string,
   tooltipName: PropTypes.string,
   labelName: PropTypes.string,
-  valueName: PropTypes.string
+  valueName: PropTypes.string,
+  tooltip: PropTypes.string
 };
 
 index.defaultProps = {
@@ -65,7 +67,8 @@ index.defaultProps = {
   tooltipName: '',
   labelName: '',
   valueName: '',
-  additionalFieldValue: ''
+  additionalFieldValue: '',
+  tooltip: ''
 };
 
 export default index;
