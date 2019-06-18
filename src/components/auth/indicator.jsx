@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 
 export default () => {
   const user = getCookie('current_user');
-  return null;
   let output = (
     <Link to="login" id="loginlink">
       Kirjaudu sisään

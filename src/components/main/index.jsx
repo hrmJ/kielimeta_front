@@ -21,7 +21,7 @@ const main = props => {
     languageVarieties,
     languageVarietyTypes,
     languageNames,
-		preloadedSelects
+    preloadedSelects
   } = props;
   let { datasets } = props;
 
