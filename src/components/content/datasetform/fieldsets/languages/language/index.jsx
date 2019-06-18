@@ -165,7 +165,11 @@ export default class LanguageSelect extends Component {
           >
             <Add
               type="button"
-              onClick={() => dispatch(updateField('languages', [...languages, languages[idx]]))}
+              onClick={() =>
+                dispatch(
+                  updateField('languages', [...languages, Object.assign({}, languages[idx])])
+                )
+              }
               text="Luo toinen kieli samoilla ominaisuuksilla"
             />
           </Tooltip>
