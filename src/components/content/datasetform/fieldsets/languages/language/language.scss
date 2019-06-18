@@ -6,6 +6,19 @@
   }
 }
 
-.propSection {
+.propSection,
+propSectionRight {
   margin-top: 1.3em;
+}
+.propSectionRight {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.additionalinfo {
+  font-size: 0.8em;
+}
+
+.fieldinfo {
+  margin-left: 1em;
 }

@@ -27,7 +27,9 @@ export default props => {
         <p className={styles.description}>
           Monet ominaisuudet määritellään kieli- tai varianttikohtaisesti. Jos kieliä on vain yksi,
           sellaiset ominaisuudet kuin korpuksen koko ja aikajänne määritellään tämän kielen
-          ominaisuuksiksi.
+          ominaisuuksiksi. Huomaa, että uusi kieli kannattaa lisätä siinäkin tapauksessa, että
+          aineistossa on esimerkiksi kahdenlaisia suomenkielisiä ala-aineistoja (osa esimerkiksi
+          L1-kielenkäyttäjien ja osa L2-kielenkäyttäjien).
         </p>
         {languages.map((lang, idx) => (
           <Language

@@ -1,13 +1,17 @@
-/* eslint-disable jsx-a11y/label-has-for */
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { Component } from 'react';
-import styles from './language.scss';
+import Tooltip from '@atlaskit/tooltip';
+
 import { updateField } from '../../../../../../redux/actions/datasetform';
-import Closable from '../../../../../ui/closablebox';
+import Add from '../../../../../ui/buttons/add';
 import Annotations from './languageprops/annotations';
-import TemporalCoverage from './languageprops/temporalcoverage';
-import Size from './languageprops/size/index';
+import Closable from '../../../../../ui/closablebox';
 import Details from './languageprops/details';
+import FieldInfo from '../../../../../ui/fieldInfo';
+import LabelledInput from '../../../../../ui/labelledinput';
+import LanguageProp from './languageprop';
+import Size from './languageprops/size/index';
+import TemporalCoverage from './languageprops/temporalcoverage';
+import styles from './language.scss';
 
 export default class LanguageSelect extends Component {
   updateLanguage(key, val) {
@@ -59,7 +63,8 @@ export default class LanguageSelect extends Component {
       languageVarietyTypes,
       annotationLevels,
       modality,
-      speaker_status
+      speaker_status,
+      notes
     } = this.props;
     const langprops = {
       annotations: null,
@@ -137,6 +142,33 @@ export default class LanguageSelect extends Component {
         />
         <section className={styles.propSection}>
           {Object.keys(langprops).map(key => langprops[key])}
+        </section>
+        <LanguageProp id={`additional_language_notes_${idx}`} header="Lisätiedot">
+          <section className={`${styles.propSection} ${styles.additionalinfo}`}>
+            <LabelledInput
+              handleChange={ev => this.updateLanguage('notes', ev.target.value)}
+              value={notes}
+              type="textarea"
+              label="Muita huomioita tästä kielestä / variantista"
+              tooltip={`Lisää tähän kaikki sellaiset tiedot, joihin ei yllä
+                ollut erikseen kenttää mutta jotka aineiston käyttäjän olisi
+                olennaista tietää.`}
+            />
+          </section>
+        </LanguageProp>
+        <section className={styles.propSectionRight}>
+          <Tooltip
+            content={`Käytä tätä painiketta, jos haluat hyödyntää tähän
+            syöttämiäsi tietoja pohjana uudelle kielelle / kielimuodolle /
+            variantille, joka koostuu pitkälti samoista tiedoista, mutta jossa
+            esimerkiksi muuttuu vain puhujien status tai kielen variantti`}
+          >
+            <Add
+              type="button"
+              onClick={() => dispatch(updateField('languages', [...languages, languages[idx]]))}
+              text="Luo toinen kieli samoilla ominaisuuksilla"
+            />
+          </Tooltip>
         </section>
       </Closable>
     );
