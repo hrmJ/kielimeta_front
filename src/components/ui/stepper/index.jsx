@@ -1,5 +1,4 @@
 import { uid } from 'react-uid';
-import cuid from 'cuid';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import styles from './stepper.scss';
@@ -60,7 +59,7 @@ class index extends Component {
             <p>Lomakkeelta puuttuu pakollisia tietoja:</p>
             <ol>
               {criticalErrors.map(e => (
-                <li>
+                <li key={uid(e)}>
                   <button type="button" onClick={() => this.setState({ currentStep: e.step })}>
                     {e.msg}
                   </button>
@@ -74,7 +73,7 @@ class index extends Component {
             <p>Haluatko varmasti lähettää lomakkeen ilman seuraavia tietoja?</p>
             <ol>
               {otherErrors.map(e => (
-                <li>
+                <li key={uid(e)}>
                   <button type="button" onClick={() => this.setState({ currentStep: e.step })}>
                     {e.msg}
                   </button>

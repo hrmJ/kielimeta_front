@@ -1,4 +1,5 @@
 import React from 'react';
+import { uid } from 'react-uid';
 
 import { updateField } from '../../../../../redux/actions/datasetform';
 import Add from '../../../../ui/buttons/add';
@@ -18,7 +19,7 @@ export default props => {
         yliopistosta.
       </p>
       {authors.map((author, idx) => (
-        <Author dispatch={dispatch} authors={authors} idx={idx} author={author} />
+        <Author key={uid(author)} dispatch={dispatch} authors={authors} idx={idx} author={author} />
       ))}
       <section className={generalStyles.someTopMargin}>
         <Add id="addauthor" onClick={() => dispatch(updateField('authors', [...authors, {}]))} />

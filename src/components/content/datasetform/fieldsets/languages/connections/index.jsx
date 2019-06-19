@@ -22,7 +22,14 @@ class index extends Component {
 
     return (
       <div className={`${formStyles.upperContainer} ${generalStyles.someTopMargin}`}>
-        <div>Määrittele aineiston käännössuunnat</div>
+        <div>
+          <input
+            type="checkbox"
+            onChange={ev => this.setState({ hasTranslations: ev.target.checked })}
+            checked={hasTranslations}
+          />
+          Määrittele aineiston käännössuunnat
+        </div>
         {hasTranslations && (
           <div className={styles.subfield}>
             <p className={formStyles.description}>

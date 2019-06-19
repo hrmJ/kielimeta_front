@@ -101,7 +101,6 @@ export default class InsertForm extends Component {
       loadingState,
       dispatch,
       fields,
-      originalFormValues,
       languageVarieties,
       languageNames,
       languageVarietyTypes,
@@ -220,7 +219,10 @@ export default class InsertForm extends Component {
             dataLocationStatus={data_location_status}
           />
         ),
-        isValid: data_location && owner,
+        isValid:
+          data_location !== '' &&
+          data_location !== undefined &&
+          (owner !== '' && owner !== undefined),
         doesNotPreventSave: true
       }
     ];
