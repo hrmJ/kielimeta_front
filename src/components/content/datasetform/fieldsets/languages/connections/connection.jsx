@@ -30,6 +30,7 @@ const LanguageConnections = props => {
           <div>
             <div>Lähdekieli</div>
             <Select
+              id={`sl_${idx}`}
               options={langOptions}
               value={sl !== undefined && langOptions.filter(l => l.value === sl)[0]}
               onChange={selected =>
@@ -46,6 +47,7 @@ const LanguageConnections = props => {
           <div>
             <div>Kohdekielet</div>
             <Select
+              id={`tl_${idx}`}
               options={langOptions}
               isMulti
               onChange={selected =>

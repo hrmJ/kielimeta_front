@@ -59,6 +59,7 @@ const index = props => {
       />
       <LabelledInput
         label="Aineiston tallennuspaikka"
+        id="dataLocation"
         handleChange={ev => dispatch(updateField('data_location', ev.target.value))}
         value={data_location}
         tooltip={`Sijaitseeko varsinainen data esim. verkkolevyllä,

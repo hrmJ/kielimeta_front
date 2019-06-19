@@ -138,7 +138,7 @@ export default class InsertForm extends Component {
           <div id="savedmsg" className={styles.someTopMargin}>
             <p>Tiedot tallennettu.</p>
             <p>
-              <button type="button" onClick={() => window.location.reload()}>
+              <button type="button" onClick={() => window.location.reload()} id="addnewdataset">
                 Lisää uusi
               </button>
             </p>

@@ -31,7 +31,7 @@ export default class AnnotationSelect extends Component {
   }
 
   render() {
-    const { idx, level = '', description, annotationLevels = [] } = this.props;
+    const { language_idx, idx, level = '', description, annotationLevels = [] } = this.props;
 
     return (
       <Closable className={styles.annotationSelect} onClose={() => this.removeAnnotation()}>
@@ -46,6 +46,7 @@ export default class AnnotationSelect extends Component {
           <TooltippedSelect
             options={annotationLevels}
             valueName="level"
+            id={`annolevel_${language_idx}_${idx}`}
             tooltipName="definition"
             value={level ? { label: level, value: level } : null}
             onChange={selected => this.updateAnnotation('level', selected.value)}
@@ -56,7 +57,7 @@ export default class AnnotationSelect extends Component {
           label="Tarkempi kuvaus"
           handleChange={ev => this.updateAnnotation('description', ev.target.value)}
           value={description || ''}
-          id={`annoversion${idx}`}
+          id={`annoversion_${language_idx}_${idx}`}
           tooltip={`Esimerkiksi käytetyn lemmatisaattorin nimi, käytetty
             tagset, jäsentimen nimi ym.`}
         />

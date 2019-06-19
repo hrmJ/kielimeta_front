@@ -6,7 +6,6 @@ import React from 'react';
 import Move from '../buttons/move';
 import Save from '../buttons/save';
 import styles from './step.scss';
-import generalStyles from '../../../general_styles/general_styles.scss';
 
 const index = props => {
   const {
@@ -23,7 +22,7 @@ const index = props => {
     hasErrors
   } = props;
   return (
-    <div className={styles.step}>
+    <div className={styles.step} id={`step_${stepIdx}`}>
       <fieldset id={id} className={!active ? styles.inactive : ''}>
         <legend>
           <div

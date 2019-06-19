@@ -1,4 +1,5 @@
 import { components } from 'react-select';
+import PropTypes from 'prop-types';
 
 import React from 'react';
 import Tooltip from '@atlaskit/tooltip';
@@ -12,7 +13,7 @@ const Option = props => (
   </Tooltip>
 );
 
-export default props => {
+const tooltippedSelect = props => {
   const {
     options,
     tooltipName,
@@ -21,7 +22,8 @@ export default props => {
     creatable,
     onChange,
     value,
-    isSearchable = false
+    isSearchable,
+    id
   } = props;
   const formattedOptions = options.map(o => ({
     styles: selectStyle,
@@ -35,7 +37,8 @@ export default props => {
     styles: selectStyle,
     onChange,
     value,
-    components: { Option }
+    components: { Option },
+    id
   };
   return creatable ? (
     <CreatableSelect {...passedProps} />
@@ -43,3 +46,29 @@ export default props => {
     <Select {...passedProps} isSearchable={isSearchable} />
   );
 };
+
+tooltippedSelect.propTypes = {
+  options: PropTypes.arrayOf(PropTypes.shape({ label: PropTypes.string, value: PropTypes.string }))
+    .isRequired,
+  tooltipName: PropTypes.string,
+  valueName: PropTypes.string,
+  labelName: PropTypes.string,
+  creatable: PropTypes.bool,
+  onChange: PropTypes.func,
+  value: PropTypes.shape({ label: PropTypes.string, value: PropTypes.string }),
+  isSearchable: PropTypes.bool,
+  id: PropTypes.string
+};
+
+tooltippedSelect.defaultProps = {
+  tooltipName: '',
+  valueName: '',
+  labelName: '',
+  creatable: false,
+  onChange: () => null,
+  value: undefined,
+  isSearchable: false,
+  id: ''
+};
+
+export default tooltippedSelect;

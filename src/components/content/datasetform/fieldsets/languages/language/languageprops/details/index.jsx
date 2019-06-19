@@ -70,6 +70,7 @@ export default props => {
         dispatch={dispatch}
       />
       <Speaker
+        idx={idx}
         dispatch={dispatch}
         languageCode={code}
         speakerStatus={speakerStatus}

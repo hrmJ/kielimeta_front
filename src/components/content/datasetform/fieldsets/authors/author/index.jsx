@@ -42,14 +42,20 @@ export default class Author extends Component {
   }
 
   render() {
-    const { author = {} } = this.props;
+    const { author = {}, idx } = this.props;
     const { discipline, name, id, role } = author;
 
     return (
-      <ClosableBox onClose={() => this.remove()}>
-        <PersonInput name={name} personId={id} handleChange={(key, val) => this.update(key, val)} />
+      <ClosableBox onClose={() => this.remove()} id={`author_${idx}`}>
+        <PersonInput
+          idx={idx}
+          name={name}
+          personId={id}
+          handleChange={(key, val) => this.update(key, val)}
+        />
         <LabelledInput label="Oppiaine">
           <CreatableSelect
+            id={`discipline_${idx}`}
             styles={selectStyle}
             options={disciplineOptions}
             value={discipline && { label: discipline, value: discipline }}
@@ -58,6 +64,7 @@ export default class Author extends Component {
         </LabelledInput>
         <AutoCompleteField
           onChange={selected => this.update('role', selected.value)}
+          id={`role_${idx}`}
           categoryName="flat"
           path="author_roles"
           tooltipName=""
