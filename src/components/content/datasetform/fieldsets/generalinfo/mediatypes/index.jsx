@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import styles from '../../../datasetform.scss';
 import generalStyles from '../../../../../../general_styles/general_styles.scss';
 import CbItem from '../../../../../ui/checkboxlistitem';
@@ -13,7 +14,7 @@ class MediaTypes extends Component {
   }
 
   render() {
-    const { mediaTypes = [], handleChange, media_description } = this.props;
+    const { mediaTypes, handleChange, mediaDescription } = this.props;
 
     const availableMediaTypes = {
       text: 'Tekstiä',
@@ -26,7 +27,7 @@ class MediaTypes extends Component {
     return (
       <div className={styles.upperContainer}>
         <div className={styles.fieldContainer}>
-          <label>Sisältää</label>
+          <div className={styles.labelDiv}>Sisältää</div>
           <div>
             <ul className={`${generalStyles.responsiveList} ${styles.mediatypeList}`}>
               {Object.keys(availableMediaTypes).map(key => (
@@ -48,15 +49,23 @@ class MediaTypes extends Component {
           handleChange={handleChange('media_description')}
           label="Kuvaile aineistojen koostumusta tarkemmin"
           id="mediatypedescription"
-          value={media_description}
+          value={mediaDescription}
         />
       </div>
     );
   }
 }
 
+MediaTypes.propTypes = {
+  handleChange: PropTypes.func.isRequired,
+  mediaDescription: PropTypes.string,
+  mediaTypes: PropTypes.arrayOf(PropTypes.string),
+  dispatch: PropTypes.func.isRequired
+};
+
 MediaTypes.defaultProps = {
-  media_description: ''
+  mediaDescription: '',
+  mediaTypes: []
 };
 
 export default MediaTypes;

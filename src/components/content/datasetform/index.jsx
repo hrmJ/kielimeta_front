@@ -32,16 +32,8 @@ const validateLanguageStep = languages => {
   return false;
 };
 
-export default class InsertForm extends Component {
+class InsertForm extends Component {
   state = { invalidFields: [] };
-
-  static get propTypes() {
-    return {
-      dispatch: PropTypes.func.isRequired,
-      fields: PropTypes.objectOf(PropTypes.any).isRequired,
-      loadingState: PropTypes.objectOf(PropTypes.any).isRequired
-    };
-  }
 
   componentDidMount() {
     const { dispatch } = this.props;
@@ -125,15 +117,14 @@ export default class InsertForm extends Component {
       genre,
       description,
       keywords,
-      media_description,
+      media_description: mediaDescription,
       data_location_status,
       connections
     } = fields;
     const { annotationLevels, resourceTypes, textGenres } = preloadedSelects;
-    const { invalidFields } = this.state;
 
     if (loadingState.SUBMITDATASET) {
-      if (loadingState.SUBMITDATASET == 'success') {
+      if (loadingState.SUBMITDATASET === 'success') {
         return (
           <div id="savedmsg" className={styles.someTopMargin}>
             <p>Tiedot tallennettu.</p>
@@ -162,7 +153,7 @@ export default class InsertForm extends Component {
             textGenres={textGenres}
             genre={genre}
             keywords={keywords}
-            media_description={media_description}
+            mediaDescription={mediaDescription}
           />
         ),
         isValid: title !== '' && resourcetype
@@ -234,3 +225,24 @@ export default class InsertForm extends Component {
     );
   }
 }
+
+InsertForm.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  fields: PropTypes.objectOf(PropTypes.any).isRequired,
+  loadingState: PropTypes.objectOf(PropTypes.any).isRequired,
+  languageVarieties: PropTypes.arrayOf(
+    PropTypes.shape({ variety: PropTypes.string, variety_type: PropTypes.string })
+  ),
+  languageVarietyTypes: PropTypes.arrayOf(PropTypes.string),
+  languageNames: PropTypes.objectOf(PropTypes.any),
+  preloadedSelects: PropTypes.objectOf(PropTypes.any)
+};
+
+InsertForm.defaultProps = {
+  languageVarieties: [],
+  languageVarietyTypes: [],
+  languageNames: {},
+  preloadedSelects: {}
+};
+
+export default InsertForm;
