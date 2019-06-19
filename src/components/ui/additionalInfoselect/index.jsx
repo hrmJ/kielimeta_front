@@ -21,10 +21,11 @@ const index = props => {
     valueName,
     labelName,
     additionalFieldValue,
-    tooltip
+    tooltip,
+    id
   } = props;
 
-  const basicProps = { options, onChange, styles: selectStyle };
+  const basicProps = { options, onChange, styles: selectStyle, id };
   const tooltipProps = { tooltipName, valueName, labelName };
 
   return (
@@ -58,7 +59,8 @@ index.propTypes = {
   tooltipName: PropTypes.string,
   labelName: PropTypes.string,
   valueName: PropTypes.string,
-  tooltip: PropTypes.string
+  tooltip: PropTypes.string,
+  id: PropTypes.string
 };
 
 index.defaultProps = {
@@ -68,7 +70,8 @@ index.defaultProps = {
   labelName: '',
   valueName: '',
   additionalFieldValue: '',
-  tooltip: ''
+  tooltip: '',
+  id: ''
 };
 
 export default index;

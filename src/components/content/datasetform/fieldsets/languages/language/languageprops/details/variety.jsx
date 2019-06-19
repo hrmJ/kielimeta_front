@@ -110,9 +110,10 @@ export default class Variety extends Component {
 						*/}
           </AdditionalField>
         </div>
-        <LabelledInput label="Kielimuoto" id="langmod">
+        <LabelledInput label="Kielimuoto">
           <Select
             isMulti
+            id={`langmod_${idx}`}
             styles={selectStyle}
             onChange={selected => onChange('modality', selected.map(s => s.value))}
             options={modalityOptions}

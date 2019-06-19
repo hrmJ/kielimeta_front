@@ -27,6 +27,7 @@ class index extends Component {
             type="checkbox"
             onChange={ev => this.setState({ hasTranslations: ev.target.checked })}
             checked={hasTranslations}
+            id="defineTranslations"
           />
           Määrittele aineiston käännössuunnat
         </div>

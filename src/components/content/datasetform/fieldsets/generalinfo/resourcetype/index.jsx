@@ -28,6 +28,7 @@ export default props => {
           tooltipName="description"
           onChange={handleChange('resourcetype')}
           value={selectValue}
+          id="resourcetype"
           creatable
         />
       </LabelledInput>

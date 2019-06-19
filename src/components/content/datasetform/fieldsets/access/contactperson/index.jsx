@@ -33,6 +33,7 @@ export default class ContactPerson extends Component {
       <div className={formStyles.upperContainer}>
         <LabelledInput label="Yhteyshenkilö(t)">
           <Select
+            id="contactpersons"
             value={contactPersons.map(p => ({ label: p.name, value: p }))}
             styles={selectStyle}
             options={options}

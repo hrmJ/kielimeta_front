@@ -68,6 +68,7 @@ const index = props => {
 
   return (
     <AdditionalInfoSelect
+      id="license"
       labelName="name"
       tooltipName="description"
       valueName="val"

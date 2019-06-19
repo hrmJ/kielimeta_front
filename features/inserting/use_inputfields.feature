@@ -70,7 +70,6 @@ Feature: Using inputfields
 			And the user clicks "#lang_0>.fa-window-close"
 			And within 1000 milliseconds the xpath "//div[@id='lang_0_langselect']//div[text()='suomi']" doesn't match an element in the dom
 
-	@cur
 	Scenario: Adding a new language and specifying a new variant
 
       When the user navigates to /#/newdataset

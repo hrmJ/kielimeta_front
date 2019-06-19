@@ -23,7 +23,10 @@ export default props => {
         />
       ))}
       <div className={generalStyles.someTopMargin}>
-        <Add onClick={() => onChange('annotations', [...annotations, {}])} />
+        <Add
+          id={`addAnnotation_${idx}`}
+          onClick={() => onChange('annotations', [...annotations, {}])}
+        />
       </div>
     </LanguageProp>
   );

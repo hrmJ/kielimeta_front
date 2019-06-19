@@ -11,7 +11,7 @@ import formStyles from '../../../../../datasetform.scss';
 const speakerOptions = ['L1', 'L2', 'ei tiedossa'].map(s => ({ label: s, value: s }));
 
 const speaker = props => {
-  const { languageCode, speakerStatus, onChange } = props;
+  const { languageCode, speakerStatus, onChange, idx } = props;
   if (!languageCode) {
     return null;
   }
@@ -19,6 +19,7 @@ const speaker = props => {
     <div className={formStyles.upperContainer}>
       <LabelledInput label="Puhujien / kirjoittajien status">
         <Select
+          id={`speakerstatus_${idx}`}
           options={speakerOptions}
           styles={selectStyle}
           value={speakerStatus && { label: speakerStatus, value: speakerStatus }}
@@ -43,12 +44,14 @@ const speaker = props => {
 speaker.propTypes = {
   languageCode: PropTypes.string,
   speakerStatus: PropTypes.string,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
+  idx: PropTypes.number
 };
 
 speaker.defaultProps = {
   languageCode: '',
-  speakerStatus: ''
+  speakerStatus: '',
+  idx: 0
 };
 
 export default speaker;
