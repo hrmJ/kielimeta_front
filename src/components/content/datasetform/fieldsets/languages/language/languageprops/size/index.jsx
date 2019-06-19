@@ -41,7 +41,9 @@ export default class Size extends Component {
               generalStyles.largeTopMargin
             }`}
           >
+            {/*
             <CbItem>Tämä kieli ei sisällä {notincludedname}</CbItem>
+            */}
           </ul>
         ) : null}
       </LanguageProp>

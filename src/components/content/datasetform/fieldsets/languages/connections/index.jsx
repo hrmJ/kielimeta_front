@@ -15,20 +15,14 @@ class index extends Component {
   render() {
     const { languages, dispatch, connections, languageNames } = this.props;
     let { hasTranslations } = this.state;
+
     if (connections.length > 0) {
       hasTranslations = true;
     }
 
     return (
       <div className={`${formStyles.upperContainer} ${generalStyles.someTopMargin}`}>
-        <div>
-          <input
-            type="checkbox"
-            checked={hasTranslations}
-            onChange={ev => this.setState({ hasTranslations: ev.target.checked })}
-          />
-          Määrittele aineiston käännössuunnat
-        </div>
+        <div>Määrittele aineiston käännössuunnat</div>
         {hasTranslations && (
           <div className={styles.subfield}>
             <p className={formStyles.description}>
@@ -63,7 +57,9 @@ class index extends Component {
 index.propTypes = {
   dispatch: PropTypes.func.isRequired,
   languages: PropTypes.arrayOf(PropTypes.shape({ code: PropTypes.string })).isRequired,
-  connections: PropTypes.arrayOf({ sl: PropTypes.string, tl: PropTypes.arrayOf(PropTypes.string) })
+  connections: PropTypes.arrayOf(
+    PropTypes.shape({ sl: PropTypes.string, tl: PropTypes.arrayOf(PropTypes.string) })
+  )
 };
 
 index.defaultProps = {
