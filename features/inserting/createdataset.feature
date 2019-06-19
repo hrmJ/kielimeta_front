@@ -65,7 +65,6 @@ Feature: Creating a new dataset
 	  And the user clicks the xpath "//div[text()='Jatka']"
 	  And the user clicks "#contactpersons"
 	  And the user clicks the xpath "//div[text()='Aatos Anttonen']"
-	  And the user clicks the xpath "//div[text()='Jatka']"
     And the user types "pöytälaatikko" in "#dataLocation"
     And the user clicks "#datasetsubmit"
     Then within 2000 milliseconds the selector "#addnewdataset" matches an element in the dom

@@ -1,4 +1,4 @@
-import { BrowserRouter, HashRouter, Switch, Route } from 'react-router-dom';
+import { HashRouter, Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -79,7 +79,24 @@ main.propTypes = {
   datasets: PropTypes.arrayOf(PropTypes.object).isRequired,
   dispatch: PropTypes.func.isRequired,
   datasetform: PropTypes.objectOf(PropTypes.any).isRequired,
-  loadingState: PropTypes.objectOf(PropTypes.any).isRequired
+  loadingState: PropTypes.objectOf(PropTypes.any).isRequired,
+  filters: PropTypes.objectOf(PropTypes.any),
+  originalFilterValues: PropTypes.objectOf(PropTypes.any),
+  languageVarieties: PropTypes.arrayOf(
+    PropTypes.shape({ variety: PropTypes.string, variety_type: PropTypes.string })
+  ),
+  languageVarietyTypes: PropTypes.arrayOf(PropTypes.string),
+  languageNames: PropTypes.objectOf(PropTypes.any),
+  preloadedSelects: PropTypes.objectOf(PropTypes.any)
+};
+
+main.defaultProps = {
+  filters: {},
+  originalFilterValues: {},
+  languageVarieties: [],
+  languageVarietyTypes: [],
+  languageNames: {},
+  preloadedSelects: {}
 };
 
 export default main;
