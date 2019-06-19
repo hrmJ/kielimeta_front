@@ -30,7 +30,10 @@ const genreSelect = props => {
 };
 
 genreSelect.propTypes = {
-  resourcetype: PropTypes.oneOf(PropTypes.string, PropTypes.shape({ location: PropTypes.object })),
+  resourcetype: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.shape({ location: PropTypes.object })
+  ]),
   textGenres: PropTypes.arrayOf(PropTypes.string),
   dispatch: PropTypes.func.isRequired,
   genre: PropTypes.arrayOf(PropTypes.string),

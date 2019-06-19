@@ -31,6 +31,7 @@ class MediaTypes extends Component {
             <ul className={`${generalStyles.responsiveList} ${styles.mediatypeList}`}>
               {Object.keys(availableMediaTypes).map(key => (
                 <CbItem
+                  key={key}
                   value={key}
                   id={`mediatype_${key}`}
                   onChange={ev => this.update(ev.target.value, ev.target.checked)}

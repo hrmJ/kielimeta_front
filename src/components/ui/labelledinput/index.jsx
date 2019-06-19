@@ -35,13 +35,14 @@ index.propTypes = {
   label: PropTypes.string,
   type: PropTypes.string,
   children: PropTypes.element,
-  handleChange: PropTypes.func.isRequired,
+  handleChange: PropTypes.func,
   value: PropTypes.string,
   id: PropTypes.string,
   tooltip: PropTypes.string
 };
 
 index.defaultProps = {
+  handleChange: () => null,
   placeholder: '',
   label: '',
   type: 'text',

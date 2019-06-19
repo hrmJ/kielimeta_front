@@ -14,7 +14,6 @@ const generalInfo = props => {
     handleChange,
     dispatch,
     mediaTypes = [],
-    originalFormValues,
     resourcetype,
     title,
     textGenres,

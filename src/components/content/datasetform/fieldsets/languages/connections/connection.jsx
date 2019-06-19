@@ -71,7 +71,9 @@ const LanguageConnections = props => {
 
 LanguageConnections.propTypes = {
   languages: PropTypes.arrayOf(PropTypes.shape({ code: PropTypes.string })).isRequired,
-  connections: PropTypes.arrayOf({ sl: PropTypes.string, tl: PropTypes.arrayOf(PropTypes.string) }),
+  connections: PropTypes.arrayOf(
+    PropTypes.shape({ sl: PropTypes.string, tl: PropTypes.arrayOf(PropTypes.string) })
+  ),
   connection: PropTypes.shape({ sl: PropTypes.string, tl: PropTypes.string })
 };
 

@@ -24,7 +24,7 @@ export default class Size extends Component {
       <LanguageProp header={header}>
         <div>
           {fields.map(field => (
-            <div className={formstyles.fieldContainer}>
+            <div className={formstyles.fieldContainer} key={field.key}>
               <label htmlFor={`${field.key}count`}>{field.label}</label>
               <input
                 type="number"
@@ -41,7 +41,9 @@ export default class Size extends Component {
               generalStyles.largeTopMargin
             }`}
           >
+            {/*
             <CbItem>Tämä kieli ei sisällä {notincludedname}</CbItem>
+            */}
           </ul>
         ) : null}
       </LanguageProp>

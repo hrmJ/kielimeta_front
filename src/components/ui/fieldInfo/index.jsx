@@ -7,7 +7,6 @@ import styles from './fieldinfo.scss';
 
 const fieldInfo = props => {
   const { text } = props;
-  console.log(text);
 
   return (
     <Tooltip content={text}>

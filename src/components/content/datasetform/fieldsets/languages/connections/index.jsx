@@ -7,6 +7,7 @@ import Connection from './connection';
 import formStyles from '../../../datasetform.scss';
 import generalStyles from '../../../../../../general_styles/general_styles.scss';
 import styles from './styles.scss';
+import { uid } from 'react-uid';
 
 class index extends Component {
   state = { hasTranslations: false };
@@ -14,6 +15,7 @@ class index extends Component {
   render() {
     const { languages, dispatch, connections, languageNames } = this.props;
     let { hasTranslations } = this.state;
+
     if (connections.length > 0) {
       hasTranslations = true;
     }
@@ -23,8 +25,8 @@ class index extends Component {
         <div>
           <input
             type="checkbox"
+            onChange={ev => this.setState({ hasTranslations: ev.target.checked })}
             checked={hasTranslations}
-            onClick={ev => this.setState({ hasTranslations: ev.target.checked })}
           />
           Määrittele aineiston käännössuunnat
         </div>
@@ -35,6 +37,7 @@ class index extends Component {
             </p>
             {connections.map((c, idx) => (
               <Connection
+                key={uid(c)}
                 connections={connections}
                 languages={languages}
                 onChange={() => null}
@@ -61,7 +64,9 @@ class index extends Component {
 index.propTypes = {
   dispatch: PropTypes.func.isRequired,
   languages: PropTypes.arrayOf(PropTypes.shape({ code: PropTypes.string })).isRequired,
-  connections: PropTypes.arrayOf({ sl: PropTypes.string, tl: PropTypes.arrayOf(PropTypes.string) })
+  connections: PropTypes.arrayOf(
+    PropTypes.shape({ sl: PropTypes.string, tl: PropTypes.arrayOf(PropTypes.string) })
+  )
 };
 
 index.defaultProps = {

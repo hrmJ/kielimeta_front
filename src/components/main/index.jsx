@@ -17,7 +17,6 @@ const main = props => {
     loadingState,
     filters,
     originalFilterValues,
-    originalFormValues,
     languageVarieties,
     languageVarietyTypes,
     languageNames,
@@ -47,7 +46,6 @@ const main = props => {
                 render={() => (
                   <DatasetForm
                     fields={datasetform}
-                    originalFormValues={originalFormValues}
                     loadingState={loadingState}
                     dispatch={dispatch}
                     languageVarieties={languageVarieties}

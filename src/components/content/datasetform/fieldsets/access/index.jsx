@@ -50,7 +50,7 @@ const index = props => {
 };
 
 index.propTypes = {
-  dispatch: PropTypes.string.isRequired,
+  dispatch: PropTypes.func.isRequired,
   placeOfPublication: PropTypes.shape({
     location: PropTypes.string,
     identifier: PropTypes.string,
