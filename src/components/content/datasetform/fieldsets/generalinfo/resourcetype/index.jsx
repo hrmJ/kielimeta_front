@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { updateField } from '../../../../../../redux/actions/datasetform';
@@ -59,7 +59,9 @@ resourceType.propTypes = {
     PropTypes.string,
     PropTypes.shape({ location: PropTypes.object })
   ]),
-  resourceTypes: PropTypes.arrayOf(PropTypes.string)
+  resourceTypes: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.shape({ location: PropTypes.object })])
+  )
 };
 
 resourceType.defaultProps = {

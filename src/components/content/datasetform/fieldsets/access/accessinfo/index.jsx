@@ -18,12 +18,12 @@ export default class AccessInfo extends Component {
   state = { accessType: undefined };
 
   componentDidMount() {
-    const { access_information, placeOfPublication } = this.props;
-    if (access_information === 'contactperson') {
-      this.setState({ accessType: access_information });
+    const { accessInformation, placeOfPublication } = this.props;
+    if (accessInformation === 'contactperson') {
+      this.setState({ accessType: accessInformation });
     } else if (placeOfPublication.location) {
       this.setState({ accessType: 'url' });
-    } else if (access_information) {
+    } else if (accessInformation) {
       this.setState({ accessType: 'other' });
     }
   }
@@ -42,7 +42,7 @@ export default class AccessInfo extends Component {
   }
 
   render() {
-    const { dispatch, placeOfPublication, access_information } = this.props;
+    const { dispatch, placeOfPublication, accessInformation } = this.props;
     const { accessType } = this.state;
     return (
       <div className={formStyles.upperContainer}>
@@ -87,7 +87,7 @@ export default class AccessInfo extends Component {
               })
             )
           }
-          value={access_information !== 'contactperson' ? access_information : ''}
+          value={accessInformation !== 'contactperson' ? accessInformation : ''}
         />
       </div>
     );
@@ -97,10 +97,10 @@ export default class AccessInfo extends Component {
 AccessInfo.propTypes = {
   dispatch: PropTypes.func.isRequired,
   placeOfPublication: PropTypes.shape({ location: PropTypes.string }),
-  access_information: PropTypes.string
+  accessInformation: PropTypes.string
 };
 
 AccessInfo.defaultProps = {
   placeOfPublication: { location: '' },
-  access_information: ''
+  accessInformation: ''
 };

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { uid } from 'react-uid';
 
 import { updateField } from '../../../../../../redux/actions/datasetform';
 import Add from '../../../../../ui/buttons/add';
@@ -7,7 +8,6 @@ import Connection from './connection';
 import formStyles from '../../../datasetform.scss';
 import generalStyles from '../../../../../../general_styles/general_styles.scss';
 import styles from './styles.scss';
-import { uid } from 'react-uid';
 
 class index extends Component {
   state = { hasTranslations: false };
@@ -67,11 +67,13 @@ index.propTypes = {
   languages: PropTypes.arrayOf(PropTypes.shape({ code: PropTypes.string })).isRequired,
   connections: PropTypes.arrayOf(
     PropTypes.shape({ sl: PropTypes.string, tl: PropTypes.arrayOf(PropTypes.string) })
-  )
+  ),
+  languageNames: PropTypes.objectOf(PropTypes.any)
 };
 
 index.defaultProps = {
-  connections: []
+  connections: [],
+  languageNames: {}
 };
 
 export default index;

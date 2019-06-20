@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import Tooltip from '@atlaskit/tooltip';
+import PropTypes from 'prop-types';
 
 import { updateField } from '../../../../../../redux/actions/datasetform';
 import Add from '../../../../../ui/buttons/add';
 import Annotations from './languageprops/annotations';
 import Closable from '../../../../../ui/closablebox';
 import Details from './languageprops/details';
-import FieldInfo from '../../../../../ui/fieldInfo';
 import LabelledInput from '../../../../../ui/labelledinput';
 import LanguageProp from './languageprop';
 import Size from './languageprops/size/index';
@@ -54,16 +54,15 @@ class LanguageSelect extends Component {
   render() {
     const {
       details,
-      mediaTypes = [],
+      mediaTypes,
       languages,
       dispatch,
       varieties,
       idx,
       names,
       languageVarietyTypes,
-      annotationLevels,
       modality,
-      speaker_status,
+      speaker_status: speakerStatus,
       notes
     } = this.props;
     const langprops = {
@@ -145,7 +144,7 @@ class LanguageSelect extends Component {
           varieties={varieties}
           varietyTypes={languageVarietyTypes}
           modality={modality}
-          speakerStatus={speaker_status}
+          speakerStatus={speakerStatus}
         />
         <section className={styles.propSection}>
           {Object.keys(langprops).map(key => langprops[key])}
@@ -186,8 +185,37 @@ class LanguageSelect extends Component {
   }
 }
 
+LanguageSelect.propTypes = {
+  details: PropTypes.shape({
+    language_code: PropTypes.string,
+    variety: PropTypes.string,
+    variety_type: PropTypes.string
+  }),
+  mediaTypes: PropTypes.arrayOf(PropTypes.string),
+  languages: PropTypes.arrayOf(PropTypes.object).isRequired,
+  dispatch: PropTypes.func.isRequired,
+  varieties: PropTypes.objectOf(PropTypes.any),
+  idx: PropTypes.number.isRequired,
+  names: PropTypes.objectOf(PropTypes.any),
+  languageVarietyTypes: PropTypes.arrayOf(PropTypes.string),
+  annotationLevels: PropTypes.arrayOf(
+    PropTypes.shape({ level: PropTypes.string, definition: PropTypes.string })
+  ),
+  modality: PropTypes.arrayOf(PropTypes.string),
+  speaker_status: PropTypes.arrayOf(PropTypes.string),
+  notes: PropTypes.string
+};
+
 LanguageSelect.defaultProps = {
-  notes: ''
+  notes: '',
+  details: {},
+  mediaTypes: [],
+  varieties: {},
+  names: {},
+  languageVarietyTypes: [],
+  annotationLevels: [],
+  modality: [],
+  speaker_status: []
 };
 
 export default LanguageSelect;

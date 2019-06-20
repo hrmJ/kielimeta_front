@@ -82,9 +82,7 @@ main.propTypes = {
   loadingState: PropTypes.objectOf(PropTypes.any).isRequired,
   filters: PropTypes.objectOf(PropTypes.any),
   originalFilterValues: PropTypes.objectOf(PropTypes.any),
-  languageVarieties: PropTypes.arrayOf(
-    PropTypes.shape({ variety: PropTypes.string, variety_type: PropTypes.string })
-  ),
+  languageVarieties: PropTypes.objectOf(PropTypes.any),
   languageVarietyTypes: PropTypes.arrayOf(PropTypes.string),
   languageNames: PropTypes.objectOf(PropTypes.any),
   preloadedSelects: PropTypes.objectOf(PropTypes.any)
@@ -93,7 +91,7 @@ main.propTypes = {
 main.defaultProps = {
   filters: {},
   originalFilterValues: {},
-  languageVarieties: [],
+  languageVarieties: {},
   languageVarietyTypes: [],
   languageNames: {},
   preloadedSelects: {}

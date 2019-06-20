@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { updateField } from '../../../../../redux/actions/datasetform';
 import Add from '../../../../ui/buttons/add';
@@ -9,7 +10,7 @@ import Language from './language';
 import generalStyles from '../../../../../general_styles/general_styles.scss';
 import styles from '../../datasetform.scss';
 
-export default props => {
+const languagesComponent = props => {
   const {
     languages,
     dispatch,
@@ -17,7 +18,7 @@ export default props => {
     languageVarieties,
     languageNames,
     languageVarietyTypes,
-    annotationLevels = [],
+    annotationLevels,
     connections
   } = props;
 
@@ -63,3 +64,29 @@ export default props => {
     </div>
   );
 };
+
+languagesComponent.propTypes = {
+  mediaTypes: PropTypes.arrayOf(PropTypes.string),
+  languages: PropTypes.arrayOf(PropTypes.object).isRequired,
+  dispatch: PropTypes.func.isRequired,
+  languageNames: PropTypes.objectOf(PropTypes.any),
+  languageVarietyTypes: PropTypes.arrayOf(PropTypes.string),
+  annotationLevels: PropTypes.arrayOf(
+    PropTypes.shape({ level: PropTypes.string, definition: PropTypes.string })
+  ),
+  connections: PropTypes.arrayOf(
+    PropTypes.shape({ sl: PropTypes.string, tl: PropTypes.arrayOf(PropTypes.string) })
+  ),
+  languageVarieties: PropTypes.objectOf(PropTypes.any)
+};
+
+languagesComponent.defaultProps = {
+  mediaTypes: [],
+  languageNames: {},
+  languageVarietyTypes: [],
+  annotationLevels: [],
+  connections: [],
+  languageVarieties: {}
+};
+
+export default languagesComponent;

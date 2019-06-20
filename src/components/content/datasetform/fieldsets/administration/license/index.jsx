@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { updateField } from '../../../../../../redux/actions/datasetform';
-import LabelledInput from '../../../../../ui/labelledinput';
 import AdditionalInfoSelect from '../../../../../ui/additionalInfoselect';
 
 const options = [
@@ -64,7 +63,7 @@ const options = [
 ];
 
 const index = props => {
-  const { dispatch, license, license_info } = props;
+  const { dispatch, license, licenseInfo } = props;
 
   return (
     <AdditionalInfoSelect
@@ -76,7 +75,7 @@ const index = props => {
       value={license && { label: license, value: license }}
       onChange={selected => dispatch(updateField('license', selected.value))}
       additionalFieldChange={ev => dispatch(updateField('license_info', ev.target.value))}
-      additionalFieldValue={license_info}
+      additionalFieldValue={licenseInfo}
       condition={license === 'undefined'}
       label="Käyttölisenssi"
       tooltip={`Jos tiedossa, ilmoita tässä lisenssi, jonka alla aineistoa saa
@@ -89,12 +88,12 @@ const index = props => {
 index.propTypes = {
   license: PropTypes.string,
   dispatch: PropTypes.func.isRequired,
-  license_info: PropTypes.string
+  licenseInfo: PropTypes.string
 };
 
 index.defaultProps = {
   license: '',
-  license_info: ''
+  licenseInfo: ''
 };
 
 export default index;
