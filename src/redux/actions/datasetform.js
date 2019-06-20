@@ -10,8 +10,6 @@ const _updateField = (name, val) => ({
 });
 
 const updateField = (name, val, language) => dispatch => {
-  console.log(name);
-  console.debug(val);
   if (name === 'access_information') {
     // If giving an 'other' as a way of accessing, clear the 'location'
     // field since they are mutually exclusive

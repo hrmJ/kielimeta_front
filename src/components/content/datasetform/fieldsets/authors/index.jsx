@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { uid } from 'react-uid';
 
 import { updateField } from '../../../../../redux/actions/datasetform';
@@ -7,8 +8,8 @@ import Author from './author';
 import generalStyles from '../../../../../general_styles/general_styles.scss';
 import styles from '../../datasetform.scss';
 
-export default props => {
-  const { dispatch, authors = [] } = props;
+const authorsComponent = props => {
+  const { dispatch, authors } = props;
 
   return (
     <div>
@@ -27,3 +28,14 @@ export default props => {
     </div>
   );
 };
+
+authorsComponent.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  authors: PropTypes.arrayOf(PropTypes.object)
+};
+
+authorsComponent.defaultProps = {
+  authors: []
+};
+
+export default authorsComponent;
