@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Select, CreatableSelect } from '../../../../../../../ui/localizedSelect';
+import PropTypes from 'prop-types';
 
+import { Select, CreatableSelect } from '../../../../../../../ui/localizedSelect';
 import { getVarietyTypes } from '../../../../../../../../redux/actions/languageactions';
 import { selectStyle } from '../../../../../../../../general_styles/jsStyles';
 import AdditionalField from '../../../../../../../ui/additionalfield';
@@ -14,9 +15,9 @@ const modalityOptions = [
   { value: 'mixed', label: 'Vaikeasti määriteltävissä' }
 ];
 
-export default class Variety extends Component {
+class Variety extends Component {
   componentDidMount() {
-    const { dispatch, varietyTypes = [] } = this.props;
+    const { dispatch, varietyTypes } = this.props;
     if (!varietyTypes.length) {
       dispatch(getVarietyTypes());
     }
@@ -26,14 +27,12 @@ export default class Variety extends Component {
     const {
       idx,
       varieties,
-      language_code,
-      language_name,
+      code,
       onChange,
       variety,
-      varietyTypes = [],
-      dispatch,
-      varietyType = '',
-      isNewLanguage = false,
+      varietyTypes,
+      varietyType,
+      isNewLanguage,
       modality
     } = this.props;
     let varietyOptions = [];
@@ -43,17 +42,17 @@ export default class Variety extends Component {
       .filter(t => t !== 'generic')
       .map(t => ({ label: t, value: t }));
 
-    if (!language_code) {
+    if (!code) {
       return null;
     }
 
-    if (varieties[language_code]) {
-      varietyOptions = varieties[language_code].map(obj => ({
+    if (varieties[code]) {
+      varietyOptions = varieties[code].map(obj => ({
         label: obj.variety.replace('generic', 'ei tarkempaa varianttia'),
         value: obj.variety
       }));
 
-      if (!varieties[language_code].map(obj => obj.variety).includes(variety)) {
+      if (!varieties[code].map(obj => obj.variety).includes(variety)) {
         // a new variant was given
         varietyOptions.push({ label: variety, value: variety });
         varietyDetailsCondition = true;
@@ -75,7 +74,7 @@ export default class Variety extends Component {
         <div className={formstyles.upperContainer}>
           <LabelledInput
             label="Tarkempi variantti"
-            id={`langvar_${language_code}`}
+            id={`langvar_${code}`}
             tooltip={`Tarkempi variantti voi
               olla alueellinen (kuten amerikanenglanti), murre tai tarvittaessa
               edustaa jotakin muuta tyyppiä. Jos varianttia ei löydy
@@ -90,7 +89,7 @@ export default class Variety extends Component {
             />
           </LabelledInput>
           <AdditionalField condition={varietyDetailsCondition}>
-            <LabelledInput label="Variantin tyyppi" id={`langvartype${language_code}`}>
+            <LabelledInput label="Variantin tyyppi" id={`langvartype${code}`}>
               <Select
                 id={`lang_${idx}_variant_type_select`}
                 styles={selectStyle}
@@ -103,7 +102,7 @@ export default class Variety extends Component {
             {/*
             <LabelledInput
               label="Lyhyt kuvaus variantista"
-              id={`langvar${language_code}`}
+              id={`langvar${code}`}
               type="textarea"
               handleChange={() => null}
             />
@@ -131,3 +130,28 @@ export default class Variety extends Component {
     );
   }
 }
+
+Variety.propTypes = {
+  idx: PropTypes.number.isRequired,
+  varieties: PropTypes.objectOf(PropTypes.any),
+  code: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  variety: PropTypes.string,
+  varietyTypes: PropTypes.arrayOf(PropTypes.string),
+  dispatch: PropTypes.func.isRequired,
+  varietyType: PropTypes.string,
+  isNewLanguage: PropTypes.bool,
+  modality: PropTypes.arrayOf(PropTypes.string)
+};
+
+Variety.defaultProps = {
+  varieties: {},
+  varietyType: '',
+  isNewLanguage: false,
+  modality: [],
+  varietyTypes: [],
+  code: '',
+  variety: ''
+};
+
+export default Variety;

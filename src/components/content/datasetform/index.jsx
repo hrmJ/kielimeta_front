@@ -51,7 +51,7 @@ class InsertForm extends Component {
 
   checkErrors() {
     const { fields } = this.props;
-    const { title, contact_person: contactPerson, resourcetype, authors = [] } = fields;
+    const { title, contact_person: contactPerson, resourcetype = '', authors = [] } = fields;
     const invalidFields = [];
     if (authors.length === 0) {
       invalidFields.push({
@@ -154,7 +154,7 @@ class InsertForm extends Component {
             mediaDescription={mediaDescription}
           />
         ),
-        isValid: title !== '' && resourcetype
+        isValid: title !== '' && (resourcetype !== '' && resourcetype !== undefined)
       },
       {
         legend: 'Kielet',

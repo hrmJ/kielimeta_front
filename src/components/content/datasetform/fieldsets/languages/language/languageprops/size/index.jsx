@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import LanguageProp from '../../languageprop';
 import formstyles from '../../../../../datasetform.scss';
 import generalStyles from '../../../../../../../../general_styles/general_styles.scss';
 import styles from './size.scss';
-import CbItem from '../../../../../../../ui/checkboxlistitem';
 
-export default class Size extends Component {
+class Size extends Component {
   updateSize(key, val) {
     const { languages, idx, updateLanguage } = this.props;
     const size = languages[idx].size || {};
@@ -19,7 +19,7 @@ export default class Size extends Component {
   }
 
   render() {
-    const { fields, header, notincludedname, languagetotal, size } = this.props;
+    const { fields, header, languagetotal, size } = this.props;
     return (
       <LanguageProp header={header}>
         <div>
@@ -50,3 +50,21 @@ export default class Size extends Component {
     );
   }
 }
+
+Size.propTypes = {
+  languages: PropTypes.arrayOf(PropTypes.object).isRequired,
+  idx: PropTypes.number.isRequired,
+  updateLanguage: PropTypes.func.isRequired,
+  fields: PropTypes.arrayOf(PropTypes.shape({ label: PropTypes.string, value: PropTypes.string })),
+  header: PropTypes.string,
+  languagetotal: PropTypes.number.isRequired,
+  size: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.any))
+};
+
+Size.defaultProps = {
+  fields: [],
+  header: '',
+  size: []
+};
+
+export default Size;

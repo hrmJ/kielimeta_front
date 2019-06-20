@@ -1,8 +1,9 @@
 import React from 'react';
-import styles from '../languageprop/languageprop.scss';
+import PropTypes from 'prop-types';
+import styles from './languageprop.scss';
 import FoldableBox from '../../../../../../ui/foldablebox';
 
-export default props => {
+const languageProp = props => {
   const { header, children, id } = props;
 
   return (
@@ -11,3 +12,17 @@ export default props => {
     </FoldableBox>
   );
 };
+
+languageProp.propTypes = {
+  header: PropTypes.string,
+  children: PropTypes.node,
+  id: PropTypes.string
+};
+
+languageProp.defaultProps = {
+  header: '',
+  children: <div />,
+  id: ''
+};
+
+export default languageProp;

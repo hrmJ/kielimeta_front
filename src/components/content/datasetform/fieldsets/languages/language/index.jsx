@@ -62,8 +62,9 @@ class LanguageSelect extends Component {
       names,
       languageVarietyTypes,
       modality,
-      speaker_status: speakerStatus,
-      notes
+      speaker,
+      notes,
+      languageNames
     } = this.props;
     const langprops = {
       annotations: null,
@@ -144,7 +145,8 @@ class LanguageSelect extends Component {
           varieties={varieties}
           varietyTypes={languageVarietyTypes}
           modality={modality}
-          speakerStatus={speakerStatus}
+          speaker={speaker}
+          languageNames={languageNames}
         />
         <section className={styles.propSection}>
           {Object.keys(langprops).map(key => langprops[key])}
@@ -202,8 +204,18 @@ LanguageSelect.propTypes = {
     PropTypes.shape({ level: PropTypes.string, definition: PropTypes.string })
   ),
   modality: PropTypes.arrayOf(PropTypes.string),
-  speaker_status: PropTypes.arrayOf(PropTypes.string),
-  notes: PropTypes.string
+  notes: PropTypes.string,
+  languageNames: PropTypes.objectOf(PropTypes.any),
+  speaker: PropTypes.shape({
+    speaker_l1: PropTypes.arrayOf(
+      PropTypes.shape({
+        language_code: PropTypes.string,
+        variety_type: PropTypes.string,
+        variety: PropTypes.string
+      })
+    ),
+    speaker_status: PropTypes.string
+  })
 };
 
 LanguageSelect.defaultProps = {
@@ -215,7 +227,8 @@ LanguageSelect.defaultProps = {
   languageVarietyTypes: [],
   annotationLevels: [],
   modality: [],
-  speaker_status: []
+  languageNames: {},
+  speaker: {}
 };
 
 export default LanguageSelect;

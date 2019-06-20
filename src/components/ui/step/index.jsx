@@ -7,7 +7,7 @@ import Move from '../buttons/move';
 import Save from '../buttons/save';
 import styles from './step.scss';
 
-const index = props => {
+const stepComponent = props => {
   const {
     children,
     legend,
@@ -18,7 +18,6 @@ const index = props => {
     totalSteps,
     moveTo,
     isValid,
-    errors,
     hasErrors
   } = props;
   return (
@@ -50,7 +49,7 @@ const index = props => {
   );
 };
 
-index.propTypes = {
+stepComponent.propTypes = {
   children: PropTypes.node.isRequired,
   legend: PropTypes.string,
   id: PropTypes.string,
@@ -59,13 +58,15 @@ index.propTypes = {
   stepIdx: PropTypes.number.isRequired,
   move: PropTypes.func.isRequired,
   moveTo: PropTypes.func.isRequired,
-  totalSteps: PropTypes.number.isRequired
+  totalSteps: PropTypes.number.isRequired,
+  hasErrors: PropTypes.bool
 };
-index.defaultProps = {
+stepComponent.defaultProps = {
   legend: '',
   id: '',
   active: false,
-  isValid: false
+  isValid: false,
+  hasErrors: false
 };
 
-export default index;
+export default stepComponent;

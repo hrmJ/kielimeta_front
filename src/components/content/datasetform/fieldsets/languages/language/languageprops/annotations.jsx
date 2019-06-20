@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Add from '../../../../../../ui/buttons/add';
 import AnnotationSelect from '../annotationselect';
 import LanguageProp from '../languageprop';
 import generalStyles from '../../../../../../../general_styles/general_styles.scss';
 
-export default props => {
+const annotationsComponent = props => {
   const { onChange, dispatch, idx, languages, annotationLevels } = props;
   const annotations = languages[idx].annotations || [];
 
@@ -15,7 +16,7 @@ export default props => {
         <AnnotationSelect
           key={annotationIdx.toString()}
           idx={annotationIdx}
-          language_idx={idx}
+          languageIdx={idx}
           languages={languages}
           dispatch={dispatch}
           annotationLevels={annotationLevels}
@@ -31,3 +32,19 @@ export default props => {
     </LanguageProp>
   );
 };
+
+annotationsComponent.propTypes = {
+  onChange: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  idx: PropTypes.number.isRequired,
+  languages: PropTypes.arrayOf(PropTypes.object).isRequired,
+  annotationLevels: PropTypes.arrayOf(
+    PropTypes.shape({ level: PropTypes.string, definition: PropTypes.string })
+  )
+};
+
+annotationsComponent.defaultProps = {
+  annotationLevels: []
+};
+
+export default annotationsComponent;
