@@ -1,11 +1,14 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+
+import LabelledInput from '../../../../../../ui/labelledinput';
 import LanguageProp from '../languageprop';
 import TimeLine from '../../../../../../ui/timeline';
 import formstyles from '../../../../datasetform.scss';
 import styles from '../language.scss';
 
-export default class TemporalCoverage extends Component {
-  state = { min: 0, max: 0 };
+class TemporalCoverage extends Component {
+  state = { min: undefined, max: undefined };
 
   recievedprops = false;
 
@@ -14,7 +17,6 @@ export default class TemporalCoverage extends Component {
   }
 
   updateYears(val, minormax) {
-    minormax = minormax || false;
     const { languages, idx, updateLanguage } = this.props;
     const thisyear = val * 1;
     let years = languages[idx].years_covered || [];
@@ -31,8 +33,8 @@ export default class TemporalCoverage extends Component {
       const currentmax = Math.max(...years);
       if (!minormax) {
         years = [...new Set([...years, thisyear])];
-      } else if (minormax == 'min') {
-        if (years.length === 2 && thisyear == currentmax) {
+      } else if (minormax === 'min') {
+        if (years.length === 2 && thisyear === currentmax) {
           years = [currentmax];
         } else if (thisyear > currentmax) {
           years = [thisyear];
@@ -41,17 +43,17 @@ export default class TemporalCoverage extends Component {
           years = years.filter(year => year >= thisyear);
           years.push(thisyear);
         }
-      } else if (minormax == 'max') {
+      } else if (minormax === 'max') {
         if (years.length === 1 && currentmax < thisyear) {
           years.push(thisyear);
-        } else if (years.length === 1 && currentmax > thisyear) {
-          years = years;
-        } else if (years.length === 2 && thisyear == currentmin) {
-          years = [currentmin];
-        } else if (currentmin < thisyear || currentmin === currentmax) {
-          years.splice(years.indexOf(currentmax), 1);
-          years = years.filter(year => year <= thisyear);
-          years.push(thisyear);
+        } else if (!(years.length === 1 && currentmax > thisyear)) {
+          if (years.length === 2 && thisyear === currentmin) {
+            years = [currentmin];
+          } else if (currentmin < thisyear || currentmin === currentmax) {
+            years.splice(years.indexOf(currentmax), 1);
+            years = years.filter(year => year <= thisyear);
+            years.push(thisyear);
+          }
         }
       }
     } else {
@@ -92,8 +94,7 @@ export default class TemporalCoverage extends Component {
           voi olla myös pelkkä arvio.
           {/* TODO: käytä oletuksena ensimmäisen kielen valintaa tai lisää joku ruksi tms. */}
         </p>
-        <div className={formstyles.fieldContainer}>
-          <label htmlFor="startyear">vuodesta</label>
+        <LabelledInput label="vuodesta">
           <input
             type="number"
             id="startyear"
@@ -101,9 +102,8 @@ export default class TemporalCoverage extends Component {
             value={min}
             onChange={ev => this.textfieldUpdate('min', ev.target.value)}
           />
-        </div>
-        <div className={formstyles.fieldContainer}>
-          <label htmlFor="startyear">vuoteen</label>
+        </LabelledInput>
+        <LabelledInput label="vuoteen">
           <input
             value={max}
             type="number"
@@ -111,7 +111,7 @@ export default class TemporalCoverage extends Component {
             placeholder="vuosiluku"
             onChange={ev => this.textfieldUpdate('max', ev.target.value)}
           />
-        </div>
+        </LabelledInput>
         <div className={styles.propSection}>
           <LanguageProp header="Tarkempi määrittely">
             <p className={formstyles.description}>
@@ -134,3 +134,13 @@ export default class TemporalCoverage extends Component {
     );
   }
 }
+
+TemporalCoverage.propTypes = {
+  languages: PropTypes.arrayOf(PropTypes.object).isRequired,
+  idx: PropTypes.number.isRequired,
+  updateLanguage: PropTypes.func.isRequired
+};
+
+TemporalCoverage.defaultProps = {};
+
+export default TemporalCoverage;
