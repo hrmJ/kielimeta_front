@@ -54,6 +54,17 @@ Then(/within (\d+) milliseconds the selector "([^"]+)" matches an element in the
     .fulfilled;
 });
 
+Then(`the value of the react-select {string} equals {string}`, async function(id, value) {
+  const selector = `//div[@id='${id.replace('#', '')}']//div[text()='${value}']`;
+  return expect(this.driver.wait(until.elementLocated(By.xpath(selector)), 10)).to.be.fulfilled;
+});
+
+Then(`the value of {string} equals {string}`, async function(selector, value) {
+  const el = await this.driver.findElement(By.css(selector));
+  const attainedValue = await el.getAttribute('value');
+  return expect(attainedValue).to.equal(value);
+});
+
 Then(`after {int} milliseconds the value of {string} equals {string}`, async function(
   milliseconds,
   selector,
