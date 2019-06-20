@@ -23,8 +23,8 @@ const index = props => {
     license,
     sensitivity,
     owner,
-    data_location,
-    license_info,
+    dataLocation,
+    licenseInfo,
     dataLocationStatus
   } = props;
   return (
@@ -37,7 +37,7 @@ const index = props => {
       >
         Projekti, johon aineisto kuuluu
       </AutoCompleteField>
-      <License dispatch={dispatch} license={license} license_info={license_info} />
+      <License dispatch={dispatch} license={license} licenseInfo={licenseInfo} />
       <LabelledInput
         label="Suojaustarve tai sensitiivisyys"
         tooltip={`Ilmoita
@@ -61,14 +61,13 @@ const index = props => {
         label="Aineiston tallennuspaikka"
         id="dataLocation"
         handleChange={ev => dispatch(updateField('data_location', ev.target.value))}
-        value={data_location}
+        value={dataLocation}
         tooltip={`Sijaitseeko varsinainen data esim. verkkolevyllä,
             pilvipalvelussa, muistitikulla vai jossain muualla`}
       />
       <LabelledInput
         label="Nykyisen tallennusratkaisun toimivuus"
-        handleChange={ev => dispatch(updateField('data_location', ev.target.value))}
-        value={data_location}
+        value={dataLocation}
         tooltip={`Jos aineiston tallennuspaikka ei tällä hetkellä ole
           optimaalinen, ilmoita siitä tässä`}
       >
@@ -90,8 +89,9 @@ index.propTypes = {
   license: PropTypes.string,
   sensitivity: PropTypes.string,
   owner: PropTypes.string,
-  data_location: PropTypes.string,
-  dataLocationStatus: PropTypes.string
+  dataLocation: PropTypes.string,
+  dataLocationStatus: PropTypes.string,
+  licenseInfo: PropTypes.string
 };
 
 index.defaultProps = {
@@ -99,8 +99,9 @@ index.defaultProps = {
   license: '',
   sensitivity: '',
   owner: '',
-  data_location: '',
-  dataLocationStatus: ''
+  dataLocation: '',
+  dataLocationStatus: '',
+  licenseInfo: ''
 };
 
 export default index;

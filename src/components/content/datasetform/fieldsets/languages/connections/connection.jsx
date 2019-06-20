@@ -1,21 +1,20 @@
-import { updateField } from '../../../../../../redux/actions/datasetform';
-
 import PropTypes from 'prop-types';
 import React from 'react';
 
 import { Select } from '../../../../../ui/localizedSelect';
 import ClosableBox from '../../../../../ui/closablebox';
+import { updateField } from '../../../../../../redux/actions/datasetform';
 import styles from './styles.scss';
 
 const LanguageConnections = props => {
   const { languages, connections, languageNames, dispatch, idx, connection } = props;
   const { sl, tl } = connection;
-  const langOptions = languages.map((lang, idx) => {
+  const langOptions = languages.map((lang, langIdx) => {
     const { details = {} } = lang;
-    const { language_code } = details;
+    const { language_code: languageCode } = details;
     return {
-      label: languageNames[language_code],
-      value: idx
+      label: languageNames[languageCode],
+      value: langIdx
     };
   });
 
@@ -76,12 +75,16 @@ LanguageConnections.propTypes = {
   connections: PropTypes.arrayOf(
     PropTypes.shape({ sl: PropTypes.string, tl: PropTypes.arrayOf(PropTypes.string) })
   ),
-  connection: PropTypes.shape({ sl: PropTypes.string, tl: PropTypes.string })
+  connection: PropTypes.shape({ sl: PropTypes.string, tl: PropTypes.string }),
+  languageNames: PropTypes.objectOf(PropTypes.any),
+  dispatch: PropTypes.func.isRequired,
+  idx: PropTypes.number.isRequired
 };
 
 LanguageConnections.defaultProps = {
   connections: [],
-  connection: {}
+  connection: {},
+  languageNames: {}
 };
 
 export default LanguageConnections;

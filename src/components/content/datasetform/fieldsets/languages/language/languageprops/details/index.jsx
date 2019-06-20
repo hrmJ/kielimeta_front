@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import AdditionalField from '../../../../../../../ui/additionalfield';
 import AutoCompleteField from '../../../../../../../ui/autocompletefield';
@@ -7,7 +8,7 @@ import Variety from './variety';
 import formstyles from '../../../../../datasetform.scss';
 import Speaker from './speaker';
 
-export default props => {
+const detailsComponent = props => {
   const {
     onChange,
     details = {},
@@ -17,14 +18,14 @@ export default props => {
     varietyTypes,
     dispatch,
     modality,
-    speakerStatus
+    speaker
   } = props;
-  const { language_code: code = '', variety = '', language_name } = details;
+  const { language_code: code, variety, language_name: name, variety_type: varietyType } = details;
   let selectValue;
   let newlanguageCondition = false;
-  if (language_name) {
+  if (name) {
     newlanguageCondition = true;
-    selectValue = { value: code, label: language_name };
+    selectValue = { value: code, label: name };
   } else if (code && names) {
     selectValue = { value: code, label: names[code] || code };
     if (code === names[code]) {
@@ -60,10 +61,11 @@ export default props => {
       <Variety
         idx={idx}
         varieties={varieties}
-        language_code={code}
+        code={code}
+        name={name}
         onChange={onChange}
-        variety={details.variety}
-        varietyType={details.variety_type}
+        variety={variety}
+        varietyType={varietyType}
         varietyTypes={varietyTypes}
         modality={modality}
         isNewLanguage={newlanguageCondition}
@@ -73,9 +75,46 @@ export default props => {
         idx={idx}
         dispatch={dispatch}
         languageCode={code}
-        speakerStatus={speakerStatus}
+        speaker={speaker}
         onChange={onChange}
+        names={names}
+        dispath={dispatch}
       />
     </section>
   );
 };
+
+detailsComponent.propTypes = {
+  onChange: PropTypes.func.isRequired,
+  details: PropTypes.shape({
+    language_code: PropTypes.string,
+    variety: PropTypes.string,
+    variety_type: PropTypes.string
+  }),
+  varieties: PropTypes.objectOf(PropTypes.any),
+  idx: PropTypes.number.isRequired,
+  names: PropTypes.objectOf(PropTypes.any),
+  varietyTypes: PropTypes.arrayOf(PropTypes.string),
+  dispatch: PropTypes.func.isRequired,
+  modality: PropTypes.arrayOf(PropTypes.string),
+  speakerStatus: PropTypes.string,
+  speakerL1: PropTypes.arrayOf(
+    PropTypes.shape({
+      language_code: PropTypes.string,
+      variety_type: PropTypes.string,
+      variety: PropTypes.string
+    })
+  )
+};
+
+detailsComponent.defaultProps = {
+  details: {},
+  varietyTypes: [],
+  names: {},
+  varieties: {},
+  modality: [],
+  speakerStatus: '',
+  speakerL1: []
+};
+
+export default detailsComponent;

@@ -1,29 +1,16 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import AutoCompleteField from '../../../../ui/autocompletefield';
 import Genre from './genre';
 import LabelledInput from '../../../../ui/labelledinput';
 import MediaTypes from './mediatypes';
 import ResourceType from './resourcetype';
-import styles from '../../datasetform.scss';
 
 const generalInfo = props => {
-  const {
-    handleChange,
-    dispatch,
-    mediaTypes = [],
-    resourcetype,
-    title,
-    textGenres,
-    mediatypes,
-    media_description,
-    genre,
-    description,
-    keywords
-  } = props;
-  let resourcetypeDescription = null;
+  const { handleChange, title, description, keywords } = props;
 
   const descriptionTooltip = `Kuvaile aineistoa ja pyri kertomaan myös,
     minkälaisiin tutkimustarkoituksiin aineisto eritisesti soveltuu. Tänne voit
@@ -66,9 +53,20 @@ const generalInfo = props => {
   );
 };
 
+generalInfo.propTypes = {
+  handleChange: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  mediaTypes: PropTypes.arrayOf(PropTypes.string),
+  description: PropTypes.string,
+  keywords: PropTypes.arrayOf(PropTypes.string),
+  title: PropTypes.string
+};
+
 generalInfo.defaultProps = {
   description: '',
-  keywords: []
+  keywords: [],
+  mediaTypes: [],
+  title: ''
 };
 
 export default generalInfo;

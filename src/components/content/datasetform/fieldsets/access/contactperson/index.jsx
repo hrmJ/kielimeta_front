@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Select } from '../../../../../ui/localizedSelect';
 
 import { PersonInput } from '../../../../../ui/personfield';
@@ -9,13 +10,13 @@ import LabelledInput from '../../../../../ui/labelledinput';
 import generalStyles from '../../../../../../general_styles/general_styles.scss';
 import formStyles from '../../../datasetform.scss';
 
-export default class ContactPerson extends Component {
+class ContactPerson extends Component {
   state = { newPerson: false };
 
   addedPersons = [];
 
   render() {
-    const { dispatch, authors = [], contactPersons = [] } = this.props;
+    const { dispatch, authors, contactPersons } = this.props;
     const { newPerson } = this.state;
 
     const options = authors.map(a => ({ label: a.name, value: { email: a.id, name: a.name } }));
@@ -82,3 +83,16 @@ export default class ContactPerson extends Component {
     );
   }
 }
+
+ContactPerson.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  authors: PropTypes.arrayOf(PropTypes.object),
+  contactPersons: PropTypes.arrayOf(PropTypes.object)
+};
+
+ContactPerson.defaultProps = {
+  authors: [],
+  contactPersons: []
+};
+
+export default ContactPerson;

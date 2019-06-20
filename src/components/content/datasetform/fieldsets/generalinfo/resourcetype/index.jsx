@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import { updateField } from '../../../../../../redux/actions/datasetform';
 import AdditionalField from '../../../../../ui/additionalfield';
@@ -6,8 +7,8 @@ import LabelledInput from '../../../../../ui/labelledinput';
 import TooltippedSelect from '../../../../../ui/tooltippedSelect';
 import styles from '../../../datasetform.scss';
 
-export default props => {
-  const { handleChange, resourcetype, dispatch, resourceTypes = [] } = props;
+const resourceType = props => {
+  const { handleChange, resourcetype, dispatch, resourceTypes } = props;
   let selectValue;
   if (typeof resourcetype === 'object') {
     selectValue = { label: resourcetype.name, value: resourcetype.name };
@@ -50,3 +51,22 @@ export default props => {
     </div>
   );
 };
+
+resourceType.propTypes = {
+  handleChange: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  resourcetype: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.shape({ location: PropTypes.object })
+  ]),
+  resourceTypes: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.shape({ location: PropTypes.object })])
+  )
+};
+
+resourceType.defaultProps = {
+  resourceTypes: [],
+  resourcetype: ''
+};
+
+export default resourceType;

@@ -5,7 +5,7 @@ import styles from './stepper.scss';
 
 import Step from '../step';
 
-class index extends Component {
+class Stepper extends Component {
   state = { currentStep: 0 };
 
   componentDidUpdate() {
@@ -87,7 +87,7 @@ class index extends Component {
   }
 }
 
-index.propTypes = {
+Stepper.propTypes = {
   steps: PropTypes.arrayOf(
     PropTypes.shape({
       legend: PropTypes.string,
@@ -97,8 +97,8 @@ index.propTypes = {
   errors: PropTypes.arrayOf(PropTypes.shape({ error: PropTypes.string, step: PropTypes.idx }))
 };
 
-index.defaultProps = {
+Stepper.defaultProps = {
   errors: []
 };
 
-export default index;
+export default Stepper;

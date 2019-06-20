@@ -15,8 +15,8 @@ const screen = {
 Before(function() {
   this.driver = new webdriver.Builder()
     .forBrowser(process.env.TEST_BROWSER || 'chrome')
-    // .setChromeOptions(new chrome.Options().headless().windowSize(screen))
-    // .setFirefoxOptions(new firefox.Options().headless().windowSize(screen))
+    .setChromeOptions(new chrome.Options().headless().windowSize(screen))
+    .setFirefoxOptions(new firefox.Options().headless().windowSize(screen))
     .build();
   return this.driver;
 });

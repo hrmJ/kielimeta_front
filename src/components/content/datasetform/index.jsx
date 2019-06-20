@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable jsx-a11y/label-has-for */
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
@@ -32,16 +30,8 @@ const validateLanguageStep = languages => {
   return false;
 };
 
-export default class InsertForm extends Component {
+class InsertForm extends Component {
   state = { invalidFields: [] };
-
-  static get propTypes() {
-    return {
-      dispatch: PropTypes.func.isRequired,
-      fields: PropTypes.objectOf(PropTypes.any).isRequired,
-      loadingState: PropTypes.objectOf(PropTypes.any).isRequired
-    };
-  }
 
   componentDidMount() {
     const { dispatch } = this.props;
@@ -61,7 +51,7 @@ export default class InsertForm extends Component {
 
   checkErrors() {
     const { fields } = this.props;
-    const { title, contact_person, resourcetype, authors = [] } = fields;
+    const { title, contact_person: contactPerson, resourcetype = '', authors = [] } = fields;
     const invalidFields = [];
     if (authors.length === 0) {
       invalidFields.push({
@@ -73,7 +63,7 @@ export default class InsertForm extends Component {
     if (!resourcetype) {
       invalidFields.push({ step: 0, msg: 'Valitse aineiston tyyppi', level: 'error' });
     }
-    if (!contact_person || contact_person.length === 0) {
+    if (!contactPerson || contactPerson.length === 0) {
       invalidFields.push({
         step: 3,
         msg: 'Ilmoita ainakin yksi yhteyshenkilö',
@@ -111,29 +101,28 @@ export default class InsertForm extends Component {
       languages,
       resourcetype,
       authors = [],
-      contact_person,
-      place_of_publication,
-      access_type,
+      contact_person: contactPerson,
+      place_of_publication: placeOfPublication,
+      access_type: accessType,
       title,
       project,
       license,
-      license_info,
+      license_info: licenseInfo,
       sensitivity,
       owner,
-      data_location,
-      access_information,
+      data_location: dataLocation,
+      access_information: accessInformation,
       genre,
       description,
       keywords,
-      media_description,
-      data_location_status,
+      media_description: mediaDescription,
+      data_location_status: dataLocationStatus,
       connections
     } = fields;
     const { annotationLevels, resourceTypes, textGenres } = preloadedSelects;
-    const { invalidFields } = this.state;
 
     if (loadingState.SUBMITDATASET) {
-      if (loadingState.SUBMITDATASET == 'success') {
+      if (loadingState.SUBMITDATASET === 'success') {
         return (
           <div id="savedmsg" className={styles.someTopMargin}>
             <p>Tiedot tallennettu.</p>
@@ -162,10 +151,10 @@ export default class InsertForm extends Component {
             textGenres={textGenres}
             genre={genre}
             keywords={keywords}
-            media_description={media_description}
+            mediaDescription={mediaDescription}
           />
         ),
-        isValid: title !== '' && resourcetype
+        isValid: title !== '' && (resourcetype !== '' && resourcetype !== undefined)
       },
       {
         legend: 'Kielet',
@@ -196,32 +185,32 @@ export default class InsertForm extends Component {
           <Access
             dispatch={dispatch}
             authors={authors}
-            contactPersons={contact_person}
-            placeOfPublication={place_of_publication}
-            access_information={access_information}
+            contactPersons={contactPerson}
+            placeOfPublication={placeOfPublication}
+            accessInformation={accessInformation}
           />
         ),
-        isValid: contact_person !== undefined
+        isValid: contactPerson !== undefined
       },
       {
         legend: 'Hallinta',
         component: (
           <Administration
             dispatch={dispatch}
-            placeOfPublication={place_of_publication}
-            accessType={access_type}
+            placeOfPublication={placeOfPublication}
+            accessType={accessType}
             project={project}
             owner={owner}
             license={license}
-            license_info={license_info}
+            licenseInfo={licenseInfo}
             sensitivity={sensitivity}
-            data_location={data_location}
-            dataLocationStatus={data_location_status}
+            dataLocation={dataLocation}
+            dataLocationStatus={dataLocationStatus}
           />
         ),
         isValid:
-          data_location !== '' &&
-          data_location !== undefined &&
+          dataLocation !== '' &&
+          dataLocation !== undefined &&
           (owner !== '' && owner !== undefined),
         doesNotPreventSave: true
       }
@@ -234,3 +223,22 @@ export default class InsertForm extends Component {
     );
   }
 }
+
+InsertForm.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  fields: PropTypes.objectOf(PropTypes.any).isRequired,
+  loadingState: PropTypes.objectOf(PropTypes.any).isRequired,
+  languageVarieties: PropTypes.objectOf(PropTypes.any),
+  languageVarietyTypes: PropTypes.arrayOf(PropTypes.string),
+  languageNames: PropTypes.objectOf(PropTypes.any),
+  preloadedSelects: PropTypes.objectOf(PropTypes.any)
+};
+
+InsertForm.defaultProps = {
+  languageVarieties: {},
+  languageVarietyTypes: [],
+  languageNames: {},
+  preloadedSelects: {}
+};
+
+export default InsertForm;

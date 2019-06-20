@@ -8,7 +8,7 @@ import ContactPerson from './contactperson';
 import LabelledInput from '../../../../ui/labelledinput';
 
 const index = props => {
-  const { dispatch, placeOfPublication, access_information } = props;
+  const { dispatch, placeOfPublication, accessInformation } = props;
   const { identifier, citation_info } = placeOfPublication;
   return (
     <div>
@@ -16,7 +16,7 @@ const index = props => {
       <AccessInfo
         dispatch={dispatch}
         placeOfPublication={placeOfPublication}
-        access_information={access_information}
+        accessInformation={accessInformation}
       />
       <LabelledInput
         label="Aineiston pysyväistunniste (esim. URN tai doi)"
@@ -55,11 +55,13 @@ index.propTypes = {
     location: PropTypes.string,
     identifier: PropTypes.string,
     citation_info: PropTypes.string
-  })
+  }),
+  accessInformation: PropTypes.string
 };
 
 index.defaultProps = {
-  placeOfPublication: { location: '', identifier: '', citation_info: '' }
+  placeOfPublication: { location: '', identifier: '', citation_info: '' },
+  accessInformation: ''
 };
 
 export default index;
