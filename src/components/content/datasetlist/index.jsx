@@ -5,8 +5,8 @@ import { listAll, filterByQuery } from '../../../redux/actions/datasets';
 import DatasetItem from '../datasetitem';
 import DelayedSearchField from '../../ui/DelayedSearchField';
 import Filters from './filters';
+import Splash from '../../layout/splash';
 import styles from './datasetlist.scss';
-import utilityStyles from '../../../general_styles/utilities.scss';
 
 class DatasetList extends Component {
   componentDidMount() {
@@ -22,8 +22,11 @@ class DatasetList extends Component {
   }
 
   render() {
-    const { datasets, dispatch, filters, originalFilterValues, datasetStatus } = this.props;
-    console.log(datasetStatus);
+    const { datasets, dispatch, filters, originalFilterValues, showSplash } = this.props;
+
+    if (showSplash) {
+      return <Splash />;
+    }
 
     return (
       <div id="resources" className={styles.datasetlistContainer}>
@@ -34,25 +37,19 @@ class DatasetList extends Component {
             placeholder="Hae nimellä tai avainsanalla"
           />
         </section>
-        {datasetStatus !== 'loading' ? (
-          <div>
-            <Filters
-              dsLength={datasets.length}
-              filters={filters}
-              originalFilterValues={originalFilterValues}
-              dispatch={dispatch}
-            />
-            <ul className={styles.datasetList}>
-              {datasets.map(dataset => (
-                <li key={dataset.id} className={styles.datasetitemContainer}>
-                  <DatasetItem {...dataset} />
-                </li>
-              ))}
-            </ul>
-          </div>
-        ) : (
-          <div className={utilityStyles.loading}> Haetaan tietoja</div>
-        )}
+        <Filters
+          dsLength={datasets.length}
+          filters={filters}
+          originalFilterValues={originalFilterValues}
+          dispatch={dispatch}
+        />
+        <ul className={styles.datasetList}>
+          {datasets.map(dataset => (
+            <li key={dataset.id} className={styles.datasetitemContainer}>
+              <DatasetItem {...dataset} />
+            </li>
+          ))}
+        </ul>
       </div>
     );
   }
@@ -61,7 +58,7 @@ class DatasetList extends Component {
 DatasetList.propTypes = {
   dispatch: PropTypes.func.isRequired,
   datasets: PropTypes.arrayOf(PropTypes.object),
-  datasetStatus: PropTypes.string,
+  showSplash: PropTypes.bool,
   originalFilterValues: PropTypes.objectOf(
     PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.array])
   ),
@@ -72,11 +69,11 @@ DatasetList.propTypes = {
 };
 
 DatasetList.defaultProps = {
-  datasetStatus: '',
   originalFilterValues: {},
   filters: {},
   datasets: [],
-  isTest: false
+  isTest: false,
+  showSplash: false
 };
 
 export default DatasetList;

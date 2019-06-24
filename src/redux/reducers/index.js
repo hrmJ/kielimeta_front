@@ -8,7 +8,7 @@ import languageNameReducer from './languagenames';
 import loadingStateReducer from './loadingstate';
 import originalfilterReducer from './originalfilter';
 import preloadedSelectsReducer from './preloadedSelects';
-import datasetStatusReducer from './datasetStatus';
+import loadStatusReducer from './loadStatus';
 
 const appReducer = combineReducers({
   datasets: datasetReducer,
@@ -20,7 +20,7 @@ const appReducer = combineReducers({
   languageNames: languageNameReducer,
   languageVarietyTypes: languageVarietyTypeReducer,
   preloadedSelects: preloadedSelectsReducer,
-  datasetStatus: datasetStatusReducer
+  loadStatus: loadStatusReducer
 });
 
 export default appReducer;

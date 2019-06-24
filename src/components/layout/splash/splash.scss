@@ -1,0 +1,29 @@
+.container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: black;
+  width: 100vw;
+  height: 100vh;
+  color: white;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.centered {
+  width: 300px;
+  height: 200px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  > div:first-child {
+    margin-bottom: 2em;
+  }
+}
+
+.info {
+  width: 140px;
+}

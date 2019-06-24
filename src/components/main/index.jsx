@@ -7,6 +7,7 @@ import DatasetList from '../content/datasetlist';
 import Footer from '../layout/footer';
 import LabelledInput from '../ui/labelledinput';
 import Login from '../auth/login';
+import Splash from '../layout/splash';
 import TopBar from '../layout/navigation/topbar';
 import styles from '../../general_styles/general_styles.scss';
 
@@ -21,23 +22,24 @@ const main = props => {
     languageVarietyTypes,
     languageNames,
     preloadedSelects,
-    datasetStatus
+    loadStatus,
+    datasets
   } = props;
-  let { datasets } = props;
+  const { datasetList } = loadStatus;
+  let showSplash = false;
 
-  if (!Array.isArray(datasets)) {
-    datasets = [];
-  }
   // const token = getCookie('jwt_token_access');
+  console.log(datasetList);
+
+  if (datasetList === 'loading') {
+    showSplash = true;
+  }
 
   return (
     <HashRouter>
       <div>
         <div className={styles.outerContainer}>
-          <TopBar />
-          {
-            // <Header />
-          }
+          {!showSplash && <TopBar />}
           <main>
             <Switch>
               <Route path="/test" render={() => <LabelledInput label="Testi" />} />
@@ -64,21 +66,21 @@ const main = props => {
                     dispatch={dispatch}
                     filters={filters}
                     originalFilterValues={originalFilterValues}
-                    datasetStatus={datasetStatus}
+                    showSplash={showSplash}
                   />
                 )}
               />
             </Switch>
           </main>
         </div>
-        <Footer />
+        {!showSplash && <Footer />}
       </div>
     </HashRouter>
   );
 };
 
 main.propTypes = {
-  datasets: PropTypes.arrayOf(PropTypes.object).isRequired,
+  datasets: PropTypes.arrayOf(PropTypes.object),
   dispatch: PropTypes.func.isRequired,
   datasetform: PropTypes.objectOf(PropTypes.any).isRequired,
   loadingState: PropTypes.objectOf(PropTypes.any).isRequired,
@@ -96,7 +98,8 @@ main.defaultProps = {
   languageVarieties: {},
   languageVarietyTypes: [],
   languageNames: {},
-  preloadedSelects: {}
+  preloadedSelects: {},
+  datasets: []
 };
 
 export default main;
