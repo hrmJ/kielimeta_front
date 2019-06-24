@@ -8,6 +8,11 @@ import styles from './datasetitem.scss';
 class datasetItem extends Component {
   state = { lifted: false };
 
+  edit(ev) {
+    const { id } = this.props;
+    ev.preventDefault();
+  }
+
   render() {
     const { title, languages } = this.props;
     const { lifted } = this.state;
@@ -22,7 +27,13 @@ class datasetItem extends Component {
           onKeyDown={() => this.setState({ lifted: !lifted })}
         >
           <div className={styles.title}>{title}</div>
-          <div>{lifted && <button>Muokkaa tietoja</button>}</div>
+          <div>
+            {lifted && (
+              <button type="button" onClick={ev => this.edit(ev)}>
+                Muokkaa tietoja
+              </button>
+            )}
+          </div>
         </div>
         {lifted ? <ExpandedItem {...this.props} /> : <CondensedItem languages={languages} />}
       </div>
@@ -32,7 +43,8 @@ class datasetItem extends Component {
 
 datasetItem.propTypes = {
   title: PropTypes.string.isRequired,
-  languages: PropTypes.arrayOf(PropTypes.object)
+  languages: PropTypes.arrayOf(PropTypes.object),
+  id: PropTypes.number.isRequired
 };
 
 datasetItem.defaultProps = {

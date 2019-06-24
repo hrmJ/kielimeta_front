@@ -29,7 +29,6 @@ const main = props => {
   let showSplash = false;
 
   // const token = getCookie('jwt_token_access');
-  console.log(datasetList);
 
   if (datasetList === 'loading') {
     showSplash = true;
@@ -48,6 +47,21 @@ const main = props => {
                 path="/newdataset"
                 render={() => (
                   <DatasetForm
+                    fields={datasetform}
+                    loadingState={loadingState}
+                    dispatch={dispatch}
+                    languageVarieties={languageVarieties}
+                    languageVarietyTypes={languageVarietyTypes}
+                    preloadedSelects={preloadedSelects}
+                    languageNames={languageNames}
+                  />
+                )}
+              />
+              <Route
+                path="/edit/:id"
+                render={routeProps => (
+                  <DatasetForm
+                    routeProps={routeProps}
                     fields={datasetform}
                     loadingState={loadingState}
                     dispatch={dispatch}

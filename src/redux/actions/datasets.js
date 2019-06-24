@@ -87,6 +87,18 @@ const filterByQuery = filters => {
   };
 };
 
+const fetchDatasetForEdit = id => {
+  const url = `${baseUrl}/datasets/${id}`;
+  return thunkCreator({
+    types: [
+      'DATASET_DETAILS_EDIT_REQUEST',
+      'DATASET_DETAILS_EDIT_SUCCESS',
+      'DATASET_DETAILS_EDIT_ERROR'
+    ],
+    promise: fetch(url, { mode: 'cors' }).then(response => response.json())
+  });
+};
+
 const _listAll = () => {
   const url = `${baseUrl}/datasets`;
   return thunkCreator({
@@ -132,5 +144,6 @@ export {
   updateAndFilter,
   resetFilter,
   resetFilterAndRefresh,
-  baseUrl
+  baseUrl,
+  fetchDatasetForEdit
 };

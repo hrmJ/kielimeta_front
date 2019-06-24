@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
+import { fetchDatasetForEdit } from '../../../redux/actions/datasets';
 import { prepopulateFormSelects } from '../../../redux/actions/formSelectPrepopulation';
 import { updateField, submitDataset } from '../../../redux/actions/datasetform';
 import Access from './fieldsets/access';
@@ -34,8 +35,18 @@ class InsertForm extends Component {
   state = { invalidFields: [] };
 
   componentDidMount() {
-    const { dispatch } = this.props;
+    const { dispatch, routeProps } = this.props;
     dispatch(prepopulateFormSelects());
+    if (routeProps.match) {
+      const {
+        match: {
+          params: { id }
+        }
+      } = routeProps;
+      if (id) {
+        dispatch(fetchDatasetForEdit(id));
+      }
+    }
   }
 
   handleChange = name => event => {
@@ -231,14 +242,16 @@ InsertForm.propTypes = {
   languageVarieties: PropTypes.objectOf(PropTypes.any),
   languageVarietyTypes: PropTypes.arrayOf(PropTypes.string),
   languageNames: PropTypes.objectOf(PropTypes.any),
-  preloadedSelects: PropTypes.objectOf(PropTypes.any)
+  preloadedSelects: PropTypes.objectOf(PropTypes.any),
+  routeProps: PropTypes.objectOf(PropTypes.any)
 };
 
 InsertForm.defaultProps = {
   languageVarieties: {},
   languageVarietyTypes: [],
   languageNames: {},
-  preloadedSelects: {}
+  preloadedSelects: {},
+  routeProps: {}
 };
 
 export default InsertForm;
