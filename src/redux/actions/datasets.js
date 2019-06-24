@@ -1,4 +1,5 @@
 import { thunkCreator, getOriginalValuesForFilters } from './utils';
+import { updateLanguageName } from './languageactions';
 import filterReducer from '../reducers/datasetfilter';
 
 let baseUrl = '%%API_SERVER_PROTOCOL%%://%%API_SERVER_HOST%%';
@@ -87,15 +88,41 @@ const filterByQuery = filters => {
   };
 };
 
-const fetchDatasetForEdit = id => {
+const _fetchDatasetForEdit = id => {
   const url = `${baseUrl}/datasets/${id}`;
+  console.log(url);
   return thunkCreator({
     types: [
       'DATASET_DETAILS_EDIT_REQUEST',
       'DATASET_DETAILS_EDIT_SUCCESS',
       'DATASET_DETAILS_EDIT_ERROR'
     ],
-    promise: fetch(url, { mode: 'cors' }).then(response => response.json())
+    promise: fetch(url, { mode: 'cors' })
+      .then(response => response.json())
+      .then(datasetRaw => {
+        const dataset = Object.assign({}, datasetRaw);
+        if (dataset.authors) {
+          dataset.authors = JSON.parse(dataset.authors);
+        }
+        if (dataset.owner) {
+          dataset.owner = dataset.owner.join(',');
+        }
+        return dataset;
+      })
+  });
+};
+
+const fetchDatasetForEdit = id => dispatch => {
+  _fetchDatasetForEdit(id)(dispatch).then(datasetRaw => {
+    const dataset = Object.assign({}, datasetRaw);
+    const { languages = [] } = dataset;
+    languages.forEach(lang => {
+      const {
+        details: { language_name: name, language_code: code }
+      } = lang;
+      dispatch(updateLanguageName(code, name));
+    });
+    return dataset;
   });
 };
 

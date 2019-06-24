@@ -187,7 +187,7 @@ class InsertForm extends Component {
       {
         legend: 'Tekijät',
         component: <Authors dispatch={dispatch} authors={authors} />,
-        isValid: authors.length > 0 && authors[0].id,
+        isValid: authors.length > 0 && authors[0].id !== '',
         doesNotPreventSave: true
       },
       {
