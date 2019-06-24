@@ -24,7 +24,9 @@ const detailsComponent = props => {
   let selectValue;
   let newlanguageCondition = false;
   if (name) {
-    newlanguageCondition = true;
+    if (!Object.keys(names).includes(code)) {
+      newlanguageCondition = true;
+    }
     selectValue = { value: code, label: name };
   } else if (code && names) {
     selectValue = { value: code, label: names[code] || code };

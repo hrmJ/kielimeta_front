@@ -90,7 +90,6 @@ const filterByQuery = filters => {
 
 const _fetchDatasetForEdit = id => {
   const url = `${baseUrl}/datasets/${id}`;
-  console.log(url);
   return thunkCreator({
     types: [
       'DATASET_DETAILS_EDIT_REQUEST',
@@ -116,11 +115,21 @@ const fetchDatasetForEdit = id => dispatch => {
   _fetchDatasetForEdit(id)(dispatch).then(datasetRaw => {
     const dataset = Object.assign({}, datasetRaw);
     const { languages = [] } = dataset;
+    const usedLanguages = [];
     languages.forEach(lang => {
       const {
-        details: { language_name: name, language_code: code }
+        details: { language_name: name, language_code: code },
+        speaker: { speaker_l1: speakerL1 = [] }
       } = lang;
+      usedLanguages.push(code);
       dispatch(updateLanguageName(code, name));
+      speakerL1.forEach(sublang => {
+        const { language_code: subcode, language_name: subname } = sublang;
+        if (!usedLanguages.includes(subcode)) {
+          usedLanguages.push(subcode);
+          dispatch(updateLanguageName(subcode, subname));
+        }
+      });
     });
     return dataset;
   });
