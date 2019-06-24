@@ -21,7 +21,8 @@ class datasetItem extends Component {
           onClick={() => this.setState({ lifted: !lifted })}
           onKeyDown={() => this.setState({ lifted: !lifted })}
         >
-          {title}
+          <div className={styles.title}>{title}</div>
+          <div>{lifted && <button>Muokkaa tietoja</button>}</div>
         </div>
         {lifted ? <ExpandedItem {...this.props} /> : <CondensedItem languages={languages} />}
       </div>
