@@ -20,7 +20,8 @@ const main = props => {
     languageVarieties,
     languageVarietyTypes,
     languageNames,
-    preloadedSelects
+    preloadedSelects,
+    datasetStatus
   } = props;
   let { datasets } = props;
 
@@ -63,6 +64,7 @@ const main = props => {
                     dispatch={dispatch}
                     filters={filters}
                     originalFilterValues={originalFilterValues}
+                    datasetStatus={datasetStatus}
                   />
                 )}
               />

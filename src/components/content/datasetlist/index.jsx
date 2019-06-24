@@ -4,18 +4,11 @@ import React, { Component } from 'react';
 import { listAll, filterByQuery } from '../../../redux/actions/datasets';
 import DatasetItem from '../datasetitem';
 import DelayedSearchField from '../../ui/DelayedSearchField';
-import Filter from '../filter';
-import OrderSelect from '../../ui/orderselect';
+import Filters from './filters';
 import styles from './datasetlist.scss';
+import utilityStyles from '../../../general_styles/utilities.scss';
 
-export default class DatasetList extends Component {
-  static get propTypes() {
-    return {
-      dispatch: PropTypes.func.isRequired,
-      datasets: PropTypes.arrayOf(PropTypes.object).isRequired
-    };
-  }
-
+class DatasetList extends Component {
   componentDidMount() {
     const { dispatch, isTest } = this.props;
     if (!isTest) {
@@ -29,7 +22,8 @@ export default class DatasetList extends Component {
   }
 
   render() {
-    const { datasets, dispatch, filters, originalFilterValues } = this.props;
+    const { datasets, dispatch, filters, originalFilterValues, datasetStatus } = this.props;
+    console.log(datasetStatus);
 
     return (
       <div id="resources" className={styles.datasetlistContainer}>
@@ -40,45 +34,49 @@ export default class DatasetList extends Component {
             placeholder="Hae nimellä tai avainsanalla"
           />
         </section>
-        <section className={styles.filterContainer}>
-          <Filter
-            filters={filters}
-            id="langfilter"
-            keyName="lang"
-            items={originalFilterValues.lang}
-            dispatch={dispatch}
-          >
-            Kielet
-          </Filter>
-          <Filter
-            filters={filters}
-            id="typefilter"
-            keyName="resourcetype"
-            items={originalFilterValues.resourcetype}
-            dispatch={dispatch}
-          >
-            Aineistotyypit
-          </Filter>
-          <Filter>Koko</Filter>
-          <Filter>Lisää suodattimia </Filter>
-        </section>
-        <section className={styles.resultNumberContainer}>
+        {datasetStatus !== 'loading' ? (
           <div>
-            Aineistoja näillä suodattimilla:
-            {datasets.length}
+            <Filters
+              dsLength={datasets.length}
+              filters={filters}
+              originalFilterValues={originalFilterValues}
+              dispatch={dispatch}
+            />
+            <ul className={styles.datasetList}>
+              {datasets.map(dataset => (
+                <li key={dataset.id} className={styles.datasetitemContainer}>
+                  <DatasetItem {...dataset} />
+                </li>
+              ))}
+            </ul>
           </div>
-          <div>
-            <OrderSelect items={['nimi', 'koko']} />
-          </div>
-        </section>
-        <ul className={styles.datasetList}>
-          {datasets.map(dataset => (
-            <li key={dataset.id} className={styles.datasetitemContainer}>
-              <DatasetItem {...dataset} />
-            </li>
-          ))}
-        </ul>
+        ) : (
+          <div className={utilityStyles.loading}> Haetaan tietoja</div>
+        )}
       </div>
     );
   }
 }
+
+DatasetList.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  datasets: PropTypes.arrayOf(PropTypes.object),
+  datasetStatus: PropTypes.string,
+  originalFilterValues: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.array])
+  ),
+  filters: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.array])
+  ),
+  isTest: PropTypes.bool
+};
+
+DatasetList.defaultProps = {
+  datasetStatus: '',
+  originalFilterValues: {},
+  filters: {},
+  datasets: [],
+  isTest: false
+};
+
+export default DatasetList;

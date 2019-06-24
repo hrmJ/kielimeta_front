@@ -6,11 +6,8 @@ export default function datasetReducer(state = [], action) {
       break;
     case 'FILTER_DATASETS_SUCCESS':
       return rest.result;
-      break;
     case 'FILTER_DATASETS_ERROR':
       break;
-    case 'LIST_DATASETS_REQUEST':
-      return state;
     case 'LIST_DATASETS_SUCCESS':
       return rest.result;
     case 'LIST_DATASETS_ERROR':
