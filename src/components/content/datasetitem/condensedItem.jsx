@@ -12,8 +12,12 @@ const condensedItem = props => {
     <div className={styles.quickDetails}>
       {languages.map(language => {
         const { details } = language;
-        const { name } = details;
-        return !languageNames.includes(name) && <LanguageBadge key={uid(language)} name={name} />;
+        const { language_name: name } = details;
+        const returnValue = !languageNames.includes(name) && (
+          <LanguageBadge key={uid(language)} name={name} />
+        );
+        languageNames.push(name);
+        return returnValue;
       })}
     </div>
   );

@@ -7,7 +7,7 @@ import styles from './datasetitem.scss';
 
 const languageDetails = props => {
   const { details, annotations, size, years_covered: yearsCovered } = props;
-  const { name, variety } = details;
+  const { language_name: name, variety } = details;
   return (
     <div key={uid(details)} className={styles.langOuterCont}>
       <FoldableBox
