@@ -9,6 +9,7 @@ import Administration from './fieldsets/administration';
 import Authors from './fieldsets/authors';
 import GeneralInfo from './fieldsets/generalinfo/index';
 import Languages from './fieldsets/languages';
+import Splash from '../../layout/splash';
 import Stepper from '../../ui/stepper';
 import styles from '../../../general_styles/general_styles.scss';
 
@@ -105,7 +106,8 @@ class InsertForm extends Component {
       languageVarieties,
       languageNames,
       languageVarietyTypes,
-      preloadedSelects
+      preloadedSelects,
+      showSplash
     } = this.props;
     const {
       mediatype,
@@ -131,6 +133,10 @@ class InsertForm extends Component {
       connections
     } = fields;
     const { annotationLevels, resourceTypes, textGenres } = preloadedSelects;
+
+    if (showSplash) {
+      return <Splash />;
+    }
 
     if (loadingState.SUBMITDATASET) {
       if (loadingState.SUBMITDATASET === 'success') {
@@ -243,7 +249,8 @@ InsertForm.propTypes = {
   languageVarietyTypes: PropTypes.arrayOf(PropTypes.string),
   languageNames: PropTypes.objectOf(PropTypes.any),
   preloadedSelects: PropTypes.objectOf(PropTypes.any),
-  routeProps: PropTypes.objectOf(PropTypes.any)
+  routeProps: PropTypes.objectOf(PropTypes.any),
+  showSplash: PropTypes.bool
 };
 
 InsertForm.defaultProps = {
@@ -251,7 +258,8 @@ InsertForm.defaultProps = {
   languageVarietyTypes: [],
   languageNames: {},
   preloadedSelects: {},
-  routeProps: {}
+  routeProps: {},
+  showSplash: false
 };
 
 export default InsertForm;

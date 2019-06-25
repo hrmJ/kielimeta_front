@@ -25,12 +25,12 @@ const main = props => {
     loadStatus,
     datasets
   } = props;
-  const { datasetList } = loadStatus;
+  const { datasetList, datasetDetails } = loadStatus;
   let showSplash = false;
 
   // const token = getCookie('jwt_token_access');
 
-  if (datasetList === 'loading') {
+  if (datasetList === 'loading' || datasetDetails === 'loading') {
     showSplash = true;
   }
 
@@ -69,6 +69,7 @@ const main = props => {
                     languageVarietyTypes={languageVarietyTypes}
                     preloadedSelects={preloadedSelects}
                     languageNames={languageNames}
+                    showSplash={showSplash}
                   />
                 )}
               />
