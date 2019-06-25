@@ -9,7 +9,7 @@ import AdditionalField from '../additionalfield';
 import LabelledInput from '../labelledinput';
 import formStyles from '../../content/datasetform/datasetform.scss';
 
-const index = props => {
+const AdditionalInfoSelect = props => {
   const {
     options,
     condition,
@@ -47,7 +47,7 @@ const index = props => {
   );
 };
 
-index.propTypes = {
+AdditionalInfoSelect.propTypes = {
   options: PropTypes.arrayOf(PropTypes.shape({ label: PropTypes.string, value: PropTypes.string }))
     .isRequired,
   condition: PropTypes.bool.isRequired,
@@ -63,7 +63,7 @@ index.propTypes = {
   id: PropTypes.string
 };
 
-index.defaultProps = {
+AdditionalInfoSelect.defaultProps = {
   additionalLabel: 'Tarkemmat tiedot',
   label: '',
   tooltipName: '',
@@ -74,4 +74,4 @@ index.defaultProps = {
   id: ''
 };
 
-export default index;
+export default AdditionalInfoSelect;

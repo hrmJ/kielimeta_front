@@ -88,7 +88,7 @@ const filterByQuery = filters => {
   };
 };
 
-const _fetchDatasetForEdit = id => {
+const fetchDatasetForEditRaw = id => {
   const url = `${baseUrl}/datasets/${id}`;
   return thunkCreator({
     types: [
@@ -100,11 +100,20 @@ const _fetchDatasetForEdit = id => {
       .then(response => response.json())
       .then(datasetRaw => {
         const dataset = Object.assign({}, datasetRaw);
-        if (dataset.authors) {
-          dataset.authors = JSON.parse(dataset.authors);
+        const { authors, owner, connections, languages } = dataset;
+        if (authors) {
+          dataset.authors = JSON.parse(authors);
         }
-        if (dataset.owner) {
-          dataset.owner = dataset.owner.join(',');
+        if (owner) {
+          dataset.owner = owner.join(',');
+        }
+        if (connections) {
+          const langIds = languages.map(lang => lang.id);
+          const editedConnections = connections.map(con => ({
+            sl: langIds.indexOf(con.source_language),
+            tl: con.target_language.map(tl => langIds.indexOf(tl))
+          }));
+          dataset.connections = editedConnections;
         }
         return dataset;
       })
@@ -112,7 +121,7 @@ const _fetchDatasetForEdit = id => {
 };
 
 const fetchDatasetForEdit = id => dispatch => {
-  _fetchDatasetForEdit(id)(dispatch).then(datasetRaw => {
+  fetchDatasetForEditRaw(id)(dispatch).then(datasetRaw => {
     const dataset = Object.assign({}, datasetRaw);
     const { languages = [] } = dataset;
     const usedLanguages = [];

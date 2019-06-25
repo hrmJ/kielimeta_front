@@ -7,9 +7,9 @@ import AccessInfo from './accessinfo';
 import ContactPerson from './contactperson';
 import LabelledInput from '../../../../ui/labelledinput';
 
-const index = props => {
+const Access = props => {
   const { dispatch, placeOfPublication, accessInformation } = props;
-  const { identifier, citation_info } = placeOfPublication;
+  const { identifier, citation_info: citationInfo } = placeOfPublication;
   return (
     <div>
       <ContactPerson {...props} />
@@ -35,7 +35,7 @@ const index = props => {
       <LabelledInput
         label="Viittausohje"
         type="textarea"
-        value={citation_info}
+        value={citationInfo}
         handleChange={ev =>
           dispatch(
             updateField('place_of_publication', {
@@ -49,7 +49,7 @@ const index = props => {
   );
 };
 
-index.propTypes = {
+Access.propTypes = {
   dispatch: PropTypes.func.isRequired,
   placeOfPublication: PropTypes.shape({
     location: PropTypes.string,
@@ -59,9 +59,9 @@ index.propTypes = {
   accessInformation: PropTypes.string
 };
 
-index.defaultProps = {
+Access.defaultProps = {
   placeOfPublication: { location: '', identifier: '', citation_info: '' },
   accessInformation: ''
 };
 
-export default index;
+export default Access;

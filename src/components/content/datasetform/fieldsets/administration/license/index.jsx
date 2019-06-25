@@ -62,7 +62,7 @@ const options = [
   }
 ];
 
-const index = props => {
+const License = props => {
   const { dispatch, license, licenseInfo } = props;
 
   return (
@@ -85,15 +85,15 @@ const index = props => {
   );
 };
 
-index.propTypes = {
+License.propTypes = {
   license: PropTypes.string,
   dispatch: PropTypes.func.isRequired,
   licenseInfo: PropTypes.string
 };
 
-index.defaultProps = {
+License.defaultProps = {
   license: '',
   licenseInfo: ''
 };
 
-export default index;
+export default License;

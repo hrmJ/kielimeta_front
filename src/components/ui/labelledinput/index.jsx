@@ -4,7 +4,7 @@ import formstyles from '../../content/datasetform/datasetform.scss';
 import FieldInfo from '../fieldInfo';
 import styles from './labelledinput.scss';
 
-const index = props => {
+const LabelledInput = props => {
   const { id, label, type, handleChange, children, value, placeholder, tooltip } = props;
   const inputProps = { id, defaultValue: '', onChange: handleChange, placeholder };
   if (value !== undefined) {
@@ -30,7 +30,7 @@ const index = props => {
   );
 };
 
-index.propTypes = {
+LabelledInput.propTypes = {
   placeholder: PropTypes.string,
   label: PropTypes.string,
   type: PropTypes.string,
@@ -41,7 +41,7 @@ index.propTypes = {
   tooltip: PropTypes.string
 };
 
-index.defaultProps = {
+LabelledInput.defaultProps = {
   handleChange: () => null,
   placeholder: '',
   label: '',
@@ -52,4 +52,4 @@ index.defaultProps = {
   tooltip: ''
 };
 
-export default index;
+export default LabelledInput;

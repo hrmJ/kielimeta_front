@@ -75,7 +75,7 @@ languagesComponent.propTypes = {
     PropTypes.shape({ level: PropTypes.string, definition: PropTypes.string })
   ),
   connections: PropTypes.arrayOf(
-    PropTypes.shape({ sl: PropTypes.string, tl: PropTypes.arrayOf(PropTypes.string) })
+    PropTypes.shape({ sl: PropTypes.number, tl: PropTypes.arrayOf(PropTypes.number) })
   ),
   languageVarieties: PropTypes.objectOf(PropTypes.any)
 };

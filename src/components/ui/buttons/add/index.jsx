@@ -4,7 +4,7 @@ import { faPlus as plusIcon } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './add.scss';
 
-const index = props => {
+const Add = props => {
   const { onClick, id, text } = props;
   return (
     <div
@@ -23,15 +23,15 @@ const index = props => {
   );
 };
 
-index.propTypes = {
+Add.propTypes = {
   onClick: PropTypes.func,
   id: PropTypes.string,
   text: PropTypes.string
 };
-index.defaultProps = {
+Add.defaultProps = {
   onClick: () => null,
   id: '',
   text: 'Lisää'
 };
 
-export default index;
+export default Add;
