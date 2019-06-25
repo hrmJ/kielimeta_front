@@ -8,12 +8,21 @@ import formstyles from '../../../../datasetform.scss';
 import styles from '../language.scss';
 
 class TemporalCoverage extends Component {
-  state = { min: undefined, max: undefined };
+  state = { min: '', max: '' };
 
   recievedprops = false;
 
   componentWillReceiveProps() {
     this.recievedprops = true;
+  }
+
+  componentDidMount() {
+    const { languages, idx } = this.props;
+    const years = languages[idx].years_covered || [];
+    if (!this.recievedprops && years.length > 0) {
+      this.recievedprops = true;
+      this.setState({ min: Math.min(...years), max: Math.max(...years) });
+    }
   }
 
   updateYears(val, minormax) {
@@ -80,11 +89,6 @@ class TemporalCoverage extends Component {
     const { languages, idx } = this.props;
     const years = languages[idx].years_covered || [];
     const { min, max } = this.state;
-
-    if (!this.recievedprops && years.length > 0) {
-      this.recievedprops = true;
-      this.setState({ min: Math.min(...years), max: Math.max(...years) });
-    }
 
     return (
       <LanguageProp header="Ajanjakso">
