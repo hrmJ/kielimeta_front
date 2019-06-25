@@ -1,3 +1,4 @@
+import { licenseOptions } from '../../components/content/datasetform/fieldsets/administration/license';
 import { thunkCreator, getOriginalValuesForFilters } from './utils';
 import { updateLanguageName } from './languageactions';
 import filterReducer from '../reducers/datasetfilter';
@@ -100,7 +101,7 @@ const fetchDatasetForEditRaw = id => {
       .then(response => response.json())
       .then(datasetRaw => {
         const dataset = Object.assign({}, datasetRaw);
-        const { authors, owner, connections, languages } = dataset;
+        const { authors, owner, connections, languages, license } = dataset;
         if (authors) {
           dataset.authors = JSON.parse(authors);
         }
@@ -114,6 +115,12 @@ const fetchDatasetForEditRaw = id => {
             tl: con.target_language.map(tl => langIds.indexOf(tl))
           }));
           dataset.connections = editedConnections;
+        }
+        if (license) {
+          if (!licenseOptions.map(o => o.value).includes(license)) {
+            dataset.license = 'undefined';
+            dataset.license_info = license;
+          }
         }
         return dataset;
       })

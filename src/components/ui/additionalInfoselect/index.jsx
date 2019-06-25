@@ -1,9 +1,7 @@
-import TooltippedSelect from '../tooltippedSelect';
-
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Select } from '../localizedSelect';
-
+import TooltippedSelect from '../tooltippedSelect';
 import { selectStyle } from '../../../general_styles/jsStyles';
 import AdditionalField from '../additionalfield';
 import LabelledInput from '../labelledinput';
@@ -22,11 +20,24 @@ const AdditionalInfoSelect = props => {
     labelName,
     additionalFieldValue,
     tooltip,
+    value,
     id
   } = props;
 
   const basicProps = { options, onChange, styles: selectStyle, id };
   const tooltipProps = { tooltipName, valueName, labelName };
+
+  if (value) {
+    if (!(tooltipName in value)) {
+      const matchedOptions = options.filter(
+        o => o[valueName] === value[valueName] || o[valueName] === value.value
+      );
+      if (matchedOptions.length > 0) {
+        value[tooltipName] = matchedOptions[0][tooltipName];
+        basicProps.value = value;
+      }
+    }
+  }
 
   return (
     <div className={formStyles.upperContainer}>
@@ -60,7 +71,8 @@ AdditionalInfoSelect.propTypes = {
   labelName: PropTypes.string,
   valueName: PropTypes.string,
   tooltip: PropTypes.string,
-  id: PropTypes.string
+  id: PropTypes.string,
+  value: PropTypes.shape({ label: PropTypes.string, value: PropTypes.string })
 };
 
 AdditionalInfoSelect.defaultProps = {
@@ -71,7 +83,8 @@ AdditionalInfoSelect.defaultProps = {
   valueName: '',
   additionalFieldValue: '',
   tooltip: '',
-  id: ''
+  id: '',
+  value: undefined
 };
 
 export default AdditionalInfoSelect;

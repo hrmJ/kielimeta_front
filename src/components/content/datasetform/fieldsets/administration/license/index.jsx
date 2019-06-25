@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { updateField } from '../../../../../../redux/actions/datasetform';
 import AdditionalInfoSelect from '../../../../../ui/additionalInfoselect';
 
-const options = [
+const licenseOptions = [
   {
     val: 'CC BY',
     name: 'Attribution (CC BY)',
@@ -71,8 +71,8 @@ const License = props => {
       labelName="name"
       tooltipName="description"
       valueName="val"
-      options={options}
-      value={license && { label: license, value: license }}
+      options={licenseOptions}
+      value={license && { label: license === 'undefined' ? 'Muu, mikä' : license, value: license }}
       onChange={selected => dispatch(updateField('license', selected.value))}
       additionalFieldChange={ev => dispatch(updateField('license_info', ev.target.value))}
       additionalFieldValue={licenseInfo}
@@ -97,3 +97,5 @@ License.defaultProps = {
 };
 
 export default License;
+
+export { licenseOptions };
