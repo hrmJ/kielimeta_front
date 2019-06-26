@@ -5,7 +5,7 @@ import { faCheck as checkIcon } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import CondensedItem from './condensedItem';
-import Edit from '../../ui/buttons/edit';
+import EditMenu from './editMenu';
 import ExpandedItem from './expandedItem';
 import styles from './datasetitem.scss';
 
@@ -41,7 +41,7 @@ class datasetItem extends Component {
             )}
           </div>
 
-          <div>{isLifted && <Edit onClick={ev => this.edit(ev)} text="Muokkaa tietoja" />}</div>
+          <div>{isLifted && <EditMenu editEvent={ev => this.edit(ev)} />}</div>
         </div>
         {isLifted ? <ExpandedItem {...this.props} /> : <CondensedItem languages={languages} />}
       </div>
