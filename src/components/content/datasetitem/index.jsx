@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { withRouter } from 'react-router';
 
 import CondensedItem from './condensedItem';
 import ExpandedItem from './expandedItem';
@@ -11,6 +12,7 @@ class datasetItem extends Component {
   edit(ev) {
     const { id } = this.props;
     ev.preventDefault();
+    this.props.history.push(`/edit/${id}`);
   }
 
   render() {
@@ -51,4 +53,4 @@ datasetItem.defaultProps = {
   languages: []
 };
 
-export default datasetItem;
+export default withRouter(datasetItem);

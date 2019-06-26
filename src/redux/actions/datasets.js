@@ -1,6 +1,6 @@
+import { getVarieties, updateLanguageName } from './languageactions';
 import { licenseOptions } from '../../components/content/datasetform/fieldsets/administration/license';
 import { thunkCreator, getOriginalValuesForFilters } from './utils';
-import { updateLanguageName } from './languageactions';
 import filterReducer from '../reducers/datasetfilter';
 
 let baseUrl = '%%API_SERVER_PROTOCOL%%://%%API_SERVER_HOST%%';
@@ -138,6 +138,7 @@ const fetchDatasetForEdit = id => dispatch => {
         speaker: { speaker_l1: speakerL1 = [] }
       } = lang;
       usedLanguages.push(code);
+      dispatch(getVarieties(code));
       dispatch(updateLanguageName(code, name));
       speakerL1.forEach(sublang => {
         const { language_code: subcode, language_name: subname } = sublang;

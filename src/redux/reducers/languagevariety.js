@@ -7,7 +7,7 @@ export function languageVarietyReducer(state = {}, action) {
     case 'VARIETIES_SUCCESS':
       const varieties = {};
       for (const res of rest.result) {
-        const { code, variety, variety_type } = res;
+        const { language_code: code, variety, variety_type } = res;
         if (!varieties[code]) {
           varieties[code] = [];
         }
