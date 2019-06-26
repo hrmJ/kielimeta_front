@@ -1,8 +1,9 @@
+import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { withRouter } from 'react-router';
 
 import CondensedItem from './condensedItem';
+import Edit from '../../ui/buttons/edit';
 import ExpandedItem from './expandedItem';
 import styles from './datasetitem.scss';
 
@@ -29,13 +30,7 @@ class datasetItem extends Component {
           onKeyDown={() => this.setState({ lifted: !lifted })}
         >
           <div className={styles.title}>{title}</div>
-          <div>
-            {lifted && (
-              <button type="button" onClick={ev => this.edit(ev)}>
-                Muokkaa tietoja
-              </button>
-            )}
-          </div>
+          <div>{lifted && <Edit onClick={ev => this.edit(ev)} text="Muokkaa tietoja" />}</div>
         </div>
         {lifted ? <ExpandedItem {...this.props} /> : <CondensedItem languages={languages} />}
       </div>
