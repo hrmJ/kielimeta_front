@@ -4,7 +4,12 @@ import React, { Component } from 'react';
 
 import { fetchDatasetForEdit } from '../../../redux/actions/datasets';
 import { prepopulateFormSelects } from '../../../redux/actions/formSelectPrepopulation';
-import { resetSubmitStatus, submitDataset, updateField } from '../../../redux/actions/datasetform';
+import {
+  resetSubmitStatus,
+  setEditedId,
+  submitDataset,
+  updateField
+} from '../../../redux/actions/datasetform';
 import Access from './fieldsets/access';
 import Administration from './fieldsets/administration';
 import Authors from './fieldsets/authors';
@@ -38,22 +43,8 @@ class InsertForm extends Component {
 
   id = null;
 
-  componentDidUpdate() {
-    const {
-      loadingState,
-      dispatch,
-      fields: { title }
-    } = this.props;
-    if (loadingState.SUBMITDATASET) {
-      if (loadingState.SUBMITDATASET === 'success' && this.id) {
-        dispatch(resetSubmitStatus());
-        this.props.history.push(`/${title}`);
-      }
-    }
-  }
-
   componentDidMount() {
-    const { dispatch, routeProps, loadingState } = this.props;
+    const { dispatch, routeProps } = this.props;
     dispatch(prepopulateFormSelects());
     if (routeProps.match) {
       const {
@@ -64,6 +55,21 @@ class InsertForm extends Component {
       if (id) {
         dispatch(fetchDatasetForEdit(id));
         this.id = id;
+      }
+    }
+  }
+
+  componentDidUpdate() {
+    const {
+      loadingState,
+      dispatch,
+      fields: { title }
+    } = this.props;
+    if (loadingState.SUBMITDATASET) {
+      if (loadingState.SUBMITDATASET === 'success' && this.id) {
+        dispatch(resetSubmitStatus());
+        dispatch(setEditedId(this.id));
+        this.props.history.push(`/${title}`);
       }
     }
   }
@@ -168,7 +174,6 @@ class InsertForm extends Component {
         </div>
       );
     }
-
 
     const steps = [
       {

@@ -117,7 +117,7 @@ const fetchDatasetForEditRaw = id => {
           dataset.connections = editedConnections;
         }
         if (license) {
-          if (!licenseOptions.map(o => o.value).includes(license)) {
+          if (!licenseOptions.map(o => o.val).includes(license)) {
             dataset.license = 'undefined';
             dataset.license_info = license;
           }

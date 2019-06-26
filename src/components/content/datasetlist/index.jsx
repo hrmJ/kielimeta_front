@@ -39,7 +39,7 @@ class DatasetList extends Component {
   }
 
   render() {
-    const { datasets, dispatch, filters, originalFilterValues, showSplash } = this.props;
+    const { datasets, dispatch, filters, originalFilterValues, showSplash, editedId } = this.props;
 
     if (showSplash) {
       return <Splash />;
@@ -68,6 +68,7 @@ class DatasetList extends Component {
                 <DatasetItem
                   {...dataset}
                   liftedByDefault={dataset.title === this.filterFromQuery}
+                  wasEdited={dataset.id === editedId}
                 />
               </li>
             );
@@ -88,7 +89,8 @@ DatasetList.propTypes = {
   filters: PropTypes.objectOf(
     PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.array])
   ),
-  isTest: PropTypes.bool
+  isTest: PropTypes.bool,
+  editedId: PropTypes.number
 };
 
 DatasetList.defaultProps = {
@@ -96,7 +98,8 @@ DatasetList.defaultProps = {
   filters: {},
   datasets: [],
   isTest: false,
-  showSplash: false
+  showSplash: false,
+  editedId: null
 };
 
 export default withRouter(DatasetList);

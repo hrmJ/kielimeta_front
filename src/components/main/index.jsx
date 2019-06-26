@@ -23,7 +23,8 @@ const main = props => {
     languageNames,
     preloadedSelects,
     loadStatus,
-    datasets
+    datasets,
+    editedId
   } = props;
   const { datasetList, datasetDetails } = loadStatus;
   let showSplash = false;
@@ -83,6 +84,7 @@ const main = props => {
                     filters={filters}
                     originalFilterValues={originalFilterValues}
                     showSplash={showSplash}
+                    editedId={editedId}
                   />
                 )}
               />
@@ -105,7 +107,8 @@ main.propTypes = {
   languageVarieties: PropTypes.objectOf(PropTypes.any),
   languageVarietyTypes: PropTypes.arrayOf(PropTypes.string),
   languageNames: PropTypes.objectOf(PropTypes.any),
-  preloadedSelects: PropTypes.objectOf(PropTypes.any)
+  preloadedSelects: PropTypes.objectOf(PropTypes.any),
+  editedId: PropTypes.number
 };
 
 main.defaultProps = {
@@ -115,7 +118,8 @@ main.defaultProps = {
   languageVarietyTypes: [],
   languageNames: {},
   preloadedSelects: {},
-  datasets: []
+  datasets: [],
+  editedId: null
 };
 
 export default main;

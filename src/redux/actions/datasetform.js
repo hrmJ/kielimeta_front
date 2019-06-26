@@ -42,6 +42,11 @@ const resetSubmitStatus = (language, idx) => ({
   type: 'SUBMITDATASET_RESET'
 });
 
+const setEditedId = newId => ({
+  type: 'SET_EDITED_ID',
+  newId
+});
+
 const validateFields = fields => {
   const validated = Object.assign({}, fields);
   if (fields.languages) {
@@ -96,4 +101,11 @@ const submitDataset = (fields, id) => {
   });
 };
 
-export { updateField, submitDataset, fetchLanguages, updateLanguage, resetSubmitStatus };
+export {
+  updateField,
+  submitDataset,
+  fetchLanguages,
+  updateLanguage,
+  resetSubmitStatus,
+  setEditedId
+};
