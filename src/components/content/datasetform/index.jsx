@@ -1,9 +1,10 @@
+import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
 import { fetchDatasetForEdit } from '../../../redux/actions/datasets';
 import { prepopulateFormSelects } from '../../../redux/actions/formSelectPrepopulation';
-import { updateField, submitDataset } from '../../../redux/actions/datasetform';
+import { resetSubmitStatus, submitDataset, updateField } from '../../../redux/actions/datasetform';
 import Access from './fieldsets/access';
 import Administration from './fieldsets/administration';
 import Authors from './fieldsets/authors';
@@ -35,8 +36,24 @@ const validateLanguageStep = languages => {
 class InsertForm extends Component {
   state = { invalidFields: [] };
 
+  id = null;
+
+  componentDidUpdate() {
+    const {
+      loadingState,
+      dispatch,
+      fields: { title }
+    } = this.props;
+    if (loadingState.SUBMITDATASET) {
+      if (loadingState.SUBMITDATASET === 'success' && this.id) {
+        dispatch(resetSubmitStatus());
+        this.props.history.push(`/${title}`);
+      }
+    }
+  }
+
   componentDidMount() {
-    const { dispatch, routeProps } = this.props;
+    const { dispatch, routeProps, loadingState } = this.props;
     dispatch(prepopulateFormSelects());
     if (routeProps.match) {
       const {
@@ -46,6 +63,7 @@ class InsertForm extends Component {
       } = routeProps;
       if (id) {
         dispatch(fetchDatasetForEdit(id));
+        this.id = id;
       }
     }
   }
@@ -93,7 +111,7 @@ class InsertForm extends Component {
     const { invalidFields } = this.state;
     event.preventDefault();
     if (invalidFields.length === 0) {
-      dispatch(submitDataset(fields));
+      dispatch(submitDataset(fields, this.id));
     }
   }
 
@@ -138,20 +156,19 @@ class InsertForm extends Component {
       return <Splash />;
     }
 
-    if (loadingState.SUBMITDATASET) {
-      if (loadingState.SUBMITDATASET === 'success') {
-        return (
-          <div id="savedmsg" className={styles.someTopMargin}>
-            <p>Tiedot tallennettu.</p>
-            <p>
-              <button type="button" onClick={() => window.location.reload()} id="addnewdataset">
-                Lisää uusi
-              </button>
-            </p>
-          </div>
-        );
-      }
+    if (loadingState.SUBMITDATASET === 'success' && !this.id) {
+      return (
+        <div id="savedmsg" className={styles.someTopMargin}>
+          <p>Tiedot tallennettu.</p>
+          <p>
+            <button type="button" onClick={() => window.location.reload()} id="addnewdataset">
+              Lisää uusi
+            </button>
+          </p>
+        </div>
+      );
     }
+
 
     const steps = [
       {
@@ -262,4 +279,4 @@ InsertForm.defaultProps = {
   showSplash: false
 };
 
-export default InsertForm;
+export default withRouter(InsertForm);

@@ -8,7 +8,7 @@ import ExpandedItem from './expandedItem';
 import styles from './datasetitem.scss';
 
 class datasetItem extends Component {
-  state = { lifted: false };
+  state = { lifted: 'initial' }; // up, down
 
   edit(ev) {
     const { id } = this.props;
@@ -17,22 +17,23 @@ class datasetItem extends Component {
   }
 
   render() {
-    const { title, languages } = this.props;
+    const { title, languages, liftedByDefault } = this.props;
     const { lifted } = this.state;
+    const isLifted = lifted === 'up' || (lifted === 'initial' && liftedByDefault);
 
     return (
-      <div className={lifted ? styles.liftedItem : styles.datasetItem}>
+      <div className={isLifted ? styles.liftedItem : styles.datasetItem}>
         <div
           role="button"
           tabIndex={0}
           className={styles.titleLine}
-          onClick={() => this.setState({ lifted: !lifted })}
-          onKeyDown={() => this.setState({ lifted: !lifted })}
+          onClick={() => this.setState({ lifted: isLifted ? 'down' : 'up' })}
+          onKeyDown={() => this.setState({ lifted: isLifted ? 'down' : 'up' })}
         >
           <div className={styles.title}>{title}</div>
-          <div>{lifted && <Edit onClick={ev => this.edit(ev)} text="Muokkaa tietoja" />}</div>
+          <div>{isLifted && <Edit onClick={ev => this.edit(ev)} text="Muokkaa tietoja" />}</div>
         </div>
-        {lifted ? <ExpandedItem {...this.props} /> : <CondensedItem languages={languages} />}
+        {isLifted ? <ExpandedItem {...this.props} /> : <CondensedItem languages={languages} />}
       </div>
     );
   }
@@ -41,11 +42,13 @@ class datasetItem extends Component {
 datasetItem.propTypes = {
   title: PropTypes.string.isRequired,
   languages: PropTypes.arrayOf(PropTypes.object),
-  id: PropTypes.number.isRequired
+  id: PropTypes.number.isRequired,
+  liftedByDefault: PropTypes.bool
 };
 
 datasetItem.defaultProps = {
-  languages: []
+  languages: [],
+  liftedByDefault: false
 };
 
 export default withRouter(datasetItem);

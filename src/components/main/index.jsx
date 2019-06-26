@@ -74,9 +74,10 @@ const main = props => {
                 )}
               />
               <Route
-                path="/"
-                render={() => (
+                path="/:title?"
+                render={routeProps => (
                   <DatasetList
+                    routeProps={routeProps}
                     datasets={datasets}
                     dispatch={dispatch}
                     filters={filters}

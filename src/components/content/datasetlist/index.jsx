@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { withRouter } from 'react-router';
 
 import { listAll, filterByQuery } from '../../../redux/actions/datasets';
 import DatasetItem from '../datasetitem';
@@ -9,10 +10,26 @@ import Splash from '../../layout/splash';
 import styles from './datasetlist.scss';
 
 class DatasetList extends Component {
+  filterFromQuery = '';
+
   componentDidMount() {
-    const { dispatch, isTest } = this.props;
-    if (!isTest) {
+    const { dispatch, isTest, routeProps } = this.props;
+    let activeTitle;
+    if (routeProps.match) {
+      const {
+        match: {
+          params: { title }
+        }
+      } = routeProps;
+      if (title) {
+        activeTitle = title;
+        this.filterFromQuery = activeTitle;
+      }
+    }
+    if (!isTest && !activeTitle) {
       dispatch(listAll());
+    } else if (activeTitle) {
+      this.filterDatasets(activeTitle);
     }
   }
 
@@ -35,6 +52,7 @@ class DatasetList extends Component {
             id="searchfield"
             onChange={this.filterDatasets.bind(this)}
             placeholder="Hae nimellä tai avainsanalla"
+            defaultValue={this.filterFromQuery}
           />
         </section>
         <Filters
@@ -44,11 +62,16 @@ class DatasetList extends Component {
           dispatch={dispatch}
         />
         <ul className={styles.datasetList}>
-          {datasets.map(dataset => (
-            <li key={dataset.id} className={styles.datasetitemContainer}>
-              <DatasetItem {...dataset} />
-            </li>
-          ))}
+          {datasets.map(dataset => {
+            return (
+              <li key={dataset.id} className={styles.datasetitemContainer}>
+                <DatasetItem
+                  {...dataset}
+                  liftedByDefault={dataset.title === this.filterFromQuery}
+                />
+              </li>
+            );
+          })}
         </ul>
       </div>
     );
@@ -76,4 +99,4 @@ DatasetList.defaultProps = {
   showSplash: false
 };
 
-export default DatasetList;
+export default withRouter(DatasetList);

@@ -38,6 +38,10 @@ const updateLanguage = (language, idx) => ({
   idx
 });
 
+const resetSubmitStatus = (language, idx) => ({
+  type: 'SUBMITDATASET_RESET'
+});
+
 const validateFields = fields => {
   const validated = Object.assign({}, fields);
   if (fields.languages) {
@@ -70,14 +74,16 @@ const validateFields = fields => {
   return validated;
 };
 
-const submitDataset = fields => {
-  const url = '%%API_SERVER_PROTOCOL%%://%%API_SERVER_HOST%%/datasets';
+const submitDataset = (fields, id) => {
+  const url = id
+    ? `%%API_SERVER_PROTOCOL%%://%%API_SERVER_HOST%%/datasets/${id}`
+    : '%%API_SERVER_PROTOCOL%%://%%API_SERVER_HOST%%/datasets';
   const validatedFields = validateFields(fields);
   const csrf = getCookie('csrftoken');
   return thunkCreator({
     types: ['SUBMITDATASET_REQUEST', 'SUBMITDATASET_SUCCESS', 'SUBMITDATASET_FAILURE'],
     promise: fetch(url, {
-      method: 'POST',
+      method: id ? 'PUT' : 'POST',
       mode: 'cors',
       headers: {
         Accept: 'application/json',
@@ -90,4 +96,4 @@ const submitDataset = fields => {
   });
 };
 
-export { updateField, submitDataset, fetchLanguages, updateLanguage };
+export { updateField, submitDataset, fetchLanguages, updateLanguage, resetSubmitStatus };
