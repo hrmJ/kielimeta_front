@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
 import { filterByQuery, listAll } from '../../../redux/actions/datasets';
-import { addToGroup } from '../../../redux/actions/groups';
+import { addToGroup, listGroups } from '../../../redux/actions/groups';
 import ClusterTool from '../ClusterTool';
 import DatasetItem from '../datasetitem';
 import DelayedSearchField from '../../ui/DelayedSearchField';
@@ -15,7 +15,7 @@ class DatasetList extends Component {
   filterFromQuery = '';
 
   componentDidMount() {
-    const { dispatch, isTest, routeProps } = this.props;
+    const { dispatch, isTest, routeProps, groupNames } = this.props;
     let activeTitle;
     if (routeProps.match) {
       const {
@@ -32,6 +32,9 @@ class DatasetList extends Component {
       dispatch(listAll());
     } else if (activeTitle) {
       this.filterDatasets(activeTitle);
+    }
+    if (groupNames.length === 0) {
+      dispatch(listGroups());
     }
   }
 
@@ -50,7 +53,8 @@ class DatasetList extends Component {
       editedId,
       clusterToolVisible,
       groupedDatasets,
-      loadingState
+      loadingState,
+      groupNames
     } = this.props;
 
     if (showSplash) {
@@ -64,6 +68,7 @@ class DatasetList extends Component {
             groupedDatasets={groupedDatasets}
             dispatch={dispatch}
             loadingState={loadingState}
+            groupNames={groupNames}
           />
         )}
         <section className={styles.searchBarContainer}>
@@ -133,7 +138,8 @@ DatasetList.propTypes = {
     ),
     name: PropTypes.string
   }),
-  loadingState: PropTypes.objectOf(PropTypes.any).isRequired
+  loadingState: PropTypes.objectOf(PropTypes.any).isRequired,
+  groupNames: PropTypes.arrayOf(PropTypes.string)
 };
 
 DatasetList.defaultProps = {
@@ -144,7 +150,8 @@ DatasetList.defaultProps = {
   showSplash: false,
   editedId: null,
   clusterToolVisible: false,
-  groupedDatasets: []
+  groupedDatasets: [],
+  groupNames: []
 };
 
 export default withRouter(DatasetList);

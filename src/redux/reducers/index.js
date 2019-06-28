@@ -11,6 +11,7 @@ import preloadedSelectsReducer from './preloadedSelects';
 import loadStatusReducer from './loadStatus';
 import editedIdReducer from './editedId';
 import datasetGroupReducer from './datasetGroups';
+import groupNameReducer from './groupNames';
 
 const appReducer = combineReducers({
   datasets: datasetReducer,
@@ -24,7 +25,8 @@ const appReducer = combineReducers({
   preloadedSelects: preloadedSelectsReducer,
   loadStatus: loadStatusReducer,
   editedId: editedIdReducer,
-  groupedDatasets: datasetGroupReducer
+  groupedDatasets: datasetGroupReducer,
+  groupNames: groupNameReducer
 });
 
 export default appReducer;

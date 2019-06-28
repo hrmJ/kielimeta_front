@@ -32,7 +32,8 @@ class main extends Component {
       loadStatus,
       datasets,
       editedId,
-      groupedDatasets
+      groupedDatasets,
+      groupNames
     } = this.props;
     const { clusterToolVisible } = this.state;
     const { datasetList, datasetDetails } = loadStatus;
@@ -87,6 +88,7 @@ class main extends Component {
                   path="/:title?"
                   render={routeProps => (
                     <DatasetList
+                      groupNames={groupNames}
                       groupedDatasets={groupedDatasets}
                       clusterToolVisible={clusterToolVisible}
                       routeProps={routeProps}
@@ -119,6 +121,7 @@ main.propTypes = {
   originalFilterValues: PropTypes.objectOf(PropTypes.any),
   languageVarieties: PropTypes.objectOf(PropTypes.any),
   languageVarietyTypes: PropTypes.arrayOf(PropTypes.string),
+  groupNames: PropTypes.arrayOf(PropTypes.string),
   languageNames: PropTypes.objectOf(PropTypes.any),
   preloadedSelects: PropTypes.objectOf(PropTypes.any),
   editedId: PropTypes.number,
@@ -139,7 +142,8 @@ main.defaultProps = {
   preloadedSelects: {},
   datasets: [],
   editedId: null,
-  groupedDatasets: {}
+  groupedDatasets: {},
+  groupNames: []
 };
 
 export default main;

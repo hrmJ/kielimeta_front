@@ -35,16 +35,17 @@ const roleOptions = [
   }
 ];
 
-const groupTitles = [];
-
 const ClusterTool = props => {
   const {
     groupedDatasets,
     dispatch,
-    loadingState: { SUBMITGROUP: submitted }
+    loadingState: { SUBMITGROUP: submitted },
+    groupNames
   } = props;
 
   const { datasets } = groupedDatasets;
+  const groupNameOptions = groupNames.map(name => ({ label: name, value: name }));
+
   return (
     <form
       onSubmit={ev => {
@@ -68,7 +69,7 @@ const ClusterTool = props => {
             </p>
             <div>
               <CreatableSelect
-                options={groupTitles}
+                options={groupNameOptions}
                 styles={selectStyle}
                 onChange={selected => dispatch(editGroupTitle(selected.value))}
               />
@@ -125,12 +126,14 @@ ClusterTool.propTypes = {
     name: PropTypes.string
   }),
   dispatch: PropTypes.func.isRequired,
-  loadingState: PropTypes.objectOf(PropTypes.any)
+  loadingState: PropTypes.objectOf(PropTypes.any),
+  groupNames: PropTypes.arrayOf(PropTypes.string)
 };
 
 ClusterTool.defaultProps = {
   groupedDatasets: { datasets: [], name: '' },
-  loadingState: { SUBMITGROUP: null }
+  loadingState: { SUBMITGROUP: null },
+  groupNames: []
 };
 
 export default ClusterTool;

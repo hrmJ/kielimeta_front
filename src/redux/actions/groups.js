@@ -1,6 +1,8 @@
 import { getCookie } from '../../utils';
 import { thunkCreator } from './utils';
 
+const baseUrl = '%%API_SERVER_PROTOCOL%%://%%API_SERVER_HOST%%';
+
 const addToGroup = (dataset, isAdded) => {
   return { type: 'ADD_TO_GROUP', dataset, isAdded };
 };
@@ -10,7 +12,7 @@ const editGroupTitle = title => {
 };
 
 const submitGroup = groups => {
-  const url = '%%API_SERVER_PROTOCOL%%://%%API_SERVER_HOST%%/groups';
+  const url = `${baseUrl}/groups`;
   const csrf = getCookie('csrftoken');
   const validated = {
     ...groups,
@@ -32,8 +34,16 @@ const submitGroup = groups => {
   });
 };
 
+const listGroups = () => {
+  const url = `${baseUrl}/groups`;
+  return thunkCreator({
+    types: ['LIST_GROUPS_REQUEST', 'LIST_GROUPS_SUCCESS', 'LIST_GROUPS_ERROR'],
+    promise: fetch(url, { mode: 'cors' }).then(response => response.json())
+  });
+};
+
 const editRoleInGroup = (dataset, role) => {
   return { type: 'EDIT_ROLE_IN_GROUP', dataset, role };
 };
 
-export { addToGroup, editGroupTitle, submitGroup, editRoleInGroup };
+export { addToGroup, editGroupTitle, submitGroup, editRoleInGroup, listGroups };
