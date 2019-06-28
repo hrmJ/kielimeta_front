@@ -19,6 +19,9 @@
 .searchBarContainer {
   margin: 1em 0em 3em 0em;
   @include center_container();
+  input[type='text'] {
+    width: 95%;
+  }
 }
 
 .filterContainer {

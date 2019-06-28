@@ -60,4 +60,11 @@
 .saveButtonContainer {
   margin-top: 2em;
   font-size: 1.2em;
+  display: flex;
+  > div:first-child {
+    margin-right: 1em;
+  }
+  > div:last-child {
+    color: darkgreen;
+  }
 }

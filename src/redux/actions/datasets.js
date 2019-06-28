@@ -187,10 +187,6 @@ const resetFilterAndRefresh = (keyName, filters) => {
   };
 };
 
-const addToGroup = (dataset, isAdded) => {
-  return { type: 'ADD_TO_GROUP', dataset, isAdded };
-};
-
 export {
   listAll,
   filterByQuery,
@@ -202,6 +198,5 @@ export {
   resetFilter,
   resetFilterAndRefresh,
   baseUrl,
-  fetchDatasetForEdit,
-  addToGroup
+  fetchDatasetForEdit
 };

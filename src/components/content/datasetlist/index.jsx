@@ -2,7 +2,8 @@ import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
-import { addToGroup, filterByQuery, listAll } from '../../../redux/actions/datasets';
+import { filterByQuery, listAll } from '../../../redux/actions/datasets';
+import { addToGroup } from '../../../redux/actions/groups';
 import ClusterTool from '../ClusterTool';
 import DatasetItem from '../datasetitem';
 import DelayedSearchField from '../../ui/DelayedSearchField';
@@ -48,7 +49,8 @@ class DatasetList extends Component {
       showSplash,
       editedId,
       clusterToolVisible,
-      groupedDatasets
+      groupedDatasets,
+      loadingState
     } = this.props;
 
     if (showSplash) {
@@ -57,7 +59,13 @@ class DatasetList extends Component {
 
     return (
       <div id="resources" className={styles.datasetlistContainer}>
-        {clusterToolVisible && <ClusterTool groupedDatasets={groupedDatasets} />}
+        {clusterToolVisible && (
+          <ClusterTool
+            groupedDatasets={groupedDatasets}
+            dispatch={dispatch}
+            loadingState={loadingState}
+          />
+        )}
         <section className={styles.searchBarContainer}>
           <DelayedSearchField
             id="searchfield"
@@ -124,7 +132,8 @@ DatasetList.propTypes = {
       PropTypes.shape({ id: PropTypes.number, title: PropTypes.string, role: PropTypes.string })
     ),
     name: PropTypes.string
-  })
+  }),
+  loadingState: PropTypes.objectOf(PropTypes.any).isRequired
 };
 
 DatasetList.defaultProps = {

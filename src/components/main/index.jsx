@@ -95,6 +95,7 @@ class main extends Component {
                       filters={filters}
                       originalFilterValues={originalFilterValues}
                       showSplash={showSplash}
+                      loadingState={loadingState}
                       editedId={editedId}
                     />
                   )}
