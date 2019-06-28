@@ -13,7 +13,8 @@ function mapStateToProps(state) {
     languageVarietyTypes: state.languageVarietyTypes,
     languageNames: state.languageNames,
     loadStatus: state.loadStatus,
-    editedId: state.editedId
+    editedId: state.editedId,
+    groupedDatasets: state.groupedDatasets
   };
 }
 

@@ -1,10 +1,9 @@
-import ClusterTool from '../ClusterTool';
-
+import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { withRouter } from 'react-router';
 
-import { listAll, filterByQuery } from '../../../redux/actions/datasets';
+import { addToGroup, filterByQuery, listAll } from '../../../redux/actions/datasets';
+import ClusterTool from '../ClusterTool';
 import DatasetItem from '../datasetitem';
 import DelayedSearchField from '../../ui/DelayedSearchField';
 import Filters from './filters';
@@ -41,7 +40,16 @@ class DatasetList extends Component {
   }
 
   render() {
-    const { datasets, dispatch, filters, originalFilterValues, showSplash, editedId } = this.props;
+    const {
+      datasets,
+      dispatch,
+      filters,
+      originalFilterValues,
+      showSplash,
+      editedId,
+      clusterToolVisible,
+      groupedDatasets
+    } = this.props;
 
     if (showSplash) {
       return <Splash />;
@@ -49,9 +57,7 @@ class DatasetList extends Component {
 
     return (
       <div id="resources" className={styles.datasetlistContainer}>
-        {
-          // <ClusterTool />
-        }
+        {clusterToolVisible && <ClusterTool groupedDatasets={groupedDatasets} />}
         <section className={styles.searchBarContainer}>
           <DelayedSearchField
             id="searchfield"
@@ -68,13 +74,29 @@ class DatasetList extends Component {
         />
         <ul className={styles.datasetList}>
           {datasets.map(dataset => {
+            const { id, title } = dataset;
+            const { datasets: alreadyGrouped } = groupedDatasets;
+            const isAdded = alreadyGrouped.find(ds => ds.dataset === id) !== undefined;
             return (
-              <li key={dataset.id} className={styles.datasetitemContainer}>
-                <DatasetItem
-                  {...dataset}
-                  liftedByDefault={dataset.title === this.filterFromQuery}
-                  wasEdited={dataset.id === editedId}
-                />
+              <li key={id} className={styles.datasetitemContainer}>
+                {clusterToolVisible && (
+                  <div className={styles.datasetItemMargin}>
+                    <input
+                      type="checkbox"
+                      checked={isAdded}
+                      onChange={() =>
+                        dispatch(addToGroup({ dataset: id, title, role: '' }, !isAdded))
+                      }
+                    />
+                  </div>
+                )}
+                <div className={styles.datasetItem}>
+                  <DatasetItem
+                    {...dataset}
+                    liftedByDefault={title === this.filterFromQuery}
+                    wasEdited={id === editedId}
+                  />
+                </div>
               </li>
             );
           })}
@@ -95,7 +117,14 @@ DatasetList.propTypes = {
     PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.array])
   ),
   isTest: PropTypes.bool,
-  editedId: PropTypes.number
+  editedId: PropTypes.number,
+  clusterToolVisible: PropTypes.bool,
+  groupedDatasets: PropTypes.shape({
+    datasets: PropTypes.arrayOf(
+      PropTypes.shape({ id: PropTypes.number, title: PropTypes.string, role: PropTypes.string })
+    ),
+    name: PropTypes.string
+  })
 };
 
 DatasetList.defaultProps = {
@@ -104,7 +133,9 @@ DatasetList.defaultProps = {
   datasets: [],
   isTest: false,
   showSplash: false,
-  editedId: null
+  editedId: null,
+  clusterToolVisible: false,
+  groupedDatasets: []
 };
 
 export default withRouter(DatasetList);
