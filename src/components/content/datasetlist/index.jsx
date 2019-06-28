@@ -1,3 +1,5 @@
+import ClusterTool from '../ClusterTool';
+
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
@@ -47,6 +49,9 @@ class DatasetList extends Component {
 
     return (
       <div id="resources" className={styles.datasetlistContainer}>
+        {
+          // <ClusterTool />
+        }
         <section className={styles.searchBarContainer}>
           <DelayedSearchField
             id="searchfield"
