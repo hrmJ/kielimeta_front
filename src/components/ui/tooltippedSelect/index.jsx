@@ -23,7 +23,9 @@ const tooltippedSelect = props => {
     onChange,
     value,
     isSearchable,
-    id
+    id,
+    defaultValue,
+    styles
   } = props;
   const formattedOptions = options.map(o => ({
     styles: selectStyle,
@@ -34,9 +36,10 @@ const tooltippedSelect = props => {
 
   const passedProps = {
     options: formattedOptions,
-    styles: selectStyle,
+    styles: styles || selectStyle,
     onChange,
     value,
+    defaultValue,
     components: { Option },
     id
   };
@@ -56,19 +59,23 @@ tooltippedSelect.propTypes = {
   creatable: PropTypes.bool,
   onChange: PropTypes.func,
   value: PropTypes.shape({ label: PropTypes.string, value: PropTypes.string }),
+  defaultValue: PropTypes.shape({ label: PropTypes.string, value: PropTypes.string }),
   isSearchable: PropTypes.bool,
-  id: PropTypes.string
+  id: PropTypes.string,
+  styles: PropTypes.objectOf(PropTypes.any)
 };
 
 tooltippedSelect.defaultProps = {
-  tooltipName: '',
-  valueName: '',
-  labelName: '',
+  tooltipName: 'description',
+  valueName: 'value',
+  labelName: 'label',
   creatable: false,
   onChange: () => null,
   value: undefined,
+  defaultValue: undefined,
   isSearchable: false,
-  id: ''
+  id: '',
+  styles: undefined
 };
 
 export default tooltippedSelect;

@@ -1,4 +1,63 @@
+@import 'src/general_styles/configs.scss';
+
 .container {
-  padding: 0.3em;
-  background: salmon;
+  padding: 1.3em;
+  background: darken($lightgreybg, 7%);
+  font-size: 0.8em;
+  border-radius: 3px;
+  h5 {
+    font-size: 1.1em;
+  }
+  h4 {
+    background: $logodark;
+    padding: 0.4em;
+    color: white;
+  }
+  ul {
+    padding-left: 0px;
+  }
+  li {
+    list-style-type: none;
+  }
+  li + li {
+    margin-top: 1em;
+  }
+}
+
+.controlsContainer {
+  display: flex;
+  align-items: flex-start;
+  flex-flow: row wrap;
+  width: 100%;
+}
+
+.entryTitle {
+  width: 10em;
+}
+
+.entryContainer {
+  display: flex;
+  align-items: center;
+}
+
+.roleSelectContainer {
+  flex: 1 0 auto;
+  padding-left: 2em;
+}
+.description {
+  font-style: italic;
+}
+
+.groupNameContainer {
+  flex: 0 0 40%;
+}
+
+.groupMemberContainer {
+  flex: 1 0 55%;
+  padding-left: 2em;
+}
+
+.saveButtonContainer {
+  margin-top: 2em;
+  font-size: 1.2em;
 }

@@ -1,3 +1,5 @@
+@import 'src/general_styles/configs.scss';
+
 @mixin itemBody {
   padding: 0.6em 0.5em 0.6em 0.5em;
 }
@@ -84,7 +86,7 @@
 
 .langOuterCont {
   padding: 0.7em;
-  background: #f3f6f9e6;
+  background: $lightgreybg;
   border-radius: 5px;
 }
 
