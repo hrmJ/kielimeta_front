@@ -21,9 +21,7 @@
   }
   li {
     display: inline-block;
-  }
-  li + li {
-    margin-left: 1em;
+    margin: 0.3em 0.5em 0em 0em;
   }
   button {
     cursor: pointer;
@@ -54,25 +52,24 @@
     object-fit: contain;
     width: 100%;
   }
-  > span {
-  }
 }
 
 .headingText {
+  margin-left: 0.4em;
   h1 {
     font-family: $headerfont;
-    font-size: 2.6em;
-    margin-left: 0.4em;
+    font-size: 2.5em;
+    margin: 0 0 0.1em 0;
+    @media screen and (max-width: 600px) {
+      display: none;
+    }
   }
 
   @media screen and (min-width: 600px) {
-    flex: 0 0 70%;
-  }
-  @media screen and (max-width: 600px) {
-    display: none;
   }
 }
 
 .logoContainer {
   flex: 1 0 36%;
+  transform: rotate(-7deg);
 }

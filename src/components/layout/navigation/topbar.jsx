@@ -18,30 +18,28 @@ export default () => (
               Turun yliopiston <br />
               kieliaineistot
             </h1>
+            <ul className={styles.linkList}>
+              <li>
+                <Link to="/" id="fpLink">
+                  Pääsivu
+                </Link>
+              </li>
+              <li>
+                <button type="button" onClick={() => null}>
+                  Ryhmittele aineistoja
+                </button>
+              </li>
+              <li>
+                <Link to="newdataset" id="newdatasetLink">
+                  Uusi aineisto
+                </Link>
+              </li>
+              <li>
+                <LoginIdicator />
+              </li>
+            </ul>
           </div>
         </div>
-      </div>
-      <div className={styles.lowerTopBar}>
-        <ul className={styles.linkList}>
-          <li>
-            <Link to="/" id="fpLink">
-              Pääsivu
-            </Link>
-          </li>
-          <li>
-            <button type="button" onClick={() => null}>
-              Ryhmittele aineistoja
-            </button>
-          </li>
-          <li>
-            <Link to="newdataset" id="newdatasetLink">
-              Uusi aineisto
-            </Link>
-          </li>
-          <li>
-            <LoginIdicator />
-          </li>
-        </ul>
       </div>
     </div>
   </div>

@@ -91,8 +91,8 @@ const main = props => {
             </Switch>
           </main>
         </div>
-        {!showSplash && <Footer />}
       </div>
+      {!showSplash && <Footer />}
     </HashRouter>
   );
 };
