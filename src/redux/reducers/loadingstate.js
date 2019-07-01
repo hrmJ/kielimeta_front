@@ -17,5 +17,9 @@ export default function loadingStateReducer(state = {}, action) {
     return { ...state, [requestName]: 'failure' };
   }
 
+  if (action.type !== 'SUBMITGROUP_SUCCESS') {
+    return { ...state, SUBMITGROUP: '' };
+  }
+
   return state;
 }
