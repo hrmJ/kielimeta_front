@@ -23,6 +23,8 @@ export default (state = { name: '', datasets: [] }, action) => {
         {},
         { name, datasets: datasets.filter(ds => ds.dataset !== rest.dataset.dataset) }
       );
+    case 'REPLACE_GROUP':
+      return { ...rest.group };
     default:
       return state;
   }

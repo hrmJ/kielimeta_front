@@ -121,7 +121,7 @@ main.propTypes = {
   originalFilterValues: PropTypes.objectOf(PropTypes.any),
   languageVarieties: PropTypes.objectOf(PropTypes.any),
   languageVarietyTypes: PropTypes.arrayOf(PropTypes.string),
-  groupNames: PropTypes.arrayOf(PropTypes.string),
+  groupNames: PropTypes.arrayOf(PropTypes.object),
   languageNames: PropTypes.objectOf(PropTypes.any),
   preloadedSelects: PropTypes.objectOf(PropTypes.any),
   editedId: PropTypes.number,

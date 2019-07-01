@@ -7,8 +7,11 @@ const addToGroup = (dataset, isAdded) => {
   return { type: 'ADD_TO_GROUP', dataset, isAdded };
 };
 
-const editGroupTitle = title => {
-  return { type: 'EDIT_GROUP_TITLE', title };
+const editGroup = (id, groups) => {
+  return {
+    type: 'REPLACE_GROUP',
+    group: groups.find(g => g.id === id) || { name: id, datasets: [] }
+  };
 };
 
 const submitGroup = groups => {
@@ -46,4 +49,4 @@ const editRoleInGroup = (dataset, role) => {
   return { type: 'EDIT_ROLE_IN_GROUP', dataset, role };
 };
 
-export { addToGroup, editGroupTitle, submitGroup, editRoleInGroup, listGroups };
+export { addToGroup, editGroup, submitGroup, editRoleInGroup, listGroups };

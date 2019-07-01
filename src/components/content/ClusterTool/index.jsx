@@ -3,7 +3,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { CreatableSelect } from '../../ui/localizedSelect';
-import { editGroupTitle, editRoleInGroup, submitGroup } from '../../../redux/actions/groups';
+import { editGroup, editRoleInGroup, submitGroup } from '../../../redux/actions/groups';
 import LabelledInput from '../../ui/labelledinput';
 import Save from '../../ui/buttons/save';
 import TooltippedSelect from '../../ui/tooltippedSelect';
@@ -43,8 +43,8 @@ const ClusterTool = props => {
     groupNames
   } = props;
 
-  const { datasets } = groupedDatasets;
-  const groupNameOptions = groupNames.map(name => ({ label: name, value: name }));
+  const { datasets, name, id } = groupedDatasets;
+  const groupNameOptions = groupNames.map(group => ({ label: group.name, value: group.id }));
 
   return (
     <form
@@ -71,7 +71,8 @@ const ClusterTool = props => {
               <CreatableSelect
                 options={groupNameOptions}
                 styles={selectStyle}
-                onChange={selected => dispatch(editGroupTitle(selected.value))}
+                value={groupNameOptions.find(option => option.value === id)}
+                onChange={selected => dispatch(editGroup(selected.value, groupNames))}
               />
             </div>
           </div>
@@ -92,6 +93,7 @@ const ClusterTool = props => {
                       <TooltippedSelect
                         styles={selectStyle}
                         options={roleOptions}
+                        value={roleOptions.find(option => option.value === ds.role)}
                         creatable
                         defaultValue={roleOptions[0]}
                         onChange={selected => dispatch(editRoleInGroup(ds.dataset, selected.value))}
@@ -127,7 +129,7 @@ ClusterTool.propTypes = {
   }),
   dispatch: PropTypes.func.isRequired,
   loadingState: PropTypes.objectOf(PropTypes.any),
-  groupNames: PropTypes.arrayOf(PropTypes.string)
+  groupNames: PropTypes.arrayOf(PropTypes.object)
 };
 
 ClusterTool.defaultProps = {
