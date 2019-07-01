@@ -128,7 +128,7 @@ const fetchDatasetForEditRaw = id => {
   });
 };
 
-const fetchDatasetForEdit = (id, mainVersion) => dispatch => {
+const fetchDatasetForEdit = (id, mainVersion, isCopy) => dispatch => {
   fetchDatasetForEditRaw(id)(dispatch).then(datasetRaw => {
     const dataset = Object.assign({}, datasetRaw);
     const { languages = [] } = dataset;
@@ -151,6 +151,8 @@ const fetchDatasetForEdit = (id, mainVersion) => dispatch => {
     });
     if (mainVersion) {
       dispatch(updateField('main_version_id', mainVersion));
+    }
+    if (mainVersion || isCopy) {
       dispatch(updateField('id', null));
     }
     return dataset;

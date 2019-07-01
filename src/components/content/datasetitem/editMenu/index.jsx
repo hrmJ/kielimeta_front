@@ -6,10 +6,12 @@ import {
   faCopy as copyIcon,
   faTrash
 } from '@fortawesome/free-solid-svg-icons';
+import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Tooltip from '@atlaskit/tooltip';
 
+import { fetchDatasetForEdit } from '../../../../redux/actions/datasets';
 import { updateField } from '../../../../redux/actions/datasetform';
 import BasicButton from '../../../ui/buttons/BasicButton';
 import styles from './editmenu.scss';
@@ -27,6 +29,12 @@ class EditMenu extends Component {
     const { id, editEvent, dispatch } = this.props;
     dispatch(updateField('main_version_id', id));
     editEvent(ev);
+  }
+
+  initializeCopy(ev) {
+    const { id, editEvent, dispatch } = this.props;
+    dispatch(fetchDatasetForEdit(id, null, true));
+    this.props.history.push(`/newdataset`);
   }
 
   render() {
@@ -71,9 +79,9 @@ class EditMenu extends Component {
                   näkyvää ryhmittelytyökalua.`}
                 >
                   <BasicButton
-                    onClick={editEvent}
                     text="Kopioi itsenäiseksi versioksi"
                     noBackground
+                    onClick={ev => this.initializeCopy(ev)}
                     icon={copyIcon}
                   />
                 </Tooltip>
@@ -102,4 +110,4 @@ EditMenu.propTypes = {
   dispatch: PropTypes.func.isRequired
 };
 
-export default EditMenu;
+export default withRouter(EditMenu);
