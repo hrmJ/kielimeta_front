@@ -57,8 +57,6 @@ const ClusterTool = props => {
     value: group.id
   }));
   if (!id && name) {
-    console.log('hurraa');
-    console.log(name);
     groupNameOptions = [...groupNameOptions, { label: name, value: name }];
   }
 
