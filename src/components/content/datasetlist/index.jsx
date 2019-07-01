@@ -88,7 +88,6 @@ class DatasetList extends Component {
         <ul className={styles.datasetList}>
           {datasets.map(dataset => {
             const { id, title } = dataset;
-            console.log(groupedDatasets);
             const { datasets: alreadyGrouped } = groupedDatasets;
             const isAdded = alreadyGrouped.find(ds => ds.dataset === id) !== undefined;
             return (

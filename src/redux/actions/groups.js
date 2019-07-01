@@ -15,7 +15,7 @@ const editGroup = (id, groups) => {
 };
 
 const submitGroup = groups => {
-  const url = `${baseUrl}/groups`;
+  const url = groups.id ? `${baseUrl}/groups/${groups.id}` : `${baseUrl}/groups`;
   const csrf = getCookie('csrftoken');
   const validated = {
     ...groups,
@@ -24,7 +24,7 @@ const submitGroup = groups => {
   return thunkCreator({
     types: ['SUBMITGROUP_REQUEST', 'SUBMITGROUP_SUCCESS', 'SUBMITGROUP_FAILURE'],
     promise: fetch(url, {
-      method: 'POST',
+      method: groups.id ? 'PUT' : 'POST',
       mode: 'cors',
       headers: {
         Accept: 'application/json',

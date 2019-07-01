@@ -3,6 +3,8 @@ export default (state = { name: '', datasets: [] }, action) => {
   const { datasets, name } = state;
 
   switch (type) {
+    case 'SUBMITGROUP_SUCCESS':
+      return { ...state, id: rest.result.saved_id };
     case 'EDIT_ROLE_IN_GROUP':
       return Object.assign(
         {},
