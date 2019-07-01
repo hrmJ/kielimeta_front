@@ -52,10 +52,15 @@ const ClusterTool = props => {
   } = props;
 
   const { datasets, id, name } = groupedDatasets;
-  const groupNameOptions = groupNames.map(group => ({
+  let groupNameOptions = groupNames.map(group => ({
     label: group.id === id ? name : group.name,
     value: group.id
   }));
+  if (!id && name) {
+    console.log('hurraa');
+    console.log(name);
+    groupNameOptions = [...groupNameOptions, { label: name, value: name }];
+  }
 
   return (
     <form
@@ -87,7 +92,7 @@ const ClusterTool = props => {
               <CreatableSelect
                 options={groupNameOptions}
                 styles={selectStyle}
-                value={groupNameOptions.find(option => option.value === id) || ''}
+                value={groupNameOptions.find(option => [id, name].includes(option.value)) || ''}
                 onChange={selected => dispatch(editGroup(selected.value, groupNames))}
               />
             </div>
