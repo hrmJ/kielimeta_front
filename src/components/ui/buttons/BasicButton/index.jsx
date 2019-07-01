@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './basicbutton.scss';
 
 const BasicButton = props => {
-  const { onClick, id, text, icon, noBackground } = props;
+  const { onClick, id, text, icon, noBackground, customClass } = props;
   return (
     <div
       id={id}
@@ -12,7 +12,7 @@ const BasicButton = props => {
       tabIndex={0}
       onClick={onClick}
       onKeyDown={onClick}
-      className={`${styles.container} ${noBackground && styles.noBackground}`}
+      className={`${styles.container} ${noBackground && styles.noBackground} ${customClass}`}
     >
       <div>{text}</div>
       {icon && (
@@ -28,15 +28,17 @@ BasicButton.propTypes = {
   onClick: PropTypes.func,
   id: PropTypes.string,
   text: PropTypes.string,
-  icon: PropTypes.node,
-  noBackground: PropTypes.bool
+  icon: PropTypes.objectOf(PropTypes.any),
+  noBackground: PropTypes.bool,
+  customClass: PropTypes.string
 };
 BasicButton.defaultProps = {
   onClick: () => null,
   id: '',
   text: 'Muokkaa',
   icon: null,
-  noBackground: false
+  noBackground: false,
+  customClass: ''
 };
 
 export default BasicButton;

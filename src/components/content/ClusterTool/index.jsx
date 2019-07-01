@@ -5,12 +5,14 @@ import React from 'react';
 
 import { CreatableSelect } from '../../ui/localizedSelect';
 import {
+  deleteGroup,
   editGroup,
   editGroupName,
   editRoleInGroup,
   submitGroup
 } from '../../../redux/actions/groups';
 import LabelledInput from '../../ui/labelledinput';
+import RemoveButton from '../../ui/buttons/remove';
 import Save from '../../ui/buttons/save';
 import TooltippedSelect from '../../ui/tooltippedSelect';
 import generalStyles from '../../../general_styles/general_styles.scss';
@@ -69,6 +71,11 @@ const ClusterTool = props => {
           Jokaiselle ryppään jäsenelle voi tarvittaessa määrittää, mikä on sen status ryhmän
           sisällä. Sulje työkalu klikkaamalla uudestaan &quot;Ryhmittele aineistoja&quot; -linkkiä
         </p>
+        {submitted === 'success' && (
+          <div className={styles.savedMsgIndicator}>
+            Ryhmä tallennettu <FontAwesomeIcon icon={iconOk} />
+          </div>
+        )}
         <div className={styles.controlsContainer}>
           <div className={styles.groupNameContainer}>
             <h5>Ryhmän nimi</h5>
@@ -80,7 +87,7 @@ const ClusterTool = props => {
               <CreatableSelect
                 options={groupNameOptions}
                 styles={selectStyle}
-                value={groupNameOptions.find(option => option.value === id)}
+                value={groupNameOptions.find(option => option.value === id) || ''}
                 onChange={selected => dispatch(editGroup(selected.value, groupNames))}
               />
             </div>
@@ -131,9 +138,9 @@ const ClusterTool = props => {
           <div>
             <Save text="Tallenna ryhmä" />
           </div>
-          {submitted === 'success' && (
+          {id && (
             <div>
-              Ryhmä tallennettu <FontAwesomeIcon icon={iconOk} />
+              <RemoveButton text="Poista ryhmä" onClick={() => dispatch(deleteGroup(id))} />
             </div>
           )}
         </div>

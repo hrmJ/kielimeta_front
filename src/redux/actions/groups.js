@@ -21,6 +21,13 @@ const editGroupName = (name, group) => {
   };
 };
 
+const clearGroup = () => {
+  return {
+    type: 'REPLACE_GROUP',
+    group: { datasets: [] }
+  };
+};
+
 const submitGroupRaw = groups => {
   const url = groups.id ? `${baseUrl}/groups/${groups.id}` : `${baseUrl}/groups`;
   const csrf = getCookie('csrftoken');
@@ -44,6 +51,23 @@ const submitGroupRaw = groups => {
   });
 };
 
+const deleteGroupRaw = id => {
+  const url = `${baseUrl}/groups/${id}`;
+  const csrf = getCookie('csrftoken');
+  return thunkCreator({
+    types: ['DELETEGROUP_REQUEST', 'DELETEGROUP_SUCCESS', 'DELETEGROUP_FAILURE'],
+    promise: fetch(url, {
+      method: 'DELETE',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrf
+        // Authorization: 'Bearer ' + jwt.token,
+      }
+    }).then(response => response)
+  });
+};
+
 const listGroups = () => {
   const url = `${baseUrl}/groups`;
   return thunkCreator({
@@ -56,8 +80,21 @@ const submitGroup = groups => dispatch => {
   dispatch(submitGroupRaw(groups)).then(() => dispatch(listGroups()));
 };
 
+const deleteGroup = id => dispatch => {
+  dispatch(clearGroup());
+  dispatch(deleteGroupRaw(id)).then(() => dispatch(listGroups()));
+};
+
 const editRoleInGroup = (dataset, role) => {
   return { type: 'EDIT_ROLE_IN_GROUP', dataset, role };
 };
 
-export { addToGroup, editGroup, submitGroup, editRoleInGroup, listGroups, editGroupName };
+export {
+  addToGroup,
+  editGroup,
+  submitGroup,
+  editRoleInGroup,
+  listGroups,
+  editGroupName,
+  deleteGroup
+};
