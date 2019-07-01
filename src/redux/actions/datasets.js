@@ -1,6 +1,7 @@
 import { getVarieties, updateLanguageName } from './languageactions';
 import { licenseOptions } from '../../components/content/datasetform/fieldsets/administration/license';
 import { thunkCreator, getOriginalValuesForFilters } from './utils';
+import { updateField } from './datasetform';
 import filterReducer from '../reducers/datasetfilter';
 
 let baseUrl = '%%API_SERVER_PROTOCOL%%://%%API_SERVER_HOST%%';
@@ -127,7 +128,7 @@ const fetchDatasetForEditRaw = id => {
   });
 };
 
-const fetchDatasetForEdit = id => dispatch => {
+const fetchDatasetForEdit = (id, mainVersion) => dispatch => {
   fetchDatasetForEditRaw(id)(dispatch).then(datasetRaw => {
     const dataset = Object.assign({}, datasetRaw);
     const { languages = [] } = dataset;
@@ -148,6 +149,10 @@ const fetchDatasetForEdit = id => dispatch => {
         }
       });
     });
+    if (mainVersion) {
+      dispatch(updateField('main_version_id', mainVersion));
+      dispatch(updateField('id', null));
+    }
     return dataset;
   });
 };

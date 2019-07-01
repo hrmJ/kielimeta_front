@@ -109,6 +109,7 @@ class DatasetList extends Component {
                     {...dataset}
                     liftedByDefault={title === this.filterFromQuery}
                     wasEdited={id === editedId}
+                    dispatch={dispatch}
                   />
                 </div>
               </li>

@@ -44,7 +44,11 @@ class InsertForm extends Component {
   id = null;
 
   componentDidMount() {
-    const { dispatch, routeProps } = this.props;
+    const {
+      dispatch,
+      routeProps,
+      fields: { main_version_id: mainVersion }
+    } = this.props;
     dispatch(prepopulateFormSelects());
     if (routeProps.match) {
       const {
@@ -53,8 +57,11 @@ class InsertForm extends Component {
         }
       } = routeProps;
       if (id) {
-        dispatch(fetchDatasetForEdit(id));
-        this.id = id;
+        dispatch(fetchDatasetForEdit(id, mainVersion));
+        if (!mainVersion) {
+          // Only set the id if not creating a subversion
+          this.id = id;
+        }
       }
     }
   }

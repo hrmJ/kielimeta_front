@@ -1,7 +1,8 @@
 import { thunkCreator } from './utils';
 import { getCookie } from '../../utils';
-import { baseUrl } from './datasets';
 import { getVarieties, updateLanguageName } from './languageactions';
+
+const baseUrl = '%%API_SERVER_PROTOCOL%%://%%API_SERVER_HOST%%';
 
 const _updateField = (name, val) => ({
   type: 'UPDATE_DATASETFORM_FIELD',
@@ -80,9 +81,7 @@ const validateFields = fields => {
 };
 
 const submitDataset = (fields, id) => {
-  const url = id
-    ? `%%API_SERVER_PROTOCOL%%://%%API_SERVER_HOST%%/datasets/${id}`
-    : '%%API_SERVER_PROTOCOL%%://%%API_SERVER_HOST%%/datasets';
+  const url = id ? `${baseUrl}/datasets/${id}` : `${baseUrl}/datasets`;
   const validatedFields = validateFields(fields);
   const csrf = getCookie('csrftoken');
   return thunkCreator({
