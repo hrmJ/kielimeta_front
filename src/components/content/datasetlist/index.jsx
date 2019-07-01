@@ -89,7 +89,8 @@ class DatasetList extends Component {
           {datasets.map(dataset => {
             const { id, title } = dataset;
             const { datasets: alreadyGrouped } = groupedDatasets;
-            const isAdded = alreadyGrouped.find(ds => ds.dataset === id) !== undefined;
+            const isAdded =
+              alreadyGrouped && alreadyGrouped.find(ds => ds.dataset === id) !== undefined;
             return (
               <li key={id} className={styles.datasetitemContainer}>
                 {clusterToolVisible && (

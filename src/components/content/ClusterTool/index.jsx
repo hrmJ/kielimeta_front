@@ -1,14 +1,20 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck as iconOk } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { CreatableSelect } from '../../ui/localizedSelect';
-import { editGroup, editRoleInGroup, submitGroup } from '../../../redux/actions/groups';
+import {
+  editGroup,
+  editGroupName,
+  editRoleInGroup,
+  submitGroup
+} from '../../../redux/actions/groups';
 import LabelledInput from '../../ui/labelledinput';
 import Save from '../../ui/buttons/save';
 import TooltippedSelect from '../../ui/tooltippedSelect';
+import generalStyles from '../../../general_styles/general_styles.scss';
 import styles from './clustertool.scss';
-import { faCheck as iconOk } from '@fortawesome/free-solid-svg-icons';
 
 const selectStyle = {
   container: provided => ({
@@ -43,8 +49,11 @@ const ClusterTool = props => {
     groupNames
   } = props;
 
-  const { datasets, name, id } = groupedDatasets;
-  const groupNameOptions = groupNames.map(group => ({ label: group.name, value: group.id }));
+  const { datasets, id, name } = groupedDatasets;
+  const groupNameOptions = groupNames.map(group => ({
+    label: group.id === id ? name : group.name,
+    value: group.id
+  }));
 
   return (
     <form
@@ -75,33 +84,46 @@ const ClusterTool = props => {
                 onChange={selected => dispatch(editGroup(selected.value, groupNames))}
               />
             </div>
+            {id && (
+              <div className={generalStyles.someTopMargin}>
+                <LabelledInput
+                  label="Muokkaa ryhmän nimeä"
+                  value={name}
+                  stacked
+                  handleChange={ev => dispatch(editGroupName(ev.target.value, groupedDatasets))}
+                />
+              </div>
+            )}
           </div>
           <div className={styles.groupMemberContainer}>
             <h5>Ryhmään kuuluvat aineistot</h5>
-            {datasets.length === 0 && (
+            {datasets && datasets.length === 0 && (
               <p>
                 Lisää / poista aineistoja ryhmästä klikkaamalla niiden vasemmalla puolella olevia
                 valintalaatikoita.
               </p>
             )}
             <ul>
-              {datasets.map(ds => (
-                <li className={styles.entryContainer} key={ds.dataset}>
-                  <div className={styles.entryTitle}>{ds.title}</div>
-                  <div className={styles.roleSelectContainer}>
-                    <div>
-                      <TooltippedSelect
-                        styles={selectStyle}
-                        options={roleOptions}
-                        value={roleOptions.find(option => option.value === ds.role)}
-                        creatable
-                        defaultValue={roleOptions[0]}
-                        onChange={selected => dispatch(editRoleInGroup(ds.dataset, selected.value))}
-                      />
+              {datasets &&
+                datasets.map(ds => (
+                  <li className={styles.entryContainer} key={ds.dataset}>
+                    <div className={styles.entryTitle}>{ds.title}</div>
+                    <div className={styles.roleSelectContainer}>
+                      <div>
+                        <TooltippedSelect
+                          styles={selectStyle}
+                          options={roleOptions}
+                          value={roleOptions.find(option => option.value === ds.role)}
+                          creatable
+                          defaultValue={roleOptions[0]}
+                          onChange={selected =>
+                            dispatch(editRoleInGroup(ds.dataset, selected.value))
+                          }
+                        />
+                      </div>
                     </div>
-                  </div>
-                </li>
-              ))}
+                  </li>
+                ))}
             </ul>
           </div>
         </div>

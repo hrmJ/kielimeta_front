@@ -5,7 +5,7 @@ import FieldInfo from '../fieldInfo';
 import styles from './labelledinput.scss';
 
 const LabelledInput = props => {
-  const { id, label, type, handleChange, children, value, placeholder, tooltip } = props;
+  const { id, label, type, handleChange, children, value, placeholder, tooltip, stacked } = props;
   const inputProps = { id, defaultValue: '', onChange: handleChange, placeholder };
   if (value !== undefined) {
     inputProps.value = value;
@@ -18,7 +18,7 @@ const LabelledInput = props => {
   }
 
   return (
-    <div className={formstyles.fieldContainer}>
+    <div className={stacked ? styles.stackedContainer : formstyles.fieldContainer}>
       <label htmlFor={id}>{label}</label>
       {children || input}
       {tooltip && (
@@ -38,7 +38,8 @@ LabelledInput.propTypes = {
   handleChange: PropTypes.func,
   value: PropTypes.string,
   id: PropTypes.string,
-  tooltip: PropTypes.string
+  tooltip: PropTypes.string,
+  stacked: PropTypes.bool
 };
 
 LabelledInput.defaultProps = {
@@ -49,7 +50,8 @@ LabelledInput.defaultProps = {
   children: null,
   value: null,
   id: '',
-  tooltip: ''
+  tooltip: '',
+  stacked: false
 };
 
 export default LabelledInput;

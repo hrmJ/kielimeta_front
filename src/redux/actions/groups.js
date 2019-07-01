@@ -14,7 +14,14 @@ const editGroup = (id, groups) => {
   };
 };
 
-const submitGroup = groups => {
+const editGroupName = (name, group) => {
+  return {
+    type: 'REPLACE_GROUP',
+    group: { ...group, name }
+  };
+};
+
+const submitGroupRaw = groups => {
   const url = groups.id ? `${baseUrl}/groups/${groups.id}` : `${baseUrl}/groups`;
   const csrf = getCookie('csrftoken');
   const validated = {
@@ -45,8 +52,12 @@ const listGroups = () => {
   });
 };
 
+const submitGroup = groups => dispatch => {
+  dispatch(submitGroupRaw(groups)).then(() => dispatch(listGroups()));
+};
+
 const editRoleInGroup = (dataset, role) => {
   return { type: 'EDIT_ROLE_IN_GROUP', dataset, role };
 };
 
-export { addToGroup, editGroup, submitGroup, editRoleInGroup, listGroups };
+export { addToGroup, editGroup, submitGroup, editRoleInGroup, listGroups, editGroupName };
