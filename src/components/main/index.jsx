@@ -81,6 +81,7 @@ class main extends Component {
                       preloadedSelects={preloadedSelects}
                       languageNames={languageNames}
                       showSplash={showSplash}
+                      datasets={datasets}
                     />
                   )}
                 />

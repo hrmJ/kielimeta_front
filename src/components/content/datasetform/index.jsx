@@ -43,11 +43,14 @@ class InsertForm extends Component {
 
   id = null;
 
+  mainVersion = null;
+
   componentDidMount() {
     const {
       dispatch,
       routeProps,
-      fields: { main_version_id: mainVersion }
+      fields: { main_version_id: mainVersion },
+      datasets
     } = this.props;
     dispatch(prepopulateFormSelects());
     if (routeProps.match) {
@@ -61,6 +64,9 @@ class InsertForm extends Component {
         if (!mainVersion) {
           // Only set the id if not creating a subversion
           this.id = id;
+        } else {
+          this.mainVersion = mainVersion;
+          this.mainVersionTitle = datasets.find(ds => ds.id === mainVersion).title;
         }
       }
     }
@@ -73,10 +79,10 @@ class InsertForm extends Component {
       fields: { title }
     } = this.props;
     if (loadingState.SUBMITDATASET) {
-      if (loadingState.SUBMITDATASET === 'success' && this.id) {
+      if (loadingState.SUBMITDATASET === 'success' && (this.id || this.mainVersion)) {
         dispatch(resetSubmitStatus());
-        dispatch(setEditedId(this.id));
-        this.props.history.push(`/${title}`);
+        dispatch(setEditedId(this.id || this.mainVersion));
+        this.props.history.push(`/${this.mainVersion ? this.mainVersionTitle : title}`);
       }
     }
   }
@@ -279,7 +285,8 @@ InsertForm.propTypes = {
   languageNames: PropTypes.objectOf(PropTypes.any),
   preloadedSelects: PropTypes.objectOf(PropTypes.any),
   routeProps: PropTypes.objectOf(PropTypes.any),
-  showSplash: PropTypes.bool
+  showSplash: PropTypes.bool,
+  datasets: PropTypes.arrayOf(PropTypes.object)
 };
 
 InsertForm.defaultProps = {
@@ -288,7 +295,8 @@ InsertForm.defaultProps = {
   languageNames: {},
   preloadedSelects: {},
   routeProps: {},
-  showSplash: false
+  showSplash: false,
+  datasets: []
 };
 
 export default withRouter(InsertForm);

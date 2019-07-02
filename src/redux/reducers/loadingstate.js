@@ -1,8 +1,4 @@
 export default function loadingStateReducer(state = {}, action) {
-  if (action.type !== 'SUBMITDATASET_SUCCESS') {
-    return { ...state, SUBMITDATASET: '' };
-  }
-
   if (action.type.endsWith('_RESET')) {
     const requestName = action.type.replace('_RESET', '');
     return { ...state, [requestName]: 'reset' };

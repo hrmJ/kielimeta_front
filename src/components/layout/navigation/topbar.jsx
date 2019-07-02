@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import LoginIdicator from '../../auth/indicator';
 import styles from './nav_styles.scss';
 import logo from '../../../images/digilang-logo.svg';
@@ -23,9 +23,9 @@ const TopBar = props => {
               </h1>
               <ul className={styles.linkList}>
                 <li>
-                  <Link to="/" id="fpLink">
+                  <NavLink to="/" id="fpLink" activeClassName={styles.activeLink}>
                     Pääsivu
-                  </Link>
+                  </NavLink>
                 </li>
                 <li>
                   <button type="button" onClick={toggleClusterTool}>
@@ -33,9 +33,21 @@ const TopBar = props => {
                   </button>
                 </li>
                 <li>
-                  <Link to="newdataset" id="newdatasetLink">
+                  <NavLink
+                    to="/newdataset"
+                    id="newdatasetLink"
+                    activeClassName={styles.activeLink}
+                    exact
+                    replace
+                    isActive={match => {
+                      if (!match) {
+                        return false;
+                      }
+                      return true;
+                    }}
+                  >
                     Uusi aineisto
-                  </Link>
+                  </NavLink>
                 </li>
                 <li>
                   <LoginIdicator />
