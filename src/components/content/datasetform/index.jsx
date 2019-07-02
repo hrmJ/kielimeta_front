@@ -81,8 +81,8 @@ class InsertForm extends Component {
       fields: { title }
     } = this.props;
     if (loadingState.SUBMITDATASET === 'success') {
+      dispatch(resetSubmitStatus());
       if (this.id || this.mainVersion) {
-        dispatch(resetSubmitStatus());
         dispatch(setEditedId(this.id || this.mainVersion));
       }
       this.props.history.push(`/${this.mainVersion ? this.mainVersionTitle : title}`);
