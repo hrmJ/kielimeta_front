@@ -8,7 +8,7 @@ export default class DelayedSearchField extends Component {
   constructor(props) {
     super();
     this.state = {
-      value: props.value,
+      value: props.value
     };
   }
 
@@ -34,7 +34,7 @@ export default class DelayedSearchField extends Component {
   }
 
   render() {
-    const { className, id, placeholder } = this.props;
+    const { className, id, placeholder, defaultValue } = this.props;
     const { value } = this.state;
 
     return (
@@ -45,9 +45,8 @@ export default class DelayedSearchField extends Component {
         placeholder={placeholder}
         onChange={e => this.handleChange(e.target.value)}
         onKeyDown={this.handleKeyDown.bind(this)}
+        defaultValue={defaultValue}
       />
-
-
     );
   }
 }

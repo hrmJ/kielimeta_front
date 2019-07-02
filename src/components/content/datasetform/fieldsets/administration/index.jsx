@@ -16,7 +16,7 @@ const sensitivityOptions = [
   { label: 'sisältää salassapidettäviä tietoja', value: 'confidential' }
 ];
 
-const index = props => {
+const Administration = props => {
   const {
     dispatch,
     project,
@@ -83,7 +83,7 @@ const index = props => {
   );
 };
 
-index.propTypes = {
+Administration.propTypes = {
   dispatch: PropTypes.func.isRequired,
   project: PropTypes.string,
   license: PropTypes.string,
@@ -94,7 +94,7 @@ index.propTypes = {
   licenseInfo: PropTypes.string
 };
 
-index.defaultProps = {
+Administration.defaultProps = {
   project: '',
   license: '',
   sensitivity: '',
@@ -104,4 +104,4 @@ index.defaultProps = {
   licenseInfo: ''
 };
 
-export default index;
+export default Administration;

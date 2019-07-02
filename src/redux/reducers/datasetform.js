@@ -6,9 +6,14 @@ const defaultPayload = {
 };
 
 export default (state = defaultPayload, action) => {
-  const { type, ...field } = action;
+  const { type, ...rest } = action;
+
+  if (type === 'DATASET_DETAILS_EDIT_SUCCESS') {
+    return rest.result;
+  }
+
   if (type === 'UPDATE_DATASETFORM_FIELD') {
-    return { ...state, ...{ [field.name]: field.val } };
+    return { ...state, ...{ [rest.name]: rest.val } };
   }
   return state;
 };

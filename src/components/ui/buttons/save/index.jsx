@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from '../add/add.scss';
 
-const index = props => {
+const Save = props => {
   const { text, id, disabled } = props;
   return (
     <button className={styles.container} tabIndex={0} type="submit" id={id} disabled={disabled}>
@@ -11,16 +11,16 @@ const index = props => {
   );
 };
 
-index.propTypes = {
+Save.propTypes = {
   text: PropTypes.string,
   id: PropTypes.string,
   disabled: PropTypes.bool
 };
 
-index.defaultProps = {
+Save.defaultProps = {
   text: 'Tallenna',
   id: '',
   disabled: false
 };
 
-export default index;
+export default Save;

@@ -58,13 +58,13 @@ Size.propTypes = {
   fields: PropTypes.arrayOf(PropTypes.shape({ label: PropTypes.string, value: PropTypes.string })),
   header: PropTypes.string,
   languagetotal: PropTypes.number.isRequired,
-  size: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.any))
+  size: PropTypes.objectOf(PropTypes.any)
 };
 
 Size.defaultProps = {
   fields: [],
   header: '',
-  size: []
+  size: {}
 };
 
 export default Size;

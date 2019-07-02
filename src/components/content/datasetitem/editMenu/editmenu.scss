@@ -1,0 +1,31 @@
+.outerContainer {
+  position: relative;
+}
+
+.menu {
+  position: absolute;
+  z-index: 10;
+  background: white;
+  margin-top: 0.2em;
+  padding: 0.5em 0em 0.5em 0em;
+  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.05), 0 0 2px rgba(0, 0, 0, 0.12),
+    0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.menuList {
+  padding-left: 0;
+  list-style-type: none;
+  li {
+    list-style-type: none;
+  }
+  li + li {
+    margin-top: 0.4em;
+  }
+}
+
+.deleteModal {
+  display: flex;
+  > :first-child {
+    margin-right: 2em;
+  }
+}

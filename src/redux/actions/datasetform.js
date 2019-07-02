@@ -1,7 +1,9 @@
-import { thunkCreator } from './utils';
 import { getCookie } from '../../utils';
-import { baseUrl } from './datasets';
 import { getVarieties, updateLanguageName } from './languageactions';
+import { listAll, removeDatasetFromStore } from './datasets';
+import { thunkCreator } from './utils';
+
+const baseUrl = '%%API_SERVER_PROTOCOL%%://%%API_SERVER_HOST%%';
 
 const _updateField = (name, val) => ({
   type: 'UPDATE_DATASETFORM_FIELD',
@@ -38,6 +40,15 @@ const updateLanguage = (language, idx) => ({
   idx
 });
 
+const resetSubmitStatus = (language, idx) => ({
+  type: 'SUBMITDATASET_RESET'
+});
+
+const setEditedId = newId => ({
+  type: 'SET_EDITED_ID',
+  newId
+});
+
 const validateFields = fields => {
   const validated = Object.assign({}, fields);
   if (fields.languages) {
@@ -67,17 +78,20 @@ const validateFields = fields => {
     validated.license = validated.license_info;
     delete validated.license_info;
   }
+  // Before submitting, also delete the indicator about this being a copy
+  // if such was present
+  delete validated.isCopy;
   return validated;
 };
 
-const submitDataset = fields => {
-  const url = '%%API_SERVER_PROTOCOL%%://%%API_SERVER_HOST%%/datasets';
+const submitDataset = (fields, id) => {
+  const url = id ? `${baseUrl}/datasets/${id}` : `${baseUrl}/datasets`;
   const validatedFields = validateFields(fields);
   const csrf = getCookie('csrftoken');
   return thunkCreator({
     types: ['SUBMITDATASET_REQUEST', 'SUBMITDATASET_SUCCESS', 'SUBMITDATASET_FAILURE'],
     promise: fetch(url, {
-      method: 'POST',
+      method: id ? 'PUT' : 'POST',
       mode: 'cors',
       headers: {
         Accept: 'application/json',
@@ -90,4 +104,34 @@ const submitDataset = fields => {
   });
 };
 
-export { updateField, submitDataset, fetchLanguages, updateLanguage };
+const deleteDatasetRaw = id => {
+  const url = `${baseUrl}/datasets/${id}`;
+  const csrf = getCookie('csrftoken');
+  return thunkCreator({
+    types: ['DELETEDATASET_REQUEST', 'DELETEDATASET_SUCCESS', 'DELETEDATASET_FAILURE'],
+    promise: fetch(url, {
+      method: 'DELETE',
+      mode: 'cors',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrf
+        // Authorization: 'Bearer ' + jwt.token,
+      }
+    }).then(response => response)
+  });
+};
+
+const deleteDataset = id => dispatch => {
+  dispatch(deleteDatasetRaw(id)).then(() => dispatch(removeDatasetFromStore(id)));
+};
+
+export {
+  updateField,
+  submitDataset,
+  fetchLanguages,
+  updateLanguage,
+  resetSubmitStatus,
+  setEditedId,
+  deleteDataset
+};

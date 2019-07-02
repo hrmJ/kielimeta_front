@@ -66,7 +66,7 @@ index.propTypes = {
   dispatch: PropTypes.func.isRequired,
   languages: PropTypes.arrayOf(PropTypes.shape({ code: PropTypes.string })).isRequired,
   connections: PropTypes.arrayOf(
-    PropTypes.shape({ sl: PropTypes.string, tl: PropTypes.arrayOf(PropTypes.string) })
+    PropTypes.shape({ sl: PropTypes.number, tl: PropTypes.arrayOf(PropTypes.number) })
   ),
   languageNames: PropTypes.objectOf(PropTypes.any)
 };

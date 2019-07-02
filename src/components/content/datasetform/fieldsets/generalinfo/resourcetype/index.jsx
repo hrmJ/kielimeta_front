@@ -24,6 +24,7 @@ const resourceType = props => {
     <div className={styles.upperContainer}>
       <LabelledInput label="Aineiston tyyppi" tooltip={tooltip}>
         <TooltippedSelect
+          labelName="name"
           options={resourceTypes}
           valueName="name"
           tooltipName="description"

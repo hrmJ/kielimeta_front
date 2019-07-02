@@ -19,11 +19,15 @@ class ContactPerson extends Component {
     const { dispatch, authors, contactPersons } = this.props;
     const { newPerson } = this.state;
 
-    const options = authors.map(a => ({ label: a.name, value: { email: a.id, name: a.name } }));
+    const options = authors.map(a => ({
+      label: a.name,
+      value: a.email,
+      data: { email: a.id, name: a.name }
+    }));
     contactPersons.forEach(p => {
-      options.push({ label: p.name, value: p });
+      options.push({ label: p.name, value: p.email, data: p });
     });
-    options.push({ label: 'Uusi henkilö', value: { email: '', name: '' } });
+    options.push({ label: 'Uusi henkilö', value: 'newperson', data: { email: '', name: '' } });
     const newPersonCond =
       (contactPersons.length > 0 &&
         !this.addedPersons.includes(JSON.stringify(newPerson)) &&
@@ -35,7 +39,7 @@ class ContactPerson extends Component {
         <LabelledInput label="Yhteyshenkilö(t)">
           <Select
             id="contactpersons"
-            value={contactPersons.map(p => ({ label: p.name, value: p }))}
+            value={contactPersons.map(p => ({ label: p.name, value: p.email, data: p }))}
             styles={selectStyle}
             options={options}
             onChange={selected => {
@@ -50,7 +54,7 @@ class ContactPerson extends Component {
                 this.setState({ newPerson: false });
               }
               if (doDispatch) {
-                dispatch(updateField('contact_person', selected.map(s => s.value)));
+                dispatch(updateField('contact_person', selected.map(s => s.data)));
               }
             }}
             isMulti

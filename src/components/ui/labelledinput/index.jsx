@@ -4,8 +4,8 @@ import formstyles from '../../content/datasetform/datasetform.scss';
 import FieldInfo from '../fieldInfo';
 import styles from './labelledinput.scss';
 
-const index = props => {
-  const { id, label, type, handleChange, children, value, placeholder, tooltip } = props;
+const LabelledInput = props => {
+  const { id, label, type, handleChange, children, value, placeholder, tooltip, stacked } = props;
   const inputProps = { id, defaultValue: '', onChange: handleChange, placeholder };
   if (value !== undefined) {
     inputProps.value = value;
@@ -18,7 +18,7 @@ const index = props => {
   }
 
   return (
-    <div className={formstyles.fieldContainer}>
+    <div className={stacked ? styles.stackedContainer : formstyles.fieldContainer}>
       <label htmlFor={id}>{label}</label>
       {children || input}
       {tooltip && (
@@ -30,7 +30,7 @@ const index = props => {
   );
 };
 
-index.propTypes = {
+LabelledInput.propTypes = {
   placeholder: PropTypes.string,
   label: PropTypes.string,
   type: PropTypes.string,
@@ -38,10 +38,11 @@ index.propTypes = {
   handleChange: PropTypes.func,
   value: PropTypes.string,
   id: PropTypes.string,
-  tooltip: PropTypes.string
+  tooltip: PropTypes.string,
+  stacked: PropTypes.bool
 };
 
-index.defaultProps = {
+LabelledInput.defaultProps = {
   handleChange: () => null,
   placeholder: '',
   label: '',
@@ -49,7 +50,8 @@ index.defaultProps = {
   children: null,
   value: null,
   id: '',
-  tooltip: ''
+  tooltip: '',
+  stacked: false
 };
 
-export default index;
+export default LabelledInput;

@@ -1,3 +1,5 @@
+@import 'src/general_styles/configs.scss';
+
 @mixin itemBody {
   padding: 0.6em 0.5em 0.6em 0.5em;
 }
@@ -16,6 +18,9 @@
   &:hover {
     cursor: pointer;
   }
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .liftedItem {
@@ -25,7 +30,7 @@
   transition: margin 75ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 75ms cubic-bezier(0.4, 0, 0.2, 1);
   @include itemBody();
 
-  .titleLine {
+  .title {
     font-weight: bold;
     font-size: 2em;
   }
@@ -36,6 +41,11 @@
     background: lightblue;
     padding: 0.3em;
   }
+}
+
+.savedIndicator {
+  font-size: 0.7em;
+  color: darkgreen;
 }
 
 .quickDetails {
@@ -76,7 +86,7 @@
 
 .langOuterCont {
   padding: 0.7em;
-  background: #f3f6f9e6;
+  background: $lightgreybg;
   border-radius: 5px;
 }
 

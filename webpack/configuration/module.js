@@ -62,6 +62,18 @@ export default {
           loader: 'sass-loader'
         }
       ]
+    },
+    {
+      test: /\.(png|jp(e*)g|svg)$/,
+      use: [
+        {
+          loader: 'url-loader',
+          options: {
+            limit: 20000, // Convert images < 20kb to base64 strings
+            name: 'images/[hash]-[name].[ext]'
+          }
+        }
+      ]
     }
   ]
 };

@@ -2,7 +2,8 @@
 
 $fieldwidth: 60%;
 
-fieldset {
+fieldset,
+.autonomousDescription {
   @media screen and (min-width: 900px) {
     width: 50vw;
     max-width: 800px;
@@ -10,6 +11,9 @@ fieldset {
   border: 0px;
   margin: 2em 1em 1em 1em;
   padding: 1em 1em 1em 1em;
+}
+
+fieldset {
   background: $fieldsetbg;
 }
 
@@ -40,10 +44,14 @@ legend {
   margin-top: 2em;
 }
 
-.description {
+.description,
+.autonomousDescription {
   font-style: italic;
   font-size: 0.8em;
   color: lighten(black, 20%);
+}
+
+.description {
   margin: 1em 0em 2em 0em;
 }
 

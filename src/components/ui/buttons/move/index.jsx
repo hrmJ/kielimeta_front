@@ -4,7 +4,7 @@ import { faCaretUp as upArrow, faCaretDown as downArrow } from '@fortawesome/fre
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './move.scss';
 
-const index = props => {
+const Move = props => {
   const { direction, text, onClick } = props;
   return (
     <div
@@ -27,15 +27,15 @@ const index = props => {
   );
 };
 
-index.propTypes = {
+Move.propTypes = {
   direction: PropTypes.string.isRequired,
   text: PropTypes.string,
   onClick: PropTypes.func
 };
 
-index.defaultProps = {
+Move.defaultProps = {
   text: '',
   onClick: () => null
 };
 
-export default index;
+export default Move;

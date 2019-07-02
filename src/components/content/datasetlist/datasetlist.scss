@@ -17,8 +17,11 @@
 }
 
 .searchBarContainer {
-  margin: 2em 0em 3em 0em;
+  margin: 1em 0em 3em 0em;
   @include center_container();
+  input[type='text'] {
+    width: 95%;
+  }
 }
 
 .filterContainer {
@@ -36,7 +39,14 @@
 }
 
 .datasetitemContainer {
+  display: flex;
+  align-items: center;
+  width: 100%;
   // & + & {
   //   border-top: 1px solid lightgrey;
   // }
+}
+
+.datasetItem {
+  flex: 0 1 100%;
 }

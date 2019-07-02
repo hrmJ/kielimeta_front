@@ -1,23 +1,13 @@
 @import 'src/general_styles/configs.scss';
 
-.topbar {
+.container {
   @include center_container();
-  // display: flex;
-  // flex-flow: row nowrap;
-  // justify-content: center;
-  // align-items: center;
+}
+.topbar {
+  @include center_contained_relative();
   position: relative;
   margin-bottom: 0em;
   padding: 1em 0.1em 1em 0.1em;
-  > div {
-    @include center_contained_relative();
-    // border-bottom: 1px solid darkgray;
-    display: flex;
-    flex-flow: row wrap;
-    align-items: end;
-    justify-content: space-between;
-    padding: 0.5em;
-  }
 }
 
 .linkList {
@@ -25,15 +15,21 @@
   margin: 0px;
   padding-left: 0px;
   font-size: 0.8em;
-  a {
+  a,
+  button {
     color: black;
   }
   li {
     display: inline-block;
+    margin: 0.3em 0.5em 0em 0em;
   }
-  li + li {
-    margin-left: 1em;
+  button {
+    cursor: pointer;
+    text-decoration: underline;
+    background: none;
+    border: none;
   }
+  // border-bottom: 2px solid black;
 }
 
 .menulauncher {
@@ -42,11 +38,42 @@
   top: 5px;
 }
 
+.lowerTopBar {
+  margin-top: 2em;
+  // @include center_container();
+}
+
 .siteHeading {
-  max-width: 10em;
-  font-size: 2.4em;
-  margin: 0em 0em;
-  font-family: $headerfont;
-  > span {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  img {
+    object-fit: contain;
+    width: 100%;
   }
+}
+
+.headingText {
+  margin-left: 0.4em;
+  h1 {
+    font-family: $headerfont;
+    font-size: 2.5em;
+    margin: 0 0 0.1em 0;
+    @media screen and (max-width: 600px) {
+      display: none;
+    }
+  }
+
+  @media screen and (min-width: 600px) {
+  }
+}
+
+.logoContainer {
+  flex: 1 0 36%;
+  transform: rotate(-7deg);
+}
+
+.activeLink {
+  color: red;
 }

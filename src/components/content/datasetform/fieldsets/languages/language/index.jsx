@@ -155,7 +155,7 @@ class LanguageSelect extends Component {
           <section className={`${styles.propSection} ${styles.additionalinfo}`}>
             <LabelledInput
               handleChange={ev => this.updateLanguage('notes', ev.target.value)}
-              value={notes}
+              value={notes !== null ? notes : ''}
               type="textarea"
               label="Muita huomioita tästä kielestä / variantista"
               tooltip={`Lisää tähän kaikki sellaiset tiedot, joihin ei yllä
