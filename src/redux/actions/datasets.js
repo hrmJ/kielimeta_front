@@ -155,6 +155,8 @@ const fetchDatasetForEdit = (id, mainVersion, isCopy) => dispatch => {
     });
     if (mainVersion) {
       dispatch(updateField('main_version_id', mainVersion));
+    } else {
+      dispatch(updateField('main_version_id', null));
     }
     if (mainVersion || isCopy) {
       dispatch(updateField('id', null));

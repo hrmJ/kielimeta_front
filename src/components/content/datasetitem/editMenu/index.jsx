@@ -41,10 +41,16 @@ class EditMenu extends Component {
     this.setState({ open: !open });
   }
 
+  initializeEdit() {
+    const { id, dispatch } = this.props;
+    dispatch(updateField('main_version_id', null));
+    this.props.history.push(`/edit/${id}`);
+  }
+
   initializeSubversion(ev) {
-    const { id, editEvent, dispatch } = this.props;
+    const { id, dispatch } = this.props;
     dispatch(updateField('main_version_id', id));
-    editEvent(ev);
+    this.props.history.push(`/edit/${id}`);
   }
 
   initializeCopy() {
@@ -81,7 +87,7 @@ class EditMenu extends Component {
               <li>
                 <Tooltip content="Muokkaa tämän aineiston tietoja">
                   <BasicButton
-                    onClick={editEvent}
+                    onClick={() => this.initializeEdit()}
                     text="Muokkaa tietoja"
                     noBackground
                     icon={editIcon}
@@ -137,7 +143,6 @@ class EditMenu extends Component {
 }
 
 EditMenu.propTypes = {
-  editEvent: PropTypes.func.isRequired,
   id: PropTypes.number.isRequired,
   dispatch: PropTypes.func.isRequired
 };

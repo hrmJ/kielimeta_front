@@ -1,4 +1,3 @@
-import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { faCheck as checkIcon } from '@fortawesome/free-solid-svg-icons';
@@ -11,12 +10,6 @@ import styles from './datasetitem.scss';
 
 class datasetItem extends Component {
   state = { lifted: 'initial' }; // up, down
-
-  edit(ev) {
-    const { id } = this.props;
-    ev.preventDefault();
-    this.props.history.push(`/edit/${id}`);
-  }
 
   render() {
     const { title, languages, liftedByDefault, wasEdited, id, dispatch } = this.props;
@@ -41,9 +34,7 @@ class datasetItem extends Component {
             )}
           </div>
 
-          <div>
-            {isLifted && <EditMenu editEvent={ev => this.edit(ev)} id={id} dispatch={dispatch} />}
-          </div>
+          <div>{isLifted && <EditMenu id={id} dispatch={dispatch} />}</div>
         </div>
         {isLifted ? <ExpandedItem {...this.props} /> : <CondensedItem languages={languages} />}
       </div>
@@ -66,4 +57,4 @@ datasetItem.defaultProps = {
   wasEdited: false
 };
 
-export default withRouter(datasetItem);
+export default datasetItem;
