@@ -4,6 +4,14 @@
   padding: 0.6em 0.5em 0.6em 0.5em;
 }
 
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $subheaderfont;
+}
+
 .datasetItem {
   @include itemBody();
   //box-shadow: -1px -1px 5px grey;
@@ -21,6 +29,17 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.title {
+  font-family: $subheaderfont;
+}
+
+.description {
+  font-family: $prosefont;
+  text-align: justify;
+  max-width: 90%;
+  margin-left: 1em;
 }
 
 .liftedItem {

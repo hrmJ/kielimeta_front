@@ -13,7 +13,7 @@ const expandedItem = props => {
       <p>
         <em>{resourcetype}</em>
       </p>
-      <p>
+      <p className={styles.description}>
         <em>{description}</em>
       </p>
       <ul className={styles.kwList}>
