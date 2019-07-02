@@ -77,6 +77,9 @@ const validateFields = fields => {
     validated.license = validated.license_info;
     delete validated.license_info;
   }
+  // Before submitting, also delete the indicator about this being a copy
+  // if such was present
+  delete validated.isCopy;
   return validated;
 };
 

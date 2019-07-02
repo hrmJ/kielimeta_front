@@ -17,7 +17,7 @@ import GeneralInfo from './fieldsets/generalinfo/index';
 import Languages from './fieldsets/languages';
 import Splash from '../../layout/splash';
 import Stepper from '../../ui/stepper';
-import styles from '../../../general_styles/general_styles.scss';
+import styles from './datasetform.scss';
 
 /**
  * validateLanguageStep
@@ -44,6 +44,8 @@ class InsertForm extends Component {
   id = null;
 
   mainVersion = null;
+
+  isCopy = false;
 
   componentDidMount() {
     const {
@@ -78,12 +80,12 @@ class InsertForm extends Component {
       dispatch,
       fields: { title }
     } = this.props;
-    if (loadingState.SUBMITDATASET) {
-      if (loadingState.SUBMITDATASET === 'success' && (this.id || this.mainVersion)) {
+    if (loadingState.SUBMITDATASET === 'success') {
+      if (this.id || this.mainVersion) {
         dispatch(resetSubmitStatus());
         dispatch(setEditedId(this.id || this.mainVersion));
-        this.props.history.push(`/${this.mainVersion ? this.mainVersionTitle : title}`);
       }
+      this.props.history.push(`/${this.mainVersion ? this.mainVersionTitle : title}`);
     }
   }
 
@@ -167,25 +169,13 @@ class InsertForm extends Component {
       keywords,
       media_description: mediaDescription,
       data_location_status: dataLocationStatus,
-      connections
+      connections,
+      isCopy
     } = fields;
     const { annotationLevels, resourceTypes, textGenres } = preloadedSelects;
 
     if (showSplash) {
       return <Splash />;
-    }
-
-    if (loadingState.SUBMITDATASET === 'success' && !this.id) {
-      return (
-        <div id="savedmsg" className={styles.someTopMargin}>
-          <p>Tiedot tallennettu.</p>
-          <p>
-            <button type="button" onClick={() => window.location.reload()} id="addnewdataset">
-              Lisää uusi
-            </button>
-          </p>
-        </div>
-      );
     }
 
     const steps = [
@@ -270,6 +260,18 @@ class InsertForm extends Component {
 
     return (
       <form onSubmit={event => this.submit(event)}>
+        {this.mainVersion && (
+          <div className={styles.autonomousDescription}>
+            Olet lisäämässä uutta aliversiota. Muokkaa tiedot, jotka ovat alkuperäiseen versioon
+            nähden erilaisia, ja tallenna osion 5 lopussa olevalla painikkeella.
+          </div>
+        )}
+        {isCopy && (
+          <div className={styles.autonomousDescription}>
+            Olet lisäämässä uutta itsenäistä aineistoa, jonka pohjaksi on kopioitu tiedot toisesta
+            aineistosta.
+          </div>
+        )}
         <Stepper steps={steps} errors={this.checkErrors()} />
       </form>
     );
