@@ -69,6 +69,10 @@ const updateAndFilter = (keyName, value, checked, filters) => {
   };
 };
 
+const removeDatasetFromStore = id => {
+  return { type: 'REMOVE_DATASET_FROM_STORE', id };
+};
+
 const _resetOriginalValues = () => {
   const url = `${baseUrl}/datasets`;
   return fetch(url).then(res => res.json());
@@ -208,5 +212,6 @@ export {
   resetFilter,
   resetFilterAndRefresh,
   baseUrl,
-  fetchDatasetForEdit
+  fetchDatasetForEdit,
+  removeDatasetFromStore
 };

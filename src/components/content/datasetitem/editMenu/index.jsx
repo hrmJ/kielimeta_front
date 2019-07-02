@@ -4,20 +4,36 @@ import {
   faLink as linkIcon,
   faCodeBranch as versionIcon,
   faCopy as copyIcon,
-  faTrash
+  faTrash,
+  faWindowClose as cancelIcon
 } from '@fortawesome/free-solid-svg-icons';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import ReactModal from 'react-modal';
 import Tooltip from '@atlaskit/tooltip';
 
+import { deleteDataset, updateField } from '../../../../redux/actions/datasetform';
 import { fetchDatasetForEdit } from '../../../../redux/actions/datasets';
-import { updateField } from '../../../../redux/actions/datasetform';
 import BasicButton from '../../../ui/buttons/BasicButton';
+import Remove from '../../../ui/buttons/remove';
 import styles from './editmenu.scss';
 
+const modalStyle = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)'
+  }
+};
+
+ReactModal.setAppElement('#root');
+
 class EditMenu extends Component {
-  state = { open: false };
+  state = { open: false, deletePending: false };
 
   open(ev) {
     const { open } = this.state;
@@ -31,19 +47,35 @@ class EditMenu extends Component {
     editEvent(ev);
   }
 
-  initializeCopy(ev) {
-    const { id, editEvent, dispatch } = this.props;
+  initializeCopy() {
+    const { id, dispatch } = this.props;
     dispatch(fetchDatasetForEdit(id, null, true));
     this.props.history.push(`/newdataset`);
   }
 
+  toggleDeleteModal(ev, modalState) {
+    ev.stopPropagation();
+    this.setState({ deletePending: modalState });
+  }
+
   render() {
-    const { editEvent } = this.props;
-    const { open } = this.state;
+    const { editEvent, id, dispatch } = this.props;
+    const { open, deletePending } = this.state;
     return (
       <div className={styles.outerContainer}>
+        <ReactModal isOpen={deletePending} style={modalStyle}>
+          <p>Oletko aivan varma?</p>
+          <div className={styles.deleteModal}>
+            <BasicButton
+              text="Peruuta"
+              icon={cancelIcon}
+              onClick={ev => this.toggleDeleteModal(ev, false)}
+            />
+            <Remove text="Poista aineisto" onClick={() => dispatch(deleteDataset(id))} />
+          </div>
+        </ReactModal>
         <BasicButton onClick={ev => this.open(ev)} text="Hallitse" icon={adminIcon} />
-        {open && (
+        {open && !deletePending && (
           <div className={styles.menu}>
             <ul className={styles.menuList}>
               <li>
@@ -89,7 +121,7 @@ class EditMenu extends Component {
               <li>
                 <Tooltip content="Poistaa aineiston kokonaan">
                   <BasicButton
-                    onClick={editEvent}
+                    onClick={ev => this.toggleDeleteModal(ev, true)}
                     text="Poista aineisto"
                     noBackground
                     icon={faTrash}

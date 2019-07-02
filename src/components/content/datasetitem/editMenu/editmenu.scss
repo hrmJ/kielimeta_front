@@ -4,6 +4,7 @@
 
 .menu {
   position: absolute;
+  z-index: 10;
   background: white;
   margin-top: 0.2em;
   padding: 0.5em 0em 0.5em 0em;
@@ -19,5 +20,12 @@
   }
   li + li {
     margin-top: 0.4em;
+  }
+}
+
+.deleteModal {
+  display: flex;
+  > :first-child {
+    margin-right: 2em;
   }
 }

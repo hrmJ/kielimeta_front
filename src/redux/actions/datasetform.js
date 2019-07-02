@@ -1,6 +1,7 @@
-import { thunkCreator } from './utils';
 import { getCookie } from '../../utils';
 import { getVarieties, updateLanguageName } from './languageactions';
+import { listAll, removeDatasetFromStore } from './datasets';
+import { thunkCreator } from './utils';
 
 const baseUrl = '%%API_SERVER_PROTOCOL%%://%%API_SERVER_HOST%%';
 
@@ -103,11 +104,34 @@ const submitDataset = (fields, id) => {
   });
 };
 
+const deleteDatasetRaw = id => {
+  const url = `${baseUrl}/datasets/${id}`;
+  const csrf = getCookie('csrftoken');
+  return thunkCreator({
+    types: ['DELETEDATASET_REQUEST', 'DELETEDATASET_SUCCESS', 'DELETEDATASET_FAILURE'],
+    promise: fetch(url, {
+      method: 'DELETE',
+      mode: 'cors',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrf
+        // Authorization: 'Bearer ' + jwt.token,
+      }
+    }).then(response => response)
+  });
+};
+
+const deleteDataset = id => dispatch => {
+  dispatch(deleteDatasetRaw(id)).then(() => dispatch(removeDatasetFromStore(id)));
+};
+
 export {
   updateField,
   submitDataset,
   fetchLanguages,
   updateLanguage,
   resetSubmitStatus,
-  setEditedId
+  setEditedId,
+  deleteDataset
 };

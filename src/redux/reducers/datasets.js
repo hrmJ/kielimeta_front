@@ -2,6 +2,8 @@ export default function datasetReducer(state = [], action) {
   const { type, ...rest } = action;
 
   switch (type) {
+    case 'REMOVE_DATASET_FROM_STORE':
+      return [...state.filter(ds => ds.id !== rest.id)];
     case 'FILTER_DATASETS_REQUEST':
       break;
     case 'FILTER_DATASETS_SUCCESS':
