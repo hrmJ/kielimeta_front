@@ -60,6 +60,7 @@ export default class Filter extends Component {
     return (
       <div className={styles.container} id={id}>
         <button
+          type="button"
           className={styles.filterButton}
           onClick={() => this.setState({ menuOpen: !menuOpen })}
         >

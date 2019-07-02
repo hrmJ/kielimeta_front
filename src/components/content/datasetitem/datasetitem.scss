@@ -20,6 +20,7 @@ h6 {
   background: white;
   box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.05), 0 0 2px rgba(0, 0, 0, 0.12),
     0 2px 4px rgba(0, 0, 0, 0.2);
+  width: 100%;
 }
 
 .titleLine {
@@ -47,7 +48,15 @@ h6 {
   box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12),
     0 5px 5px -3px rgba(0, 0, 0, 0.2);
   transition: margin 75ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 75ms cubic-bezier(0.4, 0, 0.2, 1);
+  max-width: 90vw;
+  @media screen and (min-width: 900px) {
+    min-width: 100%;
+  }
+
   @include itemBody();
+  .titleLine {
+    margin-bottom: 2em;
+  }
 
   .title {
     font-weight: bold;
@@ -90,6 +99,7 @@ h6 {
 }
 
 .kwList {
+  margin-top: 1em;
   padding: 0px;
   li {
     font-size: 0.8em;

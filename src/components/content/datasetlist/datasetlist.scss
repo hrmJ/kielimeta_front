@@ -19,8 +19,10 @@
 .searchBarContainer {
   margin: 1em 0em 3em 0em;
   @include center_container();
-  input[type='text'] {
-    width: 95%;
+  @media screen and (min-width: 900px) {
+    input[type='text'] {
+      width: 95%;
+    }
   }
 }
 
@@ -49,4 +51,6 @@
 
 .datasetItem {
   flex: 0 1 100%;
+  display: flex;
+  justify-content: center;
 }
