@@ -46,12 +46,12 @@ const AsyncSelectCreatable = props => {
 };
 
 const Select = props => {
-  const { isMulti, isSearchable, ...otherProps } = props;
+  const { isMulti, isSearchable, placeholder, ...otherProps } = props;
 
   return (
     <OriginalSelect
       {...otherProps}
-      placeholder={formatPlaceholder(isSearchable, isMulti)}
+      placeholder={placeholder || formatPlaceholder(isSearchable, isMulti)}
       isMulti={isMulti}
       isSearchable={isSearchable}
     />
@@ -72,12 +72,14 @@ AsyncSelectCreatable.defaultProps = {
 
 Select.propTypes = {
   isMulti: PropTypes.bool,
-  isSearchable: PropTypes.bool
+  isSearchable: PropTypes.bool,
+  placeholder: PropTypes.string
 };
 
 Select.defaultProps = {
   isMulti: false,
-  isSearchable: true
+  isSearchable: true,
+  placeholder: undefined
 };
 
 CreatableSelect.propTypes = {

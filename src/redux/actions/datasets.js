@@ -94,6 +94,41 @@ const filterByQuery = filters => {
   };
 };
 
+/**
+ * parseDataset
+ *
+ * Parses the data  from the API in order to make the data
+ * easy to represent on insert forms and when viewing details
+ *
+ * @param datasetRaw - the response that has been parsed from json
+ * @returns {undefined}
+ */
+const parseDataset = datasetRaw => {
+  const dataset = Object.assign({}, datasetRaw);
+  const { authors, owner, connections, languages, license } = dataset;
+  if (authors) {
+    dataset.authors = JSON.parse(authors);
+  }
+  if (owner) {
+    dataset.owner = owner.join(',');
+  }
+  if (connections) {
+    const langIds = languages.map(lang => lang.id);
+    const editedConnections = connections.map(con => ({
+      sl: langIds.indexOf(con.source_language),
+      tl: con.target_language.map(tl => langIds.indexOf(tl))
+    }));
+    dataset.connections = editedConnections;
+  }
+  if (license) {
+    if (!licenseOptions.map(o => o.val).includes(license)) {
+      dataset.license = 'undefined';
+      dataset.license_info = license;
+    }
+  }
+  return dataset;
+};
+
 const fetchDatasetForEditRaw = id => {
   const url = `${baseUrl}/datasets/${id}`;
   return thunkCreator({
@@ -104,31 +139,7 @@ const fetchDatasetForEditRaw = id => {
     ],
     promise: fetch(url, { mode: 'cors' })
       .then(response => response.json())
-      .then(datasetRaw => {
-        const dataset = Object.assign({}, datasetRaw);
-        const { authors, owner, connections, languages, license } = dataset;
-        if (authors) {
-          dataset.authors = JSON.parse(authors);
-        }
-        if (owner) {
-          dataset.owner = owner.join(',');
-        }
-        if (connections) {
-          const langIds = languages.map(lang => lang.id);
-          const editedConnections = connections.map(con => ({
-            sl: langIds.indexOf(con.source_language),
-            tl: con.target_language.map(tl => langIds.indexOf(tl))
-          }));
-          dataset.connections = editedConnections;
-        }
-        if (license) {
-          if (!licenseOptions.map(o => o.val).includes(license)) {
-            dataset.license = 'undefined';
-            dataset.license_info = license;
-          }
-        }
-        return dataset;
-      })
+      .then(parseDataset)
   });
 };
 
@@ -168,7 +179,7 @@ const fetchDatasetForEdit = (id, mainVersion, isCopy) => dispatch => {
   });
 };
 
-const _listAll = () => {
+const listAllRaw = () => {
   const url = `${baseUrl}/datasets`;
   return thunkCreator({
     types: ['LIST_DATASETS_REQUEST', 'LIST_DATASETS_SUCCESS', 'LIST_DATASETS_ERROR'],
@@ -176,17 +187,17 @@ const _listAll = () => {
   });
 };
 
-const listAll = () => dispatch =>
-  _listAll()(dispatch).then(res =>
-    dispatch(setOriginalFilterValues(getOriginalValuesForFilters(res)))
-  );
-
 const setOriginalFilterValues = vals => {
   return {
     type: 'SET_ORIGINAL_FILTER_VALUES',
     vals
   };
 };
+
+const listAll = () => dispatch =>
+  listAllRaw()(dispatch).then(res =>
+    dispatch(setOriginalFilterValues(getOriginalValuesForFilters(res)))
+  );
 
 const resetFilter = key => {
   return {
