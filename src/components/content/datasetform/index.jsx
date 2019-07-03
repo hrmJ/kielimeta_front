@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { fetchDatasetForEdit } from '../../../redux/actions/datasets';
 import { prepopulateFormSelects } from '../../../redux/actions/formSelectPrepopulation';
 import {
+  resetFormData,
   resetSubmitStatus,
   setEditedId,
   submitDataset,
@@ -70,7 +71,11 @@ class InsertForm extends Component {
           this.mainVersion = mainVersion;
           this.mainVersionTitle = datasets.find(ds => ds.id === mainVersion).title;
         }
+      } else {
+        dispatch(resetFormData());
       }
+    } else {
+      dispatch(resetFormData());
     }
   }
 

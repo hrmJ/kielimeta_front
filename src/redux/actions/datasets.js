@@ -143,27 +143,30 @@ const fetchDatasetForEditRaw = id => {
   });
 };
 
+const updateLanguageNames = (dispatch, datasetRaw) => {
+  const { languages = [] } = datasetRaw;
+  const usedLanguages = [];
+  languages.forEach(lang => {
+    const {
+      details: { language_name: name, language_code: code },
+      speaker: { speaker_l1: speakerL1 = [] }
+    } = lang;
+    usedLanguages.push(code);
+    dispatch(getVarieties(code));
+    dispatch(updateLanguageName(code, name));
+    speakerL1.forEach(sublang => {
+      const { language_code: subcode, language_name: subname } = sublang;
+      if (!usedLanguages.includes(subcode)) {
+        usedLanguages.push(subcode);
+        dispatch(updateLanguageName(subcode, subname));
+      }
+    });
+  });
+};
+
 const fetchDatasetForEdit = (id, mainVersion, isCopy) => dispatch => {
   fetchDatasetForEditRaw(id)(dispatch).then(datasetRaw => {
-    const dataset = Object.assign({}, datasetRaw);
-    const { languages = [] } = dataset;
-    const usedLanguages = [];
-    languages.forEach(lang => {
-      const {
-        details: { language_name: name, language_code: code },
-        speaker: { speaker_l1: speakerL1 = [] }
-      } = lang;
-      usedLanguages.push(code);
-      dispatch(getVarieties(code));
-      dispatch(updateLanguageName(code, name));
-      speakerL1.forEach(sublang => {
-        const { language_code: subcode, language_name: subname } = sublang;
-        if (!usedLanguages.includes(subcode)) {
-          usedLanguages.push(subcode);
-          dispatch(updateLanguageName(subcode, subname));
-        }
-      });
-    });
+    updateLanguageNames(dispatch, datasetRaw);
     if (mainVersion) {
       dispatch(updateField('main_version_id', mainVersion));
     } else {
@@ -175,7 +178,7 @@ const fetchDatasetForEdit = (id, mainVersion, isCopy) => dispatch => {
     if (isCopy) {
       dispatch(updateField('isCopy', true));
     }
-    return dataset;
+    return { ...datasetRaw };
   });
 };
 

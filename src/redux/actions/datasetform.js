@@ -126,6 +126,10 @@ const deleteDataset = id => dispatch => {
   dispatch(deleteDatasetRaw(id)).then(() => dispatch(removeDatasetFromStore(id)));
 };
 
+const resetFormData = () => {
+  return { type: 'RESET_FORM_DATA' };
+};
+
 export {
   updateField,
   submitDataset,
@@ -133,5 +137,6 @@ export {
   updateLanguage,
   resetSubmitStatus,
   setEditedId,
-  deleteDataset
+  deleteDataset,
+  resetFormData
 };

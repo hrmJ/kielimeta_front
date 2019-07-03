@@ -7,6 +7,9 @@ const defaultPayload = {
 
 export default (state = defaultPayload, action) => {
   const { type, ...rest } = action;
+  if (type === 'RESET_FORM_DATA') {
+    return { ...defaultPayload };
+  }
 
   if (type === 'DATASET_DETAILS_EDIT_SUCCESS') {
     return rest.result;
