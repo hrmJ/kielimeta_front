@@ -1,97 +1,34 @@
 import { getVarieties, updateLanguageName } from './languageactions';
-import { licenseOptions } from '../../components/content/datasetform/fieldsets/administration/license';
-import { thunkCreator, getOriginalValuesForFilters } from './utils';
+import licenseOptions from '../../components/content/datasetform/fieldsets/administration/license/licenceOptions';
+import { setOriginalFilterValues } from './filters';
+import { thunkCreator, getOriginalValuesForFilters, baseUrl } from './utils';
 import { updateField } from './datasetform';
-import filterReducer from '../reducers/datasetfilter';
-
-let baseUrl = '%%API_SERVER_PROTOCOL%%://%%API_SERVER_HOST%%';
-if (window.location.href.includes('istest')) {
-  baseUrl = 'http://%%API_SERVER_HOST_TEST%%';
-}
-
-/**
- *
- * A way to mock the url for jest tests
- *
- * @param {string} url the url to be set
- */
-const setBaseUrl = url => {
-  baseUrl = url;
-};
-
-const updateFilter = (key, val, checked) => {
-  return {
-    type: 'UPDATE_FILTER',
-    val,
-    checked,
-    key
-  };
-};
-
-const formQueryFromFilters = (filters, encode = true) => {
-  let filterstrings = '?';
-  if (filters) {
-    filterstrings += Object.keys(filters)
-      .map(key => {
-        let thisfilter = `&${key}=`;
-        if (Array.isArray(filters[key])) {
-          if (encode) {
-            thisfilter += filters[key].map(val => encodeURIComponent(val)).join(`&${key}=`);
-          } else {
-            thisfilter += filters[key].join(`&${key}=`);
-          }
-        } else {
-          thisfilter += filters[key];
-        }
-        return thisfilter;
-      })
-      .join('&');
-  }
-
-  filterstrings = filterstrings.replace('?&', '?').replace('&&', '&');
-
-  return filterstrings;
-};
-
-const filterDatasets = (filters = {}) => {
-  const url = `${baseUrl}/datasets${formQueryFromFilters(filters)}`;
-  return thunkCreator({
-    types: ['FILTER_DATASETS_REQUEST', 'FILTER_DATASETS_SUCCESS', 'FILTER_DATASETS_ERROR'],
-    promise: fetch(url, { mode: 'cors' }).then(response => response.json())
-  });
-};
-
-const updateAndFilter = (keyName, value, checked, filters) => {
-  return dispatch => {
-    const updatedFilters = filterReducer(filters, updateFilter(keyName, value, checked));
-    dispatch(updateFilter(keyName, value, checked));
-    dispatch(filterDatasets(updatedFilters));
-  };
-};
+import { getCookie } from '../../utils';
 
 const removeDatasetFromStore = id => {
   return { type: 'REMOVE_DATASET_FROM_STORE', id };
 };
 
-const _resetOriginalValues = () => {
-  const url = `${baseUrl}/datasets`;
-  return fetch(url).then(res => res.json());
+const deleteDatasetRaw = id => {
+  const url = `${baseUrl}/datasets/${id}`;
+  const csrf = getCookie('csrftoken');
+  return thunkCreator({
+    types: ['DELETEDATASET_REQUEST', 'DELETEDATASET_SUCCESS', 'DELETEDATASET_FAILURE'],
+    promise: fetch(url, {
+      method: 'DELETE',
+      mode: 'cors',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrf
+        // Authorization: 'Bearer ' + jwt.token,
+      }
+    }).then(response => response)
+  });
 };
 
-const filterByQuery = filters => {
-  // CHECK if filters.query = '' and..
-  return dispatch => {
-    dispatch(filterDatasets(filters)).then(res => {
-      dispatch(updateFilter('query', filters.query));
-      if (filters.query === '') {
-        _resetOriginalValues().then(res =>
-          dispatch(setOriginalFilterValues(getOriginalValuesForFilters(res)))
-        );
-      } else {
-        dispatch(setOriginalFilterValues(getOriginalValuesForFilters(res)));
-      }
-    });
-  };
+const deleteDataset = id => dispatch => {
+  dispatch(deleteDatasetRaw(id)).then(() => dispatch(removeDatasetFromStore(id)));
 };
 
 /**
@@ -129,20 +66,6 @@ const parseDataset = datasetRaw => {
   return dataset;
 };
 
-const fetchDatasetForEditRaw = id => {
-  const url = `${baseUrl}/datasets/${id}`;
-  return thunkCreator({
-    types: [
-      'DATASET_DETAILS_EDIT_REQUEST',
-      'DATASET_DETAILS_EDIT_SUCCESS',
-      'DATASET_DETAILS_EDIT_ERROR'
-    ],
-    promise: fetch(url, { mode: 'cors' })
-      .then(response => response.json())
-      .then(parseDataset)
-  });
-};
-
 const updateLanguageNames = (dispatch, datasetRaw) => {
   const { languages = [] } = datasetRaw;
   const usedLanguages = [];
@@ -161,6 +84,20 @@ const updateLanguageNames = (dispatch, datasetRaw) => {
         dispatch(updateLanguageName(subcode, subname));
       }
     });
+  });
+};
+
+const fetchDatasetForEditRaw = id => {
+  const url = `${baseUrl}/datasets/${id}`;
+  return thunkCreator({
+    types: [
+      'DATASET_DETAILS_EDIT_REQUEST',
+      'DATASET_DETAILS_EDIT_SUCCESS',
+      'DATASET_DETAILS_EDIT_ERROR'
+    ],
+    promise: fetch(url, { mode: 'cors' })
+      .then(response => response.json())
+      .then(parseDataset)
   });
 };
 
@@ -190,44 +127,9 @@ const listAllRaw = () => {
   });
 };
 
-const setOriginalFilterValues = vals => {
-  return {
-    type: 'SET_ORIGINAL_FILTER_VALUES',
-    vals
-  };
-};
-
 const listAll = () => dispatch =>
   listAllRaw()(dispatch).then(res =>
     dispatch(setOriginalFilterValues(getOriginalValuesForFilters(res)))
   );
 
-const resetFilter = key => {
-  return {
-    type: 'RESET_FILTER',
-    key
-  };
-};
-
-const resetFilterAndRefresh = (keyName, filters) => {
-  return dispatch => {
-    const updatedFilters = filterReducer(filters, resetFilter(keyName));
-    dispatch(resetFilter(keyName));
-    dispatch(filterDatasets(updatedFilters));
-  };
-};
-
-export {
-  listAll,
-  filterByQuery,
-  setBaseUrl,
-  updateFilter,
-  formQueryFromFilters,
-  filterDatasets,
-  updateAndFilter,
-  resetFilter,
-  resetFilterAndRefresh,
-  baseUrl,
-  fetchDatasetForEdit,
-  removeDatasetFromStore
-};
+export { listAll, fetchDatasetForEdit, removeDatasetFromStore, deleteDataset };

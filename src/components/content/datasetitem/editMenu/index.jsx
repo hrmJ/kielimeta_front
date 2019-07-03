@@ -1,7 +1,6 @@
 import {
   faCaretDown as adminIcon,
   faPencilAlt as editIcon,
-  faLink as linkIcon,
   faCodeBranch as versionIcon,
   faCopy as copyIcon,
   faTrash,
@@ -13,8 +12,8 @@ import React, { Component } from 'react';
 import ReactModal from 'react-modal';
 import Tooltip from '@atlaskit/tooltip';
 
-import { deleteDataset, updateField } from '../../../../redux/actions/datasetform';
-import { fetchDatasetForEdit } from '../../../../redux/actions/datasets';
+import { updateField } from '../../../../redux/actions/datasetform';
+import { fetchDatasetForEdit, deleteDataset } from '../../../../redux/actions/datasets';
 import BasicButton from '../../../ui/buttons/BasicButton';
 import Remove from '../../../ui/buttons/remove';
 import styles from './editmenu.scss';
@@ -42,21 +41,21 @@ class EditMenu extends Component {
   }
 
   initializeEdit() {
-    const { id, dispatch } = this.props;
+    const { id, dispatch, history } = this.props;
     dispatch(updateField('main_version_id', null));
-    this.props.history.push(`/edit/${id}`);
+    history.push(`/edit/${id}`);
   }
 
-  initializeSubversion(ev) {
-    const { id, dispatch } = this.props;
+  initializeSubversion() {
+    const { id, dispatch, history } = this.props;
     dispatch(updateField('main_version_id', id));
-    this.props.history.push(`/edit/${id}`);
+    history.push(`/edit/${id}`);
   }
 
   initializeCopy() {
-    const { id, dispatch } = this.props;
+    const { id, dispatch, history } = this.props;
     dispatch(fetchDatasetForEdit(id, null, true));
-    this.props.history.push(`/newdataset`);
+    history.push(`/newdataset`);
   }
 
   toggleDeleteModal(ev, modalState) {
@@ -65,7 +64,7 @@ class EditMenu extends Component {
   }
 
   render() {
-    const { editEvent, id, dispatch } = this.props;
+    const { id, dispatch } = this.props;
     const { open, deletePending } = this.state;
     return (
       <div className={styles.outerContainer}>
@@ -102,7 +101,7 @@ class EditMenu extends Component {
                   alisteisia nykyiselle versiolle.`}
                 >
                   <BasicButton
-                    onClick={ev => this.initializeSubversion(ev)}
+                    onClick={() => this.initializeSubversion()}
                     text="Kopioi aliversioksi"
                     noBackground
                     icon={versionIcon}
@@ -144,7 +143,8 @@ class EditMenu extends Component {
 
 EditMenu.propTypes = {
   id: PropTypes.number.isRequired,
-  dispatch: PropTypes.func.isRequired
+  dispatch: PropTypes.func.isRequired,
+  history: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
 export default withRouter(EditMenu);

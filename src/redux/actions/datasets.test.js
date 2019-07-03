@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import { formQueryFromFilters } from './datasets';
+import { formQueryFromFilters } from './filters';
 
 describe('formQueryFromFilters', () => {
   it('Should return a string', () => {

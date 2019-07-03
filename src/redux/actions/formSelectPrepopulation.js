@@ -1,5 +1,4 @@
-import { thunkCreator } from './utils';
-import { baseUrl } from './datasets';
+import { thunkCreator, baseUrl } from './utils';
 
 class PrepopulationAction {
   constructor(path, valueName) {

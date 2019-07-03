@@ -2,8 +2,9 @@ import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
-import { filterByQuery, listAll } from '../../../redux/actions/datasets';
 import { addToGroup, listGroups } from '../../../redux/actions/groups';
+import { filterByQuery } from '../../../redux/actions/filters';
+import { listAll } from '../../../redux/actions/datasets';
 import ClusterTool from '../ClusterTool';
 import DatasetItem from '../datasetitem';
 import DelayedSearchField from '../../ui/DelayedSearchField';

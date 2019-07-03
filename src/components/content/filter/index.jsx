@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import styles from './filter.scss';
-import { updateAndFilter, resetFilterAndRefresh } from '../../../redux/actions/datasets';
-import { filter } from 'rsvp';
-import cuid from 'cuid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { updateAndFilter, resetFilterAndRefresh } from '../../../redux/actions/filters';
+import styles from './filter.scss';
 
 export default class Filter extends Component {
   state = {

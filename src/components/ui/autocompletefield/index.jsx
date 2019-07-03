@@ -4,7 +4,7 @@ import Tooltip from '@atlaskit/tooltip';
 
 import FieldInfo from '../fieldInfo';
 import { AsyncSelectCreatable } from '../../ui/localizedSelect';
-import { baseUrl } from '../../../redux/actions/datasets';
+import { baseUrl } from '../../../redux/actions/utils';
 import { selectStyle } from '../../../general_styles/jsStyles';
 import formstyles from '../../content/datasetform/datasetform.scss';
 import styles from './autocompletefield.scss';

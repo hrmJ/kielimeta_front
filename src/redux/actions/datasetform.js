@@ -1,11 +1,8 @@
 import { getCookie } from '../../utils';
 import { getVarieties, updateLanguageName } from './languageactions';
-import { listAll, removeDatasetFromStore } from './datasets';
-import { thunkCreator } from './utils';
+import { thunkCreator, baseUrl } from './utils';
 
-const baseUrl = '%%API_SERVER_PROTOCOL%%://%%API_SERVER_HOST%%';
-
-const _updateField = (name, val) => ({
+const updateFieldRaw = (name, val) => ({
   type: 'UPDATE_DATASETFORM_FIELD',
   name,
   val
@@ -15,20 +12,20 @@ const updateField = (name, val, language) => dispatch => {
   if (name === 'access_information') {
     // If giving an 'other' as a way of accessing, clear the 'location'
     // field since they are mutually exclusive
-    const { placeOfPublication, access_information } = val;
-    dispatch(_updateField('place_of_publication', { ...placeOfPublication, location: '' }));
-    dispatch(_updateField('access_information', access_information));
+    const { placeOfPublication, access_information: accessInformation } = val;
+    dispatch(updateFieldRaw('place_of_publication', { ...placeOfPublication, location: '' }));
+    dispatch(updateFieldRaw('access_information', accessInformation));
   } else if (name === 'place_of_publication_location') {
     // If giving a url as a place_of_publication, clear the 'access_information
     // field since they are mutually exclusive
-    dispatch(_updateField('access_information', ''));
-    dispatch(_updateField('place_of_publication', val));
+    dispatch(updateFieldRaw('access_information', ''));
+    dispatch(updateFieldRaw('place_of_publication', val));
   } else if (language) {
     dispatch(getVarieties(language.value))
       .then(() => dispatch(updateLanguageName(language.value, language.label)))
-      .then(() => dispatch(_updateField(name, val)));
+      .then(() => dispatch(updateFieldRaw(name, val)));
   } else {
-    dispatch(_updateField(name, val));
+    dispatch(updateFieldRaw(name, val));
   }
 };
 
@@ -40,7 +37,7 @@ const updateLanguage = (language, idx) => ({
   idx
 });
 
-const resetSubmitStatus = (language, idx) => ({
+const resetSubmitStatus = () => ({
   type: 'SUBMITDATASET_RESET'
 });
 
@@ -104,28 +101,6 @@ const submitDataset = (fields, id) => {
   });
 };
 
-const deleteDatasetRaw = id => {
-  const url = `${baseUrl}/datasets/${id}`;
-  const csrf = getCookie('csrftoken');
-  return thunkCreator({
-    types: ['DELETEDATASET_REQUEST', 'DELETEDATASET_SUCCESS', 'DELETEDATASET_FAILURE'],
-    promise: fetch(url, {
-      method: 'DELETE',
-      mode: 'cors',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        'X-CSRFToken': csrf
-        // Authorization: 'Bearer ' + jwt.token,
-      }
-    }).then(response => response)
-  });
-};
-
-const deleteDataset = id => dispatch => {
-  dispatch(deleteDatasetRaw(id)).then(() => dispatch(removeDatasetFromStore(id)));
-};
-
 const resetFormData = () => {
   return { type: 'RESET_FORM_DATA' };
 };
@@ -137,6 +112,5 @@ export {
   updateLanguage,
   resetSubmitStatus,
   setEditedId,
-  deleteDataset,
   resetFormData
 };
