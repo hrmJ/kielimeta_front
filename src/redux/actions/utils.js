@@ -19,6 +19,9 @@ const thunkCreator = action => {
   const [REQUESTED, RESOLVED, REJECTED] = types;
 
   return dispatch => {
+    if (REQUESTED === 'DATASET_DETAILS_EDIT_REQUEST') {
+      console.log('okaiiii');
+    }
     dispatch({ ...rest, type: REQUESTED });
 
     return promise

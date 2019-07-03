@@ -87,17 +87,29 @@ const updateLanguageNames = (dispatch, datasetRaw) => {
   });
 };
 
-const fetchDatasetForEditRaw = id => {
+/**
+ * fetchDataset
+ *
+ * Fetches a single dataset from the api
+ *
+ * @param id - the id of the dataset
+ * @returns {object} the dataset in question as a js object
+ */
+const fetchDataset = id => {
   const url = `${baseUrl}/datasets/${id}`;
+  return fetch(url, { mode: 'cors' })
+    .then(response => response.json())
+    .then(parseDataset);
+};
+
+const fetchDatasetForEditRaw = id => {
   return thunkCreator({
     types: [
       'DATASET_DETAILS_EDIT_REQUEST',
       'DATASET_DETAILS_EDIT_SUCCESS',
       'DATASET_DETAILS_EDIT_ERROR'
     ],
-    promise: fetch(url, { mode: 'cors' })
-      .then(response => response.json())
-      .then(parseDataset)
+    promise: fetchDataset(id)
   });
 };
 
@@ -132,4 +144,13 @@ const listAll = () => dispatch =>
     dispatch(setOriginalFilterValues(getOriginalValuesForFilters(res)))
   );
 
-export { listAll, fetchDatasetForEdit, removeDatasetFromStore, deleteDataset };
+const setVersions = versions => ({ type: 'SET_VERSIONS', versions });
+
+const fetchSubVersions = subversionIds => dispatch => {
+  const promises = subversionIds.map(fetchDataset);
+  Promise.all(promises).then(datasets =>
+    dispatch(setVersions(datasets.reduce((acc, cur) => ({ ...acc, [cur.id]: { ...cur } }), {})))
+  );
+};
+
+export { listAll, fetchDatasetForEdit, removeDatasetFromStore, deleteDataset, fetchSubVersions };

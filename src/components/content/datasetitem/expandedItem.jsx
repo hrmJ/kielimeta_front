@@ -1,18 +1,20 @@
+import 'react-tabs/style/react-tabs.css';
+
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { uid } from 'react-uid';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import { Select } from '../../ui/localizedSelect';
 
+import { Select } from '../../ui/localizedSelect';
+import { fetchSubVersions } from '../../../redux/actions/datasets';
 import LanguageDetails from './languageDetails';
 import styles from './datasetitem.scss';
-import 'react-tabs/style/react-tabs.css';
 
 class expandedItem extends Component {
   componentDidMount() {
     const { subversion, dispatch } = this.props;
     if (subversion.length > 0) {
-      dispatch(() => null);
+      dispatch(fetchSubVersions(subversion));
     }
   }
 
