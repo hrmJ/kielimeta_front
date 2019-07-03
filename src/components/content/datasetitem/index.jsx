@@ -19,7 +19,8 @@ class datasetItem extends Component {
       wasEdited,
       id,
       dispatch,
-      currentVersionId
+      currentVersionId,
+      subversion
     } = this.props;
     const { lifted } = this.state;
     const isLifted = lifted === 'up' || (lifted === 'initial' && liftedByDefault);
@@ -44,7 +45,12 @@ class datasetItem extends Component {
 
           <div>
             {isLifted && (
-              <EditMenu currentVersionId={currentVersionId} id={id} dispatch={dispatch} />
+              <EditMenu
+                hasSubVersions={subversion.length > 0}
+                currentVersionId={currentVersionId}
+                id={id}
+                dispatch={dispatch}
+              />
             )}
           </div>
         </div>
@@ -61,14 +67,16 @@ datasetItem.propTypes = {
   currentVersionId: PropTypes.number,
   liftedByDefault: PropTypes.bool,
   wasEdited: PropTypes.bool,
-  dispatch: PropTypes.func.isRequired
+  dispatch: PropTypes.func.isRequired,
+  subversion: PropTypes.arrayOf(PropTypes.object)
 };
 
 datasetItem.defaultProps = {
   languages: [],
   liftedByDefault: false,
   wasEdited: false,
-  currentVersionId: null
+  currentVersionId: null,
+  subversion: []
 };
 
 export default datasetItem;

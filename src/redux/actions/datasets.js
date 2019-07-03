@@ -27,10 +27,6 @@ const deleteDatasetRaw = id => {
   });
 };
 
-const deleteDataset = id => dispatch => {
-  dispatch(deleteDatasetRaw(id)).then(() => dispatch(removeDatasetFromStore(id)));
-};
-
 /**
  * parseDataset
  *
@@ -145,11 +141,19 @@ const listAll = () => dispatch =>
     dispatch(setOriginalFilterValues(getOriginalValuesForFilters(res)))
   );
 
+const setActiveVersion = (mainId, activeId) => ({ type: 'SET_ACTIVE_VERSION', mainId, activeId });
+
+const deleteDataset = (id, mainId) => dispatch => {
+  if (mainId) {
+    // if deleting a subversion, unset the active version
+    dispatch(setActiveVersion(mainId, mainId));
+  }
+  dispatch(deleteDatasetRaw(id)).then(() => dispatch(listAll(id)));
+};
+
 const setVersions = (mainId, versions, activeId) => {
   return { type: 'SET_VERSIONS', mainId, versions, activeId };
 };
-
-const setActiveVersion = (mainId, activeId) => ({ type: 'SET_ACTIVE_VERSION', mainId, activeId });
 
 const fetchSubVersions = (mainId, subversionIds, activeId) => dispatch => {
   const promises = [mainId, ...subversionIds].map(fetchDataset);

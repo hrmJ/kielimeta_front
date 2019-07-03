@@ -69,19 +69,31 @@ class EditMenu extends Component {
   }
 
   render() {
-    const { id, dispatch } = this.props;
+    const { id, dispatch, currentVersionId, hasSubVersions } = this.props;
     const { open, deletePending } = this.state;
     return (
       <div className={styles.outerContainer}>
         <ReactModal isOpen={deletePending} style={modalStyle}>
           <p>Oletko aivan varma?</p>
+          {currentVersionId && currentVersionId * 1 !== id * 1 && (
+            <p>
+              Huom! Olet poistamassa vain valittua aliversiota. <br />
+              Jos haluat poistaa koko aineiston, valitse ensin versiolistasta pääversio.
+            </p>
+          )}
+          {(!currentVersionId || currentVersionId * 1 === id * 1) && hasSubVersions && (
+            <p>Huom! Tämän version poistaminen poistaa myös kaikki aliversiot</p>
+          )}
           <div className={styles.deleteModal}>
             <BasicButton
               text="Peruuta"
               icon={cancelIcon}
               onClick={ev => this.toggleDeleteModal(ev, false)}
             />
-            <Remove text="Poista aineisto" onClick={() => dispatch(deleteDataset(id))} />
+            <Remove
+              text="Poista aineisto"
+              onClick={() => dispatch(deleteDataset(currentVersionId || id, id))}
+            />
           </div>
         </ReactModal>
         <BasicButton onClick={ev => this.open(ev)} text="Hallitse" icon={adminIcon} />
@@ -150,10 +162,12 @@ EditMenu.propTypes = {
   id: PropTypes.number.isRequired,
   dispatch: PropTypes.func.isRequired,
   history: PropTypes.arrayOf(PropTypes.object).isRequired,
-  currentVersionId: PropTypes.number
+  currentVersionId: PropTypes.number,
+  hasSubVersions: PropTypes.bool
 };
 EditMenu.defaultProps = {
-  currentVersionId: null
+  currentVersionId: null,
+  hasSubVersions: false
 };
 
 export default withRouter(EditMenu);
