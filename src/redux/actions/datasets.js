@@ -114,7 +114,6 @@ const fetchDatasetForEditRaw = id => {
 };
 
 const fetchDatasetForEdit = (id, mainVersion, isCopy) => dispatch => {
-  console.log(`ID: ${id} mainVersion: ${mainVersion} isCopy: ${isCopy}`);
   fetchDatasetForEditRaw(id)(dispatch).then(datasetRaw => {
     updateLanguageNames(dispatch, datasetRaw);
     if (mainVersion) {
@@ -146,17 +145,21 @@ const listAll = () => dispatch =>
     dispatch(setOriginalFilterValues(getOriginalValuesForFilters(res)))
   );
 
-const setVersions = (mainId, versions) => {
-  return { type: 'SET_VERSIONS', mainId, versions };
+const setVersions = (mainId, versions, activeId) => {
+  return { type: 'SET_VERSIONS', mainId, versions, activeId };
 };
 
 const setActiveVersion = (mainId, activeId) => ({ type: 'SET_ACTIVE_VERSION', mainId, activeId });
 
-const fetchSubVersions = (mainId, subversionIds) => dispatch => {
+const fetchSubVersions = (mainId, subversionIds, activeId) => dispatch => {
   const promises = [mainId, ...subversionIds].map(fetchDataset);
   Promise.all(promises).then(datasets =>
     dispatch(
-      setVersions(mainId, datasets.reduce((acc, cur) => ({ ...acc, [cur.id]: { ...cur } }), {}))
+      setVersions(
+        mainId,
+        datasets.reduce((acc, cur) => ({ ...acc, [cur.id]: { ...cur } }), {}),
+        activeId
+      )
     )
   );
 };

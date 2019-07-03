@@ -103,7 +103,11 @@ class InsertForm extends Component {
       if (this.mainVersion) {
         fetchDataset(this.mainVersion).then(updatedData => {
           return dispatch(
-            fetchSubVersions(this.mainVersion, [this.mainVersion, ...updatedData.subversion])
+            fetchSubVersions(
+              this.mainVersion,
+              [this.mainVersion, ...updatedData.subversion],
+              this.id
+            )
           );
         });
       }
@@ -281,10 +285,15 @@ class InsertForm extends Component {
 
     return (
       <form onSubmit={event => this.submit(event)}>
-        {this.mainVersion && (
+        {this.mainVersion && this.id * 1 === this.mainVersion * 1 && (
           <div className={styles.autonomousDescription}>
             Olet lisäämässä uutta aliversiota. Muokkaa tiedot, jotka ovat alkuperäiseen versioon
             nähden erilaisia, ja tallenna osion 5 lopussa olevalla painikkeella.
+          </div>
+        )}
+        {this.mainVersion && this.id && this.id * 1 !== this.mainVersion * 1 && (
+          <div className={styles.autonomousDescription}>
+            Huom! Olet muokkaamassa varsinaisen aineiston aliversiota.
           </div>
         )}
         {isCopy && (

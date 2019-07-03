@@ -4,7 +4,7 @@ export default (state = { activated: {}, all: {} }, action) => {
   switch (type) {
     case 'SET_VERSIONS':
       return {
-        activated: { ...activated, [rest.mainId]: rest.mainId },
+        activated: { ...activated, [rest.mainId]: rest.activeId || rest.mainId },
         all: { ...all, [rest.mainId]: { ...rest.versions } }
       };
     case 'SET_ACTIVE_VERSION':
