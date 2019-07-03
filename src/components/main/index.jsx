@@ -33,7 +33,8 @@ class main extends Component {
       datasets,
       editedId,
       groupedDatasets,
-      groupNames
+      groupNames,
+      datasetVersions
     } = this.props;
     const { clusterToolVisible } = this.state;
     const { datasetList, datasetDetails } = loadStatus;
@@ -100,6 +101,7 @@ class main extends Component {
                       showSplash={showSplash}
                       loadingState={loadingState}
                       editedId={editedId}
+                      datasetVersions={datasetVersions}
                     />
                   )}
                 />
@@ -131,7 +133,8 @@ main.propTypes = {
       PropTypes.shape({ id: PropTypes.number, title: PropTypes.string, role: PropTypes.string })
     ),
     name: PropTypes.string
-  })
+  }),
+  datasetVersions: PropTypes.shape({ activated: PropTypes.object, all: PropTypes.object })
 };
 
 main.defaultProps = {
@@ -144,7 +147,8 @@ main.defaultProps = {
   datasets: [],
   editedId: null,
   groupedDatasets: {},
-  groupNames: []
+  groupNames: [],
+  datasetVersions: { activated: {}, all: {} }
 };
 
 export default main;

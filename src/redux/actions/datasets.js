@@ -144,13 +144,24 @@ const listAll = () => dispatch =>
     dispatch(setOriginalFilterValues(getOriginalValuesForFilters(res)))
   );
 
-const setVersions = versions => ({ type: 'SET_VERSIONS', versions });
+const setVersions = (mainId, versions) => ({ type: 'SET_VERSIONS', mainId, versions });
 
-const fetchSubVersions = subversionIds => dispatch => {
-  const promises = subversionIds.map(fetchDataset);
+const setActiveVersion = (mainId, activeId) => ({ type: 'SET_ACTIVE_VERSION', mainId, activeId });
+
+const fetchSubVersions = (mainId, subversionIds) => dispatch => {
+  const promises = [mainId, ...subversionIds].map(fetchDataset);
   Promise.all(promises).then(datasets =>
-    dispatch(setVersions(datasets.reduce((acc, cur) => ({ ...acc, [cur.id]: { ...cur } }), {})))
+    dispatch(
+      setVersions(mainId, datasets.reduce((acc, cur) => ({ ...acc, [cur.id]: { ...cur } }), {}))
+    )
   );
 };
 
-export { listAll, fetchDatasetForEdit, removeDatasetFromStore, deleteDataset, fetchSubVersions };
+export {
+  listAll,
+  fetchDatasetForEdit,
+  removeDatasetFromStore,
+  deleteDataset,
+  fetchSubVersions,
+  setActiveVersion
+};

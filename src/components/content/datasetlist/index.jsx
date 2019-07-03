@@ -55,7 +55,8 @@ class DatasetList extends Component {
       clusterToolVisible,
       groupedDatasets,
       loadingState,
-      groupNames
+      groupNames,
+      datasetVersions
     } = this.props;
 
     if (showSplash) {
@@ -88,10 +89,28 @@ class DatasetList extends Component {
         />
         <ul className={styles.datasetList}>
           {datasets.map(dataset => {
-            const { id, title } = dataset;
+            const { id, title, subversion, ...datasetDetails } = dataset;
             const { datasets: alreadyGrouped } = groupedDatasets;
             const isAdded =
               alreadyGrouped && alreadyGrouped.find(ds => ds.dataset === id) !== undefined;
+            let activeDetails = datasetDetails;
+            if (dataset.subversion.length > 0) {
+              const {
+                activated: { [id]: activeId },
+                all: { [id]: fetchedVersions }
+              } = datasetVersions;
+              if (activeId && fetchedVersions) {
+                // Dataset has subversions and the subversions have been cached
+                const activeVersion = fetchedVersions[activeId];
+                const {
+                  id: versionId,
+                  title: versionTitle,
+                  subversion: versionSubVersion,
+                  ...versionDetails
+                } = activeVersion;
+                activeDetails = versionDetails;
+              }
+            }
             return (
               <li key={id} className={styles.datasetitemContainer}>
                 {clusterToolVisible && (
@@ -107,10 +126,14 @@ class DatasetList extends Component {
                 )}
                 <div className={styles.datasetItem}>
                   <DatasetItem
-                    {...dataset}
+                    {...activeDetails}
+                    title={title}
+                    id={id}
+                    subversion={subversion}
                     liftedByDefault={title === this.filterFromQuery}
                     wasEdited={id === editedId}
                     dispatch={dispatch}
+                    datasetVersions={datasetVersions}
                   />
                 </div>
               </li>
@@ -142,7 +165,8 @@ DatasetList.propTypes = {
     name: PropTypes.string
   }),
   loadingState: PropTypes.objectOf(PropTypes.any).isRequired,
-  groupNames: PropTypes.arrayOf(PropTypes.object)
+  groupNames: PropTypes.arrayOf(PropTypes.object),
+  datasetVersions: PropTypes.shape({ activated: PropTypes.object, all: PropTypes.object })
 };
 
 DatasetList.defaultProps = {
@@ -154,7 +178,8 @@ DatasetList.defaultProps = {
   editedId: null,
   clusterToolVisible: false,
   groupedDatasets: [],
-  groupNames: []
+  groupNames: [],
+  datasetVersions: { activated: {}, all: {} }
 };
 
 export default withRouter(DatasetList);
