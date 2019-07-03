@@ -11,8 +11,6 @@ import LanguageDetails from './languageDetails';
 import styles from './datasetitem.scss';
 
 class expandedItem extends Component {
-  version;
-
   componentDidMount() {
     const { subversion, dispatch, id } = this.props;
     if (subversion.length > 0) {

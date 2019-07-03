@@ -41,20 +41,25 @@ class EditMenu extends Component {
   }
 
   initializeEdit() {
-    const { id, dispatch, history } = this.props;
-    dispatch(updateField('main_version_id', null));
-    history.push(`/edit/${id}`);
+    const { id, dispatch, history, currentVersionId } = this.props;
+    if (currentVersionId === id || !currentVersionId) {
+      dispatch(updateField('main_version_id', null));
+    } else {
+      dispatch(updateField('main_version_id', id));
+      dispatch(updateField('id', currentVersionId));
+    }
+    history.push(`/edit/${currentVersionId || id}`);
   }
 
   initializeSubversion() {
-    const { id, dispatch, history } = this.props;
+    const { id, dispatch, history, currentVersionId } = this.props;
     dispatch(updateField('main_version_id', id));
-    history.push(`/edit/${id}`);
+    history.push(`/edit/${currentVersionId || id}`);
   }
 
   initializeCopy() {
-    const { id, dispatch, history } = this.props;
-    dispatch(fetchDatasetForEdit(id, null, true));
+    const { id, dispatch, history, currentVersionId } = this.props;
+    dispatch(fetchDatasetForEdit(currentVersionId || id, null, true));
     history.push(`/newdataset`);
   }
 
@@ -144,7 +149,11 @@ class EditMenu extends Component {
 EditMenu.propTypes = {
   id: PropTypes.number.isRequired,
   dispatch: PropTypes.func.isRequired,
-  history: PropTypes.arrayOf(PropTypes.object).isRequired
+  history: PropTypes.arrayOf(PropTypes.object).isRequired,
+  currentVersionId: PropTypes.number
+};
+EditMenu.defaultProps = {
+  currentVersionId: null
 };
 
 export default withRouter(EditMenu);

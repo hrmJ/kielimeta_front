@@ -91,6 +91,7 @@ class DatasetList extends Component {
           {datasets.map(dataset => {
             const { id, title, subversion, ...datasetDetails } = dataset;
             const { datasets: alreadyGrouped } = groupedDatasets;
+            let versionId;
             const isAdded =
               alreadyGrouped && alreadyGrouped.find(ds => ds.dataset === id) !== undefined;
             let activeDetails = datasetDetails;
@@ -101,14 +102,15 @@ class DatasetList extends Component {
               } = datasetVersions;
               if (activeId && fetchedVersions) {
                 // Dataset has subversions and the subversions have been cached
-                const activeVersion = fetchedVersions[activeId];
+                const activeVersion = fetchedVersions[activeId] || {};
                 const {
-                  id: versionId,
+                  id: versionIdFromData,
                   title: versionTitle,
                   subversion: versionSubVersion,
                   ...versionDetails
                 } = activeVersion;
                 activeDetails = versionDetails;
+                versionId = versionIdFromData;
               }
             }
             return (
@@ -134,6 +136,7 @@ class DatasetList extends Component {
                     wasEdited={id === editedId}
                     dispatch={dispatch}
                     datasetVersions={datasetVersions}
+                    currentVersionId={versionId}
                   />
                 </div>
               </li>

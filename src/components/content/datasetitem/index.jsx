@@ -12,7 +12,15 @@ class datasetItem extends Component {
   state = { lifted: 'initial' }; // up, down
 
   render() {
-    const { title, languages, liftedByDefault, wasEdited, id, dispatch } = this.props;
+    const {
+      title,
+      languages,
+      liftedByDefault,
+      wasEdited,
+      id,
+      dispatch,
+      currentVersionId
+    } = this.props;
     const { lifted } = this.state;
     const isLifted = lifted === 'up' || (lifted === 'initial' && liftedByDefault);
 
@@ -34,7 +42,11 @@ class datasetItem extends Component {
             )}
           </div>
 
-          <div>{isLifted && <EditMenu id={id} dispatch={dispatch} />}</div>
+          <div>
+            {isLifted && (
+              <EditMenu currentVersionId={currentVersionId} id={id} dispatch={dispatch} />
+            )}
+          </div>
         </div>
         {isLifted ? <ExpandedItem {...this.props} /> : <CondensedItem languages={languages} />}
       </div>
@@ -46,6 +58,7 @@ datasetItem.propTypes = {
   title: PropTypes.string.isRequired,
   languages: PropTypes.arrayOf(PropTypes.object),
   id: PropTypes.number.isRequired,
+  currentVersionId: PropTypes.number,
   liftedByDefault: PropTypes.bool,
   wasEdited: PropTypes.bool,
   dispatch: PropTypes.func.isRequired
@@ -54,7 +67,8 @@ datasetItem.propTypes = {
 datasetItem.defaultProps = {
   languages: [],
   liftedByDefault: false,
-  wasEdited: false
+  wasEdited: false,
+  currentVersionId: null
 };
 
 export default datasetItem;

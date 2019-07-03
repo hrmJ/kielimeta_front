@@ -2,7 +2,12 @@ import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
-import { fetchDatasetForEdit } from '../../../redux/actions/datasets';
+import {
+  fetchDataset,
+  fetchDatasetForEdit,
+  fetchSubVersions,
+  setVersions
+} from '../../../redux/actions/datasets';
 import { prepopulateFormSelects } from '../../../redux/actions/formSelectPrepopulation';
 import {
   resetFormData,
@@ -65,11 +70,15 @@ class InsertForm extends Component {
       if (id) {
         dispatch(fetchDatasetForEdit(id, mainVersion));
         if (!mainVersion) {
-          // Only set the id if not creating a subversion
+          // Only set the id if not creating a subversion....
           this.id = id;
         } else {
           this.mainVersion = mainVersion;
           this.mainVersionTitle = datasets.find(ds => ds.id === mainVersion).title;
+          if (mainVersion !== id) {
+            // ...although if editing a subversion, the id must be set
+            this.id = id;
+          }
         }
       } else {
         dispatch(resetFormData());
@@ -83,14 +92,22 @@ class InsertForm extends Component {
     const {
       loadingState,
       dispatch,
-      fields: { title }
+      fields: { title },
+      history
     } = this.props;
     if (loadingState.SUBMITDATASET === 'success') {
       dispatch(resetSubmitStatus());
       if (this.id || this.mainVersion) {
         dispatch(setEditedId(this.id || this.mainVersion));
       }
-      this.props.history.push(`/${this.mainVersion ? this.mainVersionTitle : title}`);
+      if (this.mainVersion) {
+        fetchDataset(this.mainVersion).then(updatedData => {
+          return dispatch(
+            fetchSubVersions(this.mainVersion, [this.mainVersion, ...updatedData.subversion])
+          );
+        });
+      }
+      history.push(`/${this.mainVersion ? this.mainVersionTitle : title}`);
     }
   }
 
@@ -144,7 +161,6 @@ class InsertForm extends Component {
   render() {
     // PROPS: usertype
     const {
-      loadingState,
       dispatch,
       fields,
       languageVarieties,
@@ -293,7 +309,8 @@ InsertForm.propTypes = {
   preloadedSelects: PropTypes.objectOf(PropTypes.any),
   routeProps: PropTypes.objectOf(PropTypes.any),
   showSplash: PropTypes.bool,
-  datasets: PropTypes.arrayOf(PropTypes.object)
+  datasets: PropTypes.arrayOf(PropTypes.object),
+  history: PropTypes.arrayOf(PropTypes.object)
 };
 
 InsertForm.defaultProps = {
@@ -303,7 +320,8 @@ InsertForm.defaultProps = {
   preloadedSelects: {},
   routeProps: {},
   showSplash: false,
-  datasets: []
+  datasets: [],
+  history: []
 };
 
 export default withRouter(InsertForm);

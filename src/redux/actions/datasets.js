@@ -114,6 +114,7 @@ const fetchDatasetForEditRaw = id => {
 };
 
 const fetchDatasetForEdit = (id, mainVersion, isCopy) => dispatch => {
+  console.log(`ID: ${id} mainVersion: ${mainVersion} isCopy: ${isCopy}`);
   fetchDatasetForEditRaw(id)(dispatch).then(datasetRaw => {
     updateLanguageNames(dispatch, datasetRaw);
     if (mainVersion) {
@@ -121,7 +122,8 @@ const fetchDatasetForEdit = (id, mainVersion, isCopy) => dispatch => {
     } else {
       dispatch(updateField('main_version_id', null));
     }
-    if (mainVersion || isCopy) {
+    if ((mainVersion && mainVersion === id) || isCopy) {
+      // A copy or a new subversion --> reset id, 'cause it doesn't exist yet
       dispatch(updateField('id', null));
     }
     if (isCopy) {
@@ -144,7 +146,9 @@ const listAll = () => dispatch =>
     dispatch(setOriginalFilterValues(getOriginalValuesForFilters(res)))
   );
 
-const setVersions = (mainId, versions) => ({ type: 'SET_VERSIONS', mainId, versions });
+const setVersions = (mainId, versions) => {
+  return { type: 'SET_VERSIONS', mainId, versions };
+};
 
 const setActiveVersion = (mainId, activeId) => ({ type: 'SET_ACTIVE_VERSION', mainId, activeId });
 
@@ -163,5 +167,7 @@ export {
   removeDatasetFromStore,
   deleteDataset,
   fetchSubVersions,
-  setActiveVersion
+  setActiveVersion,
+  fetchDataset,
+  setVersions
 };
