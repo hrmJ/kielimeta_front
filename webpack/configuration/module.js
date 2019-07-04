@@ -1,8 +1,11 @@
+import path from 'path';
+console.log(path.resolve(__dirname, '../../src'));
+
 export default {
   rules: [
     {
       test: /\.jsx?$/,
-      exclude: /node_modules/,
+      include: path.resolve(__dirname, '../../src'),
       use: [
         { loader: 'babel-loader' },
         {

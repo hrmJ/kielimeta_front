@@ -15,9 +15,7 @@ import styles from './datasetitem.scss';
 class expandedItem extends Component {
   componentDidMount() {
     const { subversion, dispatch, id } = this.props;
-    if (subversion.length > 0) {
-      dispatch(fetchSubVersions(id, subversion));
-    }
+    dispatch(fetchSubVersions(id, subversion));
   }
 
   /**

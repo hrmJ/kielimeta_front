@@ -11,7 +11,17 @@ export default function datasetReducer(state = [], action) {
     case 'FILTER_DATASETS_ERROR':
       break;
     case 'LIST_DATASETS_SUCCESS':
-      return rest.result;
+      return rest.result.map(ds => ({
+        title: ds.title,
+        languages: ds.languages.map(lang => ({
+          details: {
+            language_name: lang.details.language_name,
+            language_code: lang.details.language_code
+          }
+        })),
+        id: ds.id,
+        subversion: ds.subversion
+      }));
     case 'LIST_DATASETS_ERROR':
       break;
     case 'LIST_DATASETS':

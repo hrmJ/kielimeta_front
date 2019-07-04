@@ -95,23 +95,21 @@ class DatasetList extends Component {
             const isAdded =
               alreadyGrouped && alreadyGrouped.find(ds => ds.dataset === id) !== undefined;
             let activeDetails = datasetDetails;
-            if (dataset.subversion.length > 0) {
+            const {
+              activated: { [id]: activeId },
+              all: { [id]: fetchedVersions }
+            } = datasetVersions;
+            if (activeId && fetchedVersions) {
+              // Dataset has subversions and the subversions have been cached
+              const activeVersion = fetchedVersions[activeId] || {};
               const {
-                activated: { [id]: activeId },
-                all: { [id]: fetchedVersions }
-              } = datasetVersions;
-              if (activeId && fetchedVersions) {
-                // Dataset has subversions and the subversions have been cached
-                const activeVersion = fetchedVersions[activeId] || {};
-                const {
-                  id: versionIdFromData,
-                  title: versionTitle,
-                  subversion: versionSubVersion,
-                  ...versionDetails
-                } = activeVersion;
-                activeDetails = versionDetails;
-                versionId = versionIdFromData;
-              }
+                id: versionIdFromData,
+                title: versionTitle,
+                subversion: versionSubVersion,
+                ...versionDetails
+              } = activeVersion;
+              activeDetails = versionDetails;
+              versionId = versionIdFromData;
             }
             return (
               <li key={id} className={styles.datasetitemContainer}>
