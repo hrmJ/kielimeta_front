@@ -37,6 +37,47 @@ main {
   }
 }
 
+a,
+a:visited,
+a:active {
+  color: black;
+}
+
+.labelContainer,
+.labelContainerLight {
+  display: flex;
+  > *:first-child {
+    width: 15em;
+    margin-right: 1em;
+  }
+  & + & {
+    margin-top: 1em;
+  }
+}
+
+.labelContainer {
+  > *:first-child {
+    font-weight: bold;
+  }
+}
+
+.labelContainerStacked {
+  > div:first-child {
+    margin: 0em 0 1em 0;
+    font-weight: bold;
+  }
+  & + & {
+    margin-top: 1em;
+  }
+}
+
+.unlist {
+  padding-left: 0em;
+  li {
+    list-style-type: none;
+  }
+}
+
 .someBottomMargin {
   margin-bottom: 1em;
 }

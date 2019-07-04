@@ -68,7 +68,7 @@ datasetItem.propTypes = {
   liftedByDefault: PropTypes.bool,
   wasEdited: PropTypes.bool,
   dispatch: PropTypes.func.isRequired,
-  subversion: PropTypes.arrayOf(PropTypes.object)
+  subversion: PropTypes.arrayOf(PropTypes.number)
 };
 
 datasetItem.defaultProps = {

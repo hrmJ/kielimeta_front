@@ -1,12 +1,14 @@
-import 'react-tabs/style/react-tabs.css';
-
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { uid } from 'react-uid';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import 'react-tabs/style/react-tabs.css';
 
 import { Select } from '../../ui/localizedSelect';
 import { fetchSubVersions, setActiveVersion } from '../../../redux/actions/datasets';
+import Access from './access';
+import Authors from './authors';
+import Citing from './citing';
 import LanguageDetails from './languageDetails';
 import styles from './datasetitem.scss';
 
@@ -48,7 +50,12 @@ class expandedItem extends Component {
       subversion,
       datasetVersions,
       id,
-      dispatch
+      dispatch,
+      authors,
+      access_information: accessInformation,
+      place_of_publication: placeOfPublication,
+      license,
+      contact_person: contactPerson
     } = this.props;
     const {
       activated: { [id]: activeId },
@@ -101,6 +108,15 @@ class expandedItem extends Component {
               <LanguageDetails key={uid(language)} {...language} />
             ))}
           </TabPanel>
+          <TabPanel>
+            <Authors authors={authors} />
+          </TabPanel>
+          <TabPanel>
+            <Access {...{ placeOfPublication, license, accessInformation, contactPerson }} />
+          </TabPanel>
+          <TabPanel>
+            <Citing placeOfPublication={placeOfPublication} />
+          </TabPanel>
         </Tabs>
       </div>
     );
@@ -116,7 +132,17 @@ expandedItem.propTypes = {
   dispatch: PropTypes.func.isRequired,
   datasetVersions: PropTypes.shape({ activated: PropTypes.object, all: PropTypes.object }),
   id: PropTypes.number.isRequired,
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
+  authors: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.object), PropTypes.string]),
+  place_of_publication: PropTypes.shape({
+    location: PropTypes.string,
+    identifier: PropTypes.string
+  }),
+  license: PropTypes.string,
+  access_information: PropTypes.string,
+  contact_person: PropTypes.arrayOf(
+    PropTypes.shape({ name: PropTypes.string, email: PropTypes.string })
+  )
 };
 
 expandedItem.defaultProps = {
@@ -125,7 +151,12 @@ expandedItem.defaultProps = {
   resourcetype: '',
   description: '',
   subversion: [],
-  datasetVersions: { activated: {}, all: {} }
+  datasetVersions: { activated: {}, all: {} },
+  authors: '',
+  place_of_publication: {},
+  license: '',
+  access_information: '',
+  contact_person: []
 };
 
 export default expandedItem;

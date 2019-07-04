@@ -319,7 +319,7 @@ InsertForm.propTypes = {
   routeProps: PropTypes.objectOf(PropTypes.any),
   showSplash: PropTypes.bool,
   datasets: PropTypes.arrayOf(PropTypes.object),
-  history: PropTypes.arrayOf(PropTypes.object)
+  history: PropTypes.objectOf(PropTypes.any)
 };
 
 InsertForm.defaultProps = {
@@ -330,7 +330,7 @@ InsertForm.defaultProps = {
   routeProps: {},
   showSplash: false,
   datasets: [],
-  history: []
+  history: {}
 };
 
 export default withRouter(InsertForm);

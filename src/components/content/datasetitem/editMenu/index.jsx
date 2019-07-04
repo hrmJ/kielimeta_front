@@ -161,7 +161,7 @@ class EditMenu extends Component {
 EditMenu.propTypes = {
   id: PropTypes.number.isRequired,
   dispatch: PropTypes.func.isRequired,
-  history: PropTypes.arrayOf(PropTypes.object).isRequired,
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
   currentVersionId: PropTypes.number,
   hasSubVersions: PropTypes.bool
 };
