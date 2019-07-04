@@ -9,7 +9,7 @@ import { fetchSubVersions, setActiveVersion } from '../../../redux/actions/datas
 import Access from './access';
 import Authors from './authors';
 import Citing from './citing';
-import LanguageDetails from './languageDetails';
+import Content from './content';
 import styles from './datasetitem.scss';
 
 class expandedItem extends Component {
@@ -94,7 +94,7 @@ class expandedItem extends Component {
         <Tabs>
           <TabList>
             <Tab>Kuvaus</Tab>
-            <Tab>Kielikohtaiset tiedot</Tab>
+            <Tab>Sisältö</Tab>
             <Tab>Tekijät</Tab>
             <Tab>Saatavuus</Tab>
             <Tab>Viittaaminen</Tab>
@@ -105,9 +105,7 @@ class expandedItem extends Component {
             </p>
           </TabPanel>
           <TabPanel>
-            {languages.map(language => (
-              <LanguageDetails key={uid(language)} {...language} />
-            ))}
+            <Content {...{ languages }} />
           </TabPanel>
           <TabPanel>
             <Authors authors={authors} />
