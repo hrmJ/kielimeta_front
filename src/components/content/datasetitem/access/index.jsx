@@ -3,18 +3,20 @@ import React from 'react';
 
 import TabContent from '../../../ui/TabContent';
 import generalStyles from '../../../../general_styles/general_styles.scss';
+import sensitivityOptions from '../../datasetform/fieldsets/administration/sensitivityOptions';
 
 const Access = props => {
   const {
     placeOfPublication: { location },
     license,
     accessInformation,
-    contactPerson
+    contactPerson,
+    sensitivity
   } = props;
   return (
     <TabContent>
       {accessInformation === 'contactperson' && (
-        <div className={generalStyles.someBottomMargin}>
+        <div className={generalStyles.largeBottomMargin}>
           Aineisto on käytettävissä ottamalla yhteyttä alla oleviin henkilöihin
         </div>
       )}
@@ -30,7 +32,7 @@ const Access = props => {
         </div>
       )}
       {contactPerson.length > 0 && (
-        <div className={generalStyles.labelContainerStacked}>
+        <div className={`${generalStyles.labelContainerStacked}`}>
           <div>Yhteyshenkilöt</div>
           <div>
             <ul className={generalStyles.unlist}>
@@ -51,6 +53,12 @@ const Access = props => {
           <div>{license}</div>
         </div>
       )}
+      {sensitivity && (
+        <div className={generalStyles.labelContainerStacked}>
+          <div>Muuta huomioitavaa</div>
+          <div>{sensitivityOptions.find(option => option.value === sensitivity).label}</div>
+        </div>
+      )}
     </TabContent>
   );
 };
@@ -59,6 +67,7 @@ Access.propTypes = {
   placeOfPublication: PropTypes.shape({ location: PropTypes.string }),
   license: PropTypes.string,
   accessInformation: PropTypes.string,
+  sensitivity: PropTypes.string,
   contactPerson: PropTypes.arrayOf(
     PropTypes.shape({ name: PropTypes.string, email: PropTypes.string })
   )
@@ -68,7 +77,8 @@ Access.defaultProps = {
   placeOfPublication: {},
   license: '',
   accessInformation: '',
-  contactPerson: []
+  contactPerson: [],
+  sensitivity: ''
 };
 
 export default Access;

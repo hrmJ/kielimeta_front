@@ -8,13 +8,7 @@ import { updateField } from '../../../../../redux/actions/datasetform';
 import AutoCompleteField from '../../../../ui/autocompletefield';
 import LabelledInput from '../../../../ui/labelledinput';
 import License from './license';
-
-const sensitivityOptions = [
-  { label: 'ei suojaustarvetta', value: 'none' },
-  { label: 'sisältää henkilötietoja', value: 'personal' },
-  { label: 'sisältää arkaluontoisia henkilötietoja', value: 'sensitive_personal' },
-  { label: 'sisältää salassapidettäviä tietoja', value: 'confidential' }
-];
+import sensitivityOptions from './sensitivityOptions';
 
 const Administration = props => {
   const {

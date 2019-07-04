@@ -55,7 +55,8 @@ class expandedItem extends Component {
       access_information: accessInformation,
       place_of_publication: placeOfPublication,
       license,
-      contact_person: contactPerson
+      contact_person: contactPerson,
+      sensitivity
     } = this.props;
     const {
       activated: { [id]: activeId },
@@ -112,7 +113,9 @@ class expandedItem extends Component {
             <Authors authors={authors} />
           </TabPanel>
           <TabPanel>
-            <Access {...{ placeOfPublication, license, accessInformation, contactPerson }} />
+            <Access
+              {...{ placeOfPublication, license, accessInformation, contactPerson, sensitivity }}
+            />
           </TabPanel>
           <TabPanel>
             <Citing placeOfPublication={placeOfPublication} />
@@ -142,7 +145,8 @@ expandedItem.propTypes = {
   access_information: PropTypes.string,
   contact_person: PropTypes.arrayOf(
     PropTypes.shape({ name: PropTypes.string, email: PropTypes.string })
-  )
+  ),
+  sensitivity: PropTypes.string
 };
 
 expandedItem.defaultProps = {
@@ -156,7 +160,8 @@ expandedItem.defaultProps = {
   place_of_publication: {},
   license: '',
   access_information: '',
-  contact_person: []
+  contact_person: [],
+  sensitivity: ''
 };
 
 export default expandedItem;
