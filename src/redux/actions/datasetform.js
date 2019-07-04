@@ -82,13 +82,21 @@ const validateFields = fields => {
 };
 
 const submitDataset = (fields, id) => {
-  const url = id ? `${baseUrl}/datasets/${id}` : `${baseUrl}/datasets`;
+  const { main_version_id: mainVersion } = fields;
+  let isUpdate = false;
+  if ((id && !mainVersion) || (id && mainVersion && id * 1 !== mainVersion * 1)) {
+    isUpdate = true;
+  }
+  const url = isUpdate ? `${baseUrl}/datasets/${id}` : `${baseUrl}/datasets`;
   const validatedFields = validateFields(fields);
+  if (!isUpdate && validatedFields.id) {
+    delete validatedFields.id;
+  }
   const csrf = getCookie('csrftoken');
   return thunkCreator({
     types: ['SUBMITDATASET_REQUEST', 'SUBMITDATASET_SUCCESS', 'SUBMITDATASET_FAILURE'],
     promise: fetch(url, {
-      method: id ? 'PUT' : 'POST',
+      method: isUpdate ? 'PUT' : 'POST',
       mode: 'cors',
       headers: {
         Accept: 'application/json',
