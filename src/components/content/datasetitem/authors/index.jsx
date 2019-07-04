@@ -11,6 +11,8 @@ const Authors = props => {
 
   if (!Array.isArray(authors) && authors) {
     parsedAuthors = JSON.parse(authors);
+  } else if (Array.isArray(authors)) {
+    parsedAuthors = authors;
   }
 
   return (

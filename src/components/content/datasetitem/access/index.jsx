@@ -5,6 +5,11 @@ import TabContent from '../../../ui/TabContent';
 import generalStyles from '../../../../general_styles/general_styles.scss';
 import sensitivityOptions from '../../datasetform/fieldsets/administration/sensitivityOptions';
 
+const getSensitivityInfo = value => {
+  const option = sensitivityOptions.find(thisOption => thisOption.value === value);
+  return option ? option.label : value;
+};
+
 const Access = props => {
   const {
     placeOfPublication: { location },
@@ -56,7 +61,7 @@ const Access = props => {
       {sensitivity && (
         <div className={generalStyles.labelContainerStacked}>
           <div>Muuta huomioitavaa</div>
-          <div>{sensitivityOptions.find(option => option.value === sensitivity).label}</div>
+          <div> {getSensitivityInfo(sensitivity)}</div>
         </div>
       )}
     </TabContent>
