@@ -37,7 +37,7 @@ class datasetItem extends Component {
           <div>
             {isLifted && wasEdited && (
               <div className={styles.savedIndicator}>
-                <Icon iconName="checkIcon" /> Tallennettu
+                <Icon iconName="faCheck" /> Tallennettu
               </div>
             )}
           </div>
