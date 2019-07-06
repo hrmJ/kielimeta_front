@@ -39,8 +39,10 @@ const deleteDatasetRaw = id => {
 const parseDataset = datasetRaw => {
   const dataset = Object.assign({}, datasetRaw);
   const { authors, owner, connections, languages, license } = dataset;
-  if (authors) {
+  if (authors && typeof authors === 'string') {
     dataset.authors = JSON.parse(authors);
+  } else {
+    dataset.authors = [];
   }
   if (owner) {
     dataset.owner = owner.join(',');

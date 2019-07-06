@@ -1,14 +1,20 @@
 import { HashRouter, Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { Component, Suspense, lazy } from 'react';
 
-import DatasetForm from '../content/datasetform';
-import DatasetList from '../content/datasetlist';
 import Footer from '../layout/footer';
 import LabelledInput from '../ui/labelledinput';
 import Login from '../auth/login';
 import TopBar from '../layout/navigation/topbar';
 import styles from '../../general_styles/general_styles.scss';
+
+const DatasetList = lazy(() =>
+  import(/* webpackChunkName: "datasetList" */ '../content/datasetlist')
+);
+
+const DatasetForm = lazy(() =>
+  import(/* webpackChunkName: "datasetForm" */ '../content/datasetform')
+);
 
 class main extends Component {
   state = { clusterToolVisible: false };
@@ -52,60 +58,62 @@ class main extends Component {
           <div className={styles.outerContainer}>
             {!showSplash && <TopBar toggleClusterTool={() => this.toggleClusterTool()} />}
             <main>
-              <Switch>
-                <Route path="/test" render={() => <LabelledInput label="Testi" />} />
-                <Route path="/login" render={() => <Login />} />
-                <Route
-                  path="/newdataset"
-                  render={() => (
-                    <DatasetForm
-                      fields={datasetform}
-                      loadingState={loadingState}
-                      dispatch={dispatch}
-                      languageVarieties={languageVarieties}
-                      languageVarietyTypes={languageVarietyTypes}
-                      preloadedSelects={preloadedSelects}
-                      languageNames={languageNames}
-                    />
-                  )}
-                />
-                <Route
-                  path="/edit/:id"
-                  render={routeProps => (
-                    <DatasetForm
-                      routeProps={routeProps}
-                      fields={datasetform}
-                      loadingState={loadingState}
-                      dispatch={dispatch}
-                      languageVarieties={languageVarieties}
-                      languageVarietyTypes={languageVarietyTypes}
-                      preloadedSelects={preloadedSelects}
-                      languageNames={languageNames}
-                      showSplash={showSplash}
-                      datasets={datasets}
-                    />
-                  )}
-                />
-                <Route
-                  path="/:title?"
-                  render={routeProps => (
-                    <DatasetList
-                      groupNames={groupNames}
-                      groupedDatasets={groupedDatasets}
-                      clusterToolVisible={clusterToolVisible}
-                      routeProps={routeProps}
-                      datasets={datasets}
-                      dispatch={dispatch}
-                      filters={filters}
-                      originalFilterValues={originalFilterValues}
-                      showSplash={showSplash}
-                      loadingState={loadingState}
-                      editedId={editedId}
-                      datasetVersions={datasetVersions}
-                    />
-                  )}
-                />
-              </Switch>
+              <Suspense fallback={<div>Ladataan...</div>}>
+                <Switch>
+                  <Route path="/test" render={() => <LabelledInput label="Testi" />} />
+                  <Route path="/login" render={() => <Login />} />
+                  <Route
+                    path="/newdataset"
+                    render={() => (
+                      <DatasetForm
+                        fields={datasetform}
+                        loadingState={loadingState}
+                        dispatch={dispatch}
+                        languageVarieties={languageVarieties}
+                        languageVarietyTypes={languageVarietyTypes}
+                        preloadedSelects={preloadedSelects}
+                        languageNames={languageNames}
+                      />
+                    )}
+                  />
+                  <Route
+                    path="/edit/:id"
+                    render={routeProps => (
+                      <DatasetForm
+                        routeProps={routeProps}
+                        fields={datasetform}
+                        loadingState={loadingState}
+                        dispatch={dispatch}
+                        languageVarieties={languageVarieties}
+                        languageVarietyTypes={languageVarietyTypes}
+                        preloadedSelects={preloadedSelects}
+                        languageNames={languageNames}
+                        showSplash={showSplash}
+                        datasets={datasets}
+                      />
+                    )}
+                  />
+                  <Route
+                    path="/:title?"
+                    render={routeProps => (
+                      <DatasetList
+                        groupNames={groupNames}
+                        groupedDatasets={groupedDatasets}
+                        clusterToolVisible={clusterToolVisible}
+                        routeProps={routeProps}
+                        datasets={datasets}
+                        dispatch={dispatch}
+                        filters={filters}
+                        originalFilterValues={originalFilterValues}
+                        showSplash={showSplash}
+                        loadingState={loadingState}
+                        editedId={editedId}
+                        datasetVersions={datasetVersions}
+                      />
+                    )}
+                  />
+                </Switch>
+              </Suspense>
             </main>
           </div>
         </div>
