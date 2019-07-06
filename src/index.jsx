@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
+import regeneratorRuntime from 'regenerator-runtime';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import configureStore from './redux/store';

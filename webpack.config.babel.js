@@ -5,9 +5,10 @@ export default {
   plugins,
   resolve,
   entry: {
-    app: './src/index.jsx'
+    main: './src/index.jsx'
   },
   output: {
-    filename: 'bundle.js'
+    filename: '[name].bundle.js',
+    chunkFilename: '[name].bundle.js'
   }
 };
