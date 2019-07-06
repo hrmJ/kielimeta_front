@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './basicbutton.scss';
+import Icon from '../../icon';
 
 const BasicButton = props => {
-  const { onClick, id, text, icon, noBackground, customClass } = props;
+  const { onClick, id, text, iconName, noBackground, customClass } = props;
   return (
     <div
       id={id}
@@ -15,9 +15,9 @@ const BasicButton = props => {
       className={`${styles.container} ${noBackground && styles.noBackground} ${customClass}`}
     >
       <div>{text}</div>
-      {icon && (
+      {iconName && (
         <div>
-          <FontAwesomeIcon role="button" icon={icon} />
+          <Icon iconName={iconName} />
         </div>
       )}
     </div>
@@ -28,17 +28,17 @@ BasicButton.propTypes = {
   onClick: PropTypes.func,
   id: PropTypes.string,
   text: PropTypes.string,
-  icon: PropTypes.objectOf(PropTypes.any),
   noBackground: PropTypes.bool,
-  customClass: PropTypes.string
+  customClass: PropTypes.string,
+  iconName: PropTypes.string
 };
 BasicButton.defaultProps = {
   onClick: () => null,
   id: '',
   text: 'Muokkaa',
-  icon: null,
   noBackground: false,
-  customClass: ''
+  customClass: '',
+  iconName: ''
 };
 
 export default BasicButton;

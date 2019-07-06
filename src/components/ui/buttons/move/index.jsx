@@ -1,41 +1,22 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import { faCaretUp as upArrow, faCaretDown as downArrow } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from 'react';
+
+import BasicButton from '../BasicButton';
 import styles from './move.scss';
 
-const Move = props => {
-  const { direction, text, onClick } = props;
+const MoveButton = props => {
+  const { direction, ...otherProps } = props;
   return (
-    <div
-      className={`${styles.container} ${direction === '>' ? styles.forward : styles.backward}`}
-      role="button"
-      tabIndex={0}
-      onClick={onClick}
-      onKeyDown={onClick}
-    >
-      {direction === '>' && <div>{text}</div>}
-      {direction === '<' && <div>{text}</div>}
-      <div>
-        {direction === '<' ? (
-          <FontAwesomeIcon role="button" icon={upArrow} />
-        ) : (
-          <FontAwesomeIcon role="button" icon={downArrow} />
-        )}
-      </div>
-    </div>
+    <BasicButton
+      {...otherProps}
+      customClass={direction === '>' ? styles.forward : styles.backward}
+      iconName={direction === '>' ? 'faCaretDown' : 'faCaretUp'}
+    />
   );
 };
 
-Move.propTypes = {
-  direction: PropTypes.string.isRequired,
-  text: PropTypes.string,
-  onClick: PropTypes.func
+MoveButton.propTypes = {
+  direction: PropTypes.string.isRequired
 };
 
-Move.defaultProps = {
-  text: '',
-  onClick: () => null
-};
-
-export default Move;
+export default MoveButton;

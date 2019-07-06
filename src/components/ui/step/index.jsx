@@ -1,8 +1,7 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck as iconOk } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import Icon from '../icon';
 import Move from '../buttons/move';
 import Save from '../buttons/save';
 import styles from './step.scss';
@@ -31,7 +30,7 @@ const stepComponent = props => {
             onClick={moveTo}
             onKeyDown={moveTo}
           >
-            {stepIdx}. {legend} &nbsp; {isValid && <FontAwesomeIcon icon={iconOk} />}
+            {stepIdx}. {legend} &nbsp; {isValid && <Icon iconName="faCheck" />}
           </div>
         </legend>
         {active && children}

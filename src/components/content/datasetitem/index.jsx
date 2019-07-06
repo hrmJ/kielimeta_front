@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { faCheck as checkIcon } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import CondensedItem from './condensedItem';
 import EditMenu from './editMenu';
 import ExpandedItem from './expandedItem';
+import Icon from '../../ui/icon';
 import styles from './datasetitem.scss';
 
 class datasetItem extends Component {
@@ -38,7 +37,7 @@ class datasetItem extends Component {
           <div>
             {isLifted && wasEdited && (
               <div className={styles.savedIndicator}>
-                <FontAwesomeIcon icon={checkIcon} /> Tallennettu
+                <Icon iconName="checkIcon" /> Tallennettu
               </div>
             )}
           </div>

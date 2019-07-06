@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+
 import { updateAndFilter, resetFilterAndRefresh } from '../../../redux/actions/filters';
+import Icon from '../../ui/icon';
 import styles from './filter.scss';
 
 export default class Filter extends Component {
@@ -67,7 +67,7 @@ export default class Filter extends Component {
             className={`${styles.closer} clearfilter`}
             style={{ display: this.isInUse() ? 'block' : 'none' }}
           >
-            <FontAwesomeIcon icon={faTimesCircle} onClick={ev => this.reset(ev)} />
+            <Icon iconName="faTimesCircle" role="button" onClick={ev => this.reset(ev)} />
           </div>
         </button>
         <div

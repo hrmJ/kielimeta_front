@@ -1,11 +1,3 @@
-import {
-  faCaretDown as adminIcon,
-  faPencilAlt as editIcon,
-  faCodeBranch as versionIcon,
-  faCopy as copyIcon,
-  faTrash,
-  faWindowClose as cancelIcon
-} from '@fortawesome/free-solid-svg-icons';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
@@ -87,7 +79,7 @@ class EditMenu extends Component {
           <div className={styles.deleteModal}>
             <BasicButton
               text="Peruuta"
-              icon={cancelIcon}
+              iconname="faWindowClose"
               onClick={ev => this.toggleDeleteModal(ev, false)}
             />
             <Remove
@@ -96,7 +88,7 @@ class EditMenu extends Component {
             />
           </div>
         </ReactModal>
-        <BasicButton onClick={ev => this.open(ev)} text="Hallitse" icon={adminIcon} />
+        <BasicButton onClick={ev => this.open(ev)} text="Hallitse" iconName="faCaretDown" />
         {open && !deletePending && (
           <div className={styles.menu}>
             <ul className={styles.menuList}>
@@ -106,7 +98,7 @@ class EditMenu extends Component {
                     onClick={() => this.initializeEdit()}
                     text="Muokkaa tietoja"
                     noBackground
-                    icon={editIcon}
+                    iconName="faPencilAlt"
                   />
                 </Tooltip>
               </li>
@@ -121,7 +113,7 @@ class EditMenu extends Component {
                     onClick={() => this.initializeSubversion()}
                     text="Kopioi aliversioksi"
                     noBackground
-                    icon={versionIcon}
+                    iconName="faCodeBranch"
                   />
                 </Tooltip>
               </li>
@@ -136,7 +128,7 @@ class EditMenu extends Component {
                     text="Kopioi itsenäiseksi versioksi"
                     noBackground
                     onClick={ev => this.initializeCopy(ev)}
-                    icon={copyIcon}
+                    iconName="faCopy"
                   />
                 </Tooltip>
               </li>
@@ -146,7 +138,7 @@ class EditMenu extends Component {
                     onClick={ev => this.toggleDeleteModal(ev, true)}
                     text="Poista aineisto"
                     noBackground
-                    icon={faTrash}
+                    iconName="faTrash"
                   />
                 </Tooltip>
               </li>
