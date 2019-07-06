@@ -9,7 +9,9 @@ const fieldInfo = props => {
 
   return (
     <Tooltip content={text}>
-      <Icon role="button" iconName="faInfoCircle" />
+      <div>
+        <Icon iconName="faInfoCircle" />
+      </div>
     </Tooltip>
   );
 };

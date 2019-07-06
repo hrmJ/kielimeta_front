@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import makeCancelable from 'makecancelable';
 
-const getIcons = () => import('@fortawesome/free-solid-svg-icons').then(svgIcons => svgIcons);
+const getIcons = () =>
+  import(/* webpackChunkName: "fontAwesomIcons" */ '@fortawesome/free-solid-svg-icons').then(
+    svgIcons => svgIcons
+  );
 
 class Icon extends Component {
   state = { svgIcons: null };
