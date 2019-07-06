@@ -1,33 +1,31 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import makeCancelable from 'makecancelable';
+
+const getIcons = () => import('@fortawesome/free-solid-svg-icons').then(svgIcons => svgIcons);
 
 class Icon extends Component {
-  state = { test: false };
-
-  svgIcons = null;
-
-  isMountedHack = false;
+  state = { svgIcons: null };
 
   componentDidMount() {
-    this.isMountedHack = true;
-    if (this.isMountedHack) {
-      this.getIcons();
-    }
+    this.cancelRequest = makeCancelable(
+      getIcons(),
+      svgIcons => this.setState({ svgIcons }),
+      console.error
+    );
   }
 
   componentWillUnmount() {
-    this.isMountedHack = false;
+    this.cancelRequest();
   }
 
-  async getIcons() {
-    this.svgIcons = await import(/* webpackPrefetch: true */ `@fortawesome/free-solid-svg-icons`);
-    this.setState({ test: true });
-  }
+  processIcon() {}
 
   render() {
     const { role, onClick, className, iconName } = this.props;
-    const pickedIcon = this.svgIcons && this.svgIcons[iconName];
+    const { svgIcons } = this.state;
+    const pickedIcon = svgIcons && svgIcons[iconName];
     const otherProps = {};
     if (role) {
       otherProps.role = role;
@@ -38,7 +36,7 @@ class Icon extends Component {
     if (className) {
       otherProps.className = className;
     }
-    return pickedIcon ? <FontAwesomeIcon {...otherProps} icon={pickedIcon} /> : null;
+    return svgIcons ? <FontAwesomeIcon {...otherProps} icon={pickedIcon} /> : null;
   }
 }
 
