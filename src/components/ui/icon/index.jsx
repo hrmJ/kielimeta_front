@@ -3,17 +3,18 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import makeCancelable from 'makecancelable';
 
-const getIcons = () =>
-  import(/* webpackChunkName: "fontAwesomIcons" */ '@fortawesome/free-solid-svg-icons').then(
-    svgIcons => svgIcons
-  );
+const getIcons = iconName =>
+  import(
+    /* webpackChunkName: "fontAwesomIcons" */ `@fortawesome/free-solid-svg-icons/${iconName}.js`
+  ).then(svgIcons => svgIcons);
 
 class Icon extends Component {
   state = { svgIcons: null };
 
   componentDidMount() {
+    const { role, onClick, className, iconName } = this.props;
     this.cancelRequest = makeCancelable(
-      getIcons(),
+      getIcons(iconName),
       svgIcons => this.setState({ svgIcons }),
       console.error
     );
