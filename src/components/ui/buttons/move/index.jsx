@@ -9,6 +9,7 @@ const MoveButton = props => {
   return (
     <BasicButton
       {...otherProps}
+      noBackground
       customClass={direction === '>' ? styles.forward : styles.backward}
       iconName={direction === '>' ? 'faCaretDown' : 'faCaretUp'}
     />
