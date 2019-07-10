@@ -6,10 +6,9 @@ export default function datasetReducer(state = [], action) {
       return [...state.filter(ds => ds.id !== rest.id)];
     case 'FILTER_DATASETS_REQUEST':
       break;
-    case 'FILTER_DATASETS_SUCCESS':
-      return rest.result;
     case 'FILTER_DATASETS_ERROR':
       break;
+    case 'FILTER_DATASETS_SUCCESS':
     case 'LIST_DATASETS_SUCCESS':
       return rest.result.map(ds => ({
         title: ds.title,
