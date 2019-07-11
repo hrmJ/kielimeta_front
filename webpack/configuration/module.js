@@ -47,6 +47,23 @@ export default {
     },
     {
       test: /\.scss$/,
+      include: /unmodifiedSass/,
+      use: [
+        {
+          loader: 'style-loader'
+        },
+        {
+          loader: 'css-loader'
+        },
+        {
+          loader: 'sass-loader'
+        }
+      ]
+    },
+
+    {
+      test: /\.scss$/,
+      exclude: /unmodifiedSass/,
       use: [
         {
           loader: 'style-loader'

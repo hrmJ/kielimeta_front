@@ -157,7 +157,10 @@ const setVersions = (mainId, versions, activeId) => {
   return { type: 'SET_VERSIONS', mainId, versions, activeId };
 };
 
+const startVersionFetch = mainId => ({ type: 'START_VERSION_FETCH', mainId });
+
 const fetchSubVersions = (mainId, subversionIds, activeId) => dispatch => {
+  dispatch(startVersionFetch());
   const promises = [mainId, ...subversionIds].map(fetchDataset);
   Promise.all(promises).then(datasets =>
     dispatch(

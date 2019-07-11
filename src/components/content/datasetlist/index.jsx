@@ -44,6 +44,57 @@ class DatasetList extends Component {
     dispatch(filterByQuery({ ...filters, query }));
   }
 
+  renderDataset(dataset) {
+    const { groupedDatasets, editedId, datasetVersions, clusterToolVisible, dispatch } = this.props;
+    const { id, title, subversion, ...datasetDetails } = dataset;
+    const { datasets: alreadyGrouped } = groupedDatasets;
+    let versionId;
+    const isAdded = alreadyGrouped && alreadyGrouped.find(ds => ds.dataset === id) !== undefined;
+    let activeDetails = datasetDetails;
+    const {
+      activated: { [id]: activeId },
+      all: { [id]: fetchedVersions }
+    } = datasetVersions;
+    if (activeId && fetchedVersions) {
+      // Dataset has subversions and the subversions have been cached
+      const activeVersion = fetchedVersions[activeId] || {};
+      const {
+        id: versionIdFromData,
+        title: versionTitle,
+        subversion: versionSubVersion,
+        ...versionDetails
+      } = activeVersion;
+      activeDetails = versionDetails;
+      versionId = versionIdFromData;
+    }
+    return (
+      <li key={id} className={styles.datasetitemContainer}>
+        {clusterToolVisible && (
+          <div className={styles.datasetItemMargin}>
+            <input
+              type="checkbox"
+              checked={isAdded}
+              onChange={() => dispatch(addToGroup({ dataset: id, title, role: '' }, !isAdded))}
+            />
+          </div>
+        )}
+        <div className={styles.datasetItem}>
+          <DatasetItem
+            {...activeDetails}
+            title={title}
+            id={id}
+            subversion={subversion}
+            liftedByDefault={title === this.filterFromQuery}
+            wasEdited={id === editedId}
+            dispatch={dispatch}
+            datasetVersions={datasetVersions}
+            currentVersionId={versionId}
+          />
+        </div>
+      </li>
+    );
+  }
+
   render() {
     const {
       datasets,
@@ -51,12 +102,10 @@ class DatasetList extends Component {
       filters,
       originalFilterValues,
       showSplash,
-      editedId,
       clusterToolVisible,
       groupedDatasets,
       loadingState,
-      groupNames,
-      datasetVersions
+      groupNames
     } = this.props;
 
     if (showSplash) {
@@ -76,7 +125,7 @@ class DatasetList extends Component {
         <section className={styles.searchBarContainer}>
           <DelayedSearchField
             id="searchfield"
-            onChange={this.filterDatasets.bind(this)}
+            onChange={query => this.filterDatasets(query)}
             placeholder="Hae nimellä tai avainsanalla"
             defaultValue={this.filterFromQuery}
           />
@@ -88,58 +137,7 @@ class DatasetList extends Component {
           dispatch={dispatch}
         />
         <ul className={styles.datasetList}>
-          {datasets.map(dataset => {
-            const { id, title, subversion, ...datasetDetails } = dataset;
-            const { datasets: alreadyGrouped } = groupedDatasets;
-            let versionId;
-            const isAdded =
-              alreadyGrouped && alreadyGrouped.find(ds => ds.dataset === id) !== undefined;
-            let activeDetails = datasetDetails;
-            const {
-              activated: { [id]: activeId },
-              all: { [id]: fetchedVersions }
-            } = datasetVersions;
-            if (activeId && fetchedVersions) {
-              // Dataset has subversions and the subversions have been cached
-              const activeVersion = fetchedVersions[activeId] || {};
-              const {
-                id: versionIdFromData,
-                title: versionTitle,
-                subversion: versionSubVersion,
-                ...versionDetails
-              } = activeVersion;
-              activeDetails = versionDetails;
-              versionId = versionIdFromData;
-            }
-            return (
-              <li key={id} className={styles.datasetitemContainer}>
-                {clusterToolVisible && (
-                  <div className={styles.datasetItemMargin}>
-                    <input
-                      type="checkbox"
-                      checked={isAdded}
-                      onChange={() =>
-                        dispatch(addToGroup({ dataset: id, title, role: '' }, !isAdded))
-                      }
-                    />
-                  </div>
-                )}
-                <div className={styles.datasetItem}>
-                  <DatasetItem
-                    {...activeDetails}
-                    title={title}
-                    id={id}
-                    subversion={subversion}
-                    liftedByDefault={title === this.filterFromQuery}
-                    wasEdited={id === editedId}
-                    dispatch={dispatch}
-                    datasetVersions={datasetVersions}
-                    currentVersionId={versionId}
-                  />
-                </div>
-              </li>
-            );
-          })}
+          {datasets.map(dataset => this.renderDataset(dataset))}
         </ul>
       </div>
     );

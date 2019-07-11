@@ -2,6 +2,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { uid } from 'react-uid';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import Loader from '../../ui/loader';
 import 'react-tabs/style/react-tabs.css';
 
 import { Select } from '../../ui/localizedSelect';
@@ -69,7 +70,9 @@ class expandedItem extends Component {
         value: key
       }));
 
-    return (
+    return !fetchedVersions ? (
+      <Loader center />
+    ) : (
       <div>
         <ul className={styles.kwList}>
           {keywords.map(keyword => (
