@@ -1,14 +1,15 @@
 /* eslint-disable react/jsx-filename-extension */
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import regeneratorRuntime from 'regenerator-runtime';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import configureStore from './redux/store';
 import App from './App';
-import DevTools from './DevTools';
 import './general_styles/general_styles.scss';
 
 const store = configureStore();
+
+const DevTools = lazy(() => import(/* webpackChunkName: "redux-devtools" */ './DevTools'));
 
 ReactDOM.render(
   <Provider store={store}>

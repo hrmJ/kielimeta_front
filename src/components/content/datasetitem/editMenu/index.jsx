@@ -2,7 +2,7 @@ import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import ReactModal from 'react-modal';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '../../../ui/tooltip';
 
 import { updateField } from '../../../../redux/actions/datasetform';
 import { fetchDatasetForEdit, deleteDataset } from '../../../../redux/actions/datasets';

@@ -1,24 +1,37 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import TooltipLite from 'react-tooltip-lite';
+import TooltipStyles from '../../../general_styles/tooltip.scss';
 
-class Tooltip extends Component {
-  state = { AtlasTooltip: null };
+const toolTipStyle = {
+  background: '#172b4d',
+  color: '#fff',
+  arrow: false,
+  direction: 'down'
+};
 
-  componentDidMount = async () => {
-    const AtlasTooltip = await import(
-      /* webpackChunkName: "atlaskit-tooltip" */ '@atlaskit/tooltip'
-    );
-    this.setState({ AtlasTooltip });
-  };
+const Tooltip = props => {
+  const { children, content, ...otherProps } = props;
+  return content ? (
+    <TooltipLite
+      content={<div className={TooltipStyles.tooltipContent}>{content}</div>}
+      {...otherProps}
+      {...toolTipStyle}
+    >
+      {children}
+    </TooltipLite>
+  ) : (
+    <div>{children}</div>
+  );
+};
 
-  render() {
-    const { children, ...otherProps } = this.props;
-    const { AtlasTooltip } = this.state;
+Tooltip.propTypes = {
+  children: PropTypes.node.isRequired,
+  content: PropTypes.string
+};
 
-    if (AtlasTooltip) {
-      return <AtlasTooltip {...otherProps}>{children}</AtlasTooltip>;
-    }
-    return null;
-  }
-}
+Tooltip.defaultProps = {
+  content: ''
+};
 
 export default Tooltip;

@@ -54,7 +54,8 @@ class expandedItem extends Component {
       place_of_publication: placeOfPublication,
       license,
       contact_person: contactPerson,
-      sensitivity
+      sensitivity,
+      genre
     } = this.props;
     const {
       activated: { [id]: activeId },
@@ -103,7 +104,7 @@ class expandedItem extends Component {
             </p>
           </TabPanel>
           <TabPanel>
-            <Content {...{ languages }} />
+            <Content {...{ languages, genre }} />
           </TabPanel>
           <TabPanel>
             <Authors authors={authors} />
@@ -142,7 +143,8 @@ expandedItem.propTypes = {
   contact_person: PropTypes.arrayOf(
     PropTypes.shape({ name: PropTypes.string, email: PropTypes.string })
   ),
-  sensitivity: PropTypes.string
+  sensitivity: PropTypes.string,
+  genre: PropTypes.arrayOf(PropTypes.string)
 };
 
 expandedItem.defaultProps = {
@@ -157,7 +159,8 @@ expandedItem.defaultProps = {
   license: '',
   access_information: '',
   contact_person: [],
-  sensitivity: ''
+  sensitivity: '',
+  genre: []
 };
 
 export default expandedItem;
