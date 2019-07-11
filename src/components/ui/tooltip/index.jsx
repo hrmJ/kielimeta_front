@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import PropTypes from 'prop-types';
-import TooltipLite from 'react-tooltip-lite';
 import TooltipStyles from '../../../general_styles/tooltip.scss';
+
+const TooltipLite = lazy(() => import(/* webpackChunkName: "tooltiplite" */ 'react-tooltip-lite'));
 
 const toolTipStyle = {
   background: '#172b4d',
@@ -13,13 +14,15 @@ const toolTipStyle = {
 const Tooltip = props => {
   const { children, content, ...otherProps } = props;
   return content ? (
-    <TooltipLite
-      content={<div className={TooltipStyles.tooltipContent}>{content}</div>}
-      {...otherProps}
-      {...toolTipStyle}
-    >
-      {children}
-    </TooltipLite>
+    <Suspense fallback={<div>Ladataan...</div>}>
+      <TooltipLite
+        content={<div className={TooltipStyles.tooltipContent}>{content}</div>}
+        {...otherProps}
+        {...toolTipStyle}
+      >
+        {children}
+      </TooltipLite>
+    </Suspense>
   ) : (
     <div>{children}</div>
   );
