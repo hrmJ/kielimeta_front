@@ -1,12 +1,11 @@
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { Component, lazy, Suspense } from 'react';
 
 import {
   fetchDataset,
   fetchDatasetForEdit,
-  fetchSubVersions,
-  setVersions
+  fetchSubVersions
 } from '../../../redux/actions/datasets';
 import { prepopulateFormSelects } from '../../../redux/actions/formSelectPrepopulation';
 import {
@@ -20,10 +19,14 @@ import Access from './fieldsets/access';
 import Administration from './fieldsets/administration';
 import Authors from './fieldsets/authors';
 import GeneralInfo from './fieldsets/generalinfo/index';
-import Languages from './fieldsets/languages';
+import Loader from '../../ui/loader';
 import Splash from '../../layout/splash';
 import Stepper from '../../ui/stepper';
 import styles from './datasetform.scss';
+
+const Languages = lazy(() =>
+  import(/* webpackChunkName: "formLanguages" */ './fieldsets/languages')
+);
 
 /**
  * validateLanguageStep
@@ -226,16 +229,18 @@ class InsertForm extends Component {
       {
         legend: 'Kielet',
         component: (
-          <Languages
-            languages={languages}
-            dispatch={dispatch}
-            mediaTypes={mediatype}
-            languageVarieties={languageVarieties}
-            languageVarietyTypes={languageVarietyTypes}
-            languageNames={languageNames}
-            annotationLevels={annotationLevels}
-            connections={connections}
-          />
+          <Suspense fallback={<Loader center />}>
+            <Languages
+              languages={languages}
+              dispatch={dispatch}
+              mediaTypes={mediatype}
+              languageVarieties={languageVarieties}
+              languageVarietyTypes={languageVarietyTypes}
+              languageNames={languageNames}
+              annotationLevels={annotationLevels}
+              connections={connections}
+            />
+          </Suspense>
         ),
         isValid: validateLanguageStep(languages),
         doesNotPreventSave: true

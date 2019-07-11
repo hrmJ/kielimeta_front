@@ -2,8 +2,8 @@ import { HashRouter, Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import React, { Component, Suspense, lazy } from 'react';
 
-import Loader from '../ui/loader';
 import Footer from '../layout/footer';
+import Loader from '../ui/loader';
 import Login from '../auth/login';
 import TopBar from '../layout/navigation/topbar';
 import styles from '../../general_styles/general_styles.scss';
@@ -58,7 +58,7 @@ class main extends Component {
           <div className={styles.outerContainer}>
             {!showSplash && <TopBar toggleClusterTool={() => this.toggleClusterTool()} />}
             <main>
-              <Suspense fallback={<div>Ladataan...</div>}>
+              <Suspense fallback={<Loader center />}>
                 <Switch>
                   <Route path="/test" render={() => <Loader />} />
                   <Route path="/login" render={() => <Login />} />
