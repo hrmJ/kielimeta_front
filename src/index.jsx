@@ -13,8 +13,10 @@ const DevTools = lazy(() => import(/* webpackChunkName: "redux-devtools" */ './D
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
-    {process.env.NODE_ENV !== 'production' && <DevTools />}
+    <Suspense fallback={<div>Ladataan...</div>}>
+      <App />
+      {process.env.NODE_ENV !== 'production' && <DevTools />}
+    </Suspense>
   </Provider>,
   // eslint-disable-next-line no-undef
   document.getElementById('root')

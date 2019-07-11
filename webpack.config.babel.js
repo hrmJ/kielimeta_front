@@ -5,7 +5,8 @@ export default {
   plugins,
   resolve,
   entry: {
-    main: './src/index.jsx'
+    main: './src/index.jsx',
+    icon: './src/components/ui/icon'
   },
   output: {
     filename: '[name].bundle.js',

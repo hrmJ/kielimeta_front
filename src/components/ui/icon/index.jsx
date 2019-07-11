@@ -1,47 +1,54 @@
-import React, { Component } from 'react';
+import React, { Suspense, lazy } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import makeCancelable from 'makecancelable';
+import {
+  faCaretDown,
+  faCaretUp,
+  faCaretRight,
+  faPencilAlt,
+  faPlus,
+  faTrash,
+  faCopy,
+  faCodeBranch,
+  faInfoCircle,
+  faCheck,
+  faWindowClose,
+  faTimesCircle
+} from '@fortawesome/free-solid-svg-icons';
 
-const getIcons = () =>
-  import(/* webpackChunkName: "fontAwesomIcons" */ `@fortawesome/free-solid-svg-icons`).then(
-    svgIcons => svgIcons
-  );
+const icons = {
+  faCaretDown,
+  faCaretUp,
+  faCaretRight,
+  faPencilAlt,
+  faPlus,
+  faTrash,
+  faTrash,
+  faCopy,
+  faCodeBranch,
+  faPencilAlt,
+  faCaretDown,
+  faInfoCircle,
+  faCheck,
+  faWindowClose,
+  faTimesCircle
+};
 
-class Icon extends Component {
-  state = { svgIcons: null };
+const Icon = props => {
+  const { role, onClick, className, iconName } = props;
 
-  componentDidMount() {
-    this.cancelRequest = makeCancelable(
-      getIcons(),
-      svgIcons => this.setState({ svgIcons }),
-      console.error
-    );
+  const otherProps = {};
+  if (role) {
+    otherProps.role = role;
   }
-
-  componentWillUnmount() {
-    this.cancelRequest();
+  if (onClick) {
+    otherProps.onClick = onClick;
   }
-
-  processIcon() {}
-
-  render() {
-    const { role, onClick, className, iconName } = this.props;
-    const { svgIcons } = this.state;
-    const pickedIcon = svgIcons && svgIcons[iconName];
-    const otherProps = {};
-    if (role) {
-      otherProps.role = role;
-    }
-    if (onClick) {
-      otherProps.onClick = onClick;
-    }
-    if (className) {
-      otherProps.className = className;
-    }
-    return svgIcons ? <FontAwesomeIcon {...otherProps} icon={pickedIcon} /> : null;
+  if (className) {
+    otherProps.className = className;
   }
-}
+  return <FontAwesomeIcon icon={icons[iconName]} {...otherProps} />;
+};
 
 Icon.propTypes = {
   iconName: PropTypes.string.isRequired
