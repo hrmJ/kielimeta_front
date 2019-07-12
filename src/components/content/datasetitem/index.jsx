@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
+import { addToGroup } from '../../../redux/actions/groups';
 import CondensedItem from './condensedItem';
 import EditMenu from './editMenu';
 import ExpandedItem from './expandedItem';
@@ -19,42 +20,55 @@ class datasetItem extends Component {
       id,
       dispatch,
       currentVersionId,
-      subversion
+      subversion,
+      clusterToolVisible,
+      isAdded
     } = this.props;
     const { lifted } = this.state;
     const isLifted = lifted === 'up' || (lifted === 'initial' && liftedByDefault);
 
     return (
-      <div className={isLifted ? styles.liftedItem : styles.datasetItem}>
-        <div
-          role="button"
-          tabIndex={0}
-          className={styles.titleLine}
-          onClick={() => this.setState({ lifted: isLifted ? 'down' : 'up' })}
-          onKeyDown={() => this.setState({ lifted: isLifted ? 'down' : 'up' })}
-        >
-          <div className={styles.title}>{title}</div>
-
+      <article className={` ${styles.container} ${isLifted && styles.liftedContainer}`}>
+        {clusterToolVisible && (
           <div>
-            {isLifted && (
-              <EditMenu
-                hasSubVersions={subversion.length > 0}
-                currentVersionId={currentVersionId}
-                id={id}
-                dispatch={dispatch}
-              />
+            <input
+              type="checkbox"
+              checked={isAdded}
+              onChange={() => dispatch(addToGroup({ dataset: id, title, role: '' }, !isAdded))}
+            />
+          </div>
+        )}
+        <div className={isLifted ? styles.liftedItem : styles.datasetItem}>
+          <div
+            role="button"
+            tabIndex={0}
+            className={styles.titleLine}
+            onClick={() => this.setState({ lifted: isLifted ? 'down' : 'up' })}
+            onKeyDown={() => this.setState({ lifted: isLifted ? 'down' : 'up' })}
+          >
+            <div className={styles.title}>{title}</div>
+
+            <div>
+              {isLifted && (
+                <EditMenu
+                  hasSubVersions={subversion.length > 0}
+                  currentVersionId={currentVersionId}
+                  id={id}
+                  dispatch={dispatch}
+                />
+              )}
+            </div>
+          </div>
+          <div>
+            {isLifted && wasEdited && (
+              <div className={styles.savedIndicator}>
+                <Icon iconName="faCheck" /> Tallennettu
+              </div>
             )}
           </div>
+          {isLifted ? <ExpandedItem {...this.props} /> : <CondensedItem languages={languages} />}
         </div>
-        <div>
-          {isLifted && wasEdited && (
-            <div className={styles.savedIndicator}>
-              <Icon iconName="faCheck" /> Tallennettu
-            </div>
-          )}
-        </div>
-        {isLifted ? <ExpandedItem {...this.props} /> : <CondensedItem languages={languages} />}
-      </div>
+      </article>
     );
   }
 }
@@ -67,7 +81,9 @@ datasetItem.propTypes = {
   liftedByDefault: PropTypes.bool,
   wasEdited: PropTypes.bool,
   dispatch: PropTypes.func.isRequired,
-  subversion: PropTypes.arrayOf(PropTypes.number)
+  subversion: PropTypes.arrayOf(PropTypes.number),
+  clusterToolVisible: PropTypes.bool,
+  isAdded: PropTypes.bool
 };
 
 datasetItem.defaultProps = {
@@ -75,7 +91,9 @@ datasetItem.defaultProps = {
   liftedByDefault: false,
   wasEdited: false,
   currentVersionId: null,
-  subversion: []
+  subversion: [],
+  clusterToolVisible: false,
+  isAdded: false
 };
 
 export default datasetItem;

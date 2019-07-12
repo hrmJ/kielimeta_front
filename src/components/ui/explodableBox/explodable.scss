@@ -4,6 +4,12 @@
   background: $utupurple;
   padding: 2em;
   color: white;
+  cursor: pointer;
+}
+.closedContainer {
+  &:hover {
+    background: $logodark;
+  }
 }
 
 .title {

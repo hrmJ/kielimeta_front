@@ -12,6 +12,16 @@ h6 {
   font-family: $subheaderfont;
 }
 
+.container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.liftedContainer {
+  grid-column: auto / span 4;
+}
+
 .datasetItem {
   @include itemBody();
   //box-shadow: -1px -1px 5px grey;
@@ -123,4 +133,3 @@ h6 {
 .itemProp {
   margin-top: 1.1em;
 }
-

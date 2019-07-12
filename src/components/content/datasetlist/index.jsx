@@ -5,15 +5,19 @@ import React, { Component } from 'react';
 import { addToGroup, listGroups } from '../../../redux/actions/groups';
 import { filterByQuery } from '../../../redux/actions/filters';
 import { listAll } from '../../../redux/actions/datasets';
+import BasicButton from '../../ui/buttons/BasicButton';
 import ClusterTool from '../ClusterTool';
 import DatasetItem from '../datasetitem';
 import DelayedSearchField from '../../ui/DelayedSearchField';
 import Filters from './filters';
 import Splash from '../../layout/splash';
 import styles from './datasetlist.scss';
+import generalStyles from '../../../general_styles/general_styles.scss';
 
 class DatasetList extends Component {
   filterFromQuery = '';
+
+  state = { useGrid: false };
 
   componentDidMount() {
     const { dispatch, isTest, routeProps, groupNames } = this.props;
@@ -67,31 +71,22 @@ class DatasetList extends Component {
       activeDetails = versionDetails;
       versionId = versionIdFromData;
     }
+
     return (
-      <li key={id} className={styles.datasetitemContainer}>
-        {clusterToolVisible && (
-          <div className={styles.datasetItemMargin}>
-            <input
-              type="checkbox"
-              checked={isAdded}
-              onChange={() => dispatch(addToGroup({ dataset: id, title, role: '' }, !isAdded))}
-            />
-          </div>
-        )}
-        <div className={styles.datasetItem}>
-          <DatasetItem
-            {...activeDetails}
-            title={title}
-            id={id}
-            subversion={subversion}
-            liftedByDefault={title === this.filterFromQuery}
-            wasEdited={id === editedId}
-            dispatch={dispatch}
-            datasetVersions={datasetVersions}
-            currentVersionId={versionId}
-          />
-        </div>
-      </li>
+      <DatasetItem
+        {...activeDetails}
+        title={title}
+        key={id}
+        id={id}
+        subversion={subversion}
+        liftedByDefault={title === this.filterFromQuery}
+        wasEdited={id === editedId}
+        dispatch={dispatch}
+        datasetVersions={datasetVersions}
+        currentVersionId={versionId}
+        clusterToolVisible={clusterToolVisible}
+        isAdded={isAdded}
+      />
     );
   }
 
@@ -107,6 +102,8 @@ class DatasetList extends Component {
       loadingState,
       groupNames
     } = this.props;
+
+    const { useGrid } = this.state;
 
     if (showSplash) {
       return <Splash />;
@@ -136,9 +133,16 @@ class DatasetList extends Component {
           originalFilterValues={originalFilterValues}
           dispatch={dispatch}
         />
-        <ul className={styles.datasetList}>
+        <section className={styles.viewSelect}>
+          <BasicButton
+            text={useGrid ? 'Näytä listana' : 'Näytä ruudukkona'}
+            onClick={() => this.setState({ useGrid: !useGrid })}
+            iconName={useGrid ? 'faThList' : 'faThLarge'}
+          />
+        </section>
+        <section className={`${styles.datasetList} ${useGrid && styles.datasetListGrid}`}>
           {datasets.map(dataset => this.renderDataset(dataset))}
-        </ul>
+        </section>
       </div>
     );
   }

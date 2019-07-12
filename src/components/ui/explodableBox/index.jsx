@@ -15,7 +15,7 @@ class explodableBos extends Component {
     const { isOpen } = this.state;
     return (
       <div
-        className={`${styles.container} ${isOpen && openClassName}`}
+        className={`${styles.container} ${isOpen ? openClassName : styles.closedContainer} `}
         role="button"
         tabIndex={0}
         onKeyDown={() => this.toggle()}

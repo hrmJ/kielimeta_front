@@ -12,7 +12,9 @@ import {
   faInfoCircle,
   faCheck,
   faWindowClose,
-  faTimesCircle
+  faTimesCircle,
+  faThLarge,
+  faThList
 } from '@fortawesome/free-solid-svg-icons';
 
 const icons = {
@@ -22,15 +24,14 @@ const icons = {
   faPencilAlt,
   faPlus,
   faTrash,
-  faTrash,
   faCopy,
   faCodeBranch,
-  faPencilAlt,
-  faCaretDown,
   faInfoCircle,
   faCheck,
   faWindowClose,
-  faTimesCircle
+  faTimesCircle,
+  faThList,
+  faThLarge
 };
 
 const FontAwesomeIconMod = lazy(() => import(/* webpackChunkName: "font-awesome" */ './faBase'));

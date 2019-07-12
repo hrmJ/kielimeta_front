@@ -36,9 +36,6 @@ const filtersComponent = props => {
           Aineistoja näillä suodattimilla:
           {dsLength}
         </div>
-        <div>
-          <OrderSelect items={['nimi', 'koko']} />
-        </div>
       </section>
     </div>
   );
