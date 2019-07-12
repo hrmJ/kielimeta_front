@@ -34,13 +34,6 @@ class datasetItem extends Component {
           onKeyDown={() => this.setState({ lifted: isLifted ? 'down' : 'up' })}
         >
           <div className={styles.title}>{title}</div>
-          <div>
-            {isLifted && wasEdited && (
-              <div className={styles.savedIndicator}>
-                <Icon iconName="faCheck" /> Tallennettu
-              </div>
-            )}
-          </div>
 
           <div>
             {isLifted && (
@@ -52,6 +45,13 @@ class datasetItem extends Component {
               />
             )}
           </div>
+        </div>
+        <div>
+          {isLifted && wasEdited && (
+            <div className={styles.savedIndicator}>
+              <Icon iconName="faCheck" /> Tallennettu
+            </div>
+          )}
         </div>
         {isLifted ? <ExpandedItem {...this.props} /> : <CondensedItem languages={languages} />}
       </div>
