@@ -95,7 +95,7 @@ class expandedItem extends Component {
             />
           </div>
         )}
-        <Tabs>
+        <Tabs defaultIndex={1}>
           <TabList>
             <Tab>Kuvaus</Tab>
             <Tab>Sisältö</Tab>

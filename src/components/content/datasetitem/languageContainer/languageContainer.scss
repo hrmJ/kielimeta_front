@@ -1,0 +1,12 @@
+.languageContainer {
+  //test  the grid?
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(10em, 1fr));
+  @media screen and (max-width: 600px) {
+    grid-template-columns: repeat(auto-fill, minmax(46%, 1fr));
+  }
+  grid-gap: 10px;
+  > div {
+    align-self: center;
+  }
+}

@@ -1,8 +1,7 @@
-import { uid } from 'react-uid';
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React from 'react';
 
-import LanguageDetails from '../languageDetails';
+import LanguageContainer from '../languageContainer';
 import MediaType from './mediatype';
 import TabContent from '../../../ui/TabContent';
 import TimeLineChart from '../../../ui/timeline/chart';
@@ -48,11 +47,12 @@ const Content = props => {
           <TimeLineChart years={years} />
         </div>
       )}
-      <div className={generalStyles.someTopMargin}>
-        {languages.map(language => (
-          <LanguageDetails key={uid(language)} {...language} />
-        ))}
-      </div>
+      {languages.length > 0 && (
+        <div className={generalStyles.labelContainerStacked}>
+          <div>Kielikohtaiset tiedot</div>
+          <LanguageContainer languages={languages} />
+        </div>
+      )}
     </TabContent>
   );
 };
