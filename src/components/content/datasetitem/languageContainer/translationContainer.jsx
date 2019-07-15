@@ -21,7 +21,7 @@ class TranslationContainer extends Component {
           <h5>
             <div className={styles.arrow_box}>
               <div className={styles.tlHeading}>
-                <div>Kohdekielet</div>
+                <div>{tl.length > 1 ? 'Kohdekielet' : 'Kohdekieli'}</div>
               </div>
             </div>
           </h5>

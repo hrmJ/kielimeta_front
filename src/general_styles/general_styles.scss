@@ -46,6 +46,7 @@ a:active {
 .labelContainer,
 .labelContainerLight {
   display: flex;
+  align-items: center;
   > *:first-child {
     width: 15em;
     margin-right: 1em;
