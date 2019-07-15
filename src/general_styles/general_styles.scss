@@ -106,6 +106,16 @@ a:active {
   padding: 0px;
 }
 
+.noIndent {
+  padding: 0px;
+}
+
+.nobullet {
+  li {
+    list-style-type: none;
+  }
+}
+
 .bulletlist {
   li {
     list-style-type: circle;

@@ -14,8 +14,12 @@ import {
   faWindowClose,
   faTimesCircle,
   faThLarge,
-  faThList
+  faThList,
+  faMusic,
+  faVideo,
+  faFileAlt
 } from '@fortawesome/free-solid-svg-icons';
+import utilityStyles from '../../../general_styles/utilities.scss';
 
 const icons = {
   faCaretDown,
@@ -31,7 +35,10 @@ const icons = {
   faWindowClose,
   faTimesCircle,
   faThList,
-  faThLarge
+  faMusic,
+  faVideo,
+  faThLarge,
+  faFileAlt
 };
 
 const FontAwesomeIconMod = lazy(() => import(/* webpackChunkName: "font-awesome" */ './faBase'));
@@ -50,7 +57,7 @@ const Icon = props => {
     otherProps.className = className;
   }
   return (
-    <Suspense fallback={<div>Ladataan...</div>}>
+    <Suspense fallback={<div className={utilityStyles.loading} />}>
       <FontAwesomeIconMod icon={icons[iconName]} {...otherProps} />
     </Suspense>
   );

@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from 'react';
 import PropTypes from 'prop-types';
 import TooltipStyles from '../../../general_styles/tooltip.scss';
+import utilityStyles from '../../../general_styles/utilities.scss';
 
 const TooltipLite = lazy(() => import(/* webpackChunkName: "tooltiplite" */ 'react-tooltip-lite'));
 
@@ -14,7 +15,7 @@ const toolTipStyle = {
 const Tooltip = props => {
   const { children, content, ...otherProps } = props;
   return content ? (
-    <Suspense fallback={<div>Ladataan...</div>}>
+    <Suspense fallback={<div className={utilityStyles.loading} />}>
       <TooltipLite
         content={<div className={TooltipStyles.tooltipContent}>{content}</div>}
         {...otherProps}

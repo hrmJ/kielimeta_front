@@ -1,0 +1,10 @@
+.mainList {
+  li {
+    > *:first-child {
+      width: 2em;
+    }
+  }
+  li + li {
+    margin-top: 0.4em;
+  }
+}

@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import configureStore from './redux/store';
 import App from './App';
 import './general_styles/general_styles.scss';
+import utilityStyles from './general_styles/utilities.scss';
 
 const store = configureStore();
 
@@ -13,7 +14,7 @@ const DevTools = lazy(() => import(/* webpackChunkName: "redux-devtools" */ './D
 
 ReactDOM.render(
   <Provider store={store}>
-    <Suspense fallback={<div>Ladataan...</div>}>
+    <Suspense fallback={<div className={utilityStyles.loading} />}>
       <App />
       {process.env.NODE_ENV !== 'production' && <DevTools />}
     </Suspense>
