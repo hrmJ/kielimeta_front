@@ -47,7 +47,7 @@ const languageDetails = props => {
         </li>
         <li key="temporal_coverage">
           <h4>Ajanjakso</h4>
-          <TimelineChart years={yearsCovered} />
+          <TimelineChart years={yearsCovered} whiteText />
         </li>
       </ul>
     </ExplodableBox>

@@ -12,10 +12,14 @@ class TimelineChart extends Component {
   };
 
   render() {
-    const { years } = this.props;
+    const { years, whiteText } = this.props;
     const { reactVis } = this.state;
 
     const range = getRange(Math.min(...years), Math.max(...years));
+    const style = {};
+    if (whiteText) {
+      style.text = { fill: '#fff' };
+    }
 
     if (reactVis && years.length > 0) {
       const { FlexibleWidthXYPlot, MarkSeries, XAxis } = reactVis;
@@ -34,6 +38,7 @@ class TimelineChart extends Component {
             tickLabelAngle={-70}
             title={years.length === 2 ? 'Aineistot sijoittuvat annettujen vuosien väliin' : ''}
             position="middle"
+            style={style}
           />
           <MarkSeries data={years.map(year => ({ x: year, y: 0 }))} />
         </FlexibleWidthXYPlot>
@@ -44,11 +49,13 @@ class TimelineChart extends Component {
 }
 
 TimelineChart.propTypes = {
-  years: PropTypes.arrayOf(PropTypes.number)
+  years: PropTypes.arrayOf(PropTypes.number),
+  whiteText: PropTypes.bool
 };
 
 TimelineChart.defaultProps = {
-  years: []
+  years: [],
+  whiteText: false
 };
 
 export default TimelineChart;
