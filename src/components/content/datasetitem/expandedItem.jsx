@@ -58,7 +58,8 @@ class expandedItem extends Component {
       sensitivity,
       genre,
       mediatype,
-      media_description: mediaDescription
+      media_description: mediaDescription,
+      connections
     } = this.props;
     const {
       activated: { [id]: activeId },
@@ -109,7 +110,7 @@ class expandedItem extends Component {
             </p>
           </TabPanel>
           <TabPanel>
-            <Content {...{ languages, genre, mediatype, mediaDescription }} />
+            <Content {...{ languages, connections, genre, mediatype, mediaDescription }} />
           </TabPanel>
           <TabPanel>
             <Authors authors={authors} />
@@ -151,11 +152,15 @@ expandedItem.propTypes = {
   sensitivity: PropTypes.string,
   genre: PropTypes.arrayOf(PropTypes.string),
   mediatype: PropTypes.arrayOf(PropTypes.string),
-  media_description: PropTypes.string
+  media_description: PropTypes.string,
+  connections: PropTypes.arrayOf(
+    PropTypes.shape({ sl: PropTypes.number, tl: PropTypes.arrayOf(PropTypes.number) })
+  )
 };
 
 expandedItem.defaultProps = {
   languages: [],
+  connections: [],
   keywords: [],
   resourcetype: '',
   description: '',

@@ -1,3 +1,22 @@
+@import 'src/general_styles/utilities.scss';
+@import 'src/general_styles/configs.scss';
+
+.translationContainer {
+  display: grid;
+  grid-template-rows: auto auto auto;
+  grid-template-columns: repeat(auto-fill, minmax(10em, 1fr));
+  > h5 {
+    grid-column: auto / span 6;
+  }
+  grid-gap: 10px;
+  padding: 1em;
+  & + & {
+    margin-top: 4em;
+    padding-top: 4em;
+    border-top: 1px solid $logodark;
+  }
+}
+
 .languageContainer {
   //test  the grid?
   display: grid;
@@ -10,3 +29,45 @@
     align-self: center;
   }
 }
+
+.slContainer {
+  grid-column: 1 / span 6;
+  // justify-self: center;
+  @media screen and (max-width: 600px) {
+    justify-self: center;
+  }
+}
+
+.tlContainer {
+  margin-top: 2em;
+}
+
+.tlHeading {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tlContainer,
+.tlContainer1,
+.tlContainer2,
+.tlContainer3 {
+  margin-top: 2em;
+}
+
+.tlContainer1 {
+  grid-column: auto / span 6;
+  // justify-self: center;
+}
+
+.tlContainer2 {
+  @media screen and (max-width: 600px) {
+    grid-column: 1 / span 6;
+  }
+  @media screen and (min-width: 900px) {
+    grid-column: auto / span 2;
+  }
+}
+
+@include arrow($bg: $logodark, $border: $logodark);

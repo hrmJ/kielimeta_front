@@ -11,13 +11,21 @@ import generalStyles from '../../../../general_styles/general_styles.scss';
 import styles from './languageDetails.scss';
 
 const languageDetails = props => {
-  const { details, annotations, size, years_covered: yearsCovered, speaker } = props;
+  const {
+    details,
+    annotations,
+    size,
+    years_covered: yearsCovered,
+    speaker,
+    additionalClassname
+  } = props;
   const { language_name: name, variety } = details;
   return (
     <ExplodableBox
       key={uid(details)}
       title={`${name}${variety && variety !== 'generic' ? `: ${variety}` : ''}`}
       openClassName={styles.openBox}
+      additionalClassname={additionalClassname}
     >
       <ul className={styles.langDetailsList}>
         <li key="speakers">
@@ -54,14 +62,16 @@ languageDetails.propTypes = {
     PropTypes.shape({ level: PropTypes.string, description: PropTypes.string })
   ),
   size: PropTypes.objectOf(PropTypes.any),
-  speaker: PropTypes.objectOf(PropTypes.any)
+  speaker: PropTypes.objectOf(PropTypes.any),
+  additionalClassname: PropTypes.string
 };
 
 languageDetails.defaultProps = {
   years_covered: [],
   annotations: [],
   size: {},
-  speaker: {}
+  speaker: {},
+  additionalClassname: ''
 };
 
 export default languageDetails;
