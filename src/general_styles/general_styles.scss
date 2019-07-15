@@ -61,6 +61,13 @@ a:active {
   }
 }
 
+.iconContainer {
+  display: flex;
+  > *:first-child {
+    width: 2em;
+  }
+}
+
 .labelContainerStacked {
   > div:first-child {
     margin: 0em 0 1em 0;

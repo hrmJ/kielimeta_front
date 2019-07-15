@@ -22,7 +22,7 @@ class explodableBos extends Component {
         onClick={() => this.toggle()}
       >
         <div>
-          <div className={styles.title}>{title}</div>
+          <div className={isOpen ? styles.openTitle : styles.title}>{title}</div>
           <div className={styles.content}>{isOpen && children}</div>
         </div>
       </div>

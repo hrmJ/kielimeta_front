@@ -5,12 +5,13 @@ import React from 'react';
 import AnnotationInfo from './annotationInfo';
 import ExplodableBox from '../../../ui/explodableBox';
 import SizeInfo from './sizeInfo';
+import SpeakerInfo from './speakerInfo';
 import TimelineChart from '../../../ui/timeline/chart';
-import styles from './languageDetails.scss';
 import generalStyles from '../../../../general_styles/general_styles.scss';
+import styles from './languageDetails.scss';
 
 const languageDetails = props => {
-  const { details, annotations, size, years_covered: yearsCovered } = props;
+  const { details, annotations, size, years_covered: yearsCovered, speaker } = props;
   const { language_name: name, variety } = details;
   return (
     <ExplodableBox
@@ -19,6 +20,9 @@ const languageDetails = props => {
       openClassName={styles.openBox}
     >
       <ul className={styles.langDetailsList}>
+        <li key="speakers">
+          <SpeakerInfo {...speaker} />
+        </li>
         <li key="size">
           <SizeInfo {...size} />
         </li>
@@ -49,13 +53,15 @@ languageDetails.propTypes = {
   annotations: PropTypes.arrayOf(
     PropTypes.shape({ level: PropTypes.string, description: PropTypes.string })
   ),
-  size: PropTypes.objectOf(PropTypes.any)
+  size: PropTypes.objectOf(PropTypes.any),
+  speaker: PropTypes.objectOf(PropTypes.any)
 };
 
 languageDetails.defaultProps = {
   years_covered: [],
   annotations: [],
-  size: {}
+  size: {},
+  speaker: {}
 };
 
 export default languageDetails;
