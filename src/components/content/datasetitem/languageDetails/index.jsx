@@ -17,15 +17,18 @@ const languageDetails = props => {
     size,
     years_covered: yearsCovered,
     speaker,
-    additionalClassname
+    additionalClassname,
+    additionalClassnameClosed
   } = props;
   const { language_name: name, variety } = details;
+  console.log(additionalClassname);
   return (
     <ExplodableBox
       key={uid(details)}
       title={`${name}${variety && variety !== 'generic' ? `: ${variety}` : ''}`}
       openClassName={styles.openBox}
       additionalClassname={additionalClassname}
+      additionalClassnameClosed={additionalClassnameClosed}
     >
       <ul className={styles.langDetailsList}>
         <li key="speakers">
@@ -63,7 +66,8 @@ languageDetails.propTypes = {
   ),
   size: PropTypes.objectOf(PropTypes.any),
   speaker: PropTypes.objectOf(PropTypes.any),
-  additionalClassname: PropTypes.string
+  additionalClassname: PropTypes.string,
+  additionalClassnameClosed: PropTypes.string
 };
 
 languageDetails.defaultProps = {
@@ -71,7 +75,8 @@ languageDetails.defaultProps = {
   annotations: [],
   size: {},
   speaker: {},
-  additionalClassname: ''
+  additionalClassname: '',
+  additionalClassnameClosed: ''
 };
 
 export default languageDetails;
