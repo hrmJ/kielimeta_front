@@ -100,3 +100,14 @@ a:active {
 .largeTopMargin {
   margin-top: 2em;
 }
+
+.sublist {
+  margin-left: 0.1em;
+  padding: 0px;
+}
+
+.bulletlist {
+  li {
+    list-style-type: circle;
+  }
+}

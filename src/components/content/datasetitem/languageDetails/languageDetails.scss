@@ -1,19 +1,15 @@
 .langDetailsList {
   padding: 0px;
-  li {
+  > li {
     list-style-type: none;
     padding: 0px;
   }
-  li:last-child {
+  > li:last-child {
     margin-bottom: 1.5em;
   }
-}
-
-.sublist {
-  margin-left: 0.1em;
-  padding: 0px;
 }
 
 .openBox {
   grid-column: auto / span 2;
 }
+
