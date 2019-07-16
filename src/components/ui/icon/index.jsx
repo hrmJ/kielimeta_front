@@ -18,7 +18,8 @@ import {
   faMusic,
   faVideo,
   faFileAlt,
-  faUsers
+  faUsers,
+  faSort
 } from '@fortawesome/free-solid-svg-icons';
 import utilityStyles from '../../../general_styles/utilities.scss';
 
@@ -40,7 +41,8 @@ const icons = {
   faVideo,
   faThLarge,
   faFileAlt,
-  faUsers
+  faUsers,
+  faSort
 };
 
 const FontAwesomeIconMod = lazy(() => import(/* webpackChunkName: "font-awesome" */ './faBase'));

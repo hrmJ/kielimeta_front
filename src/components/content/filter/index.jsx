@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { updateAndFilter, resetFilterAndRefresh } from '../../../redux/actions/filters';
 import Icon from '../../ui/icon';
 import styles from './filter.scss';
 
-export default class Filter extends Component {
+class Filter extends Component {
   state = {
     menuOpen: false
   };
@@ -97,3 +98,28 @@ export default class Filter extends Component {
     );
   }
 }
+
+Filter.propTypes = {
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+      label: PropTypes.string
+    })
+  ),
+  keyName: PropTypes.string.isRequired,
+  children: PropTypes.node,
+  dispatch: PropTypes.func.isRequired,
+  id: PropTypes.string,
+  filters: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.array])
+  )
+};
+
+Filter.defaultProps = {
+  items: [],
+  children: null,
+  id: '',
+  filters: {}
+};
+
+export default Filter;

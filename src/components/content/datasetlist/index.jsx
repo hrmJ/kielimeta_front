@@ -128,17 +128,20 @@ class DatasetList extends Component {
           />
         </section>
         <Filters
-          dsLength={datasets.length}
           filters={filters}
           originalFilterValues={originalFilterValues}
           dispatch={dispatch}
         />
         <section className={styles.viewSelect}>
+          <div className={styles.dsCount}>
+            {datasets.length} aineisto{datasets.length > 1 && 'a'}
+          </div>
           <BasicButton
             text={useGrid ? 'Näytä listana' : 'Näytä ruudukkona'}
             onClick={() => this.setState({ useGrid: !useGrid })}
             iconName={useGrid ? 'faThList' : 'faThLarge'}
           />
+          <BasicButton text="Järjestä" todo="Ryhmittäin" iconName="faSort" />
         </section>
         <section className={`${styles.datasetList} ${useGrid && styles.datasetListGrid}`}>
           {datasets.map(dataset => this.renderDataset(dataset))}
