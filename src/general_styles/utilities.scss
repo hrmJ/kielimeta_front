@@ -21,3 +21,35 @@
     width: 20px;
   }
 }
+
+@mixin arrow($bg: grey, $fg: white, $border: grey) {
+  .arrow_box {
+    position: relative;
+    background: $bg;
+    border: 4px solid $border;
+  }
+  .arrow_box:after,
+  .arrow_box:before {
+    top: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: ' ';
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+  }
+
+  .arrow_box:after {
+    border-color: rgba(136, 183, 213, 0);
+    border-top-color: $bg;
+    border-width: 30px;
+    margin-left: -30px;
+  }
+  .arrow_box:before {
+    border-color: rgba(194, 225, 245, 0);
+    border-top-color: $border;
+    border-width: 36px;
+    margin-left: -36px;
+  }
+}

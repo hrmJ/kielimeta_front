@@ -15,8 +15,13 @@ class LanguageContainer extends Component {
     const { languages } = this.props;
     return (
       <div className={styles.languageContainer} ref={el => (this.grid = el)}>
-        {languages.map(language => (
-          <LanguageDetails key={uid(language)} {...language} />
+        {languages.map((language, idx) => (
+          <LanguageDetails
+            key={uid(language)}
+            {...language}
+            additionalClassname={languages.length === 1 ? styles.slContainer : ''}
+            additionalClassnameClosed={styles[`languageGridItem${idx + 1}_of_${languages.length}`]}
+          />
         ))}
       </div>
     );

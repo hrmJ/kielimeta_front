@@ -11,13 +11,26 @@ import generalStyles from '../../../../general_styles/general_styles.scss';
 import styles from './languageDetails.scss';
 
 const languageDetails = props => {
-  const { details, annotations, size, years_covered: yearsCovered, speaker } = props;
+  const {
+    details,
+    annotations,
+    size,
+    years_covered: yearsCovered,
+    speaker,
+    additionalClassname,
+    additionalClassnameClosed,
+    isSl
+  } = props;
   const { language_name: name, variety } = details;
   return (
     <ExplodableBox
       key={uid(details)}
-      title={`${name}${variety && variety !== 'generic' ? `: ${variety}` : ''}`}
+      title={`${name}${variety && variety !== 'generic' ? `: ${variety}` : ''} ${
+        isSl ? ' (lähdekieli)' : ''
+      }`}
       openClassName={styles.openBox}
+      additionalClassname={additionalClassname}
+      additionalClassnameClosed={additionalClassnameClosed}
     >
       <ul className={styles.langDetailsList}>
         <li key="speakers">
@@ -54,14 +67,20 @@ languageDetails.propTypes = {
     PropTypes.shape({ level: PropTypes.string, description: PropTypes.string })
   ),
   size: PropTypes.objectOf(PropTypes.any),
-  speaker: PropTypes.objectOf(PropTypes.any)
+  speaker: PropTypes.objectOf(PropTypes.any),
+  additionalClassname: PropTypes.string,
+  additionalClassnameClosed: PropTypes.string,
+  isSl: PropTypes.bool
 };
 
 languageDetails.defaultProps = {
   years_covered: [],
   annotations: [],
   size: {},
-  speaker: {}
+  speaker: {},
+  additionalClassname: '',
+  additionalClassnameClosed: '',
+  isSl: false
 };
 
 export default languageDetails;

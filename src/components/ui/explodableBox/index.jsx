@@ -11,11 +11,19 @@ class explodableBos extends Component {
   }
 
   render() {
-    const { children, title, openClassName } = this.props;
+    const {
+      children,
+      title,
+      openClassName,
+      additionalClassname,
+      additionalClassnameClosed
+    } = this.props;
     const { isOpen } = this.state;
     return (
       <div
-        className={`${styles.container} ${isOpen ? openClassName : styles.closedContainer} `}
+        className={`${styles.container} ${
+          isOpen ? openClassName : styles.closedContainer
+        } ${additionalClassname} ${!isOpen ? additionalClassnameClosed : ''}`}
         role="button"
         tabIndex={0}
         onKeyDown={() => this.toggle()}
@@ -33,11 +41,15 @@ class explodableBos extends Component {
 explodableBos.propTypes = {
   children: PropTypes.node.isRequired,
   title: PropTypes.string.isRequired,
-  openClassName: PropTypes.string
+  openClassName: PropTypes.string,
+  additionalClassname: PropTypes.string,
+  additionalClassnameClosed: PropTypes.string
 };
 
 explodableBos.defaultProps = {
-  openClassName: ''
+  openClassName: '',
+  additionalClassname: '',
+  additionalClassnameClosed: ''
 };
 
 export default explodableBos;
