@@ -1,19 +1,22 @@
 import { components } from 'react-select';
 import React, { Component } from 'react';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from 'react-tooltip-lite';
 
 import FieldInfo from '../fieldInfo';
 import { AsyncSelectCreatable } from '../../ui/localizedSelect';
-import { baseUrl } from '../../../redux/actions/datasets';
+import { baseUrl } from '../../../redux/actions/utils';
 import { selectStyle } from '../../../general_styles/jsStyles';
 import formstyles from '../../content/datasetform/datasetform.scss';
 import styles from './autocompletefield.scss';
 
-const Option = props => (
-  <Tooltip content={props.data.tooltip}>
+const Option = props =>
+  props.data.tooltip ? (
+    <Tooltip content={props.data.tooltip}>
+      <components.Option {...props} />
+    </Tooltip>
+  ) : (
     <components.Option {...props} />
-  </Tooltip>
-);
+  );
 
 export default class AutoCompleteField extends Component {
   getOptions(inputValue) {

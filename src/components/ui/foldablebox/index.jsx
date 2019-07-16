@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCaretRight, faCaretDown } from '@fortawesome/free-solid-svg-icons';
+
+import Icon from '../icon';
 import styles from './foldablebox.scss';
-import TimelineChart from '../timeline/chart';
 
 export default class FoldableBox extends Component {
   state = {
-    open: false,
+    open: false
   };
 
   setVisibilityStyle() {
@@ -27,13 +26,13 @@ export default class FoldableBox extends Component {
       children = '',
       launchertype = 'button',
       headerclass,
-      id,
+      id
     } = this.props;
     const { open } = this.state;
     // const open = true;
     let launcher = (
       <button className={styles.orderButton} onClick={() => this.setState({ open: !open })}>
-        <FontAwesomeIcon icon={open ? faCaretDown : faCaretRight} />
+        <Icon iconName={open ? 'faCaretDown' : 'faCaretRight'} />
         {header}
       </button>
     );
@@ -43,7 +42,7 @@ export default class FoldableBox extends Component {
           className={`${styles.orderHeading} ${headerclass}`}
           onClick={() => this.setState({ open: !open })}
         >
-          <FontAwesomeIcon icon={open ? faCaretDown : faCaretRight} />
+          <Icon iconName={open ? 'faCaretDown' : 'faCaretRight'} />
           {header}
         </h4>
       );

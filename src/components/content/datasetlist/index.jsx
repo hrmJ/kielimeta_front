@@ -2,17 +2,22 @@ import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
-import { filterByQuery, listAll } from '../../../redux/actions/datasets';
 import { addToGroup, listGroups } from '../../../redux/actions/groups';
+import { filterByQuery } from '../../../redux/actions/filters';
+import { listAll } from '../../../redux/actions/datasets';
+import BasicButton from '../../ui/buttons/BasicButton';
 import ClusterTool from '../ClusterTool';
 import DatasetItem from '../datasetitem';
 import DelayedSearchField from '../../ui/DelayedSearchField';
 import Filters from './filters';
 import Splash from '../../layout/splash';
 import styles from './datasetlist.scss';
+import generalStyles from '../../../general_styles/general_styles.scss';
 
 class DatasetList extends Component {
   filterFromQuery = '';
+
+  state = { useGrid: false };
 
   componentDidMount() {
     const { dispatch, isTest, routeProps, groupNames } = this.props;
@@ -43,6 +48,48 @@ class DatasetList extends Component {
     dispatch(filterByQuery({ ...filters, query }));
   }
 
+  renderDataset(dataset) {
+    const { groupedDatasets, editedId, datasetVersions, clusterToolVisible, dispatch } = this.props;
+    const { id, title, subversion, ...datasetDetails } = dataset;
+    const { datasets: alreadyGrouped } = groupedDatasets;
+    let versionId;
+    const isAdded = alreadyGrouped && alreadyGrouped.find(ds => ds.dataset === id) !== undefined;
+    let activeDetails = datasetDetails;
+    const {
+      activated: { [id]: activeId },
+      all: { [id]: fetchedVersions }
+    } = datasetVersions;
+    if (activeId && fetchedVersions) {
+      // Dataset has subversions and the subversions have been cached
+      const activeVersion = fetchedVersions[activeId] || {};
+      const {
+        id: versionIdFromData,
+        title: versionTitle,
+        subversion: versionSubVersion,
+        ...versionDetails
+      } = activeVersion;
+      activeDetails = versionDetails;
+      versionId = versionIdFromData;
+    }
+
+    return (
+      <DatasetItem
+        {...activeDetails}
+        title={title}
+        key={id}
+        id={id}
+        subversion={subversion}
+        liftedByDefault={title === this.filterFromQuery}
+        wasEdited={id === editedId}
+        dispatch={dispatch}
+        datasetVersions={datasetVersions}
+        currentVersionId={versionId}
+        clusterToolVisible={clusterToolVisible}
+        isAdded={isAdded}
+      />
+    );
+  }
+
   render() {
     const {
       datasets,
@@ -50,12 +97,13 @@ class DatasetList extends Component {
       filters,
       originalFilterValues,
       showSplash,
-      editedId,
       clusterToolVisible,
       groupedDatasets,
       loadingState,
       groupNames
     } = this.props;
+
+    const { useGrid } = this.state;
 
     if (showSplash) {
       return <Splash />;
@@ -74,7 +122,7 @@ class DatasetList extends Component {
         <section className={styles.searchBarContainer}>
           <DelayedSearchField
             id="searchfield"
-            onChange={this.filterDatasets.bind(this)}
+            onChange={query => this.filterDatasets(query)}
             placeholder="Hae nimellä tai avainsanalla"
             defaultValue={this.filterFromQuery}
           />
@@ -85,37 +133,16 @@ class DatasetList extends Component {
           originalFilterValues={originalFilterValues}
           dispatch={dispatch}
         />
-        <ul className={styles.datasetList}>
-          {datasets.map(dataset => {
-            const { id, title } = dataset;
-            const { datasets: alreadyGrouped } = groupedDatasets;
-            const isAdded =
-              alreadyGrouped && alreadyGrouped.find(ds => ds.dataset === id) !== undefined;
-            return (
-              <li key={id} className={styles.datasetitemContainer}>
-                {clusterToolVisible && (
-                  <div className={styles.datasetItemMargin}>
-                    <input
-                      type="checkbox"
-                      checked={isAdded}
-                      onChange={() =>
-                        dispatch(addToGroup({ dataset: id, title, role: '' }, !isAdded))
-                      }
-                    />
-                  </div>
-                )}
-                <div className={styles.datasetItem}>
-                  <DatasetItem
-                    {...dataset}
-                    liftedByDefault={title === this.filterFromQuery}
-                    wasEdited={id === editedId}
-                    dispatch={dispatch}
-                  />
-                </div>
-              </li>
-            );
-          })}
-        </ul>
+        <section className={styles.viewSelect}>
+          <BasicButton
+            text={useGrid ? 'Näytä listana' : 'Näytä ruudukkona'}
+            onClick={() => this.setState({ useGrid: !useGrid })}
+            iconName={useGrid ? 'faThList' : 'faThLarge'}
+          />
+        </section>
+        <section className={`${styles.datasetList} ${useGrid && styles.datasetListGrid}`}>
+          {datasets.map(dataset => this.renderDataset(dataset))}
+        </section>
       </div>
     );
   }
@@ -141,7 +168,8 @@ DatasetList.propTypes = {
     name: PropTypes.string
   }),
   loadingState: PropTypes.objectOf(PropTypes.any).isRequired,
-  groupNames: PropTypes.arrayOf(PropTypes.object)
+  groupNames: PropTypes.arrayOf(PropTypes.object),
+  datasetVersions: PropTypes.shape({ activated: PropTypes.object, all: PropTypes.object })
 };
 
 DatasetList.defaultProps = {
@@ -153,7 +181,8 @@ DatasetList.defaultProps = {
   editedId: null,
   clusterToolVisible: false,
   groupedDatasets: [],
-  groupNames: []
+  groupNames: [],
+  datasetVersions: { activated: {}, all: {} }
 };
 
 export default withRouter(DatasetList);

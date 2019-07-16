@@ -1,43 +1,74 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { faCheck as checkIcon } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import { addToGroup } from '../../../redux/actions/groups';
 import CondensedItem from './condensedItem';
 import EditMenu from './editMenu';
 import ExpandedItem from './expandedItem';
+import Icon from '../../ui/icon';
 import styles from './datasetitem.scss';
 
 class datasetItem extends Component {
   state = { lifted: 'initial' }; // up, down
 
   render() {
-    const { title, languages, liftedByDefault, wasEdited, id, dispatch } = this.props;
+    const {
+      title,
+      languages,
+      liftedByDefault,
+      wasEdited,
+      id,
+      dispatch,
+      currentVersionId,
+      subversion,
+      clusterToolVisible,
+      isAdded
+    } = this.props;
     const { lifted } = this.state;
     const isLifted = lifted === 'up' || (lifted === 'initial' && liftedByDefault);
 
     return (
-      <div className={isLifted ? styles.liftedItem : styles.datasetItem}>
-        <div
-          role="button"
-          tabIndex={0}
-          className={styles.titleLine}
-          onClick={() => this.setState({ lifted: isLifted ? 'down' : 'up' })}
-          onKeyDown={() => this.setState({ lifted: isLifted ? 'down' : 'up' })}
-        >
-          <div className={styles.title}>{title}</div>
+      <article className={` ${styles.container} ${isLifted && styles.liftedContainer}`}>
+        {clusterToolVisible && (
+          <div>
+            <input
+              type="checkbox"
+              checked={isAdded}
+              onChange={() => dispatch(addToGroup({ dataset: id, title, role: '' }, !isAdded))}
+            />
+          </div>
+        )}
+        <div className={isLifted ? styles.liftedItem : styles.datasetItem}>
+          <div
+            role="button"
+            tabIndex={0}
+            className={styles.titleLine}
+            onClick={() => this.setState({ lifted: isLifted ? 'down' : 'up' })}
+            onKeyDown={() => this.setState({ lifted: isLifted ? 'down' : 'up' })}
+          >
+            <div className={styles.title}>{title}</div>
+
+            <div>
+              {isLifted && (
+                <EditMenu
+                  hasSubVersions={subversion.length > 0}
+                  currentVersionId={currentVersionId}
+                  id={id}
+                  dispatch={dispatch}
+                />
+              )}
+            </div>
+          </div>
           <div>
             {isLifted && wasEdited && (
               <div className={styles.savedIndicator}>
-                <FontAwesomeIcon icon={checkIcon} /> Muutokset tallennettu
+                <Icon iconName="faCheck" /> Tallennettu
               </div>
             )}
           </div>
-
-          <div>{isLifted && <EditMenu id={id} dispatch={dispatch} />}</div>
+          {isLifted ? <ExpandedItem {...this.props} /> : <CondensedItem languages={languages} />}
         </div>
-        {isLifted ? <ExpandedItem {...this.props} /> : <CondensedItem languages={languages} />}
-      </div>
+      </article>
     );
   }
 }
@@ -46,15 +77,23 @@ datasetItem.propTypes = {
   title: PropTypes.string.isRequired,
   languages: PropTypes.arrayOf(PropTypes.object),
   id: PropTypes.number.isRequired,
+  currentVersionId: PropTypes.number,
   liftedByDefault: PropTypes.bool,
   wasEdited: PropTypes.bool,
-  dispatch: PropTypes.func.isRequired
+  dispatch: PropTypes.func.isRequired,
+  subversion: PropTypes.arrayOf(PropTypes.number),
+  clusterToolVisible: PropTypes.bool,
+  isAdded: PropTypes.bool
 };
 
 datasetItem.defaultProps = {
   languages: [],
   liftedByDefault: false,
-  wasEdited: false
+  wasEdited: false,
+  currentVersionId: null,
+  subversion: [],
+  clusterToolVisible: false,
+  isAdded: false
 };
 
 export default datasetItem;

@@ -5,9 +5,11 @@ export default {
   plugins,
   resolve,
   entry: {
-    app: './src/index.js',
+    main: './src/index.jsx',
+    icon: './src/components/ui/icon'
   },
   output: {
-    filename: 'bundle.js',
-  },
+    filename: '[name].bundle.js',
+    chunkFilename: '[name].bundle.js'
+  }
 };

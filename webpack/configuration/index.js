@@ -1,6 +1,6 @@
 import module from './module';
 import plugins from './plugins';
 import resolve from './resolve';
-
-const devtool = { devtool: 'inline-source-map' };
-export { module, plugins, resolve, devtool };
+import optimization from './optimization';
+// import devtool from './devtool';
+export { module, plugins, resolve, optimization };

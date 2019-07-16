@@ -1,0 +1,113 @@
+@import 'src/general_styles/utilities.scss';
+@import 'src/general_styles/configs.scss';
+
+.translationContainer {
+  @media screen and (min-width: 900px) {
+    display: grid;
+  }
+  grid-template-rows: auto auto auto;
+  grid-template-columns: repeat(auto-fill, minmax(10em, 1fr));
+  grid-auto-flow: row;
+  > h5 {
+    grid-column: auto / span 6;
+  }
+  grid-gap: 10px;
+  padding: 1em;
+  & + & {
+    margin-top: 4em;
+    padding-top: 4em;
+    border-top: 1px solid $logodark;
+  }
+}
+
+.languageContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(10em, 1fr));
+  padding: 1em;
+  @media screen and (max-width: 600px) {
+    grid-template-columns: repeat(auto-fill, minmax(46%, 1fr));
+  }
+  grid-gap: 10px;
+  > div {
+    align-self: center;
+  }
+}
+
+.slContainer {
+  grid-column: 1 / span 6;
+  // justify-self: center;
+  @media screen and (max-width: 600px) {
+    justify-self: center;
+  }
+}
+
+.languageGridItem1 {
+  border: 4px solid blue;
+}
+
+// Adjust start column for wider screens
+// to make languages center-aligned
+// TODO: for translations only (?)
+
+@media screen and (min-width: 900px) {
+  .languageGridItem1_of_2 {
+    grid-column-start: 2;
+  }
+
+  .languageGridItem2_of_2 {
+    grid-column-start: 3;
+  }
+
+  .languageGridItem1_of_3 {
+    grid-column-start: 1;
+  }
+
+  .languageGridItem2_of_3 {
+    grid-column-start: 2;
+  }
+
+  .languageGridItem3_of_3 {
+    grid-column-start: 3;
+  }
+}
+
+.tlOuterContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid blue;
+}
+
+.tlContainer {
+  border: 1px solid red;
+}
+
+.tlHeading {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tlContainer,
+.tlContainer1,
+.tlContainer2,
+.tlContainer3 {
+  margin-top: 2em;
+}
+
+.tlContainer1 {
+  grid-column: auto / span 6;
+  // justify-self: center;
+}
+
+.tlContainer2 {
+  @media screen and (max-width: 600px) {
+    grid-column: 1 / span 6;
+  }
+  @media screen and (min-width: 900px) {
+    grid-column: auto / span 2;
+  }
+}
+
+@include arrow($bg: $logodark, $border: $logodark);

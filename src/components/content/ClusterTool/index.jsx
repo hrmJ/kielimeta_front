@@ -1,5 +1,3 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck as iconOk } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -11,6 +9,7 @@ import {
   editRoleInGroup,
   submitGroup
 } from '../../../redux/actions/groups';
+import Icon from '../../ui/icon';
 import LabelledInput from '../../ui/labelledinput';
 import RemoveButton from '../../ui/buttons/remove';
 import Save from '../../ui/buttons/save';
@@ -76,7 +75,7 @@ const ClusterTool = props => {
         </p>
         {submitted === 'success' && (
           <div className={styles.savedMsgIndicator}>
-            Ryhmä tallennettu <FontAwesomeIcon icon={iconOk} />
+            Ryhmä tallennettu <Icon iconName="faCheck" />
           </div>
         )}
         <div className={styles.controlsContainer}>

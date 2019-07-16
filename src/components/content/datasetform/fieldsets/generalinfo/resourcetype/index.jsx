@@ -10,10 +10,12 @@ import styles from '../../../datasetform.scss';
 const resourceType = props => {
   const { handleChange, resourcetype, dispatch, resourceTypes } = props;
   let selectValue;
-  if (typeof resourcetype === 'object') {
-    selectValue = { label: resourcetype.name, value: resourcetype.name };
-  } else if (resourcetype) {
-    selectValue = { label: resourcetype, value: resourcetype };
+  if (resourcetype !== null) {
+    if (typeof resourcetype === 'object' && resourcetype !== null) {
+      selectValue = { label: resourcetype.name, value: resourcetype.name };
+    } else if (resourcetype) {
+      selectValue = { label: resourcetype, value: resourcetype };
+    }
   }
 
   const tooltip = `Määrittele tässä, onko aineisto esimerkiksi korpus,
@@ -37,7 +39,7 @@ const resourceType = props => {
       <AdditionalField
         originalValues={resourceTypes.map(rt => rt.name)}
         currentVal={resourcetype}
-        value={typeof resourcetype === 'object' ? resourcetype.description : ''}
+        value={resourcetype && typeof resourcetype === 'object' ? resourcetype.description : ''}
         handleChange={ev => {
           dispatch(
             updateField('resourcetype', {

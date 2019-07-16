@@ -1,7 +1,7 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import { faPlus as plusIcon } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from 'react';
+
+import Icon from '../../icon';
 import styles from './add.scss';
 
 const Add = props => {
@@ -17,7 +17,7 @@ const Add = props => {
     >
       <div>{text}</div>
       <div>
-        <FontAwesomeIcon role="button" icon={plusIcon} />
+        <Icon role="button" iconName="faPlus" />
       </div>
     </div>
   );

@@ -15,7 +15,8 @@ function mapStateToProps(state) {
     loadStatus: state.loadStatus,
     editedId: state.editedId,
     groupedDatasets: state.groupedDatasets,
-    groupNames: state.groupNames
+    groupNames: state.groupNames,
+    datasetVersions: state.datasetVersions
   };
 }
 

@@ -1,5 +1,4 @@
-import { thunkCreator } from './utils';
-import { baseUrl } from './datasets';
+import { thunkCreator, baseUrl } from './utils';
 
 const getVarietyTypes = () => {
   const url = `${baseUrl}/variety_types`;

@@ -1,16 +1,18 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
-import Tooltip from '@atlaskit/tooltip';
+import React from 'react';
+import Tooltip from '../tooltip';
+
+import Icon from '../icon';
 import styles from './fieldinfo.scss';
 
 const fieldInfo = props => {
   const { text } = props;
 
   return (
-    <Tooltip content={text}>
-      <FontAwesomeIcon role="button" icon={faInfoCircle} />
+    <Tooltip content={text} eventOn="onClick">
+      <div className={styles.circle}>
+        <Icon iconName="faInfoCircle" />
+      </div>
     </Tooltip>
   );
 };

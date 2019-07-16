@@ -2,7 +2,7 @@ import { components } from 'react-select';
 import PropTypes from 'prop-types';
 
 import React from 'react';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '../tooltip';
 
 import { CreatableSelect, Select } from '../localizedSelect';
 import { selectStyle } from '../../../general_styles/jsStyles';

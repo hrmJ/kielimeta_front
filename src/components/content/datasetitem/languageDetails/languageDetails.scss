@@ -1,0 +1,15 @@
+.langDetailsList {
+  padding: 0px;
+  > li {
+    list-style-type: none;
+    padding: 0px;
+  }
+  > li:last-child {
+    margin-bottom: 1.5em;
+  }
+}
+
+.openBox {
+  grid-column: auto / span 2;
+}
+

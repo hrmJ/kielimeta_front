@@ -12,6 +12,7 @@ import loadStatusReducer from './loadStatus';
 import editedIdReducer from './editedId';
 import datasetGroupReducer from './datasetGroups';
 import groupNameReducer from './groupNames';
+import datasetVersionReducer from './datasetVersions';
 
 const appReducer = combineReducers({
   datasets: datasetReducer,
@@ -26,7 +27,8 @@ const appReducer = combineReducers({
   loadStatus: loadStatusReducer,
   editedId: editedIdReducer,
   groupedDatasets: datasetGroupReducer,
-  groupNames: groupNameReducer
+  groupNames: groupNameReducer,
+  datasetVersions: datasetVersionReducer
 });
 
 export default appReducer;

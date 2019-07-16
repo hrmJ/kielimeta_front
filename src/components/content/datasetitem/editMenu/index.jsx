@@ -1,20 +1,11 @@
-import {
-  faCaretDown as adminIcon,
-  faPencilAlt as editIcon,
-  faLink as linkIcon,
-  faCodeBranch as versionIcon,
-  faCopy as copyIcon,
-  faTrash,
-  faWindowClose as cancelIcon
-} from '@fortawesome/free-solid-svg-icons';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import ReactModal from 'react-modal';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '../../../ui/tooltip';
 
-import { deleteDataset, updateField } from '../../../../redux/actions/datasetform';
-import { fetchDatasetForEdit } from '../../../../redux/actions/datasets';
+import { updateField } from '../../../../redux/actions/datasetform';
+import { fetchDatasetForEdit, deleteDataset } from '../../../../redux/actions/datasets';
 import BasicButton from '../../../ui/buttons/BasicButton';
 import Remove from '../../../ui/buttons/remove';
 import styles from './editmenu.scss';
@@ -42,21 +33,26 @@ class EditMenu extends Component {
   }
 
   initializeEdit() {
-    const { id, dispatch } = this.props;
-    dispatch(updateField('main_version_id', null));
-    this.props.history.push(`/edit/${id}`);
+    const { id, dispatch, history, currentVersionId } = this.props;
+    if (currentVersionId === id || !currentVersionId) {
+      dispatch(updateField('main_version_id', null));
+    } else {
+      dispatch(updateField('main_version_id', id));
+      dispatch(updateField('id', currentVersionId));
+    }
+    history.push(`/edit/${currentVersionId || id}`);
   }
 
-  initializeSubversion(ev) {
-    const { id, dispatch } = this.props;
+  initializeSubversion() {
+    const { id, dispatch, history, currentVersionId } = this.props;
     dispatch(updateField('main_version_id', id));
-    this.props.history.push(`/edit/${id}`);
+    history.push(`/edit/${currentVersionId || id}`);
   }
 
   initializeCopy() {
-    const { id, dispatch } = this.props;
-    dispatch(fetchDatasetForEdit(id, null, true));
-    this.props.history.push(`/newdataset`);
+    const { id, dispatch, history, currentVersionId } = this.props;
+    dispatch(fetchDatasetForEdit(currentVersionId || id, null, true));
+    history.push(`/newdataset`);
   }
 
   toggleDeleteModal(ev, modalState) {
@@ -65,22 +61,34 @@ class EditMenu extends Component {
   }
 
   render() {
-    const { editEvent, id, dispatch } = this.props;
+    const { id, dispatch, currentVersionId, hasSubVersions } = this.props;
     const { open, deletePending } = this.state;
     return (
       <div className={styles.outerContainer}>
         <ReactModal isOpen={deletePending} style={modalStyle}>
           <p>Oletko aivan varma?</p>
+          {currentVersionId && currentVersionId * 1 !== id * 1 && (
+            <p>
+              Huom! Olet poistamassa vain valittua aliversiota. <br />
+              Jos haluat poistaa koko aineiston, valitse ensin versiolistasta pääversio.
+            </p>
+          )}
+          {(!currentVersionId || currentVersionId * 1 === id * 1) && hasSubVersions && (
+            <p>Huom! Tämän version poistaminen poistaa myös kaikki aliversiot</p>
+          )}
           <div className={styles.deleteModal}>
             <BasicButton
               text="Peruuta"
-              icon={cancelIcon}
+              iconname="faWindowClose"
               onClick={ev => this.toggleDeleteModal(ev, false)}
             />
-            <Remove text="Poista aineisto" onClick={() => dispatch(deleteDataset(id))} />
+            <Remove
+              text="Poista aineisto"
+              onClick={() => dispatch(deleteDataset(currentVersionId || id, id))}
+            />
           </div>
         </ReactModal>
-        <BasicButton onClick={ev => this.open(ev)} text="Hallitse" icon={adminIcon} />
+        <BasicButton onClick={ev => this.open(ev)} text="Hallitse" iconName="faCaretDown" />
         {open && !deletePending && (
           <div className={styles.menu}>
             <ul className={styles.menuList}>
@@ -90,7 +98,7 @@ class EditMenu extends Component {
                     onClick={() => this.initializeEdit()}
                     text="Muokkaa tietoja"
                     noBackground
-                    icon={editIcon}
+                    iconName="faPencilAlt"
                   />
                 </Tooltip>
               </li>
@@ -102,10 +110,10 @@ class EditMenu extends Component {
                   alisteisia nykyiselle versiolle.`}
                 >
                   <BasicButton
-                    onClick={ev => this.initializeSubversion(ev)}
+                    onClick={() => this.initializeSubversion()}
                     text="Kopioi aliversioksi"
                     noBackground
-                    icon={versionIcon}
+                    iconName="faCodeBranch"
                   />
                 </Tooltip>
               </li>
@@ -120,7 +128,7 @@ class EditMenu extends Component {
                     text="Kopioi itsenäiseksi versioksi"
                     noBackground
                     onClick={ev => this.initializeCopy(ev)}
-                    icon={copyIcon}
+                    iconName="faCopy"
                   />
                 </Tooltip>
               </li>
@@ -130,7 +138,7 @@ class EditMenu extends Component {
                     onClick={ev => this.toggleDeleteModal(ev, true)}
                     text="Poista aineisto"
                     noBackground
-                    icon={faTrash}
+                    iconName="faTrash"
                   />
                 </Tooltip>
               </li>
@@ -144,7 +152,14 @@ class EditMenu extends Component {
 
 EditMenu.propTypes = {
   id: PropTypes.number.isRequired,
-  dispatch: PropTypes.func.isRequired
+  dispatch: PropTypes.func.isRequired,
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
+  currentVersionId: PropTypes.number,
+  hasSubVersions: PropTypes.bool
+};
+EditMenu.defaultProps = {
+  currentVersionId: null,
+  hasSubVersions: false
 };
 
 export default withRouter(EditMenu);

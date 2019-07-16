@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Tooltip from '@atlaskit/tooltip';
 import PropTypes from 'prop-types';
 
+import Tooltip from '../../../../../ui/tooltip';
 import { updateField } from '../../../../../../redux/actions/datasetform';
 import Add from '../../../../../ui/buttons/add';
 import Annotations from './languageprops/annotations';

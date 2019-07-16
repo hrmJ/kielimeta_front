@@ -1,5 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Josefin+Slab|Roboto:100,300,400,500,900|Open+Sans+Condensed&display=swap');
 $headerfont: 'Roboto', sans-serif;
+$bodyfont: 'Roboto', sans-serif;
+$prosefont: 'Josefin Slab', serif;
+// $subheaderfont: 'Open Sans Condensed';
+$subheaderfont: 'Roboto', sans-serif;
 
 $navbg: darken(grey, 30%);
 $bodybg: lighten(grey, 40%);
@@ -17,6 +21,15 @@ input,
 textarea {
   box-sizing: border-box;
 }
+
+.react-tabs__tab-panel {
+  padding: 1em 0em 0.5em 1em;
+}
+
+.react-tooltip-lite {
+  max-width: 10em;
+}
+
 // input,
 // select {
 //   -webkit-box-sizing: content-box; /* Safari/Chrome, other WebKit */

@@ -1,3 +1,3 @@
 export default {
-  extensions: ['.js', '.jsx'],
+  extensions: ['.js', '.jsx']
 };

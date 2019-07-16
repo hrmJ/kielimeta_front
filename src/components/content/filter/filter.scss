@@ -2,9 +2,10 @@
 
 .container {
   position: relative;
-  & + & {
+  & + &,
+  &:first-child {
     // TODO:mobile=top
-    margin-left: 1em;
+    margin-right: 1em;
   }
 }
 
@@ -15,6 +16,7 @@
   background: white;
   display: flex;
   align-items: center;
+  margin-top: 1em;
   &:hover {
     cursor: pointer;
     background: lighten(grey, 20%);

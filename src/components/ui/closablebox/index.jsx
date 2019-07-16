@@ -1,6 +1,6 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faWindowClose, faTrash } from '@fortawesome/free-solid-svg-icons';
+
+import Icon from '../icon';
 import styles from './closablebox.scss';
 
 const ClosableBox = (props) => {
@@ -10,7 +10,7 @@ const ClosableBox = (props) => {
 
   return (
     <div className={`${styles.closableBox} ${className}`} id={id}>
-      <FontAwesomeIcon className={styles.closer} icon={faWindowClose} onClick={() => onClose()} />
+      <Icon className={styles.closer} iconName="faWindowClose" onClick={() => onClose()} />
       {children}
     </div>
   );

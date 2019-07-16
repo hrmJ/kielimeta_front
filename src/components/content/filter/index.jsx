@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
+
+import { updateAndFilter, resetFilterAndRefresh } from '../../../redux/actions/filters';
+import Icon from '../../ui/icon';
 import styles from './filter.scss';
-import { updateAndFilter, resetFilterAndRefresh } from '../../../redux/actions/datasets';
-import { filter } from 'rsvp';
-import cuid from 'cuid';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
 export default class Filter extends Component {
   state = {
@@ -60,6 +58,7 @@ export default class Filter extends Component {
     return (
       <div className={styles.container} id={id}>
         <button
+          type="button"
           className={styles.filterButton}
           onClick={() => this.setState({ menuOpen: !menuOpen })}
         >
@@ -68,7 +67,7 @@ export default class Filter extends Component {
             className={`${styles.closer} clearfilter`}
             style={{ display: this.isInUse() ? 'block' : 'none' }}
           >
-            <FontAwesomeIcon icon={faTimesCircle} onClick={ev => this.reset(ev)} />
+            <Icon iconName="faTimesCircle" role="button" onClick={ev => this.reset(ev)} />
           </div>
         </button>
         <div

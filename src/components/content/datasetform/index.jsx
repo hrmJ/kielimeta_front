@@ -1,10 +1,15 @@
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { Component, lazy, Suspense } from 'react';
 
-import { fetchDatasetForEdit } from '../../../redux/actions/datasets';
+import {
+  fetchDataset,
+  fetchDatasetForEdit,
+  fetchSubVersions
+} from '../../../redux/actions/datasets';
 import { prepopulateFormSelects } from '../../../redux/actions/formSelectPrepopulation';
 import {
+  resetFormData,
   resetSubmitStatus,
   setEditedId,
   submitDataset,
@@ -14,10 +19,14 @@ import Access from './fieldsets/access';
 import Administration from './fieldsets/administration';
 import Authors from './fieldsets/authors';
 import GeneralInfo from './fieldsets/generalinfo/index';
-import Languages from './fieldsets/languages';
+import Loader from '../../ui/loader';
 import Splash from '../../layout/splash';
 import Stepper from '../../ui/stepper';
 import styles from './datasetform.scss';
+
+const Languages = lazy(() =>
+  import(/* webpackChunkName: "formLanguages" */ './fieldsets/languages')
+);
 
 /**
  * validateLanguageStep
@@ -64,13 +73,21 @@ class InsertForm extends Component {
       if (id) {
         dispatch(fetchDatasetForEdit(id, mainVersion));
         if (!mainVersion) {
-          // Only set the id if not creating a subversion
+          // Only set the id if not creating a subversion....
           this.id = id;
         } else {
           this.mainVersion = mainVersion;
           this.mainVersionTitle = datasets.find(ds => ds.id === mainVersion).title;
+          if (mainVersion !== id) {
+            // ...although if editing a subversion, the id must be set
+            this.id = id;
+          }
         }
+      } else {
+        dispatch(resetFormData());
       }
+    } else {
+      dispatch(resetFormData());
     }
   }
 
@@ -78,14 +95,26 @@ class InsertForm extends Component {
     const {
       loadingState,
       dispatch,
-      fields: { title }
+      fields: { title },
+      history
     } = this.props;
     if (loadingState.SUBMITDATASET === 'success') {
       dispatch(resetSubmitStatus());
       if (this.id || this.mainVersion) {
         dispatch(setEditedId(this.id || this.mainVersion));
       }
-      this.props.history.push(`/${this.mainVersion ? this.mainVersionTitle : title}`);
+      if (this.mainVersion) {
+        fetchDataset(this.mainVersion).then(updatedData => {
+          return dispatch(
+            fetchSubVersions(
+              this.mainVersion,
+              [this.mainVersion, ...updatedData.subversion],
+              this.id
+            )
+          );
+        });
+      }
+      history.push(`/${this.mainVersion ? this.mainVersionTitle : title}`);
     }
   }
 
@@ -139,7 +168,6 @@ class InsertForm extends Component {
   render() {
     // PROPS: usertype
     const {
-      loadingState,
       dispatch,
       fields,
       languageVarieties,
@@ -201,16 +229,18 @@ class InsertForm extends Component {
       {
         legend: 'Kielet',
         component: (
-          <Languages
-            languages={languages}
-            dispatch={dispatch}
-            mediaTypes={mediatype}
-            languageVarieties={languageVarieties}
-            languageVarietyTypes={languageVarietyTypes}
-            languageNames={languageNames}
-            annotationLevels={annotationLevels}
-            connections={connections}
-          />
+          <Suspense fallback={<Loader center />}>
+            <Languages
+              languages={languages}
+              dispatch={dispatch}
+              mediaTypes={mediatype}
+              languageVarieties={languageVarieties}
+              languageVarietyTypes={languageVarietyTypes}
+              languageNames={languageNames}
+              annotationLevels={annotationLevels}
+              connections={connections}
+            />
+          </Suspense>
         ),
         isValid: validateLanguageStep(languages),
         doesNotPreventSave: true
@@ -260,10 +290,15 @@ class InsertForm extends Component {
 
     return (
       <form onSubmit={event => this.submit(event)}>
-        {this.mainVersion && (
+        {this.mainVersion && this.id * 1 === this.mainVersion * 1 && (
           <div className={styles.autonomousDescription}>
             Olet lisäämässä uutta aliversiota. Muokkaa tiedot, jotka ovat alkuperäiseen versioon
             nähden erilaisia, ja tallenna osion 5 lopussa olevalla painikkeella.
+          </div>
+        )}
+        {this.mainVersion && this.id && this.id * 1 !== this.mainVersion * 1 && (
+          <div className={styles.autonomousDescription}>
+            Huom! Olet muokkaamassa varsinaisen aineiston aliversiota.
           </div>
         )}
         {isCopy && (
@@ -288,7 +323,8 @@ InsertForm.propTypes = {
   preloadedSelects: PropTypes.objectOf(PropTypes.any),
   routeProps: PropTypes.objectOf(PropTypes.any),
   showSplash: PropTypes.bool,
-  datasets: PropTypes.arrayOf(PropTypes.object)
+  datasets: PropTypes.arrayOf(PropTypes.object),
+  history: PropTypes.objectOf(PropTypes.any)
 };
 
 InsertForm.defaultProps = {
@@ -298,7 +334,8 @@ InsertForm.defaultProps = {
   preloadedSelects: {},
   routeProps: {},
   showSplash: false,
-  datasets: []
+  datasets: [],
+  history: {}
 };
 
 export default withRouter(InsertForm);

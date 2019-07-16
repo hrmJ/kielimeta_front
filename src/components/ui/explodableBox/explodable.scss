@@ -1,0 +1,26 @@
+@import 'src/general_styles/configs.scss';
+
+.container {
+  background: $utupurple;
+  padding: 2em;
+  color: white;
+  cursor: pointer;
+}
+.closedContainer {
+  &:hover {
+    background: $logodark;
+  }
+}
+
+.title {
+  font-weight: 400;
+}
+
+.openTitle {
+  font-weight: bold;
+  font-size: 1.3em;
+  margin-bottom: 1.4em;
+}
+
+.content {
+}

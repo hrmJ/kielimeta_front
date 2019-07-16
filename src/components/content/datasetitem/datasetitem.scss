@@ -4,6 +4,24 @@
   padding: 0.6em 0.5em 0.6em 0.5em;
 }
 
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $subheaderfont;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.liftedContainer {
+  grid-column: auto / span 4;
+}
+
 .datasetItem {
   @include itemBody();
   //box-shadow: -1px -1px 5px grey;
@@ -12,6 +30,7 @@
   background: white;
   box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.05), 0 0 2px rgba(0, 0, 0, 0.12),
     0 2px 4px rgba(0, 0, 0, 0.2);
+  width: 100%;
 }
 
 .titleLine {
@@ -23,16 +42,36 @@
   justify-content: space-between;
 }
 
+.title {
+  font-family: $subheaderfont;
+}
+
+.description {
+  font-family: $prosefont;
+  text-align: justify;
+  max-width: 90%;
+  margin-left: 1em;
+}
+
 .liftedItem {
   margin: 0.9em 0em;
   box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12),
     0 5px 5px -3px rgba(0, 0, 0, 0.2);
   transition: margin 75ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 75ms cubic-bezier(0.4, 0, 0.2, 1);
+  max-width: 90vw;
+  @media screen and (min-width: 900px) {
+    min-width: 100%;
+  }
+
   @include itemBody();
+  .titleLine {
+    margin-bottom: 2em;
+  }
 
   .title {
-    font-weight: bold;
+    font-weight: 900;
     font-size: 2em;
+    font-variant: small-caps;
   }
 
   h3 {
@@ -41,6 +80,10 @@
     background: lightblue;
     padding: 0.3em;
   }
+}
+
+.versionPickerContainer {
+  margin: 1em 0 1em 0;
 }
 
 .savedIndicator {
@@ -54,23 +97,8 @@
   flex-flow: row wrap;
 }
 
-.sublist {
-  margin-left: 0.1em;
-  padding: 0px;
-}
-
-.langDetailsList {
-  padding: 0px;
-  li {
-    list-style-type: none;
-    padding: 0px;
-  }
-  li:last-child {
-    margin-bottom: 1.5em;
-  }
-}
-
 .kwList {
+  margin-top: 1em;
   padding: 0px;
   li {
     font-size: 0.8em;

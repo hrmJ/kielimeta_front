@@ -1,12 +1,28 @@
-const thunkCreator = (action) => {
+const baseUrl = window.location.href.includes('istest')
+  ? 'http://%%API_SERVER_HOST_TEST%%'
+  : '%%API_SERVER_PROTOCOL%%://%%API_SERVER_HOST%%';
+
+/**
+ *
+ * A way to mock the url for jest tests
+ *
+ * @param {string} url the url to be set
+ */
+const setBaseUrl = url => {
+  // TOO
+  // baseUrl = url;
+  return url;
+};
+
+const thunkCreator = action => {
   const { types, promise, ...rest } = action;
   const [REQUESTED, RESOLVED, REJECTED] = types;
 
-  return (dispatch) => {
+  return dispatch => {
     dispatch({ ...rest, type: REQUESTED });
 
     return promise
-      .then((result) => {
+      .then(result => {
         if (result.ok !== undefined) {
           if (!result.ok) {
             throw new Error(result.statusText);
@@ -16,7 +32,7 @@ const thunkCreator = (action) => {
         dispatch({ ...rest, type: RESOLVED, result });
         return result;
       })
-      .catch((error) => {
+      .catch(error => {
         dispatch({ ...rest, type: REJECTED, error });
         throw error;
       });
@@ -29,31 +45,27 @@ const thunkCreator = (action) => {
  * @param {*} datasets an array containing all the datasets
  * @returns an object with default values for each of the filters availble on the dataset list page
  */
-const getOriginalValuesForFilters = (datasets) => {
-  const flags = {};
-  const langObjList = [];
-  for (const ds of datasets) {
-    if (Object.keys(ds).includes('languages')) {
-      for (const lang of ds.languages) {
-        if (!flags[lang.details.code]) {
-          flags[lang.details.code] = true;
-          langObjList.push(lang.details);
-        }
-      }
-    }
-  }
-  const langList = langObjList.map(obj => ({
-    label: obj.name,
-    value: obj.code,
-  }));
+const getOriginalValuesForFilters = datasets =>
+  datasets.reduce(
+    (prev, ds) => {
+      const { lang: existingLangs, resourcetype: existingRestypes } = prev;
+      const { languages = [], resourcetype } = ds;
+      return {
+        lang: languages.reduce((processed, lang) => {
+          const {
+            details: { language_code: code, language_name: name }
+          } = lang;
+          if (!processed.map(p => p.value).includes(code)) {
+            processed.push({ label: name, value: code });
+          }
+          return processed;
+        }, existingLangs),
+        resourcetype: resourcetype
+          ? [...new Set([...existingRestypes, resourcetype])]
+          : existingRestypes
+      };
+    },
+    { lang: [], resourcetype: [] }
+  );
 
-  const restypes = [
-    ...new Set(
-      datasets.filter(ds => Object.keys(ds).includes('resourcetype')).map(ds => ds.resourcetype),
-    ),
-  ].map(restype => ({ label: restype, value: restype }));
-
-  return { lang: langList, resourcetype: restypes };
-};
-
-export { thunkCreator, getOriginalValuesForFilters };
+export { thunkCreator, getOriginalValuesForFilters, baseUrl, setBaseUrl };
