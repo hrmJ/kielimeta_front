@@ -17,7 +17,7 @@ class TranslationContainer extends Component {
     return (
       <div>
         <div className={styles.translationContainer} ref={el => (this.grid = el)}>
-          <LanguageDetails key={uid(sl)} {...sl} additionalClassname={styles.slContainer} />
+          <LanguageDetails key={uid(sl)} {...sl} additionalClassname={styles.slContainer} isSl />
           <h5>
             <div className={styles.arrow_box}>
               <div className={styles.tlHeading}>

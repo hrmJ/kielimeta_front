@@ -7,7 +7,7 @@ import styles from './speakerInfo.scss';
 
 const speakerInfo = props => {
   const { speaker_status: status, speaker_l1: l1 } = props;
-  return !status ? null : (
+  return !status || status === 'ei tiedossa' ? null : (
     <div className={styles.outerContainer}>
       <Icon iconName="faUsers" />
       <div>{status}-puhujien tuottamaa aineistoa</div>

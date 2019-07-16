@@ -45,31 +45,27 @@ const thunkCreator = action => {
  * @param {*} datasets an array containing all the datasets
  * @returns an object with default values for each of the filters availble on the dataset list page
  */
-const getOriginalValuesForFilters = datasets => {
-  const flags = {};
-  const langObjList = [];
-  for (const ds of datasets) {
-    if (Object.keys(ds).includes('languages')) {
-      for (const lang of ds.languages) {
-        if (!flags[lang.details.code]) {
-          flags[lang.details.code] = true;
-          langObjList.push(lang.details);
-        }
-      }
-    }
-  }
-  const langList = langObjList.map(obj => ({
-    label: obj.name,
-    value: obj.code
-  }));
-
-  const restypes = [
-    ...new Set(
-      datasets.filter(ds => Object.keys(ds).includes('resourcetype')).map(ds => ds.resourcetype)
-    )
-  ].map(restype => ({ label: restype, value: restype }));
-
-  return { lang: langList, resourcetype: restypes };
-};
+const getOriginalValuesForFilters = datasets =>
+  datasets.reduce(
+    (prev, ds) => {
+      const { lang: existingLangs, resourcetype: existingRestypes } = prev;
+      const { languages = [], resourcetype } = ds;
+      return {
+        lang: languages.reduce((processed, lang) => {
+          const {
+            details: { language_code: code, language_name: name }
+          } = lang;
+          if (!processed.map(p => p.value).includes(code)) {
+            processed.push({ label: name, value: code });
+          }
+          return processed;
+        }, existingLangs),
+        resourcetype: resourcetype
+          ? [...new Set([...existingRestypes, resourcetype])]
+          : existingRestypes
+      };
+    },
+    { lang: [], resourcetype: [] }
+  );
 
 export { thunkCreator, getOriginalValuesForFilters, baseUrl, setBaseUrl };

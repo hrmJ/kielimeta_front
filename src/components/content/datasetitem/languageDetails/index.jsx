@@ -18,14 +18,16 @@ const languageDetails = props => {
     years_covered: yearsCovered,
     speaker,
     additionalClassname,
-    additionalClassnameClosed
+    additionalClassnameClosed,
+    isSl
   } = props;
   const { language_name: name, variety } = details;
-  console.log(additionalClassname);
   return (
     <ExplodableBox
       key={uid(details)}
-      title={`${name}${variety && variety !== 'generic' ? `: ${variety}` : ''}`}
+      title={`${name}${variety && variety !== 'generic' ? `: ${variety}` : ''} ${
+        isSl ? ' (lähdekieli)' : ''
+      }`}
       openClassName={styles.openBox}
       additionalClassname={additionalClassname}
       additionalClassnameClosed={additionalClassnameClosed}
@@ -67,7 +69,8 @@ languageDetails.propTypes = {
   size: PropTypes.objectOf(PropTypes.any),
   speaker: PropTypes.objectOf(PropTypes.any),
   additionalClassname: PropTypes.string,
-  additionalClassnameClosed: PropTypes.string
+  additionalClassnameClosed: PropTypes.string,
+  isSl: PropTypes.bool
 };
 
 languageDetails.defaultProps = {
@@ -76,7 +79,8 @@ languageDetails.defaultProps = {
   size: {},
   speaker: {},
   additionalClassname: '',
-  additionalClassnameClosed: ''
+  additionalClassnameClosed: '',
+  isSl: false
 };
 
 export default languageDetails;
