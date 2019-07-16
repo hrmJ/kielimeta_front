@@ -60,9 +60,10 @@ const getOriginalValuesForFilters = datasets =>
           }
           return processed;
         }, existingLangs),
-        resourcetype: resourcetype
-          ? [...new Set([...existingRestypes, resourcetype])]
-          : existingRestypes
+        resourcetype:
+          resourcetype && !existingRestypes.map(rt => rt.value).includes(resourcetype)
+            ? [...existingRestypes, { label: resourcetype, value: resourcetype }]
+            : existingRestypes
       };
     },
     { lang: [], resourcetype: [] }
