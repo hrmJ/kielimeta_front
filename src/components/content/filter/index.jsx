@@ -21,7 +21,11 @@ class Filter extends Component {
   };
 
   componentDidMount() {
+    const { allowMulti } = this.props;
     this.setState({ offset: this.el && this.el.offsetTop });
+    if (!allowMulti) {
+      this.setState({ insideOneDataset: false });
+    }
   }
 
   /**
@@ -39,15 +43,17 @@ class Filter extends Component {
     const { insideOneDataset } = this.state;
     const actualKeyName = insideOneDataset ? `${keyName}A` : keyName;
     this.setState({ insideOneDataset: idx === 0 });
-    if (!insideOneDataset * 1 !== idx) {
-      let updatedFilters = filterReducer(filters, resetFilter(actualKeyName));
-      dispatch(resetFilter(actualKeyName));
-      updatedFilters = filterReducer(
-        updatedFilters,
-        updateFilterVerbose(idx === 0 ? `${keyName}A` : keyName, filters[actualKeyName])
-      );
-      dispatch(updateFilterVerbose(idx === 0 ? `${keyName}A` : keyName, filters[actualKeyName]));
-      dispatch(filterDatasets(updatedFilters));
+    if (filters[actualKeyName]) {
+      if (!insideOneDataset * 1 !== idx) {
+        let updatedFilters = filterReducer(filters, resetFilter(actualKeyName));
+        dispatch(resetFilter(actualKeyName));
+        updatedFilters = filterReducer(
+          updatedFilters,
+          updateFilterVerbose(idx === 0 ? `${keyName}A` : keyName, filters[actualKeyName])
+        );
+        dispatch(updateFilterVerbose(idx === 0 ? `${keyName}A` : keyName, filters[actualKeyName]));
+        dispatch(filterDatasets(updatedFilters));
+      }
     }
   }
 
@@ -89,7 +95,7 @@ class Filter extends Component {
   }
 
   render() {
-    const { children, dispatch, keyName, id, filters = {} } = this.props;
+    const { children, dispatch, keyName, id, filters = {}, allowMulti } = this.props;
     const { menuOpen, insideOneDataset, offset } = this.state;
     const actualKeyName = insideOneDataset ? `${keyName}A` : keyName;
 
@@ -125,11 +131,13 @@ class Filter extends Component {
           id={`${id}_menu`}
         >
           <div>
-            <ToggleButton
-              options={['Samassa aineistossa', 'Koko tietokannassa']}
-              customClass={styles.toggleContainer}
-              onClick={idx => this.toggleInOneDataset(idx)}
-            />
+            {allowMulti && (
+              <ToggleButton
+                options={['Samassa aineistossa', 'Koko tietokannassa']}
+                customClass={styles.toggleContainer}
+                onClick={idx => this.toggleInOneDataset(idx)}
+              />
+            )}
           </div>
           <div
             className={styles.menuInside}
@@ -178,14 +186,16 @@ Filter.propTypes = {
   id: PropTypes.string,
   filters: PropTypes.objectOf(
     PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.array])
-  )
+  ),
+  allowMulti: PropTypes.bool
 };
 
 Filter.defaultProps = {
   items: [],
   children: null,
   id: '',
-  filters: {}
+  filters: {},
+  allowMulti: false
 };
 
 export default Filter;

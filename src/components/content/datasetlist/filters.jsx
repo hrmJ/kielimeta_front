@@ -13,7 +13,14 @@ const filtersComponent = props => {
   return (
     <div>
       <section className={styles.filterContainer}>
-        <Filter filters={filters} id="langfilter" keyName="lang" items={lang} dispatch={dispatch}>
+        <Filter
+          filters={filters}
+          id="langfilter"
+          keyName="lang"
+          items={lang}
+          dispatch={dispatch}
+          allowMulti
+        >
           Kielet
         </Filter>
         <Filter
@@ -31,6 +38,7 @@ const filtersComponent = props => {
           keyName="annotations"
           items={annotations}
           dispatch={dispatch}
+          allowMulti
         >
           Annotoinnit
         </Filter>
