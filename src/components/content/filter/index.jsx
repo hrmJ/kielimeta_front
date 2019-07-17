@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
 import { updateAndFilter, resetFilterAndRefresh } from '../../../redux/actions/filters';
 import Icon from '../../ui/icon';
+import ToggleButton from '../../ui/buttons/toggleButton';
 import styles from './filter.scss';
 
 class Filter extends Component {
@@ -76,6 +77,12 @@ class Filter extends Component {
           style={{ display: menuOpen ? 'block' : 'none' }}
           id={`${id}_menu`}
         >
+          <div>
+            <ToggleButton
+              options={['Samassa aineistossa', 'Koko tietokannassa']}
+              customClass={styles.toggleContainer}
+            />
+          </div>
           <ul className={styles.menuList}>
             {items.map((item, itemIdx) => (
               <li key={itemIdx.toString()} className={styles.cbList}>
