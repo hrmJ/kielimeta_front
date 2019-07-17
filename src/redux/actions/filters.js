@@ -14,8 +14,6 @@ const setOriginalFilterValues = vals => {
 };
 
 const formQueryFromFilters = (filters, encode = true) => {
-  console.log('forming the query:');
-  console.log(filters);
   let filterstrings = '?';
   if (filters) {
     filterstrings += Object.keys(filters)

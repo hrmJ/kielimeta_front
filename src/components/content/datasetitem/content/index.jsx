@@ -68,7 +68,7 @@ class Content extends Component {
             </div>
           </div>
         )}
-        {years.length && years.length > 0 && (
+        {Array.isArray(years) && years.length > 0 && (
           <div className={generalStyles.labelContainerStacked}>
             <div>Aineisto aikajanalla </div>
             <TimeLineChart years={years} />

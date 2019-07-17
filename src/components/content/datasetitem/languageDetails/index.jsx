@@ -39,18 +39,22 @@ const languageDetails = props => {
         <li key="size">
           <SizeInfo {...size} />
         </li>
-        <li key="annotations">
-          <h4>Annotoinnit:</h4>
-          <ul className={`${generalStyles.bulletlist}`}>
-            {annotations.map(annotation => (
-              <AnnotationInfo {...annotation} key={uid(annotation)} />
-            ))}
-          </ul>
-        </li>
-        <li key="temporal_coverage">
-          <h4>Ajanjakso</h4>
-          <TimelineChart years={yearsCovered} whiteText />
-        </li>
+        {annotations.length > 0 && (
+          <li key="annotations">
+            <h4>Annotoinnit:</h4>
+            <ul className={`${generalStyles.bulletlist}`}>
+              {annotations.map(annotation => (
+                <AnnotationInfo {...annotation} key={uid(annotation)} />
+              ))}
+            </ul>
+          </li>
+        )}
+        {yearsCovered.length > 0 && (
+          <li key="temporal_coverage">
+            <h4>Ajanjakso</h4>
+            <TimelineChart years={yearsCovered} whiteText />
+          </li>
+        )}
       </ul>
     </ExplodableBox>
   );
