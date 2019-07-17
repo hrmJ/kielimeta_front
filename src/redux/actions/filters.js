@@ -14,6 +14,8 @@ const setOriginalFilterValues = vals => {
 };
 
 const formQueryFromFilters = (filters, encode = true) => {
+  console.log('forming the query:');
+  console.log(filters);
   let filterstrings = '?';
   if (filters) {
     filterstrings += Object.keys(filters)
@@ -46,6 +48,23 @@ const filterDatasets = (filters = {}) => {
   });
 };
 
+/**
+ * updateFilterVerbose
+ *
+ * Update a filter simply by replacing old vals with the vals given here
+ *
+ * @param key {String} the name of the filtered prop
+ * @param vals {Array} the new values for this filter
+ * @returns {undefined}
+ */
+const updateFilterVerbose = (key, vals) => {
+  return {
+    type: 'UPDATE_FILTER_VERBOSE',
+    val: vals,
+    key
+  };
+};
+
 const updateFilter = (key, val, checked) => {
   return {
     type: 'UPDATE_FILTER',
@@ -56,6 +75,7 @@ const updateFilter = (key, val, checked) => {
 };
 
 const updateAndFilter = (keyName, value, checked, filters) => {
+  console.log(keyName);
   return dispatch => {
     const updatedFilters = filterReducer(filters, updateFilter(keyName, value, checked));
     dispatch(updateFilter(keyName, value, checked));
@@ -107,5 +127,6 @@ export {
   updateAndFilter,
   resetFilter,
   resetFilterAndRefresh,
-  setOriginalFilterValues
+  setOriginalFilterValues,
+  updateFilterVerbose
 };

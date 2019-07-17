@@ -134,7 +134,7 @@ class DatasetList extends Component {
         />
         <section className={styles.viewSelect}>
           <div className={styles.dsCount}>
-            {datasets.length} aineisto{datasets.length > 1 && 'a'}
+            {datasets.length} aineisto{datasets.length !== 1 && 'a'}
           </div>
           <BasicButton
             text={useGrid ? 'Näytä listana' : 'Näytä ruudukkona'}

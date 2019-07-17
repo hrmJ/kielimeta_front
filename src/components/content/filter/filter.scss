@@ -31,10 +31,15 @@
   }
 }
 
+.menuInside {
+  @media screen and (min-width: 900px) {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+}
+
 .menu {
   position: absolute;
-  display: flex;
-  flex-flow: column nowrap;
   align-items: center;
   justify-content: center;
   font-size: 0.8em;
@@ -47,10 +52,24 @@
   border-radius: 3px;
   box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.05), 0 0 2px rgba(0, 0, 0, 0.12),
     0 2px 4px rgba(0, 0, 0, 0.2);
-  // min-width: 300px;
 
   .menuList {
     padding: 0em 1em 0em 1em;
+  }
+
+  @media screen and (min-width: 900px) {
+    bottom: 100%;
+    margin-top: 0em;
+    // min-width: 40em;
+    .menuList {
+      // columns: 2em 4;
+      //  display: grid;
+      //  grid-template-columns: auto auto auto;
+      //  grid-gap: 10px;
+      //  > li {
+      //    align-self: top;
+      //  }
+    }
   }
 
   button {

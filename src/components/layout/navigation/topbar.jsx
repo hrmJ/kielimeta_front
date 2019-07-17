@@ -28,9 +28,9 @@ const TopBar = props => {
                   </NavLink>
                 </li>
                 <li>
-                  <button type="button" onClick={toggleClusterTool}>
+                  <a href="javascript:void(0)" type="button" onClick={toggleClusterTool}>
                     Ryhmittele aineistoja
-                  </button>
+                  </a>
                 </li>
                 <li>
                   <NavLink

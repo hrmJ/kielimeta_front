@@ -21,7 +21,8 @@ import {
   faUsers,
   faSort,
   faCheckCircle,
-  faCircle
+  faCircle,
+  faSearch
 } from '@fortawesome/free-solid-svg-icons';
 import utilityStyles from '../../../general_styles/utilities.scss';
 
@@ -46,7 +47,8 @@ const icons = {
   faUsers,
   faSort,
   faCheckCircle,
-  faCircle
+  faCircle,
+  faSearch
 };
 
 const FontAwesomeIconMod = lazy(() => import(/* webpackChunkName: "font-awesome" */ './faBase'));

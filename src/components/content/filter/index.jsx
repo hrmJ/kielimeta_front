@@ -1,34 +1,54 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
-import { updateAndFilter, resetFilterAndRefresh } from '../../../redux/actions/filters';
+import {
+  filterDatasets,
+  resetFilter,
+  resetFilterAndRefresh,
+  updateAndFilter,
+  updateFilterVerbose
+} from '../../../redux/actions/filters';
 import Icon from '../../ui/icon';
 import ToggleButton from '../../ui/buttons/toggleButton';
+import filterReducer from '../../../redux/reducers/datasetfilter';
 import styles from './filter.scss';
 
 class Filter extends Component {
   state = {
-    menuOpen: false
+    menuOpen: false,
+    insideOneDataset: true,
+    offset: null
   };
 
-  /**
-   * Checks if the filter is in use
-   *
-   * @returns boolean based on wether or not meaningful filter values found
-   * @memberof Filter
-   */
-  isInUse() {
-    const { filters = {}, keyName } = this.props;
-    if (keyName in filters) {
-      if (Array.isArray(filters[keyName])) {
-        if (filters[keyName].length) {
-          return true;
-        }
-      }
-    }
-    // TODO: other types than arrays
+  componentDidMount() {
+    this.setState({ offset: this.el && this.el.offsetTop });
+  }
 
-    return false;
+  /**
+   * toggleInOneDataset
+   *
+   * sets the switch controlling wether or not all the selected values
+   * must be found in a single dataset. Also, run the current filter
+   * as the toggled filter type
+   *
+   * @param idx
+   * @returns {undefined}
+   */
+  toggleInOneDataset(idx) {
+    const { dispatch, keyName, filters } = this.props;
+    const { insideOneDataset } = this.state;
+    const actualKeyName = insideOneDataset ? `${keyName}A` : keyName;
+    this.setState({ insideOneDataset: idx === 0 });
+    if (!insideOneDataset * 1 !== idx) {
+      let updatedFilters = filterReducer(filters, resetFilter(actualKeyName));
+      dispatch(resetFilter(actualKeyName));
+      updatedFilters = filterReducer(
+        updatedFilters,
+        updateFilterVerbose(idx === 0 ? `${keyName}A` : keyName, filters[actualKeyName])
+      );
+      dispatch(updateFilterVerbose(idx === 0 ? `${keyName}A` : keyName, filters[actualKeyName]));
+      dispatch(filterDatasets(updatedFilters));
+    }
   }
 
   /**
@@ -41,12 +61,37 @@ class Filter extends Component {
   reset(ev) {
     ev.stopPropagation();
     const { dispatch, keyName, filters } = this.props;
-    dispatch(resetFilterAndRefresh(keyName, filters));
+    const { insideOneDataset } = this.state;
+    const actualKeyName = insideOneDataset ? `${keyName}A` : keyName;
+    dispatch(resetFilterAndRefresh(actualKeyName, filters));
+  }
+
+  /**
+   * Checks if the filter is in use
+   *
+   * @returns boolean based on wether or not meaningful filter values found
+   * @memberof Filter
+   */
+  isInUse() {
+    const { filters = {}, keyName } = this.props;
+    const { insideOneDataset } = this.state;
+    const actualKeyName = insideOneDataset ? `${keyName}A` : keyName;
+    if (actualKeyName in filters) {
+      if (Array.isArray(filters[actualKeyName])) {
+        if (filters[actualKeyName].length) {
+          return true;
+        }
+      }
+    }
+    // TODO: other types than arrays
+
+    return false;
   }
 
   render() {
     const { children, dispatch, keyName, id, filters = {} } = this.props;
-    const { menuOpen } = this.state;
+    const { menuOpen, insideOneDataset, offset } = this.state;
+    const actualKeyName = insideOneDataset ? `${keyName}A` : keyName;
 
     let { items } = this.props;
 
@@ -58,7 +103,7 @@ class Filter extends Component {
     // TODO: X icon to reset the filter
 
     return (
-      <div className={styles.container} id={id}>
+      <div className={styles.container} id={id} ref={el => (this.el = el)}>
         <button
           type="button"
           className={styles.filterButton}
@@ -74,32 +119,46 @@ class Filter extends Component {
         </button>
         <div
           className={styles.menu}
-          style={{ display: menuOpen ? 'block' : 'none' }}
+          style={{
+            display: menuOpen ? 'block' : 'none'
+          }}
           id={`${id}_menu`}
         >
           <div>
             <ToggleButton
               options={['Samassa aineistossa', 'Koko tietokannassa']}
               customClass={styles.toggleContainer}
+              onClick={idx => this.toggleInOneDataset(idx)}
             />
           </div>
-          <ul className={styles.menuList}>
-            {items.map((item, itemIdx) => (
-              <li key={itemIdx.toString()} className={styles.cbList}>
-                <div>
-                  <input
-                    type="checkbox"
-                    value={item.value}
-                    checked={filters[keyName] ? filters[keyName].includes(item.value) : false}
-                    onChange={ev =>
-                      dispatch(updateAndFilter(keyName, item.value, ev.target.checked, filters))
-                    }
-                  />
-                </div>
-                <div>{item.label}</div>
-              </li>
-            ))}
-          </ul>
+          <div
+            className={styles.menuInside}
+            style={{
+              maxHeight: `${offset && offset - 80}${offset && 'px'}`
+            }}
+          >
+            <ul className={styles.menuList}>
+              {items.map((item, itemIdx) => (
+                <li key={itemIdx.toString()} className={styles.cbList}>
+                  <div>
+                    <input
+                      type="checkbox"
+                      value={item.value}
+                      checked={
+                        filters[actualKeyName] ? filters[actualKeyName].includes(item.value) : false
+                      }
+                      onChange={ev =>
+                        dispatch(
+                          updateAndFilter(actualKeyName, item.value, ev.target.checked, filters)
+                        )
+                      }
+                    />
+                  </div>
+                  <div>{item.label}</div>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     );
