@@ -30,6 +30,8 @@ class Content extends Component {
     const { languages, genre, mediatype, mediaDescription, connections } = this.props;
     const { currentSl, showTranslations } = this.state;
     let actualCurrentsl = currentSl;
+    console.log(connections);
+    console.log(currentSl);
     if (connections.length - 1 < currentSl) {
       actualCurrentsl = 0;
     }
@@ -103,7 +105,7 @@ class Content extends Component {
                 </div>
               )}
               <TranslationContainer
-                sl={languages[actualCurrentsl]}
+                sl={languages[connections[actualCurrentsl].sl]}
                 tl={languages.filter((lang, idx) => connections[actualCurrentsl].tl.includes(idx))}
               />
             </div>
