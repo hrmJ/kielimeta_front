@@ -26,6 +26,7 @@ class ToggleButton extends Component {
           <BasicButton
             key={option}
             text={option}
+            onClick={() => this.setState({ activeOption: idx })}
             {...renderedProps[idx === activeOption ? 'active' : 'inactive']}
           />
         ))}
