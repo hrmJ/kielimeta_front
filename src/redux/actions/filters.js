@@ -84,7 +84,6 @@ const updateAndFilter = (keyName, value, checked, filters, replacedVal) => dispa
         originalValue === replacedVal ? value : originalValue
       )
     };
-    console.log(updatedFilters);
     dispatch(updateFilterVerbose(keyName, updatedFilters[keyName]));
   }
   return dispatch(filterDatasets(updatedFilters));

@@ -32,6 +32,7 @@ class filterCategory extends Component {
               content={`${
                 !submenuOpen ? 'Määrittele lisäehtoja' : 'Sulje lisäehdot'
               } klikkaamalla kategorian nimeä`}
+              direction="up"
             >
               <BasicButton
                 text={label}
