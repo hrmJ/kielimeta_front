@@ -1,46 +1,69 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
+import { updateAndFilter } from '../../../../redux/actions/filters';
 import BasicButton from '../../../ui/buttons/BasicButton';
+import Tooltip from '../../../ui/tooltip';
 import styles from './filterCategory.scss';
 
 class filterCategory extends Component {
   state = { submenuOpen: false };
 
   render() {
-    const { isChecked, value, label, onCheck } = this.props;
+    const { filters, value, label, dispatch, keyName } = this.props;
     const { submenuOpen } = this.state;
+    const isChecked = filters[keyName] ? filters[keyName].includes(value) : false;
 
     return (
       <li className={styles.categoryListItem}>
         <div className={styles.container}>
           <div className={styles.cbContainer}>
             <div>
-              <input type="checkbox" value={value} checked={isChecked} onChange={onCheck} />
+              <input
+                type="checkbox"
+                value={value}
+                checked={isChecked}
+                onChange={ev =>
+                  dispatch(updateAndFilter(keyName, value, ev.target.checked, filters))
+                }
+              />
             </div>
-            <div>{label}</div>
-          </div>
-          <div>
-            <BasicButton
-              iconName={!submenuOpen ? 'faCaretSquareUp' : 'faCaretSquareDown'}
-              text=""
-              customClass={`${styles.menuIcon} ${submenuOpen && styles.menuOpen}`}
-              noBackground
-              onClick={() => this.setState({ submenuOpen: !submenuOpen })}
-            />
+            <Tooltip
+              content={`${
+                !submenuOpen ? 'Määrittele lisäehtoja' : 'Sulje lisäehdot'
+              } klikkaamalla kategorian nimeä`}
+            >
+              <BasicButton
+                text={label}
+                noBackground
+                onClick={() => this.setState({ submenuOpen: !submenuOpen })}
+              />
+            </Tooltip>
           </div>
         </div>
-        {submenuOpen && <div className={styles.subMenuContainer}>moro</div>}
+        {submenuOpen && (
+          <div className={styles.subMenuContainer}>
+            <BasicButton
+              onClick={() =>
+                dispatch(updateAndFilter(keyName, `${value}§§TL`, isChecked, filters, value))
+              }
+              text="TL"
+            />
+          </div>
+        )}
       </li>
     );
   }
 }
 
 filterCategory.propTypes = {
-  isChecked: PropTypes.bool.isRequired,
+  keyName: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  onCheck: PropTypes.func.isRequired
+  filters: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.array])
+  ).isRequired,
+  dispatch: PropTypes.func.isRequired
 };
 
 export default filterCategory;

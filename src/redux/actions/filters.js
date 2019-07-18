@@ -72,13 +72,22 @@ const updateFilter = (key, val, checked) => {
   };
 };
 
-const updateAndFilter = (keyName, value, checked, filters) => {
-  console.log(keyName);
-  return dispatch => {
-    const updatedFilters = filterReducer(filters, updateFilter(keyName, value, checked));
+const updateAndFilter = (keyName, value, checked, filters, replacedVal) => dispatch => {
+  let updatedFilters;
+  if (!replacedVal) {
+    updatedFilters = filterReducer(filters, updateFilter(keyName, value, checked));
     dispatch(updateFilter(keyName, value, checked));
-    dispatch(filterDatasets(updatedFilters));
-  };
+  } else {
+    updatedFilters = {
+      ...filters,
+      [keyName]: filters[keyName].map(originalValue =>
+        originalValue === replacedVal ? value : originalValue
+      )
+    };
+    console.log(updatedFilters);
+    dispatch(updateFilterVerbose(keyName, updatedFilters[keyName]));
+  }
+  return dispatch(filterDatasets(updatedFilters));
 };
 
 const resetOriginalValuesRaw = () => {

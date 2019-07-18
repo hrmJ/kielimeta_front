@@ -150,12 +150,9 @@ class Filter extends Component {
               {items.map((item, itemIdx) => (
                 <FilterCategory
                   key={itemIdx.toString()}
-                  isChecked={
-                    filters[actualKeyName] ? filters[actualKeyName].includes(item.value) : false
-                  }
-                  onCheck={ev =>
-                    dispatch(updateAndFilter(actualKeyName, item.value, ev.target.checked, filters))
-                  }
+                  filters={filters}
+                  dispatch={dispatch}
+                  keyName={actualKeyName}
                   {...item}
                 />
               ))}
