@@ -8,6 +8,7 @@ import {
   updateAndFilter,
   updateFilterVerbose
 } from '../../../redux/actions/filters';
+import FilterCategory from './filterCategory';
 import Icon from '../../ui/icon';
 import ToggleButton from '../../ui/buttons/toggleButton';
 import filterReducer from '../../../redux/reducers/datasetfilter';
@@ -147,23 +148,17 @@ class Filter extends Component {
           >
             <ul className={styles.menuList}>
               {items.map((item, itemIdx) => (
-                <li key={itemIdx.toString()} className={styles.cbList}>
-                  <div>
-                    <input
-                      type="checkbox"
-                      value={item.value}
-                      checked={
-                        filters[actualKeyName] ? filters[actualKeyName].includes(item.value) : false
-                      }
-                      onChange={ev =>
-                        dispatch(
-                          updateAndFilter(actualKeyName, item.value, ev.target.checked, filters)
-                        )
-                      }
-                    />
-                  </div>
-                  <div>{item.label}</div>
-                </li>
+                <FilterCategory
+                  key={itemIdx.toString()}
+                  className={styles.cbList}
+                  checked={
+                    filters[actualKeyName] ? filters[actualKeyName].includes(item.value) : false
+                  }
+                  onCheck={ev =>
+                    dispatch(updateAndFilter(actualKeyName, item.value, ev.target.checked, filters))
+                  }
+                  {...item}
+                />
               ))}
             </ul>
           </div>

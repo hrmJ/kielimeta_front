@@ -22,11 +22,13 @@ import {
   faSort,
   faCheckCircle,
   faCircle,
-  faSearch
+  faSearch,
+  faEllipsisH
 } from '@fortawesome/free-solid-svg-icons';
 import utilityStyles from '../../../general_styles/utilities.scss';
 
 const icons = {
+  faEllipsisH,
   faCaretDown,
   faCaretUp,
   faCaretRight,
