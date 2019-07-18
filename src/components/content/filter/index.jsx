@@ -150,8 +150,7 @@ class Filter extends Component {
               {items.map((item, itemIdx) => (
                 <FilterCategory
                   key={itemIdx.toString()}
-                  className={styles.cbList}
-                  checked={
+                  isChecked={
                     filters[actualKeyName] ? filters[actualKeyName].includes(item.value) : false
                   }
                   onCheck={ev =>

@@ -1,0 +1,38 @@
+@import 'src/general_styles/configs.scss';
+
+.categoryListItem {
+  & + & {
+    margin-top: 0.5em;
+  }
+  list-style-type: none;
+}
+
+.container,
+.cbContainer {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  > div:first-child {
+    margin-right: 1em;
+  }
+}
+
+.cbContainer {
+  width: 10em;
+  hyphens: auto;
+}
+
+.menuIcon {
+  font-size: 1em;
+  color: darkgray;
+  &:hover {
+    color: $utupurple;
+  }
+}
+
+.menuOpen {
+  color: $utupurple;
+}
+
+.subMenuContainer {
+}

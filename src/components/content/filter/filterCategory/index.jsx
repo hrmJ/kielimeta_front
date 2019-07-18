@@ -1,29 +1,46 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
-const filterCategory = props => {
-  const { isChecked, value, label, onCheck, className } = props;
+import BasicButton from '../../../ui/buttons/BasicButton';
+import styles from './filterCategory.scss';
 
-  return (
-    <li className={className}>
-      <div>
-        <input type="checkbox" value={value} checked={isChecked} onChange={onCheck} />
-      </div>
-      <div>{label}</div>
-    </li>
-  );
-};
+class filterCategory extends Component {
+  state = { submenuOpen: false };
+
+  render() {
+    const { isChecked, value, label, onCheck } = this.props;
+    const { submenuOpen } = this.state;
+
+    return (
+      <li className={styles.categoryListItem}>
+        <div className={styles.container}>
+          <div className={styles.cbContainer}>
+            <div>
+              <input type="checkbox" value={value} checked={isChecked} onChange={onCheck} />
+            </div>
+            <div>{label}</div>
+          </div>
+          <div>
+            <BasicButton
+              iconName={!submenuOpen ? 'faCaretSquareUp' : 'faCaretSquareDown'}
+              text=""
+              customClass={`${styles.menuIcon} ${submenuOpen && styles.menuOpen}`}
+              noBackground
+              onClick={() => this.setState({ submenuOpen: !submenuOpen })}
+            />
+          </div>
+        </div>
+        {submenuOpen && <div className={styles.subMenuContainer}>moro</div>}
+      </li>
+    );
+  }
+}
 
 filterCategory.propTypes = {
   isChecked: PropTypes.bool.isRequired,
   value: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  onCheck: PropTypes.bool.isRequired,
-  className: PropTypes.string
-};
-
-filterCategory.defaultProps = {
-  className: ''
+  onCheck: PropTypes.func.isRequired
 };
 
 export default filterCategory;

@@ -72,41 +72,11 @@
       //  }
     }
   }
-
-  button {
-    border: 1px solid $utupurple;
-    border-radius: 3px;
-    padding: 0.5em;
-    background: $utupurple;
-    color: white;
-    &:hover {
-      cursor: pointer;
-      background: white;
-      color: $utupurple;
-    }
-    margin-bottom: 1em;
-  }
-
-  button + button {
-    margin-left: 2em;
-  }
 }
 
 .toggleContainer {
   width: 100%;
   min-width: 10em;
-}
-
-.cbList {
-  display: flex;
-  flex-flow: row nowrap;
-  white-space: nowrap;
-  > div:first-child {
-    margin-right: 1em;
-  }
-  & + & {
-    margin-top: 0.2em;
-  }
 }
 
 .hidden {
