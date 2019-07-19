@@ -13,9 +13,9 @@ class filterCategory extends Component {
 
   getSubCategoryValues() {
     const { value, filters, keyName } = this.props;
-    if (Array.isArray(filters[keyName])) {
+    if (Array.isArray(filters[keyName]) && filters[keyName].length > 0) {
       const subCategoriesRaw = filters[keyName].find(
-        cat => cat.replace(/§§.*/, '') === value && cat.includes('§§')
+        cat => cat && cat.replace(/§§.*/, '') === value && cat.includes('§§')
       );
       const subCategories = subCategoriesRaw && subCategoriesRaw.split('§§');
       if (subCategories && subCategories.length > 1) {
@@ -24,6 +24,11 @@ class filterCategory extends Component {
       // const subCategories = value.split('§§');
     }
     return null;
+  }
+
+  toggle(isChecked) {
+    const { dispatch, keyName, value, filters } = this.props;
+    dispatch(updateAndFilter(keyName, value, isChecked, filters));
   }
 
   render() {
@@ -43,9 +48,7 @@ class filterCategory extends Component {
                 type="checkbox"
                 value={value}
                 checked={isChecked !== null ? isChecked : false}
-                onChange={ev =>
-                  dispatch(updateAndFilter(keyName, value, ev.target.checked, filters))
-                }
+                onChange={ev => this.toggle(ev.target.checked)}
               />
             </div>
             <div className={styles.categoryContainer}>

@@ -21,7 +21,7 @@ class filterSubcategory extends Component {
     const { dispatch, keyName, value, filters } = this.props;
     let isChecked = thisChecked;
     let updatedFilters = { ...filters };
-    if (!(keyName in filters) && thisChecked) {
+    if (thisChecked) {
       dispatch(updateFilter(keyName, value, true));
       updatedFilters = filterReducer(filters, updateFilter(keyName, value, true));
       isChecked = true;
@@ -29,7 +29,6 @@ class filterSubcategory extends Component {
     const modifiedValue = isChecked
       ? `${value}§§${categoryId}`
       : value.replace(`§§${categoryId}`, '');
-    console.log(modifiedValue);
     return dispatch(updateAndFilter(keyName, modifiedValue, isChecked, updatedFilters, value));
   }
 
