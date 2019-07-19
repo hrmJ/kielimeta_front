@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 
 import { updateAndFilter } from '../../../../redux/actions/filters';
 import BasicButton from '../../../ui/buttons/BasicButton';
+import FilterSubCategory from '../filterSubcategory';
 import Tooltip from '../../../ui/tooltip';
 import styles from './filterCategory.scss';
 
@@ -28,30 +29,27 @@ class filterCategory extends Component {
                 }
               />
             </div>
-            <Tooltip
-              content={`${
-                !submenuOpen ? 'Määrittele lisäehtoja' : 'Sulje lisäehdot'
-              } klikkaamalla kategorian nimeä`}
-              direction="up"
-            >
-              <BasicButton
-                text={label}
-                noBackground
-                onClick={() => this.setState({ submenuOpen: !submenuOpen })}
-              />
-            </Tooltip>
+            <div className={styles.categoryContainer}>
+              <div>
+                <Tooltip
+                  content={`${
+                    !submenuOpen ? 'Määrittele lisäehtoja' : 'Sulje lisäehdot'
+                  } klikkaamalla kategorian nimeä`}
+                  direction="right"
+                >
+                  <BasicButton
+                    text={label}
+                    noBackground
+                    onClick={() => this.setState({ submenuOpen: !submenuOpen })}
+                  />
+                </Tooltip>
+              </div>
+              {submenuOpen && (
+                <FilterSubCategory {...{ dispatch, keyName, value, isChecked, filters }} />
+              )}
+            </div>
           </div>
         </div>
-        {submenuOpen && (
-          <div className={styles.subMenuContainer}>
-            <BasicButton
-              onClick={() =>
-                dispatch(updateAndFilter(keyName, `${value}§§TL`, isChecked, filters, value))
-              }
-              text="TL"
-            />
-          </div>
-        )}
       </li>
     );
   }

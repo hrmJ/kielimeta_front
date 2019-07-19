@@ -78,6 +78,8 @@ const updateAndFilter = (keyName, value, checked, filters, replacedVal) => dispa
     updatedFilters = filterReducer(filters, updateFilter(keyName, value, checked));
     dispatch(updateFilter(keyName, value, checked));
   } else {
+    console.log(filters);
+    console.log(keyName);
     updatedFilters = {
       ...filters,
       [keyName]: filters[keyName].map(originalValue =>

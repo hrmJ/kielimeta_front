@@ -1,19 +1,43 @@
 @import 'src/general_styles/configs.scss';
 
+.categoryListItem,
+.subCategoryListItem {
+  list-style-type: none;
+}
+
 .categoryListItem {
   & + & {
     margin-top: 0.5em;
   }
-  list-style-type: none;
+}
+
+.subCategoryList {
+  padding: 0.2em 0.2em 0.2em 0.2em;
+}
+
+.subCategoryListItem {
+  font-size: 0.8em;
+  > *:first-child {
+    margin-right: 0.7em;
+  }
 }
 
 .container,
 .cbContainer {
   display: flex;
   flex-flow: row nowrap;
-  align-items: center;
+  align-items: flex-start;
   > div:first-child {
     margin-right: 1em;
+  }
+}
+
+.subMenuContainer {
+  margin-top: 1em;
+  background: lightgrey;
+  padding: 0.4em;
+  h5 {
+    margin: 0.2em 0.2em 0.2em 0.2em;
   }
 }
 
