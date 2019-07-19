@@ -15,13 +15,15 @@
   margin: 0px;
   padding-left: 0px;
   font-size: 0.8em;
+  border-top: 1px solid $logodark;
+  padding-top: 1em;
   a,
   button {
     color: black;
   }
   li {
     display: inline-block;
-    margin: 0.3em 0.5em 0em 0em;
+    margin: 0.3em 0.7em 0em 0em;
   }
   button {
     cursor: pointer;
@@ -59,10 +61,16 @@
 
 .headingText {
   margin-left: 0.4em;
+  margin-top: 4em;
   h1 {
     font-family: $headerfont;
+    // font-variant: small-caps;
     font-size: 2.5em;
-    margin: 0 0 0.1em 0;
+    color: $logodark;
+    margin-bottom: 0.3em;
+    // margin: 0 0 0.1em 0;
+    // border-bottom: 9px solid #6875b2;
+    // border-top: 9px solid #69adc0;
     @media screen and (max-width: 600px) {
       display: none;
     }
@@ -72,9 +80,15 @@
   }
 }
 
+.highlight {
+  color: $logolight;
+}
+
 .logoContainer {
   flex: 1 0 36%;
-  transform: rotate(-7deg);
+  transform: rotate(-12deg);
+  // transform: rotate(-7deg);
+  margin-right: -4.2em;
   @media screen and (max-width: 600px) {
     flex: 1 0 90%;
     display: flex;

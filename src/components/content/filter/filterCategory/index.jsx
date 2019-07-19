@@ -10,10 +10,26 @@ import styles from './filterCategory.scss';
 class filterCategory extends Component {
   state = { submenuOpen: false };
 
+  getSubCategoryValues() {
+    const { value, filters, keyName } = this.props;
+    if (Array.isArray(filters[keyName])) {
+      const subCategoriesRaw = filters[keyName].find(
+        cat => cat.replace(/§§.*/, '') === value && cat.includes('§§')
+      );
+      const subCategories = subCategoriesRaw && subCategoriesRaw.split('§§');
+      if (subCategories && subCategories.length > 1) {
+        return subCategories.slice(1);
+      }
+      // const subCategories = value.split('§§');
+    }
+    return null;
+  }
+
   render() {
     const { filters, value, label, dispatch, keyName } = this.props;
     const { submenuOpen } = this.state;
     const isChecked = filters[keyName] ? filters[keyName].includes(value) : false;
+    const subCategories = this.getSubCategoryValues();
 
     return (
       <li className={styles.categoryListItem}>
@@ -45,7 +61,9 @@ class filterCategory extends Component {
                 </Tooltip>
               </div>
               {submenuOpen && (
-                <FilterSubCategory {...{ dispatch, keyName, value, isChecked, filters }} />
+                <FilterSubCategory
+                  {...{ dispatch, keyName, value, isChecked, filters, subCategories }}
+                />
               )}
             </div>
           </div>

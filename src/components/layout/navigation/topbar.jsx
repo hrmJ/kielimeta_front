@@ -29,7 +29,7 @@ const TopBar = props => {
                 </li>
                 <li>
                   <a href="javascript:void(0)" type="button" onClick={toggleClusterTool}>
-                    Ryhmittele aineistoja
+                    Ryhmittele
                   </a>
                 </li>
                 <li>
