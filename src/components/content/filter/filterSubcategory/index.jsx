@@ -17,16 +17,20 @@ class filterSubcategory extends Component {
     }
   ];
 
-  checkSubCategory(thisChecked) {
-    const { dispatch, isChecked: parentChecked, keyName, value, filters } = this.props;
-    let isChecked = parentChecked;
+  checkSubCategory(categoryId, thisChecked) {
+    const { dispatch, keyName, value, filters } = this.props;
+    let isChecked = thisChecked;
     let updatedFilters = { ...filters };
     if (!(keyName in filters) && thisChecked) {
       dispatch(updateFilter(keyName, value, true));
       updatedFilters = filterReducer(filters, updateFilter(keyName, value, true));
       isChecked = true;
     }
-    return dispatch(updateAndFilter(keyName, `${value}§§TL`, isChecked, updatedFilters, value));
+    const modifiedValue = isChecked
+      ? `${value}§§${categoryId}`
+      : value.replace(`§§${categoryId}`, '');
+    console.log(modifiedValue);
+    return dispatch(updateAndFilter(keyName, modifiedValue, isChecked, updatedFilters, value));
   }
 
   render() {
@@ -44,7 +48,7 @@ class filterSubcategory extends Component {
               <input
                 type="checkbox"
                 value={cat.value}
-                checked={parentChecked}
+                checked={activeCategories ? activeCategories.includes(cat.value) : false}
                 onChange={ev => this.checkSubCategory(cat.value, ev.target.checked)}
               />
               <Tooltip content={cat.tooltip} direction="right">

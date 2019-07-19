@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { updateAndFilter } from '../../../../redux/actions/filters';
 import BasicButton from '../../../ui/buttons/BasicButton';
 import FilterSubCategory from '../filterSubcategory';
+import Icon from '../../../ui/icon';
 import Tooltip from '../../../ui/tooltip';
 import styles from './filterCategory.scss';
 
@@ -28,8 +29,10 @@ class filterCategory extends Component {
   render() {
     const { filters, value, label, dispatch, keyName } = this.props;
     const { submenuOpen } = this.state;
-    const isChecked = filters[keyName] ? filters[keyName].includes(value) : false;
     const subCategories = this.getSubCategoryValues();
+    const isChecked = filters[keyName]
+      ? filters[keyName].includes(value) || subCategories !== null
+      : false;
 
     return (
       <li className={styles.categoryListItem}>
@@ -39,7 +42,7 @@ class filterCategory extends Component {
               <input
                 type="checkbox"
                 value={value}
-                checked={isChecked}
+                checked={isChecked !== null ? isChecked : false}
                 onChange={ev =>
                   dispatch(updateAndFilter(keyName, value, ev.target.checked, filters))
                 }
@@ -47,18 +50,27 @@ class filterCategory extends Component {
             </div>
             <div className={styles.categoryContainer}>
               <div>
-                <Tooltip
-                  content={`${
-                    !submenuOpen ? 'Määrittele lisäehtoja' : 'Sulje lisäehdot'
-                  } klikkaamalla kategorian nimeä`}
-                  direction="right"
-                >
-                  <BasicButton
-                    text={label}
-                    noBackground
-                    onClick={() => this.setState({ submenuOpen: !submenuOpen })}
-                  />
-                </Tooltip>
+                <div className={styles.catLabelContainer}>
+                  <Tooltip
+                    content={`${
+                      !submenuOpen ? 'Määrittele lisäehtoja' : 'Sulje lisäehdot'
+                    } klikkaamalla kategorian nimeä`}
+                    direction="right"
+                  >
+                    <BasicButton
+                      text={label}
+                      noBackground
+                      onClick={() => this.setState({ submenuOpen: !submenuOpen })}
+                    />
+                  </Tooltip>
+                  {subCategories && (
+                    <div className={styles.hasSubCat}>
+                      <Tooltip content="Olet määritellyt lisäehtoja" direction="right">
+                        <Icon iconName="faExclamationCircle" />
+                      </Tooltip>
+                    </div>
+                  )}
+                </div>
               </div>
               {submenuOpen && (
                 <FilterSubCategory

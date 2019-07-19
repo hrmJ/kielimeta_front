@@ -81,7 +81,7 @@ const updateAndFilter = (keyName, value, checked, filters, replacedVal) => dispa
     updatedFilters = {
       ...filters,
       [keyName]: filters[keyName].map(originalValue =>
-        originalValue === replacedVal ? value : originalValue
+        originalValue.replace(/§§.*/g, '') === replacedVal ? value : originalValue
       )
     };
     dispatch(updateFilterVerbose(keyName, updatedFilters[keyName]));
