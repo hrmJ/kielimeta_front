@@ -20,6 +20,7 @@ const filtersComponent = props => {
           items={lang}
           dispatch={dispatch}
           allowMulti
+          hasSubMenu
         >
           Kielet
         </Filter>
@@ -39,6 +40,7 @@ const filtersComponent = props => {
           items={annotations}
           dispatch={dispatch}
           allowMulti
+          hasSubMenu
         >
           Annotoinnit
         </Filter>

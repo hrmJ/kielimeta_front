@@ -32,7 +32,7 @@ class filterCategory extends Component {
   }
 
   render() {
-    const { filters, value, label, dispatch, keyName } = this.props;
+    const { filters, value, label, dispatch, keyName, hasSubMenu } = this.props;
     const { submenuOpen } = this.state;
     const subCategories = this.getSubCategoryValues();
     const isChecked = filters[keyName]
@@ -54,18 +54,22 @@ class filterCategory extends Component {
             <div className={styles.categoryContainer}>
               <div>
                 <div className={styles.catLabelContainer}>
-                  <Tooltip
-                    content={`${
-                      !submenuOpen ? 'Määrittele lisäehtoja' : 'Sulje lisäehdot'
-                    } klikkaamalla kategorian nimeä`}
-                    direction="right"
-                  >
-                    <BasicButton
-                      text={label}
-                      noBackground
-                      onClick={() => this.setState({ submenuOpen: !submenuOpen })}
-                    />
-                  </Tooltip>
+                  {hasSubMenu ? (
+                    <Tooltip
+                      content={`${
+                        !submenuOpen ? 'Määrittele lisäehtoja' : 'Sulje lisäehdot'
+                      } klikkaamalla kategorian nimeä`}
+                      direction="right"
+                    >
+                      <BasicButton
+                        text={label}
+                        noBackground
+                        onClick={() => this.setState({ submenuOpen: !submenuOpen })}
+                      />
+                    </Tooltip>
+                  ) : (
+                    <div>{label} </div>
+                  )}
                   {subCategories && (
                     <div className={styles.hasSubCat}>
                       <Tooltip content="Olet määritellyt lisäehtoja" direction="right">
@@ -75,7 +79,7 @@ class filterCategory extends Component {
                   )}
                 </div>
               </div>
-              {submenuOpen && (
+              {submenuOpen && hasSubMenu && (
                 <FilterSubCategory
                   {...{ dispatch, keyName, value, isChecked, filters, subCategories }}
                 />
@@ -95,7 +99,12 @@ filterCategory.propTypes = {
   filters: PropTypes.objectOf(
     PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.array])
   ).isRequired,
-  dispatch: PropTypes.func.isRequired
+  dispatch: PropTypes.func.isRequired,
+  hasSubMenu: PropTypes.bool
+};
+
+filterCategory.defaultProps = {
+  hasSubMenu: false
 };
 
 export default filterCategory;

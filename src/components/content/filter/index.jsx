@@ -96,7 +96,7 @@ class Filter extends Component {
   }
 
   render() {
-    const { children, dispatch, keyName, id, filters = {}, allowMulti } = this.props;
+    const { children, dispatch, keyName, id, filters = {}, allowMulti, hasSubMenu } = this.props;
     const { menuOpen, insideOneDataset, offset } = this.state;
     const actualKeyName = insideOneDataset ? `${keyName}A` : keyName;
 
@@ -153,6 +153,7 @@ class Filter extends Component {
                   filters={filters}
                   dispatch={dispatch}
                   keyName={actualKeyName}
+                  hasSubMenu={hasSubMenu}
                   {...item}
                 />
               ))}
@@ -178,7 +179,8 @@ Filter.propTypes = {
   filters: PropTypes.objectOf(
     PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.array])
   ),
-  allowMulti: PropTypes.bool
+  allowMulti: PropTypes.bool,
+  hasSubMenu: PropTypes.bool
 };
 
 Filter.defaultProps = {
@@ -186,7 +188,8 @@ Filter.defaultProps = {
   children: null,
   id: '',
   filters: {},
-  allowMulti: false
+  allowMulti: false,
+  hasSubMenu: false
 };
 
 export default Filter;
