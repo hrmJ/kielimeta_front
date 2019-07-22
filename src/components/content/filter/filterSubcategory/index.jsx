@@ -29,6 +29,10 @@ class filterSubcategory extends Component {
     const modifiedValue = isChecked
       ? `${value}§§${categoryId}`
       : value.replace(`§§${categoryId}`, '');
+    console.log(isChecked);
+    console.log(thisChecked);
+    console.log(modifiedValue);
+    console.log(updatedFilters);
     return dispatch(updateAndFilter(keyName, modifiedValue, isChecked, updatedFilters, value));
   }
 

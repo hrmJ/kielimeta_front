@@ -16,7 +16,7 @@ export default (state = { query: '' }, action) => {
     } else {
       newvals = val;
     }
-    return { ...state, [key]: newvals };
+    return { ...state, [key]: [...new Set(newvals)] };
   }
 
   return state;

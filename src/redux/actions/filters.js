@@ -90,6 +90,7 @@ const updateAndFilter = (keyName, value, checked, filters, replacedVal) => dispa
     };
     dispatch(updateFilterVerbose(keyName, updatedFilters[keyName]));
   }
+  console.log(updatedFilters);
   return dispatch(filterDatasets(updatedFilters));
 };
 
