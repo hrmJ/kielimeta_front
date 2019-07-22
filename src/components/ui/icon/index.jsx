@@ -25,7 +25,9 @@ import {
   faSearch,
   faCaretSquareDown,
   faCaretSquareUp,
-  faExclamationCircle
+  faExclamationCircle,
+  faComments,
+  faKeyboard
 } from '@fortawesome/free-solid-svg-icons';
 import utilityStyles from '../../../general_styles/utilities.scss';
 
@@ -54,7 +56,9 @@ const icons = {
   faSort,
   faCheckCircle,
   faCircle,
-  faSearch
+  faSearch,
+  faComments,
+  faKeyboard
 };
 
 const FontAwesomeIconMod = lazy(() => import(/* webpackChunkName: "font-awesome" */ './faBase'));

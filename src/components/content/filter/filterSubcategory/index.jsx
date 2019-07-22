@@ -27,6 +27,34 @@ class filterSubcategory extends Component {
                joissa tämä kategoria liittyy kieleen, jonka aineisto 
                on (varmuudella) äidinkielisten puhujien tuottamaa`,
       value: 'L1'
+    },
+    {
+      label: 'Vain, jos L2-puhujien ominaisuus',
+      tooltip: `Suodattaa näkyviin vain sellaisia aineistoja,
+               joissa tämä kategoria liittyy kieleen, jonka aineisto 
+               on (varmuudella) muiden kuin äidinkielisten puhujien tuottamaa`,
+      value: 'L2'
+    },
+    {
+      label: 'Vain, jos kirjoitetun kielen ominaisuus',
+      tooltip: `Suodattaa näkyviin vain sellaisia aineistoja,
+               joissa tämä kategoria liittyy kieleen, jonka aineisto 
+               sisältää kirjoitettua kieltä`,
+      value: 'written'
+    },
+    {
+      label: 'Vain, jos puhutun kielen ominaisuus',
+      tooltip: `Suodattaa näkyviin vain sellaisia aineistoja,
+               joissa tämä kategoria liittyy kieleen, jonka aineisto 
+               sisältää puhuttua kieltä`,
+      value: 'spoken'
+    },
+    {
+      label: 'Vain, jos internetkielen ominaisuus',
+      tooltip: `Suodattaa näkyviin vain sellaisia aineistoja,
+               joissa tämä kategoria liittyy kieleen, jonka aineisto 
+               sisältää internetissä käytettyä kieltä`,
+      value: 'internet'
     }
   ];
 
