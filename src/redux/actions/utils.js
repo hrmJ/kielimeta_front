@@ -51,14 +51,14 @@ const thunkCreator = action => {
 const getOriginalValuesForFilters = datasets =>
   datasets.reduce(
     (prev, ds) => {
-      const { lang, annotations, resourcetype: existingRestypes } = prev;
+      const { lang, annotations, resourcetype: existingRestypes, modality } = prev;
       const { languages = [], resourcetype } = ds;
       return {
-        ...languages.reduce(langReducer, { lang, annotations }),
+        ...languages.reduce(langReducer, { lang, annotations, modality }),
         resourcetype: addIfUnique(existingRestypes, resourcetype)
       };
     },
-    { lang: [], resourcetype: [], annotations: [] }
+    { lang: [], resourcetype: [], annotations: [], modality: [] }
   );
 
 export { thunkCreator, getOriginalValuesForFilters, baseUrl, setBaseUrl };

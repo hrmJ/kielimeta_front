@@ -46,11 +46,25 @@ const getVal = item => item.value;
  * @param {Array} allValues the array of already existing values
  * @param {any} thisVal new value to be added
  * @param {any} thisLabel if provided, will be used as the label
+ * @param {Function} labelFormatter if provided, will be used to format the labels
  * @returns {undefined}
  */
-const addIfUnique = (allValues, thisVal, thisLabel) =>
-  thisVal !== undefined && !allValues.map(getVal).includes(thisVal)
+const addIfUnique = (allValues, thisVal, thisLabel, labelFormatter) => {
+  if (Array.isArray(thisVal)) {
+    const newVals = thisVal.filter(val => !allValues.map(oldVal => oldVal.value).includes(val));
+    return newVals.length > 0
+      ? [
+          ...allValues,
+          ...newVals.map(newVal => ({
+            label: (labelFormatter && labelFormatter(newVal)) || newVal,
+            value: newVal
+          }))
+        ]
+      : allValues;
+  }
+  return thisVal !== undefined && !allValues.map(getVal).includes(thisVal)
     ? [...allValues, { label: thisLabel || thisVal, value: thisVal }]
     : allValues;
+};
 
 export { getCookie, formatNo, getVal, addIfUnique };

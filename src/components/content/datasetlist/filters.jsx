@@ -7,7 +7,7 @@ import styles from './datasetlist.scss';
 const filtersComponent = props => {
   const {
     filters,
-    originalFilterValues: { lang, resourcetype, annotations },
+    originalFilterValues: { lang, resourcetype, annotations, modality },
     dispatch
   } = props;
   return (
@@ -32,6 +32,16 @@ const filtersComponent = props => {
           dispatch={dispatch}
         >
           Aineistotyypit
+        </Filter>
+        <Filter
+          filters={filters}
+          id="modalityfilter"
+          keyName="modality"
+          items={modality}
+          dispatch={dispatch}
+          allowMulti
+        >
+          Kielimuoto
         </Filter>
         <Filter
           filters={filters}

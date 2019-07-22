@@ -1,6 +1,19 @@
 import { annotationReducer } from './languages';
 import { addIfUnique } from '../../../utils';
 
+const formatModality = cat => {
+  switch (cat) {
+    case 'written':
+      return 'kirjoitettu kieli';
+    case 'spoken':
+      return 'puhuttu kieli';
+    case 'internet':
+      return 'internetkieli';
+    default:
+      return cat;
+  }
+};
+
 /**
  * langReducer
  *
@@ -15,11 +28,13 @@ import { addIfUnique } from '../../../utils';
 const langReducer = (processed, thisLang) => {
   const {
     details: { language_code: code, language_name: name },
-    annotations
+    annotations,
+    modality
   } = thisLang;
-  const { lang: prevLangs = [], annotations: prevAnnotations } = processed;
+  const { lang: prevLangs = [], annotations: prevAnnotations, modality: prevModality } = processed;
   return {
     lang: addIfUnique(prevLangs, code, name),
+    modality: addIfUnique(prevModality, modality, undefined, formatModality),
     annotations: annotations.reduce(annotationReducer, prevAnnotations)
   };
 };
