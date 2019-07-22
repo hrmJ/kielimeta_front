@@ -12,8 +12,21 @@ class filterSubcategory extends Component {
     {
       label: 'Vain, jos kohdekielen ominaisuus',
       tooltip: `Suodattaa näkyviin vain sellaisia aineistoja,
-               joissa tämä kategoria on käännöksen kohdekielen oinaisuus`,
+               joissa tämä kategoria on käännöksen kohdekielen ominaisuus`,
       value: 'TL'
+    },
+    {
+      label: 'Vain, jos lähdekielen ominaisuus',
+      tooltip: `Suodattaa näkyviin vain sellaisia aineistoja,
+               joissa tämä kategoria on  käännöksen lähdekielen ominaisuus`,
+      value: 'SL'
+    },
+    {
+      label: 'Vain, jos L1-puhujien ominaisuus',
+      tooltip: `Suodattaa näkyviin vain sellaisia aineistoja,
+               joissa tämä kategoria liittyy kieleen, jonka aineisto 
+               on (varmuudella) äidinkielisten puhujien tuottamaa`,
+      value: 'L1'
     }
   ];
 
@@ -22,17 +35,27 @@ class filterSubcategory extends Component {
     let isChecked = thisChecked;
     let updatedFilters = { ...filters };
     if (thisChecked) {
+      // Make sure that if a subcategory is checked, then the parent category
+      // is also checked
       dispatch(updateFilter(keyName, value, true));
       updatedFilters = filterReducer(filters, updateFilter(keyName, value, true));
       isChecked = true;
     }
-    const modifiedValue = isChecked
-      ? `${value}§§${categoryId}`
-      : value.replace(`§§${categoryId}`, '');
-    console.log(isChecked);
-    console.log(thisChecked);
-    console.log(modifiedValue);
-    console.log(updatedFilters);
+    let modifiedValue;
+    let preparedVal;
+    if (updatedFilters[keyName]) {
+      preparedVal = updatedFilters[keyName]
+        .filter(val => val.replace(/§§.*/g, '') === value)
+        .find(val => val.includes('§§'));
+    }
+    if (isChecked) {
+      modifiedValue = `${preparedVal || value}§§${categoryId}`;
+    } else {
+      modifiedValue = preparedVal ? preparedVal.replace(`§§${categoryId}`, '') : value;
+    }
+    if (!modifiedValue.includes(value)) {
+      modifiedValue = `${value}${modifiedValue}`;
+    }
     return dispatch(updateAndFilter(keyName, modifiedValue, isChecked, updatedFilters, value));
   }
 

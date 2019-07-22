@@ -14,8 +14,6 @@ class TranslationContainer extends Component {
 
   render() {
     const { sl, tl } = this.props;
-    console.log('HEIII');
-    console.log(sl);
     return (
       <div>
         <div className={styles.translationContainer} ref={el => (this.grid = el)}>

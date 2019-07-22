@@ -88,9 +88,8 @@ const updateAndFilter = (keyName, value, checked, filters, replacedVal) => dispa
         originalValue.replace(/§§.*/g, '') === replacedVal ? value : originalValue
       )
     };
-    dispatch(updateFilterVerbose(keyName, updatedFilters[keyName]));
+    dispatch(updateFilterVerbose(keyName, [...new Set(updatedFilters[keyName])]));
   }
-  console.log(updatedFilters);
   return dispatch(filterDatasets(updatedFilters));
 };
 

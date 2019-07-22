@@ -30,8 +30,6 @@ class Content extends Component {
     const { languages, genre, mediatype, mediaDescription, connections } = this.props;
     const { currentSl, showTranslations } = this.state;
     let actualCurrentsl = currentSl;
-    console.log(connections);
-    console.log(currentSl);
     if (connections.length - 1 < currentSl) {
       actualCurrentsl = 0;
     }
