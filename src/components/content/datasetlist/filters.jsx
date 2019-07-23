@@ -7,8 +7,9 @@ import styles from './datasetlist.scss';
 const filtersComponent = props => {
   const {
     filters,
-    originalFilterValues: { lang, resourcetype, annotations, modality },
-    dispatch
+    originalFilterValues: { lang, resourcetype, annotations, modality, variety },
+    dispatch,
+    languageVarieties
   } = props;
   return (
     <div>
@@ -21,8 +22,19 @@ const filtersComponent = props => {
           dispatch={dispatch}
           allowMulti
           hasSubMenu
+          languageVarieties={languageVarieties}
         >
           Kielet
+        </Filter>
+        <Filter
+          filters={filters}
+          id="variantfilter"
+          keyName="variety"
+          items={variety}
+          dispatch={dispatch}
+          allowMulti
+        >
+          Kielivariantit
         </Filter>
         <Filter
           filters={filters}
@@ -70,12 +82,14 @@ filtersComponent.propTypes = {
   originalFilterValues: PropTypes.objectOf(
     PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.array])
   ),
-  dispatch: PropTypes.func.isRequired
+  dispatch: PropTypes.func.isRequired,
+  languageVarieties: PropTypes.objectOf(PropTypes.any)
 };
 
 filtersComponent.defaultProps = {
   originalFilterValues: {},
-  filters: {}
+  filters: {},
+  languageVarieties: {}
 };
 
 export default filtersComponent;

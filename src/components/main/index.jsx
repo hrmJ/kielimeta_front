@@ -109,6 +109,7 @@ class main extends Component {
                         loadingState={loadingState}
                         editedId={editedId}
                         datasetVersions={datasetVersions}
+                        languageVarieties={languageVarieties}
                       />
                     )}
                   />

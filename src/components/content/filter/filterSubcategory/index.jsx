@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
-import filterReducer from '../../../../redux/reducers/datasetfilter';
+import { getVarieties } from '../../../../redux/actions/languageactions';
 import { updateAndFilter, updateFilter } from '../../../../redux/actions/filters';
 import Tooltip from '../../../ui/tooltip';
-import styles from './filterSubcategory.scss';
 import categoryStyles from '../filterCategory/filterCategory.scss';
+import filterReducer from '../../../../redux/reducers/datasetfilter';
+import styles from './filterSubcategory.scss';
 
 class filterSubcategory extends Component {
   categories = [
@@ -58,10 +59,18 @@ class filterSubcategory extends Component {
     }
   ];
 
+  componentDidMount() {
+    const { dispatch, keyName, value, filters, languageVarieties } = this.props;
+    if (!(value in languageVarieties)) {
+      dispatch(getVarieties(value));
+    }
+  }
+
   checkSubCategory(categoryId, thisChecked) {
     const { dispatch, keyName, value, filters } = this.props;
     let isChecked = thisChecked;
     let updatedFilters = { ...filters };
+
     if (thisChecked) {
       // Make sure that if a subcategory is checked, then the parent category
       // is also checked
@@ -88,17 +97,45 @@ class filterSubcategory extends Component {
   }
 
   render() {
-    const { isChecked: parentChecked, value, subCategories: activeCategories } = this.props;
+    const {
+      isChecked: parentChecked,
+      value,
+      subCategories: activeCategories,
+      languageVarieties
+    } = this.props;
+
+    const nonGenericVariants =
+      languageVarieties[value] && languageVarieties[value].filter(val => val.variety !== 'generic');
 
     return (
       <div className={styles.subMenuContainer}>
+        {nonGenericVariants && nonGenericVariants.length > 0 && (
+          <div>
+            <h5>Kielivariantit</h5>
+            <ul className={styles.subCategoryList}>
+              {nonGenericVariants.map(variety => (
+                <li key={variety.variety} className={styles.subCategoryListItem}>
+                  <input
+                    type="checkbox"
+                    checked={
+                      activeCategories
+                        ? activeCategories.includes(`VARIETY_${variety.variety}`)
+                        : false
+                    }
+                    onChange={ev =>
+                      this.checkSubCategory(`VARIETY_${variety.variety}`, ev.target.checked)
+                    }
+                  />
+                  {variety.variety}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
         <h5>Lisäehdot</h5>
         <ul className={styles.subCategoryList}>
           {this.categories.map(cat => (
-            <li
-              key={cat.value}
-              className={`${categoryStyles.cbContainer} ${styles.subCategoryListItem}`}
-            >
+            <li key={cat.value} className={styles.subCategoryListItem}>
               <input
                 type="checkbox"
                 value={cat.value}
@@ -124,11 +161,13 @@ filterSubcategory.propTypes = {
   filters: PropTypes.objectOf(
     PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.array])
   ).isRequired,
-  subCategories: PropTypes.arrayOf(PropTypes.string)
+  subCategories: PropTypes.arrayOf(PropTypes.string),
+  languageVarieties: PropTypes.objectOf(PropTypes.any)
 };
 
 filterSubcategory.defaultProps = {
-  subCategories: []
+  subCategories: [],
+  languageVarieties: {}
 };
 
 export default filterSubcategory;

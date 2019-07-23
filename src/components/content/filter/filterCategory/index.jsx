@@ -32,7 +32,7 @@ class filterCategory extends Component {
   }
 
   render() {
-    const { filters, value, label, dispatch, keyName, hasSubMenu } = this.props;
+    const { filters, value, label, dispatch, keyName, hasSubMenu, languageVarieties } = this.props;
     const { submenuOpen } = this.state;
     const subCategories = this.getSubCategoryValues();
     const isChecked = filters[keyName]
@@ -81,7 +81,15 @@ class filterCategory extends Component {
               </div>
               {submenuOpen && hasSubMenu && (
                 <FilterSubCategory
-                  {...{ dispatch, keyName, value, isChecked, filters, subCategories }}
+                  {...{
+                    dispatch,
+                    keyName,
+                    value,
+                    isChecked,
+                    filters,
+                    subCategories,
+                    languageVarieties
+                  }}
                 />
               )}
             </div>
@@ -100,11 +108,13 @@ filterCategory.propTypes = {
     PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.array])
   ).isRequired,
   dispatch: PropTypes.func.isRequired,
-  hasSubMenu: PropTypes.bool
+  hasSubMenu: PropTypes.bool,
+  languageVarieties: PropTypes.objectOf(PropTypes.any)
 };
 
 filterCategory.defaultProps = {
-  hasSubMenu: false
+  hasSubMenu: false,
+  languageVarieties: {}
 };
 
 export default filterCategory;

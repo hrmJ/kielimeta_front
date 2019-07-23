@@ -103,7 +103,8 @@ class DatasetList extends Component {
       clusterToolVisible,
       groupedDatasets,
       loadingState,
-      groupNames
+      groupNames,
+      languageVarieties
     } = this.props;
 
     const { useGrid } = this.state;
@@ -134,6 +135,7 @@ class DatasetList extends Component {
           filters={filters}
           originalFilterValues={originalFilterValues}
           dispatch={dispatch}
+          languageVarieties={languageVarieties}
         />
         <section className={styles.viewSelect}>
           <div className={styles.dsCount}>
@@ -175,7 +177,8 @@ DatasetList.propTypes = {
   }),
   loadingState: PropTypes.objectOf(PropTypes.any).isRequired,
   groupNames: PropTypes.arrayOf(PropTypes.object),
-  datasetVersions: PropTypes.shape({ activated: PropTypes.object, all: PropTypes.object })
+  datasetVersions: PropTypes.shape({ activated: PropTypes.object, all: PropTypes.object }),
+  languageVarieties: PropTypes.objectOf(PropTypes.any)
 };
 
 DatasetList.defaultProps = {
@@ -188,7 +191,8 @@ DatasetList.defaultProps = {
   clusterToolVisible: false,
   groupedDatasets: [],
   groupNames: [],
-  datasetVersions: { activated: {}, all: {} }
+  datasetVersions: { activated: {}, all: {} },
+  languageVarieties: {}
 };
 
 export default withRouter(DatasetList);
