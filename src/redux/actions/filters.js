@@ -16,21 +16,24 @@ const setOriginalFilterValues = vals => {
 const formQueryFromFilters = (filters, encode = true) => {
   let filterstrings = '?';
   if (filters) {
-    filterstrings += Object.keys(filters)
-      .map(key => {
-        let thisfilter = `&${key}=`;
-        if (Array.isArray(filters[key])) {
-          if (encode) {
-            thisfilter += filters[key].map(val => encodeURIComponent(val)).join(`&${key}=`);
-          } else {
-            thisfilter += filters[key].join(`&${key}=`);
-          }
+    const params = Object.keys(filters).map(key => {
+      let thisfilter = `&${key}=`;
+      if (Array.isArray(filters[key])) {
+        // Note: loaded front end clients might accidentally produce the same
+        // value multiple times, which, in turn, causes trouble on the backend
+        // just in case: make each filter only contain unique values
+        const valuesOfFilter = [...new Set(filters[key])];
+        if (encode) {
+          thisfilter += valuesOfFilter.map(val => encodeURIComponent(val)).join(`&${key}=`);
         } else {
-          thisfilter += filters[key];
+          thisfilter += valuesOfFilter.join(`&${key}=`);
         }
-        return thisfilter;
-      })
-      .join('&');
+      } else {
+        thisfilter += filters[key];
+      }
+      return thisfilter;
+    });
+    filterstrings += params.join('&');
   }
 
   filterstrings = filterstrings.replace('?&', '?').replace('&&', '&');
