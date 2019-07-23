@@ -11,52 +11,60 @@ import styles from './filterSubcategory.scss';
 class filterSubcategory extends Component {
   categories = [
     {
-      label: 'Vain, jos kohdekielen ominaisuus',
+      label: 'Käännöksen kohdekielenä',
       tooltip: `Suodattaa näkyviin vain sellaisia aineistoja,
                joissa tämä kategoria on käännöksen kohdekielen ominaisuus`,
       value: 'TL'
     },
     {
-      label: 'Vain, jos lähdekielen ominaisuus',
+      label: 'Käännöksen lähdekielenä',
       tooltip: `Suodattaa näkyviin vain sellaisia aineistoja,
                joissa tämä kategoria on  käännöksen lähdekielen ominaisuus`,
       value: 'SL'
     },
     {
-      label: 'Vain, jos L1-puhujien ominaisuus',
+      label: 'Äidinkielisten tuottamana (L1)',
       tooltip: `Suodattaa näkyviin vain sellaisia aineistoja,
-               joissa tämä kategoria liittyy kieleen, jonka aineisto 
-               on (varmuudella) äidinkielisten puhujien tuottamaa`,
+               joissa tätä kieltä ovat tuottaneet
+               puhujat (kirjoittajat), joille se on äidinkieli`,
       value: 'L1'
     },
     {
-      label: 'Vain, jos L2-puhujien ominaisuus',
+      label: 'Ei-äidinkielisten tuottamana (L2)',
       tooltip: `Suodattaa näkyviin vain sellaisia aineistoja,
-               joissa tämä kategoria liittyy kieleen, jonka aineisto 
-               on (varmuudella) muiden kuin äidinkielisten puhujien tuottamaa`,
+               joissa tätä kieltä ovat tuottaneet
+               puhujat (kirjoittajat), joille se ei ole äidinkieli`,
       value: 'L2'
     },
     {
-      label: 'Vain, jos kirjoitetun kielen ominaisuus',
+      label: 'L2-puhujan äidinkielenä',
       tooltip: `Suodattaa näkyviin vain sellaisia aineistoja,
-               joissa tämä kategoria liittyy kieleen, jonka aineisto 
-               sisältää kirjoitettua kieltä`,
-      value: 'written'
-    },
-    {
-      label: 'Vain, jos puhutun kielen ominaisuus',
-      tooltip: `Suodattaa näkyviin vain sellaisia aineistoja,
-               joissa tämä kategoria liittyy kieleen, jonka aineisto 
-               sisältää puhuttua kieltä`,
-      value: 'spoken'
-    },
-    {
-      label: 'Vain, jos internetkielen ominaisuus',
-      tooltip: `Suodattaa näkyviin vain sellaisia aineistoja,
-               joissa tämä kategoria liittyy kieleen, jonka aineisto 
-               sisältää internetissä käytettyä kieltä`,
-      value: 'internet'
+               joita tätä kieltä äidinkielenään puhuvat kielenkäyttäjät
+               ovat tuottaneet muulla kuin äidinkielellään
+               `,
+      value: 'L2SOURCE'
     }
+    //    {
+    //      label: 'kirjoitettu kieli',
+    //      tooltip: `Suodattaa näkyviin vain sellaisia aineistoja,
+    //               joissa tämä kategoria liittyy kieleen, jonka aineisto
+    //               sisältää kirjoitettua kieltä`,
+    //      value: 'written'
+    //    },
+    //    {
+    //      label: 'puhuttu kieli',
+    //      tooltip: `Suodattaa näkyviin vain sellaisia aineistoja,
+    //               joissa tämä kategoria liittyy kieleen, jonka aineisto
+    //               sisältää puhuttua kieltä`,
+    //      value: 'spoken'
+    //    },
+    //    {
+    //      label: 'internetkieli',
+    //      tooltip: `Suodattaa näkyviin vain sellaisia aineistoja,
+    //               joissa tämä kategoria liittyy kieleen, jonka aineisto
+    //               sisältää internetissä käytettyä kieltä`,
+    //      value: 'internet'
+    //    }
   ];
 
   componentDidMount() {

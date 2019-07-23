@@ -28,16 +28,6 @@ const filtersComponent = props => {
         </Filter>
         <Filter
           filters={filters}
-          id="variantfilter"
-          keyName="variety"
-          items={variety}
-          dispatch={dispatch}
-          allowMulti
-        >
-          Kielivariantit
-        </Filter>
-        <Filter
-          filters={filters}
           id="typefilter"
           keyName="resourcetype"
           items={resourcetype}
@@ -62,7 +52,6 @@ const filtersComponent = props => {
           items={annotations}
           dispatch={dispatch}
           allowMulti
-          hasSubMenu
         >
           Annotoinnit
         </Filter>
