@@ -29,13 +29,20 @@ const langReducer = (processed, thisLang) => {
   const {
     details: { language_code: code, language_name: name },
     annotations,
-    modality
+    modality,
+    speaker_status: speakerStatus
   } = thisLang;
-  const { lang: prevLangs = [], annotations: prevAnnotations, modality: prevModality } = processed;
+  const {
+    lang: prevLangs = [],
+    annotations: prevAnnotations,
+    modality: prevModality,
+    speakerStatus: prevSpeakerStatus
+  } = processed;
   return {
     lang: addIfUnique(prevLangs, code, name),
     modality: addIfUnique(prevModality, modality, undefined, formatModality),
-    annotations: annotations.reduce(annotationReducer, prevAnnotations)
+    annotations: annotations.reduce(annotationReducer, prevAnnotations),
+    speakerStatus: addIfUnique(prevSpeakerStatus, speakerStatus)
   };
 };
 

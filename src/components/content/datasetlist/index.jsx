@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { addToGroup, listGroups } from '../../../redux/actions/groups';
 import { filterByQuery } from '../../../redux/actions/filters';
 import { listAll } from '../../../redux/actions/datasets';
+import { getOriginalValuesForFilters } from '../../../redux/actions/utils';
 import BasicButton from '../../ui/buttons/BasicButton';
 import ClusterTool from '../ClusterTool';
 import DatasetItem from '../datasetitem';
@@ -35,6 +36,8 @@ class DatasetList extends Component {
     }
     if (!isTest && !activeTitle) {
       dispatch(listAll());
+      // TODO: use cached filter values most of the time?
+      dispatch(getOriginalValuesForFilters());
     } else if (activeTitle) {
       this.filterDatasets(activeTitle);
     }

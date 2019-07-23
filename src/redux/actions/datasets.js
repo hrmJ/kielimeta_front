@@ -130,18 +130,13 @@ const fetchDatasetForEdit = (id, mainVersion, isCopy) => dispatch => {
   });
 };
 
-const listAllRaw = () => {
+const listAll = () => {
   const url = `${baseUrl}/datasets`;
   return thunkCreator({
     types: ['LIST_DATASETS_REQUEST', 'LIST_DATASETS_SUCCESS', 'LIST_DATASETS_ERROR'],
     promise: fetch(url, { mode: 'cors' }).then(response => response.json())
   });
 };
-
-const listAll = () => dispatch =>
-  listAllRaw()(dispatch).then(res =>
-    dispatch(setOriginalFilterValues(getOriginalValuesForFilters(res)))
-  );
 
 const setActiveVersion = (mainId, activeId) => ({ type: 'SET_ACTIVE_VERSION', mainId, activeId });
 
