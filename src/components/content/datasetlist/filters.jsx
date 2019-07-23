@@ -7,7 +7,14 @@ import styles from './datasetlist.scss';
 const filtersComponent = props => {
   const {
     filters,
-    originalFilterValues: { lang, resourcetype, annotations, modality, mediatype },
+    originalFilterValues: {
+      lang,
+      resourcetype,
+      annotations,
+      modality,
+      mediatype,
+      variety_type: varietyType
+    },
     dispatch,
     languageVarieties
   } = props;
@@ -54,6 +61,16 @@ const filtersComponent = props => {
           allowMulti
         >
           Media
+        </Filter>
+        <Filter
+          filters={filters}
+          id="variety_type_filter"
+          keyName="variety_type"
+          items={varietyType}
+          dispatch={dispatch}
+          allowMulti
+        >
+          Kielivariantin tyyppi
         </Filter>
         <Filter
           filters={filters}
