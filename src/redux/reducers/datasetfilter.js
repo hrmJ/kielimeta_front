@@ -16,7 +16,9 @@ export default (state = { query: '' }, action) => {
       'annotations',
       'modality',
       'mediatype',
-      'variety_type'
+      'variety_type',
+      'speaker_status',
+      'keyword'
     ];
     if ([...listFields, ...listFields.map(f => `${f}A`)].indexOf(key) > -1) {
       newvals = checked ? [...oldvals, val] : oldvals.filter(thisval => thisval !== val);

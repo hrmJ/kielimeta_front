@@ -13,73 +13,50 @@ const filtersComponent = props => {
       annotations,
       modality,
       mediatype,
-      variety_type: varietyType
+      variety_type: varietyType,
+      speakerStatus,
+      keyword
     },
     dispatch,
     languageVarieties
   } = props;
+
+  const commonProps = {
+    filters,
+    dispatch
+  };
   return (
     <div>
       <section className={styles.filterContainer}>
+        <Filter {...commonProps} keyName="keyword" items={keyword} allowMulti>
+          Avainsanat
+        </Filter>
         <Filter
-          filters={filters}
-          id="langfilter"
+          {...commonProps}
           keyName="lang"
           items={lang}
-          dispatch={dispatch}
           allowMulti
           hasSubMenu
           languageVarieties={languageVarieties}
         >
           Kielet
         </Filter>
-        <Filter
-          filters={filters}
-          id="typefilter"
-          keyName="resourcetype"
-          items={resourcetype}
-          dispatch={dispatch}
-        >
+        <Filter {...commonProps} keyName="resourcetype" items={resourcetype}>
           Aineistotyypit
         </Filter>
-        <Filter
-          filters={filters}
-          id="modalityfilter"
-          keyName="modality"
-          items={modality}
-          dispatch={dispatch}
-          allowMulti
-        >
+        <Filter {...commonProps} keyName="modality" items={modality} allowMulti>
           Kielimuoto
         </Filter>
-        <Filter
-          filters={filters}
-          id="mediatypefiler"
-          keyName="mediatype"
-          items={mediatype}
-          dispatch={dispatch}
-          allowMulti
-        >
-          Media
-        </Filter>
-        <Filter
-          filters={filters}
-          id="variety_type_filter"
-          keyName="variety_type"
-          items={varietyType}
-          dispatch={dispatch}
-          allowMulti
-        >
+        <Filter {...commonProps} keyName="variety_type" items={varietyType} allowMulti>
           Kielivariantin tyyppi
         </Filter>
-        <Filter
-          filters={filters}
-          id="annotationsFilter"
-          keyName="annotations"
-          items={annotations}
-          dispatch={dispatch}
-          allowMulti
-        >
+        <Filter {...commonProps} keyName="speaker_status" items={speakerStatus} allowMulti>
+          L1 vai L2?
+        </Filter>
+        <Filter {...commonProps} keyName="mediatype" items={mediatype} allowMulti>
+          Media
+        </Filter>
+        <Filter {...commonProps} keyName="annotations" items={annotations} allowMulti>
           Annotoinnit
         </Filter>
         {/* 
