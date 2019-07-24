@@ -15,28 +15,34 @@ const setOriginalFilterValues = vals => {
 
 const formQueryFromFilters = (filters, encode = true) => {
   let filterstrings = '?';
+  if ('query' in filters) {
+    filterstrings += `query=${filters.query}`;
+  }
   if (filters) {
-    const params = Object.keys(filters).map(key => {
-      let thisfilter = `&${key}=`;
-      if (Array.isArray(filters[key])) {
-        // Note: loaded front end clients might accidentally produce the same
-        // value multiple times, which, in turn, causes trouble on the backend
-        // just in case: make each filter only contain unique values
-        const valuesOfFilter = [...new Set(filters[key])];
-        if (encode) {
-          thisfilter += valuesOfFilter.map(val => encodeURIComponent(val)).join(`&${key}=`);
+    const params = Object.keys(filters)
+      .filter(key => key !== 'query')
+      .map(key => {
+        let thisfilter = `&${key}=`;
+        if (Array.isArray(filters[key])) {
+          // Note: loaded front end clients might accidentally produce the same
+          // value multiple times, which, in turn, causes trouble on the backend
+          // just in case: make each filter only contain unique values
+          const valuesOfFilter = [...new Set(filters[key])];
+          if (encode) {
+            thisfilter += valuesOfFilter.map(val => encodeURIComponent(val)).join(`&${key}=`);
+          } else {
+            thisfilter += valuesOfFilter.join(`&${key}=`);
+          }
         } else {
-          thisfilter += valuesOfFilter.join(`&${key}=`);
+          thisfilter += filters[key];
         }
-      } else {
-        thisfilter += filters[key];
-      }
-      return thisfilter;
-    });
+        return thisfilter;
+      });
     filterstrings += params.join('&');
   }
 
   filterstrings = filterstrings.replace('?&', '?').replace('&&', '&');
+  console.log(filterstrings);
 
   return filterstrings;
 };

@@ -20,12 +20,12 @@ export default (state = { query: '' }, action) => {
       'speaker_status',
       'keyword'
     ];
-    if ([...listFields, ...listFields.map(f => `${f}A`)].indexOf(key) > -1) {
+    if ([...listFields, ...listFields.map(f => `${f}A`)].includes(key)) {
       newvals = checked ? [...oldvals, val] : oldvals.filter(thisval => thisval !== val);
     } else {
       newvals = val;
     }
-    return { ...state, [key]: [...new Set(newvals)] };
+    return { ...state, [key]: Array.isArray(newvals) ? [...new Set(newvals)] : newvals };
   }
 
   return state;

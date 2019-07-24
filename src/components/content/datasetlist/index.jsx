@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
 import { addToGroup, listGroups } from '../../../redux/actions/groups';
-import { filterByQuery } from '../../../redux/actions/filters';
+import { filterByQuery, updateAndFilter } from '../../../redux/actions/filters';
 import { listAll } from '../../../redux/actions/datasets';
 import { getOriginalValuesForFilters } from '../../../redux/actions/utils';
 import BasicButton from '../../ui/buttons/BasicButton';
@@ -126,7 +126,7 @@ class DatasetList extends Component {
         <section className={styles.searchBarContainer}>
           <DelayedSearchField
             id="searchfield"
-            onChange={query => this.filterDatasets(query)}
+            onChange={query => dispatch(updateAndFilter('query', query, true, filters))}
             placeholder="Hae nimellä tai avainsanalla"
             defaultValue={this.filterFromQuery}
           />

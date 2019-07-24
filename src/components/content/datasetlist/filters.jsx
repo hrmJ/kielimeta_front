@@ -59,10 +59,6 @@ const filtersComponent = props => {
         <Filter {...commonProps} keyName="annotations" items={annotations} allowMulti>
           Annotoinnit
         </Filter>
-        {/* 
-        <Filter>Koko</Filter>
-        <Filter>Lisää suodattimia </Filter>
-        */}
       </section>
     </div>
   );
