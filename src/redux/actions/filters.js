@@ -85,9 +85,10 @@ const updateAndFilter = (keyName, value, checked, filters, replacedVal) => dispa
   let updatedFilters;
 
   if (!replacedVal) {
-    const actualValue = filters[keyName]
-      ? filters[keyName].find(thisval => thisval.replace(/§§.*/g, '') === value)
-      : value;
+    const actualValue =
+      filters[keyName] && Array.isArray(filters[keyName])
+        ? filters[keyName].find(thisval => thisval.replace(/§§.*/g, '') === value)
+        : value;
     updatedFilters = filterReducer(filters, updateFilter(keyName, actualValue || value, checked));
     dispatch(updateFilter(keyName, actualValue || value, checked));
   } else {
