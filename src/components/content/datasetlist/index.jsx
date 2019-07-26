@@ -152,7 +152,9 @@ class DatasetList extends Component {
         </section>
         <section className={`${styles.datasetList} ${useGrid && styles.datasetListGrid}`}>
           {filterState === 'requested' ? (
-            <Loader />
+            <div className={styles.loaderContainer}>
+              <Loader />
+            </div>
           ) : (
             datasets.map(dataset => this.renderDataset(dataset))
           )}

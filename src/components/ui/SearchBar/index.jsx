@@ -2,7 +2,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
-import { updateAndFilter } from '../../../redux/actions/filters';
+import { startFilter, updateAndFilter } from '../../../redux/actions/filters';
 import BasicButton from '../buttons/BasicButton';
 import styles from './searchbar.scss';
 
@@ -15,7 +15,8 @@ class SearchBar extends Component {
     const { value } = props;
     this.hasBeenReset = false;
     this.state = {
-      value
+      value,
+      loading: false
     };
   }
 
@@ -25,7 +26,9 @@ class SearchBar extends Component {
 
   handleChange(value) {
     clearTimeout(this.timer);
-    this.setState({ value });
+    this.setState({ value, loading: true });
+    const { dispatch } = this.props;
+    dispatch(startFilter());
     this.timer = setTimeout(this.triggerChange.bind(this), WAIT_INTERVAL);
   }
 
@@ -38,12 +41,15 @@ class SearchBar extends Component {
   triggerChange() {
     const { value } = this.state;
     const { onChange } = this.props;
+    this.setState({ loading: false });
     onChange(value);
   }
 
   render() {
     const { id, placeholder, dispatch, filters } = this.props;
     const { value } = this.state;
+    const { loading } = this.state;
+    console.log(loading);
 
     return (
       <section className={styles.searchBarContainer}>

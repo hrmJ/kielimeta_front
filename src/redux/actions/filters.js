@@ -6,6 +6,10 @@ if (window.location.href.includes('istest')) {
   baseUrl = 'http://%%API_SERVER_HOST_TEST%%';
 }
 
+const startFilter = () => ({
+  type: 'FILTER_DATASETS_REQUEST'
+});
+
 const setOriginalFilterValues = vals => {
   return {
     type: 'SET_ORIGINAL_FILTER_VALUES',
@@ -148,5 +152,6 @@ export {
   resetFilter,
   resetFilterAndRefresh,
   setOriginalFilterValues,
-  updateFilterVerbose
+  updateFilterVerbose,
+  startFilter
 };
