@@ -5,7 +5,6 @@ import {
   filterDatasets,
   resetFilter,
   resetFilterAndRefresh,
-  updateAndFilter,
   updateFilterVerbose
 } from '../../../redux/actions/filters';
 import FilterCategory from './filterCategory';
@@ -100,7 +99,6 @@ class Filter extends Component {
       children,
       dispatch,
       keyName,
-      id,
       filters = {},
       allowMulti,
       hasSubMenu,
@@ -119,7 +117,7 @@ class Filter extends Component {
     // TODO: X icon to reset the filter
 
     return (
-      <div className={styles.container} id={id} ref={el => (this.el = el)}>
+      <div className={styles.container} id={`${keyName}filter`} ref={el => (this.el = el)}>
         <button
           type="button"
           className={styles.filterButton}
@@ -138,7 +136,7 @@ class Filter extends Component {
           style={{
             display: menuOpen ? 'block' : 'none'
           }}
-          id={`${id}_menu`}
+          id={`${keyName}_menu`}
         >
           <div>
             {allowMulti && (

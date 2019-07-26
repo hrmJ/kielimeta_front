@@ -2,18 +2,17 @@ import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
-import { addToGroup, listGroups } from '../../../redux/actions/groups';
+import { listGroups } from '../../../redux/actions/groups';
 import { filterByQuery, updateAndFilter } from '../../../redux/actions/filters';
-import { listAll } from '../../../redux/actions/datasets';
 import { getOriginalValuesForFilters } from '../../../redux/actions/utils';
+import { listAll } from '../../../redux/actions/datasets';
 import BasicButton from '../../ui/buttons/BasicButton';
 import ClusterTool from '../ClusterTool';
 import DatasetItem from '../datasetitem';
-import DelayedSearchField from '../../ui/DelayedSearchField';
+import SearchBar from '../../ui/SearchBar';
 import Filters from './filters';
 import Splash from '../../layout/splash';
 import styles from './datasetlist.scss';
-import generalStyles from '../../../general_styles/general_styles.scss';
 
 class DatasetList extends Component {
   filterFromQuery = '';
@@ -123,14 +122,14 @@ class DatasetList extends Component {
             groupNames={groupNames}
           />
         )}
-        <section className={styles.searchBarContainer}>
-          <DelayedSearchField
-            id="searchfield"
-            onChange={query => dispatch(updateAndFilter('query', query, true, filters))}
-            placeholder="Hae nimellä tai avainsanalla"
-            defaultValue={this.filterFromQuery}
-          />
-        </section>
+        <SearchBar
+          id="searchfield"
+          onChange={query => dispatch(updateAndFilter('query', query, true, filters))}
+          placeholder="Hae nimellä tai avainsanalla"
+          value={filters.query}
+          filters={filters}
+          dispatch={dispatch}
+        />
         <Filters
           filters={filters}
           originalFilterValues={originalFilterValues}

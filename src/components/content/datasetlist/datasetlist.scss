@@ -23,16 +23,6 @@
   list-style-type: none;
 }
 
-.searchBarContainer {
-  margin: 1em 0em 1em 0em;
-  @include center_container();
-  @media screen and (min-width: 900px) {
-    input[type='text'] {
-      width: 95%;
-    }
-  }
-}
-
 .filterContainer {
   @include container();
   margin: 1em 0em 2em 0em;

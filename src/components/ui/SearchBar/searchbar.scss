@@ -1,0 +1,14 @@
+@import 'src/general_styles/configs.scss';
+
+.searchBarContainer {
+  margin: 1em 0em 1em 0em;
+  @include center_container();
+  @media screen and (min-width: 900px) {
+    input[type='text'] {
+      width: 95%;
+    }
+  }
+  > div:nth-child(2) {
+    margin-left: 0.6em;
+  }
+}
