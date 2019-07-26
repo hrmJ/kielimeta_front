@@ -13,10 +13,9 @@ class SearchBar extends Component {
   constructor(props) {
     super();
     const { value } = props;
-    this.hasBeenReset = false;
+    this.valueHistory = [];
     this.state = {
-      value,
-      loading: false
+      value
     };
   }
 
@@ -25,8 +24,12 @@ class SearchBar extends Component {
   }
 
   handleChange(value) {
+    const { initialValue } = this.props;
+    if (!this.valueHistory.includes(initialValue)) {
+      this.valueHistory.push(initialValue);
+    }
     clearTimeout(this.timer);
-    this.setState({ value, loading: true });
+    this.setState({ value });
     const { dispatch } = this.props;
     dispatch(startFilter());
     this.timer = setTimeout(this.triggerChange.bind(this), WAIT_INTERVAL);
@@ -41,15 +44,12 @@ class SearchBar extends Component {
   triggerChange() {
     const { value } = this.state;
     const { onChange } = this.props;
-    this.setState({ loading: false });
     onChange(value);
   }
 
   render() {
-    const { id, placeholder, dispatch, filters } = this.props;
+    const { id, placeholder, dispatch, filters, initialValue } = this.props;
     const { value } = this.state;
-    const { loading } = this.state;
-    console.log(loading);
 
     return (
       <section className={styles.searchBarContainer}>
@@ -59,13 +59,20 @@ class SearchBar extends Component {
           placeholder={placeholder}
           onChange={e => this.handleChange(e.target.value)}
           onKeyDown={this.handleKeyDown.bind(this)}
-          value={value}
+          value={
+            this.valueHistory.filter(val => val).length === 0 && !value && initialValue
+              ? initialValue
+              : value
+          }
         />
         {'query' in filters && filters.query && (
           <BasicButton
             text="Tyhjennä"
             iconName="faTimesCircle"
             onClick={() => {
+              if (!this.valueHistory.includes(initialValue)) {
+                this.valueHistory.push(initialValue);
+              }
               dispatch(updateAndFilter('query', '', false, filters));
               this.setState({ value: '' });
             }}
@@ -84,14 +91,16 @@ SearchBar.propTypes = {
     PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.array])
   ),
   value: PropTypes.string,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
+  initialValue: PropTypes.string
 };
 
 SearchBar.defaultProps = {
   placeholder: '',
   id: '',
   filters: {},
-  value: ''
+  value: '',
+  initialValue: ''
 };
 
 export default SearchBar;

@@ -16,12 +16,12 @@ import Splash from '../../layout/splash';
 import styles from './datasetlist.scss';
 
 class DatasetList extends Component {
-  filterFromQuery = '';
-
   state = { useGrid: false };
 
+  activeTitle = '';
+
   componentDidMount() {
-    const { dispatch, isTest, routeProps, groupNames } = this.props;
+    const { dispatch, isTest, routeProps, groupNames, filters } = this.props;
     let activeTitle;
     if (routeProps.match) {
       const {
@@ -31,28 +31,34 @@ class DatasetList extends Component {
       } = routeProps;
       if (title) {
         activeTitle = title;
-        this.filterFromQuery = activeTitle;
       }
     }
+    dispatch(getOriginalValuesForFilters());
     if (!isTest && !activeTitle) {
       dispatch(listAll());
       // TODO: use cached filter values most of the time?
-      dispatch(getOriginalValuesForFilters());
     } else if (activeTitle) {
-      this.filterDatasets(activeTitle);
+      this.activeTitle = activeTitle;
+      dispatch(updateAndFilter('query', activeTitle, true, filters));
     }
     if (groupNames.length === 0) {
       dispatch(listGroups());
     }
   }
 
-  filterDatasets(query) {
-    const { dispatch, filters } = this.props;
-    dispatch(filterByQuery({ ...filters, query }));
-  }
-
   renderDataset(dataset) {
-    const { groupedDatasets, editedId, datasetVersions, clusterToolVisible, dispatch } = this.props;
+    const {
+      groupedDatasets,
+      editedId,
+      datasetVersions,
+      clusterToolVisible,
+      dispatch,
+      routeProps: {
+        match: {
+          params: { title: activeTitle }
+        }
+      }
+    } = this.props;
     const { id, title, subversion, ...datasetDetails } = dataset;
     const { datasets: alreadyGrouped } = groupedDatasets;
     let versionId;
@@ -82,7 +88,7 @@ class DatasetList extends Component {
         key={id}
         id={id}
         subversion={subversion}
-        liftedByDefault={title === this.filterFromQuery}
+        liftedByDefault={title === this.activeTitle}
         wasEdited={id === editedId}
         dispatch={dispatch}
         datasetVersions={datasetVersions}
@@ -130,6 +136,7 @@ class DatasetList extends Component {
           onChange={query => dispatch(updateAndFilter('query', query, true, filters))}
           placeholder="Hae nimellä tai avainsanalla"
           value={filters.query}
+          initialValue={this.activeTitle}
           filters={filters}
           dispatch={dispatch}
         />
