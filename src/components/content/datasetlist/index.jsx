@@ -2,15 +2,16 @@ import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
-import { listGroups } from '../../../redux/actions/groups';
 import { filterByQuery, updateAndFilter } from '../../../redux/actions/filters';
 import { getOriginalValuesForFilters } from '../../../redux/actions/utils';
 import { listAll } from '../../../redux/actions/datasets';
+import { listGroups } from '../../../redux/actions/groups';
 import BasicButton from '../../ui/buttons/BasicButton';
 import ClusterTool from '../ClusterTool';
 import DatasetItem from '../datasetitem';
-import SearchBar from '../../ui/SearchBar';
 import Filters from './filters';
+import Loader from '../../ui/loader';
+import SearchBar from '../../ui/SearchBar';
 import Splash from '../../layout/splash';
 import styles from './datasetlist.scss';
 
@@ -106,6 +107,8 @@ class DatasetList extends Component {
       languageVarieties
     } = this.props;
 
+    const { FILTER_DATASETS: filterState } = loadingState;
+
     const { useGrid } = this.state;
 
     if (showSplash) {
@@ -148,7 +151,11 @@ class DatasetList extends Component {
           <BasicButton text="Järjestä" todo="Ryhmittäin" iconName="faSort" />
         </section>
         <section className={`${styles.datasetList} ${useGrid && styles.datasetListGrid}`}>
-          {datasets.map(dataset => this.renderDataset(dataset))}
+          {filterState === 'requested' ? (
+            <Loader />
+          ) : (
+            datasets.map(dataset => this.renderDataset(dataset))
+          )}
         </section>
       </div>
     );
