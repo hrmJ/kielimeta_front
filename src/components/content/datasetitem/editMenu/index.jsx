@@ -2,12 +2,13 @@ import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import ReactModal from 'react-modal';
-import Tooltip from '../../../ui/tooltip';
 
-import { updateField } from '../../../../redux/actions/datasetform';
 import { fetchDatasetForEdit, deleteDataset } from '../../../../redux/actions/datasets';
+import { updateField } from '../../../../redux/actions/datasetform';
 import BasicButton from '../../../ui/buttons/BasicButton';
+import HistorySubMenu from './historySubmenu';
 import Remove from '../../../ui/buttons/remove';
+import Tooltip from '../../../ui/tooltip';
 import styles from './editmenu.scss';
 
 const modalStyle = {
@@ -24,7 +25,7 @@ const modalStyle = {
 ReactModal.setAppElement('#root');
 
 class EditMenu extends Component {
-  state = { open: false, deletePending: false };
+  state = { open: false, deletePending: false, historyWindowOpen: false };
 
   open(ev) {
     const { open } = this.state;
@@ -60,9 +61,15 @@ class EditMenu extends Component {
     this.setState({ deletePending: modalState });
   }
 
+  toggleHistorySubWindow(ev, modalState) {
+    ev.stopPropagation();
+    console.log(modalState);
+    this.setState({ historyWindowOpen: modalState });
+  }
+
   render() {
     const { id, dispatch, currentVersionId, hasSubVersions } = this.props;
-    const { open, deletePending } = this.state;
+    const { open, deletePending, historyWindowOpen } = this.state;
     return (
       <div className={styles.outerContainer}>
         <ReactModal isOpen={deletePending} style={modalStyle}>
@@ -141,6 +148,15 @@ class EditMenu extends Component {
                     iconName="faTrash"
                   />
                 </Tooltip>
+              </li>
+              <li>
+                <BasicButton
+                  onClick={ev => this.toggleHistorySubWindow(ev, !historyWindowOpen)}
+                  text="Muutoshistoria"
+                  noBackground
+                  iconName="faCodeBranch"
+                />
+                {historyWindowOpen && <HistorySubMenu />}
               </li>
             </ul>
           </div>
