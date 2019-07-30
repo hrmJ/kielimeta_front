@@ -63,12 +63,11 @@ class EditMenu extends Component {
 
   toggleHistorySubWindow(ev, modalState) {
     ev.stopPropagation();
-    console.log(modalState);
     this.setState({ historyWindowOpen: modalState });
   }
 
   render() {
-    const { id, dispatch, currentVersionId, hasSubVersions } = this.props;
+    const { id, dispatch, currentVersionId, hasSubVersions, versionHistory } = this.props;
     const { open, deletePending, historyWindowOpen } = this.state;
     return (
       <div className={styles.outerContainer}>
@@ -100,7 +99,7 @@ class EditMenu extends Component {
           <div className={styles.menu}>
             <ul className={styles.menuList}>
               <li>
-                <Tooltip content="Muokkaa tämän aineiston tietoja">
+                <Tooltip content="Muokkaa tämän aineiston tietoja" direction="right">
                   <BasicButton
                     onClick={() => this.initializeEdit()}
                     text="Muokkaa tietoja"
@@ -111,6 +110,7 @@ class EditMenu extends Component {
               </li>
               <li>
                 <Tooltip
+                  direction="right"
                   content={`Jos aineisto on esimerkiksi saatavilla
                   useassa eri internetosoitteessa, voit merkitä nämä kaikki omiksi versioikseen valitsemalla
                   muokkauslomakkeella, mitkä tiedot versiossa ovat erilaisia. Tätä kautta lisätyt versiot ovat 
@@ -126,6 +126,7 @@ class EditMenu extends Component {
               </li>
               <li>
                 <Tooltip
+                  direction="right"
                   content={`Luo uusi itsenäinen aineisto nykyisen
                   aineiston tietojen pohjalta. Huomaa, että aineistot voi
                   myöhemmin ryhmitellä toisiinsa liittyviksi käyttämällä yllä
@@ -140,7 +141,7 @@ class EditMenu extends Component {
                 </Tooltip>
               </li>
               <li>
-                <Tooltip content="Poistaa aineiston kokonaan">
+                <Tooltip content="Poistaa aineiston kokonaan" direction="right">
                   <BasicButton
                     onClick={ev => this.toggleDeleteModal(ev, true)}
                     text="Poista aineisto"
@@ -156,7 +157,7 @@ class EditMenu extends Component {
                   noBackground
                   iconName="faCodeBranch"
                 />
-                {historyWindowOpen && <HistorySubMenu />}
+                {historyWindowOpen && <HistorySubMenu edits={versionHistory} />}
               </li>
             </ul>
           </div>
@@ -171,7 +172,10 @@ EditMenu.propTypes = {
   dispatch: PropTypes.func.isRequired,
   history: PropTypes.objectOf(PropTypes.any).isRequired,
   currentVersionId: PropTypes.number,
-  hasSubVersions: PropTypes.bool
+  hasSubVersions: PropTypes.bool,
+  versionHistory: PropTypes.arrayOf(
+    PropTypes.shape({ modification_time: PropTypes.string, id: PropTypes.number })
+  ).isRequired
 };
 EditMenu.defaultProps = {
   currentVersionId: null,
