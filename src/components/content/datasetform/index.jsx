@@ -60,7 +60,7 @@ class InsertForm extends Component {
     const {
       dispatch,
       routeProps,
-      fields: { main_version_id: mainVersion },
+      fields: { main_version_id: mainVersion, id: currentId },
       datasets
     } = this.props;
     dispatch(prepopulateFormSelects());
@@ -72,7 +72,7 @@ class InsertForm extends Component {
       } = routeProps;
       if (id) {
         if (versionId) {
-          dispatch(fetchDatasetForEdit(versionId, null, false, true));
+          dispatch(fetchDatasetForEdit(versionId, mainVersion, false, true, currentId));
         } else {
           dispatch(fetchDatasetForEdit(id, mainVersion));
         }

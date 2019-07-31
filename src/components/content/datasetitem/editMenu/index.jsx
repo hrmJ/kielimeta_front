@@ -162,6 +162,7 @@ class EditMenu extends Component {
                     edits={versionHistory}
                     id={id}
                     currentVersionId={currentVersionId}
+                    dispatch={dispatch}
                   />
                 )}
               </li>

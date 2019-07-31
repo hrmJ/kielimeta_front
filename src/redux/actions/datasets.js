@@ -142,7 +142,13 @@ const fetchDatasetForEditRaw = (id, asHistory) => {
   });
 };
 
-const fetchDatasetForEdit = (id, mainVersion, isCopy, asHistory) => dispatch => {
+const fetchDatasetForEdit = (
+  id,
+  mainVersion,
+  isCopy,
+  asHistory,
+  subversionIdForHistory
+) => dispatch => {
   fetchDatasetForEditRaw(id, asHistory)(dispatch).then(datasetRaw => {
     updateLanguageNames(dispatch, datasetRaw);
     if (mainVersion) {
@@ -152,10 +158,13 @@ const fetchDatasetForEdit = (id, mainVersion, isCopy, asHistory) => dispatch => 
     }
     if ((mainVersion && mainVersion === id) || isCopy) {
       // A copy or a new subversion --> reset id, 'cause it doesn't exist yet
-      dispatch(updateField('id', null));
+      dispatch(updateField('id', asHistory ? id : null));
     }
     if (isCopy) {
       dispatch(updateField('isCopy', true));
+    }
+    if (subversionIdForHistory) {
+      dispatch(updateField('id', subversionIdForHistory));
     }
     return { ...datasetRaw };
   });

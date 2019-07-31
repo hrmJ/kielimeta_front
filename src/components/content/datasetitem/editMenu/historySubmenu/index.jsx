@@ -15,8 +15,11 @@ class historySubWindow extends Component {
   launchEdit(ev, historyId) {
     const { history, id, currentVersionId, dispatch } = this.props;
     ev.stopPropagation();
-    if (currentVersionId !== id) {
+    if (currentVersionId === id || !currentVersionId) {
+      dispatch(updateField('main_version_id', null));
+    } else {
       dispatch(updateField('main_version_id', id));
+      dispatch(updateField('id', currentVersionId));
     }
     history.push(`/edit/${currentVersionId}/${historyId}`);
   }
