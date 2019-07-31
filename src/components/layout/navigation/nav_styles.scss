@@ -15,7 +15,7 @@
   margin: 0px;
   padding-left: 0px;
   font-size: 0.8em;
-  @media screen and (min-width: 600px) {
+  @media screen and (min-width: 900px) {
     border-top: 1px solid $logodark;
     padding-top: 1em;
   }
@@ -56,14 +56,14 @@
     object-fit: contain;
     width: 100%;
   }
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 900px) {
     flex-flow: row wrap;
   }
 }
 
 .headingText {
   margin-left: 0.4em;
-  @media screen and (min-width: 600px) {
+  @media screen and (min-width: 900px) {
     margin-top: 4em;
   }
   h1 {
@@ -75,12 +75,9 @@
     // margin: 0 0 0.1em 0;
     // border-bottom: 9px solid #6875b2;
     // border-top: 9px solid #69adc0;
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 900px) {
       display: none;
     }
-  }
-
-  @media screen and (min-width: 600px) {
   }
 }
 
@@ -94,12 +91,12 @@
 
 .logoContainer {
   flex: 1 0 36%;
-  @media screen and (min-width: 600px) {
+  @media screen and (min-width: 900px) {
     transform: rotate(-12deg);
     // transform: rotate(-7deg);
     margin-right: -4.2em;
   }
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 900px) {
     flex: 1 0 90%;
     display: flex;
     align-items: center;

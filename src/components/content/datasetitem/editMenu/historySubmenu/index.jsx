@@ -2,6 +2,7 @@ import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
+import { updateField } from '../../../../../redux/actions/datasetform';
 import BasicButton from '../../../../ui/buttons/BasicButton';
 import styles from './historySubMenu.scss';
 
@@ -12,9 +13,12 @@ const formatTime = timestamp => {
 
 class historySubWindow extends Component {
   launchEdit(ev, historyId) {
-    const { history, id } = this.props;
+    const { history, id, currentVersionId, dispatch } = this.props;
     ev.stopPropagation();
-    history.push(`/edit/${id}/${historyId}`);
+    if (currentVersionId !== id) {
+      dispatch(updateField('main_version_id', id));
+    }
+    history.push(`/edit/${currentVersionId}/${historyId}`);
   }
 
   render() {
@@ -42,7 +46,10 @@ historySubWindow.propTypes = {
     PropTypes.shape({ modification_time: PropTypes.timestamp, id: PropTypes.number })
   ).isRequired,
   id: PropTypes.number.isRequired,
-  history: PropTypes.objectOf(PropTypes.any).isRequired
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
+  currentVersionId: PropTypes.number.isRequired,
+  dispatch: PropTypes.func.isRequired
 };
 
 export default withRouter(historySubWindow);
+
