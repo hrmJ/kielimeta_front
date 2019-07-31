@@ -163,8 +163,10 @@ const fetchDatasetForEdit = (
     if (isCopy) {
       dispatch(updateField('isCopy', true));
     }
-    if (subversionIdForHistory) {
-      dispatch(updateField('id', subversionIdForHistory));
+    if (asHistory) {
+      if (subversionIdForHistory) {
+        dispatch(updateField('id', subversionIdForHistory));
+      }
     }
     return { ...datasetRaw };
   });

@@ -19,8 +19,8 @@ class historySubWindow extends Component {
       dispatch(updateField('main_version_id', null));
     } else {
       dispatch(updateField('main_version_id', id));
-      dispatch(updateField('id', currentVersionId));
     }
+    dispatch(updateField('id', currentVersionId));
     history.push(`/edit/${currentVersionId}/${historyId}`);
   }
 
