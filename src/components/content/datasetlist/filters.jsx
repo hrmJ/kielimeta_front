@@ -51,7 +51,18 @@ const filtersComponent = props => {
           Kielivariantin tyyppi
         </Filter>
         <Filter {...commonProps} keyName="speaker_status" items={speakerStatus} allowMulti>
-          L1 vai L2?
+          Äidinkielisyys
+        </Filter>
+        <Filter
+          {...commonProps}
+          keyName="connections"
+          items={[
+            { label: 'vain käännöksiä sisältävät', value: 'true' },
+            { label: 'vain muut aineistot', value: 'false' }
+          ]}
+          isBoolean
+        >
+          Käännösaineistot
         </Filter>
         <Filter {...commonProps} keyName="mediatype" items={mediatype} allowMulti>
           Media

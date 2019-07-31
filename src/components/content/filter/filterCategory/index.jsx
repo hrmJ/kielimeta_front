@@ -32,7 +32,16 @@ class filterCategory extends Component {
   }
 
   render() {
-    const { filters, value, label, dispatch, keyName, hasSubMenu, languageVarieties } = this.props;
+    const {
+      filters,
+      value,
+      label,
+      dispatch,
+      keyName,
+      hasSubMenu,
+      languageVarieties,
+      isBoolean
+    } = this.props;
     const { submenuOpen } = this.state;
     const subCategories = this.getSubCategoryValues();
     const isChecked = filters[keyName]
@@ -45,7 +54,7 @@ class filterCategory extends Component {
           <div className={styles.cbContainer}>
             <div>
               <input
-                type="checkbox"
+                type={isBoolean ? 'radio' : 'checkbox'}
                 value={value}
                 checked={isChecked !== null ? isChecked : false}
                 onChange={ev => this.toggle(ev.target.checked)}
@@ -109,12 +118,14 @@ filterCategory.propTypes = {
   ).isRequired,
   dispatch: PropTypes.func.isRequired,
   hasSubMenu: PropTypes.bool,
+  isBoolean: PropTypes.bool,
   languageVarieties: PropTypes.objectOf(PropTypes.any)
 };
 
 filterCategory.defaultProps = {
   hasSubMenu: false,
-  languageVarieties: {}
+  languageVarieties: {},
+  isBoolean: false
 };
 
 export default filterCategory;

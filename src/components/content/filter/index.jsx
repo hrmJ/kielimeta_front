@@ -87,6 +87,8 @@ class Filter extends Component {
         if (filters[actualKeyName].length) {
           return true;
         }
+      } else if (filters[actualKeyName]) {
+        return true;
       }
     }
     // TODO: other types than arrays
@@ -102,7 +104,8 @@ class Filter extends Component {
       filters = {},
       allowMulti,
       hasSubMenu,
-      languageVarieties
+      languageVarieties,
+      isBoolean
     } = this.props;
     const { menuOpen, insideOneDataset, offset } = this.state;
     const actualKeyName = insideOneDataset ? `${keyName}A` : keyName;
@@ -162,6 +165,7 @@ class Filter extends Component {
                   keyName={actualKeyName}
                   hasSubMenu={hasSubMenu}
                   languageVarieties={languageVarieties}
+                  isBoolean={isBoolean}
                   {...item}
                 />
               ))}
@@ -189,7 +193,8 @@ Filter.propTypes = {
   ),
   allowMulti: PropTypes.bool,
   hasSubMenu: PropTypes.bool,
-  languageVarieties: PropTypes.objectOf(PropTypes.any)
+  languageVarieties: PropTypes.objectOf(PropTypes.any),
+  isBoolean: PropTypes.bool
 };
 
 Filter.defaultProps = {
@@ -199,7 +204,8 @@ Filter.defaultProps = {
   filters: {},
   allowMulti: false,
   hasSubMenu: false,
-  languageVarieties: {}
+  languageVarieties: {},
+  isBoolean: false
 };
 
 export default Filter;

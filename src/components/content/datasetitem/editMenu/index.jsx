@@ -155,7 +155,7 @@ class EditMenu extends Component {
                   onClick={ev => this.toggleHistorySubWindow(ev, !historyWindowOpen)}
                   text="Muutoshistoria"
                   noBackground
-                  iconName="faCodeBranch"
+                  iconName="faHistory"
                 />
                 {historyWindowOpen && (
                   <HistorySubMenu

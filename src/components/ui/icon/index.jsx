@@ -27,11 +27,13 @@ import {
   faCaretSquareUp,
   faExclamationCircle,
   faComments,
-  faKeyboard
+  faKeyboard,
+  faHistory
 } from '@fortawesome/free-solid-svg-icons';
 import utilityStyles from '../../../general_styles/utilities.scss';
 
 const icons = {
+  faHistory,
   faExclamationCircle,
   faCaretSquareDown,
   faCaretSquareUp,
