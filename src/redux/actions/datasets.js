@@ -34,11 +34,23 @@ const deleteDatasetRaw = id => {
  * easy to represent on insert forms and when viewing details
  *
  * @param datasetRaw - the response that has been parsed from json
+ * @param fromHistory - wether or not the data is from version history
  * @returns {undefined}
  */
-const parseDataset = datasetRaw => {
-  const dataset = Object.assign({}, datasetRaw);
-  const { authors, owner, connections, languages, license } = dataset;
+const parseDataset = (datasetRaw, fromHistory) => {
+  const dataset = { ...datasetRaw };
+  const {
+    authors,
+    owner,
+    connections,
+    languages,
+    license,
+    place_of_publication: placeOfPublication
+  } = dataset;
+  if (Array.isArray(placeOfPublication)) {
+    const [placeOfPublicationSimple] = placeOfPublication;
+    dataset.place_of_publication = placeOfPublicationSimple;
+  }
   if (authors && typeof authors === 'string') {
     dataset.authors = JSON.parse(authors);
   } else {
@@ -48,12 +60,16 @@ const parseDataset = datasetRaw => {
     dataset.owner = owner.join(',');
   }
   if (connections) {
-    const langIds = languages.map(lang => lang.id);
-    const editedConnections = connections.map(con => ({
-      sl: langIds.indexOf(con.source_language),
-      tl: con.target_language.map(tl => langIds.indexOf(tl))
-    }));
-    dataset.connections = editedConnections;
+    if (!fromHistory) {
+      const langIds = languages.map(lang => lang.id);
+      const editedConnections = connections.map(con => ({
+        sl: langIds.indexOf(con.source_language || con.sl),
+        tl: con.target_language
+          ? con.target_language.map(tl => langIds.indexOf(tl))
+          : con.tl.map(tl => langIds.indexOf(tl))
+      }));
+      dataset.connections = editedConnections;
+    }
   }
   if (license) {
     if (!licenseOptions.map(o => o.val).includes(license)) {
@@ -86,6 +102,21 @@ const updateLanguageNames = (dispatch, datasetRaw) => {
 };
 
 /**
+ * fetchHistory
+ *
+ * Fetches a single dataset from the api
+ *
+ * @param id - the id of the dataset
+ * @returns {object} the dataset in question as a js object
+ */
+const fetchHistory = id => {
+  const url = `${baseUrl}/history/${id}`;
+  return fetch(url, { mode: 'cors' })
+    .then(response => response.json())
+    .then(raw => parseDataset(raw, true));
+};
+
+/**
  * fetchDataset
  *
  * Fetches a single dataset from the api
@@ -100,19 +131,19 @@ const fetchDataset = id => {
     .then(parseDataset);
 };
 
-const fetchDatasetForEditRaw = id => {
+const fetchDatasetForEditRaw = (id, asHistory) => {
   return thunkCreator({
     types: [
       'DATASET_DETAILS_EDIT_REQUEST',
       'DATASET_DETAILS_EDIT_SUCCESS',
       'DATASET_DETAILS_EDIT_ERROR'
     ],
-    promise: fetchDataset(id)
+    promise: asHistory ? fetchHistory(id) : fetchDataset(id)
   });
 };
 
-const fetchDatasetForEdit = (id, mainVersion, isCopy) => dispatch => {
-  fetchDatasetForEditRaw(id)(dispatch).then(datasetRaw => {
+const fetchDatasetForEdit = (id, mainVersion, isCopy, asHistory) => dispatch => {
+  fetchDatasetForEditRaw(id, asHistory)(dispatch).then(datasetRaw => {
     updateLanguageNames(dispatch, datasetRaw);
     if (mainVersion) {
       dispatch(updateField('main_version_id', mainVersion));

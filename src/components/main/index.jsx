@@ -77,7 +77,7 @@ class main extends Component {
                     )}
                   />
                   <Route
-                    path="/edit/:id"
+                    path="/edit/:id/:versionId?"
                     render={routeProps => (
                       <DatasetForm
                         routeProps={routeProps}

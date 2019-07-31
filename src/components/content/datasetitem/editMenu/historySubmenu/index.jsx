@@ -1,5 +1,8 @@
-import React, { Component } from 'react';
+import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+
+import BasicButton from '../../../../ui/buttons/BasicButton';
 import styles from './historySubMenu.scss';
 
 const formatTime = timestamp => {
@@ -8,9 +11,10 @@ const formatTime = timestamp => {
 };
 
 class historySubWindow extends Component {
-  componentDidMount() {
-    const { id, dispatch } = this.props;
-    // dispatch(getDatasetHistory(id));
+  launchEdit(ev, historyId) {
+    const { history, id } = this.props;
+    ev.stopPropagation();
+    history.push(`/edit/${id}/${historyId}`);
   }
 
   render() {
@@ -19,7 +23,13 @@ class historySubWindow extends Component {
       <div className={styles.container}>
         <ul className={styles.list}>
           {edits.map(edit => (
-            <li key={edit.modification_time}> {formatTime(edit.modification_time)} </li>
+            <li key={edit.modification_time}>
+              <BasicButton
+                noBackground
+                onClick={ev => this.launchEdit(ev, edit.id)}
+                text={formatTime(edit.modification_time)}
+              />
+            </li>
           ))}
         </ul>
       </div>
@@ -32,7 +42,7 @@ historySubWindow.propTypes = {
     PropTypes.shape({ modification_time: PropTypes.timestamp, id: PropTypes.number })
   ).isRequired,
   id: PropTypes.number.isRequired,
-  dispatch: PropTypes.func.isRequired
+  history: PropTypes.objectOf(PropTypes.any).isRequired
 };
 
-export default historySubWindow;
+export default withRouter(historySubWindow);

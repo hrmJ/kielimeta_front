@@ -157,7 +157,7 @@ class EditMenu extends Component {
                   noBackground
                   iconName="faCodeBranch"
                 />
-                {historyWindowOpen && <HistorySubMenu edits={versionHistory} />}
+                {historyWindowOpen && <HistorySubMenu edits={versionHistory} id={id} />}
               </li>
             </ul>
           </div>

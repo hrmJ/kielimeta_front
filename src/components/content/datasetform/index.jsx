@@ -67,11 +67,15 @@ class InsertForm extends Component {
     if (routeProps.match) {
       const {
         match: {
-          params: { id }
+          params: { id, versionId }
         }
       } = routeProps;
       if (id) {
-        dispatch(fetchDatasetForEdit(id, mainVersion));
+        if (versionId) {
+          dispatch(fetchDatasetForEdit(versionId, null, false, true));
+        } else {
+          dispatch(fetchDatasetForEdit(id, mainVersion));
+        }
         if (!mainVersion) {
           // Only set the id if not creating a subversion....
           this.id = id;
