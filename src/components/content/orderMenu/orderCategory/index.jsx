@@ -1,46 +1,42 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React from 'react';
 
-import { updateAndFilter } from '../../../../redux/actions/filters';
+import { setDirectionAndFilter } from '../../../../redux/actions/filters';
 import BasicButton from '../../../ui/buttons/BasicButton';
 import Icon from '../../../ui/icon';
 import styles from './ordercategory.scss';
 
-class orderCategory extends Component {
-  state = { direction: '' };
+const orderCategory = props => {
+  const { label, value, dispatch, filters, active, descending } = props;
+  const newDirection = descending === 'true' ? 'ascending' : 'descending';
 
-  launch() {
-    const { value, dispatch, filters } = this.props;
-    dispatch(updateAndFilter('orderby', value, true, filters));
-  }
-
-  render() {
-    const { label } = this.props;
-    const { direction } = this.state;
-
-    return (
-      <div className={styles.container}>
-        <BasicButton
-          noBackground
-          text={label}
-          customClass={styles.buttonClass}
-          onClick={() => this.launch()}
-        />
-        <div>
-          <Icon iconName={direction === 'down' ? 'faCaretDown' : direction && 'faCaretUp'} />
-        </div>
-      </div>
-    );
-  }
-}
+  return (
+    <div className={styles.container}>
+      <BasicButton
+        noBackground
+        text={label}
+        customClass={styles.buttonClass}
+        onClick={() => dispatch(setDirectionAndFilter(value, newDirection, filters))}
+        iconName={active && `faCaret${descending === 'true' ? 'Up' : 'Down'}`}
+      />
+    </div>
+  );
+};
 
 orderCategory.propTypes = {
   label: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   dispatch: PropTypes.func.isRequired,
+  descending: PropTypes.string,
+  active: PropTypes.bool,
   filters: PropTypes.objectOf(
     PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.array])
   ).isRequired
+};
+
+orderCategory.defaultProps = {
+  descending: 'false',
+  active: false
 };
 
 export default orderCategory;

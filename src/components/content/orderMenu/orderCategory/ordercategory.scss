@@ -6,6 +6,10 @@
   }
 }
 
-.buttonClass{
+.buttonClass {
   justify-content: flex-start;
+  > *:first-child {
+    width: 10em;
+    margin-right: 0.4em;
+  }
 }

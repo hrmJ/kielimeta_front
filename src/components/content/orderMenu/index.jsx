@@ -21,7 +21,8 @@ class OrderMenu extends Component {
 
   render() {
     const { menuOpen } = this.state;
-    const {dispatch, filters} = this.props
+    const { dispatch, filters } = this.props;
+    const { orderby, descending } = filters;
 
     return (
       <div className={styles.orderContainer}>
@@ -35,7 +36,13 @@ class OrderMenu extends Component {
             <ul className={styles.menuList}>
               {orderCategories.map(cat => (
                 <li key={cat.label}>
-                  <OrderCategory {...cat} dispatch={dispatch}  filters={filters}/>
+                  <OrderCategory
+                    {...cat}
+                    dispatch={dispatch}
+                    filters={filters}
+                    active={orderby === cat.value}
+                    descending={descending}
+                  />
                 </li>
               ))}
             </ul>
@@ -52,7 +59,7 @@ OrderMenu.propTypes = {
   dispatch: PropTypes.func.isRequired,
   filters: PropTypes.objectOf(
     PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.array])
-  ).isRequired,
+  ).isRequired
 };
 
 OrderMenu.defaultProps = {

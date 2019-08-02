@@ -107,6 +107,12 @@ const updateAndFilter = (keyName, value, checked, filters, replacedVal) => dispa
   return dispatch(filterDatasets(updatedFilters));
 };
 
+
+const setDirectionAndFilter = (category, direction, filters) => dispatch =>{
+  dispatch(updateFilter('descending', direction === 'descending' ? 'true' : 'false', true));
+  dispatch(updateAndFilter('orderby', category, true, filters));
+}
+
 const resetOriginalValuesRaw = () => {
   const url = `${baseUrl}/datasets`;
   return fetch(url).then(res => res.json());
@@ -153,5 +159,6 @@ export {
   resetFilterAndRefresh,
   setOriginalFilterValues,
   updateFilterVerbose,
-  startFilter
+  startFilter,
+  setDirectionAndFilter
 };
