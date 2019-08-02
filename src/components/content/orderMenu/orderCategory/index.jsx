@@ -3,7 +3,6 @@ import React from 'react';
 
 import { setDirectionAndFilter } from '../../../../redux/actions/filters';
 import BasicButton from '../../../ui/buttons/BasicButton';
-import Icon from '../../../ui/icon';
 import styles from './ordercategory.scss';
 
 const orderCategory = props => {
