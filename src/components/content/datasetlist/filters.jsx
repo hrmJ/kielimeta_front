@@ -70,6 +70,18 @@ const filtersComponent = props => {
         <Filter {...commonProps} keyName="annotations" items={annotations} allowMulti>
           Annotoinnit
         </Filter>
+        <Filter
+          {...commonProps}
+          keyName="accessibility"
+          items={[
+            { label: 'vapaasti internetin kautta', value: 'internet' },
+            { label: 'ottamalla yhteyttä', value: 'contact' },
+            { label: 'muu', value: 'other' }
+          ]}
+          isBoolean
+        >
+          Saatavuus
+        </Filter>
       </section>
     </div>
   );
