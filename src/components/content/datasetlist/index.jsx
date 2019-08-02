@@ -11,6 +11,7 @@ import ClusterTool from '../ClusterTool';
 import DatasetItem from '../datasetitem';
 import Filters from './filters';
 import Loader from '../../ui/loader';
+import OrderMenu from '../orderMenu';
 import SearchBar from '../../ui/SearchBar';
 import Splash from '../../layout/splash';
 import styles from './datasetlist.scss';
@@ -155,7 +156,7 @@ class DatasetList extends Component {
             onClick={() => this.setState({ useGrid: !useGrid })}
             iconName={useGrid ? 'faThList' : 'faThLarge'}
           />
-          <BasicButton text="Järjestä" todo="Ryhmittäin" iconName="faSort" />
+          <OrderMenu dispatch={dispatch} filters={filters}/>
         </section>
         <section className={`${styles.datasetList} ${useGrid && styles.datasetListGrid}`}>
           {filterState === 'requested' ? (
