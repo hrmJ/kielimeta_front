@@ -210,6 +210,15 @@ const fetchSubVersions = (mainId, subversionIds, activeId) => dispatch => {
   );
 };
 
+
+const listAsGroups = () => {
+  const url = `${baseUrl}/datasets`;
+  return thunkCreator({
+    types: ['LIST_DATASETS_REQUEST', 'LIST_DATASETS_SUCCESS', 'LIST_DATASETS_ERROR'],
+    promise: fetch(url, { mode: 'cors' }).then(response => response.json())
+  });
+};
+
 export {
   listAll,
   fetchDatasetForEdit,

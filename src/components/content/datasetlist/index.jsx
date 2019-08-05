@@ -47,6 +47,36 @@ class DatasetList extends Component {
     }
   }
 
+  renderList() {
+    const { datasets, groupNames } = this.props;
+    const { useGrid } = this.state;
+    let dataSetsInGroups = [];
+    const groupedDatasets = [];
+    groupNames.forEach(thisGroup => {
+      const { datasets: datasetsInThisGroup } = thisGroup;
+      const ids = datasetsInThisGroup.reduce((prev, thisDs) => [...prev, thisDs.dataset], []);
+      dataSetsInGroups = [...dataSetsInGroups, ...ids];
+      groupedDatasets.push({
+        title: thisGroup.name,
+        ds: datasets.filter(ds => ids.includes(ds.id)).map(dataset => this.renderDataset(dataset))
+      });
+    });
+    console.log(dataSetsInGroups);
+    return [
+      ...groupedDatasets.map(group => (
+        <section className={styles.groupContainer}>
+          <div className={styles.groupTitle}>{group.title}</div>
+          <div className={`${styles.groupedDatasets} ${useGrid && styles.groupedDatasetsGrid}`}>
+            {group.ds}
+          </div>
+        </section>
+      )),
+      ...datasets
+        .filter(ds => !dataSetsInGroups.includes(ds.id))
+        .map(dataset => this.renderDataset(dataset))
+    ];
+  }
+
   renderDataset(dataset) {
     const {
       groupedDatasets,
@@ -156,7 +186,8 @@ class DatasetList extends Component {
             onClick={() => this.setState({ useGrid: !useGrid })}
             iconName={useGrid ? 'faThList' : 'faThLarge'}
           />
-          <OrderMenu dispatch={dispatch} filters={filters}/>
+          <BasicButton text="Näytä ryhminä" onClick={() => dispatch(listAsGroups())} />
+          <OrderMenu dispatch={dispatch} filters={filters} />
         </section>
         <section className={`${styles.datasetList} ${useGrid && styles.datasetListGrid}`}>
           {filterState === 'requested' ? (
@@ -164,7 +195,7 @@ class DatasetList extends Component {
               <Loader />
             </div>
           ) : (
-            datasets.map(dataset => this.renderDataset(dataset))
+            this.renderList()
           )}
         </section>
       </div>
@@ -194,7 +225,8 @@ DatasetList.propTypes = {
   loadingState: PropTypes.objectOf(PropTypes.any).isRequired,
   groupNames: PropTypes.arrayOf(PropTypes.object),
   datasetVersions: PropTypes.shape({ activated: PropTypes.object, all: PropTypes.object }),
-  languageVarieties: PropTypes.objectOf(PropTypes.any)
+  languageVarieties: PropTypes.objectOf(PropTypes.any),
+  routeProps: PropTypes.objectOf(PropTypes.any)
 };
 
 DatasetList.defaultProps = {
@@ -208,7 +240,8 @@ DatasetList.defaultProps = {
   groupedDatasets: [],
   groupNames: [],
   datasetVersions: { activated: {}, all: {} },
-  languageVarieties: {}
+  languageVarieties: {},
+  routeProps: {}
 };
 
 export default withRouter(DatasetList);
