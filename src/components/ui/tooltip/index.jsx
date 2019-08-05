@@ -5,15 +5,16 @@ import utilityStyles from '../../../general_styles/utilities.scss';
 
 const TooltipLite = lazy(() => import(/* webpackChunkName: "tooltiplite" */ 'react-tooltip-lite'));
 
-const toolTipStyle = {
-  background: '#172b4d',
-  color: '#fff',
-  arrow: false,
-  direction: 'down'
-};
-
 const Tooltip = props => {
-  const { children, content, ...otherProps } = props;
+  const { children, content, direction, ...otherProps } = props;
+
+  const toolTipStyle = {
+    background: '#172b4d',
+    color: '#fff',
+    arrow: false,
+    direction: direction || 'down'
+  };
+
   return content ? (
     <Suspense fallback={<div className={utilityStyles.loading} />}>
       <TooltipLite
@@ -31,11 +32,13 @@ const Tooltip = props => {
 
 Tooltip.propTypes = {
   children: PropTypes.node.isRequired,
-  content: PropTypes.string
+  content: PropTypes.string,
+  direction: PropTypes.oneOf(['down', 'up', 'left', 'right'])
 };
 
 Tooltip.defaultProps = {
-  content: ''
+  content: '',
+  direction: null
 };
 
 export default Tooltip;

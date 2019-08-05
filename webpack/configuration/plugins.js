@@ -9,8 +9,8 @@ const plugins = [
     template: './src/index.html',
     filename: './index.html'
   }),
-  new CopyWebpackPlugin([{ from: 'src/images', to: 'images' }]),
-  new BundleAnalyzerPlugin()
+  new CopyWebpackPlugin([{ from: 'src/images', to: 'images' }])
+  // new BundleAnalyzerPlugin()
 ];
 
 export default plugins;

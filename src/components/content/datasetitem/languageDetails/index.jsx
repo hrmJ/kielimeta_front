@@ -4,6 +4,7 @@ import React from 'react';
 
 import AnnotationInfo from './annotationInfo';
 import ExplodableBox from '../../../ui/explodableBox';
+import ModalityInfo from './modalityInfo';
 import SizeInfo from './sizeInfo';
 import SpeakerInfo from './speakerInfo';
 import TimelineChart from '../../../ui/timeline/chart';
@@ -19,7 +20,8 @@ const languageDetails = props => {
     speaker,
     additionalClassname,
     additionalClassnameClosed,
-    isSl
+    isSl,
+    modality
   } = props;
   const { language_name: name, variety } = details;
   return (
@@ -36,21 +38,28 @@ const languageDetails = props => {
         <li key="speakers">
           <SpeakerInfo {...speaker} />
         </li>
+        <li key="modality">
+          <ModalityInfo modality={modality} />
+        </li>
         <li key="size">
           <SizeInfo {...size} />
         </li>
-        <li key="annotations">
-          <h4>Annotoinnit:</h4>
-          <ul className={`${generalStyles.bulletlist}`}>
-            {annotations.map(annotation => (
-              <AnnotationInfo {...annotation} key={uid(annotation)} />
-            ))}
-          </ul>
-        </li>
-        <li key="temporal_coverage">
-          <h4>Ajanjakso</h4>
-          <TimelineChart years={yearsCovered} whiteText />
-        </li>
+        {annotations.length > 0 && (
+          <li key="annotations">
+            <h4>Annotoinnit:</h4>
+            <ul className={`${generalStyles.bulletlist}`}>
+              {annotations.map(annotation => (
+                <AnnotationInfo {...annotation} key={uid(annotation)} />
+              ))}
+            </ul>
+          </li>
+        )}
+        {yearsCovered.length > 0 && (
+          <li key="temporal_coverage">
+            <h4>Ajanjakso</h4>
+            <TimelineChart years={yearsCovered} whiteText />
+          </li>
+        )}
       </ul>
     </ExplodableBox>
   );
@@ -70,7 +79,8 @@ languageDetails.propTypes = {
   speaker: PropTypes.objectOf(PropTypes.any),
   additionalClassname: PropTypes.string,
   additionalClassnameClosed: PropTypes.string,
-  isSl: PropTypes.bool
+  isSl: PropTypes.bool,
+  modality: PropTypes.arrayOf(PropTypes.string)
 };
 
 languageDetails.defaultProps = {
@@ -80,7 +90,8 @@ languageDetails.defaultProps = {
   speaker: {},
   additionalClassname: '',
   additionalClassnameClosed: '',
-  isSl: false
+  isSl: false,
+  modality: []
 };
 
 export default languageDetails;

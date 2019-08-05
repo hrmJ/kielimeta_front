@@ -25,11 +25,20 @@
   li + li {
     margin-top: 0.4em;
   }
+  margin: 0;
 }
 
 .deleteModal {
   display: flex;
   > :first-child {
     margin-right: 2em;
+  }
+}
+
+.buttonClass {
+  justify-content: flex-start;
+  > *:first-child {
+    width: 10em;
+    margin-right: 0.4em;
   }
 }

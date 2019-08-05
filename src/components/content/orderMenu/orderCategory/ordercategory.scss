@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  > :first-child {
+    width: 10em;
+    margin-right: 0.4em;
+  }
+}
+
+.buttonClass {
+  justify-content: flex-start;
+  > *:first-child {
+    width: 10em;
+    margin-right: 0.4em;
+  }
+}

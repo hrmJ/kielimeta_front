@@ -1,7 +1,7 @@
 {
-  "name": "kielimeta_api_front",
+  "name": "Digilang-portaali",
   "version": "1.0.0",
-  "description": "A front end for a bibliographical database",
+  "description": "Hakuportaali, joka listaa Turun yliopiston kielitieteelliset tutkimusaineistot ja tarjoaa käyttöliittymän aineistojen etsimiseksi erilaisten metatietojen (kuten aineistojen sisältämät kielet, aineiston laajuus) perusteella. ",
   "main": "index.js",
   "scripts": {
     "test:unit": "npx jest src/",

@@ -1,7 +1,8 @@
-import { HashRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import React, { Component, Suspense, lazy } from 'react';
 
+import DataProtection from '../content/DataProtection';
 import Footer from '../layout/footer';
 import Loader from '../ui/loader';
 import Login from '../auth/login';
@@ -53,15 +54,17 @@ class main extends Component {
     }
 
     return (
-      <HashRouter>
-        <div>
-          <div className={styles.outerContainer}>
-            {!showSplash && <TopBar toggleClusterTool={() => this.toggleClusterTool()} />}
-            <main>
-              <Suspense fallback={<Loader center />}>
+      <BrowserRouter>
+        <Suspense fallback={<div style={{ backround: 'black' }} />}>
+          <div>
+            <div className={styles.outerContainer}>
+              {!showSplash && <TopBar toggleClusterTool={() => this.toggleClusterTool()} />}
+              <main>
                 <Switch>
-                  <Route path="/test" render={() => <Loader />} />
-                  <Route path="/login" render={() => <Login />} />
+                  <Route path="/test" render={() => <Loader />} exact />
+                  <Route path="/login" render={() => <Login />} exact />
+                  <Route path="/tietosuojaseloste" render={() => <DataProtection />} exact />
+                  <Route path="/dataprotection" render={() => <DataProtection />} exact />
                   <Route
                     path="/newdataset"
                     render={() => (
@@ -75,9 +78,10 @@ class main extends Component {
                         languageNames={languageNames}
                       />
                     )}
+                    exact
                   />
                   <Route
-                    path="/edit/:id"
+                    path="/edit/:id/:versionId?"
                     render={routeProps => (
                       <DatasetForm
                         routeProps={routeProps}
@@ -92,6 +96,7 @@ class main extends Component {
                         datasets={datasets}
                       />
                     )}
+                    exact
                   />
                   <Route
                     path="/:title?"
@@ -109,16 +114,18 @@ class main extends Component {
                         loadingState={loadingState}
                         editedId={editedId}
                         datasetVersions={datasetVersions}
+                        languageVarieties={languageVarieties}
                       />
                     )}
+                    exact
                   />
                 </Switch>
-              </Suspense>
-            </main>
+              </main>
+            </div>
           </div>
-        </div>
-        {!showSplash && <Footer />}
-      </HashRouter>
+          {!showSplash && <Footer />}
+        </Suspense>
+      </BrowserRouter>
     );
   }
 }

@@ -18,8 +18,8 @@ const TopBar = props => {
             </div>
             <div className={styles.headingText}>
               <h1>
-                Turun yliopiston <br />
-                kieliaineistot
+                Kieliaineisto- <br />
+                portaali
               </h1>
               <ul className={styles.linkList}>
                 <li>
@@ -28,9 +28,9 @@ const TopBar = props => {
                   </NavLink>
                 </li>
                 <li>
-                  <button type="button" onClick={toggleClusterTool}>
-                    Ryhmittele aineistoja
-                  </button>
+                  <a href="javascript:void(0)" type="button" onClick={toggleClusterTool}>
+                    Ryhmittele
+                  </a>
                 </li>
                 <li>
                   <NavLink

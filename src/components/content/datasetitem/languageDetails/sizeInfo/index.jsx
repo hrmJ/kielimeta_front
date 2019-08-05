@@ -15,6 +15,7 @@ const sizeInfo = props => {
 
   return (
     <div>
+      <h4>Aineiston koko:</h4>
       <ul className={`${generalStyles.nobullet} ${generalStyles.noIndent} ${styles.mainList}`}>
         {texts && (
           <li>

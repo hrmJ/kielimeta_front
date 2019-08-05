@@ -22,7 +22,8 @@ class datasetItem extends Component {
       currentVersionId,
       subversion,
       clusterToolVisible,
-      isAdded
+      isAdded,
+      history
     } = this.props;
     const { lifted } = this.state;
     const isLifted = lifted === 'up' || (lifted === 'initial' && liftedByDefault);
@@ -55,6 +56,7 @@ class datasetItem extends Component {
                   currentVersionId={currentVersionId}
                   id={id}
                   dispatch={dispatch}
+                  versionHistory={history}
                 />
               )}
             </div>
@@ -83,7 +85,10 @@ datasetItem.propTypes = {
   dispatch: PropTypes.func.isRequired,
   subversion: PropTypes.arrayOf(PropTypes.number),
   clusterToolVisible: PropTypes.bool,
-  isAdded: PropTypes.bool
+  isAdded: PropTypes.bool,
+  history: PropTypes.arrayOf(
+    PropTypes.shape({ modification_time: PropTypes.string, id: PropTypes.number })
+  )
 };
 
 datasetItem.defaultProps = {
@@ -93,7 +98,8 @@ datasetItem.defaultProps = {
   currentVersionId: null,
   subversion: [],
   clusterToolVisible: false,
-  isAdded: false
+  isAdded: false,
+  history: []
 };
 
 export default datasetItem;

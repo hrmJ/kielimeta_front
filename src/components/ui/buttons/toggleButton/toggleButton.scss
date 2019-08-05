@@ -1,0 +1,28 @@
+.container {
+  display: grid;
+}
+
+.stacked {
+  grid-template-rows: auto auto;
+  grid-gap: 0px;
+}
+
+.active,
+.inactive {
+  border-radius: 0px;
+  > div:first-child {
+    width: 12em;
+  }
+}
+
+.active {
+  color: black;
+  background: lightgrey;
+}
+
+.inactive {
+  background: white;
+  color: grey;
+  border: 1px solid lightgrey;
+  //color: lighten(grey, 30%);
+}

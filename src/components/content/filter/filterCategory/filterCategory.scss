@@ -1,0 +1,35 @@
+@import 'src/general_styles/configs.scss';
+
+.categoryListItem,
+.subCategoryListItem {
+  list-style-type: none;
+}
+
+.categoryListItem {
+  & + & {
+    margin-top: 0.5em;
+  }
+}
+
+.container,
+.cbContainer {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+  > div:first-child {
+    margin-right: 1em;
+  }
+}
+
+.catLabelContainer {
+  display: flex;
+  align-items: center;
+  > div:first-child {
+    margin-right: 0.3em;
+  }
+}
+
+.hasSubCat {
+  font-size: 0.8em;
+  color: $utupurple;
+}

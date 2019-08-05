@@ -10,6 +10,10 @@ export default {
   },
   output: {
     filename: '[name].bundle.js',
-    chunkFilename: '[name].bundle.js'
+    chunkFilename: '[name].bundle.js',
+    publicPath: '/'
+  },
+  devServer: {
+    historyApiFallback: true
   }
 };
