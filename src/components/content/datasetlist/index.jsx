@@ -17,7 +17,7 @@ import Splash from '../../layout/splash';
 import styles from './datasetlist.scss';
 
 class DatasetList extends Component {
-  state = { useGrid: false };
+  state = { useGrid: false, useGroups: false };
 
   activeTitle = '';
 
@@ -45,6 +45,41 @@ class DatasetList extends Component {
     if (groupNames.length === 0) {
       dispatch(listGroups());
     }
+  }
+
+  renderList() {
+    const { datasets, groupNames } = this.props;
+    const { useGrid, useGroups } = this.state;
+    let dataSetsInGroups = [];
+    const groupedDatasets = [];
+    if (useGroups) {
+      groupNames.forEach(thisGroup => {
+        const { datasets: datasetsInThisGroup } = thisGroup;
+        const ids = datasetsInThisGroup.reduce((prev, thisDs) => [...prev, thisDs.dataset], []);
+        dataSetsInGroups = [...dataSetsInGroups, ...ids];
+        groupedDatasets.push({
+          title: thisGroup.name,
+          ds: datasets.filter(ds => ids.includes(ds.id)).map(dataset => this.renderDataset(dataset))
+        });
+      });
+      groupedDatasets.push({
+        title: 'Yksittäiset aineistot',
+        ds: datasets
+          .filter(ds => !dataSetsInGroups.includes(ds.id))
+          .map(dataset => this.renderDataset(dataset))
+      });
+      return groupedDatasets
+        .filter(group => Array.isArray(group.ds) && group.ds.length > 0)
+        .map(group => (
+          <section key={group.title} className={styles.groupContainer}>
+            <div className={styles.groupTitle}>{group.title}</div>
+            <div className={`${styles.groupedDatasets} ${useGrid && styles.groupedDatasetsGrid}`}>
+              {group.ds}
+            </div>
+          </section>
+        ));
+    }
+    return datasets.map(dataset => this.renderDataset(dataset));
   }
 
   renderDataset(dataset) {
@@ -116,7 +151,7 @@ class DatasetList extends Component {
 
     const { FILTER_DATASETS: filterState } = loadingState;
 
-    const { useGrid } = this.state;
+    const { useGrid, useGroups } = this.state;
 
     if (showSplash) {
       return <Splash />;
@@ -156,7 +191,11 @@ class DatasetList extends Component {
             onClick={() => this.setState({ useGrid: !useGrid })}
             iconName={useGrid ? 'faThList' : 'faThLarge'}
           />
-          <OrderMenu dispatch={dispatch} filters={filters}/>
+          <BasicButton
+            text={useGroups ? 'Näytä yksittäin' : 'Näytä ryhminä'}
+            onClick={() => this.setState({ useGroups: !useGroups })}
+          />
+          <OrderMenu dispatch={dispatch} filters={filters} />
         </section>
         <section className={`${styles.datasetList} ${useGrid && styles.datasetListGrid}`}>
           {filterState === 'requested' ? (
@@ -164,7 +203,7 @@ class DatasetList extends Component {
               <Loader />
             </div>
           ) : (
-            datasets.map(dataset => this.renderDataset(dataset))
+            this.renderList()
           )}
         </section>
       </div>
@@ -194,7 +233,8 @@ DatasetList.propTypes = {
   loadingState: PropTypes.objectOf(PropTypes.any).isRequired,
   groupNames: PropTypes.arrayOf(PropTypes.object),
   datasetVersions: PropTypes.shape({ activated: PropTypes.object, all: PropTypes.object }),
-  languageVarieties: PropTypes.objectOf(PropTypes.any)
+  languageVarieties: PropTypes.objectOf(PropTypes.any),
+  routeProps: PropTypes.objectOf(PropTypes.any)
 };
 
 DatasetList.defaultProps = {
@@ -208,7 +248,8 @@ DatasetList.defaultProps = {
   groupedDatasets: [],
   groupNames: [],
   datasetVersions: { activated: {}, all: {} },
-  languageVarieties: {}
+  languageVarieties: {},
+  routeProps: {}
 };
 
 export default withRouter(DatasetList);

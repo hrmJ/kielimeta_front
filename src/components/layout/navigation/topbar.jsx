@@ -18,8 +18,8 @@ const TopBar = props => {
             </div>
             <div className={styles.headingText}>
               <h1>
-                Turun yliopiston <br />
-                kieliaineistot
+                Kieliaineisto- <br />
+                portaali
               </h1>
               <ul className={styles.linkList}>
                 <li>
