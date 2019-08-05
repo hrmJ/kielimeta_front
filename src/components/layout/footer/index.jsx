@@ -30,6 +30,10 @@ export default () => (
             vuosikymmeniä (esim. Lauseopin arkisto). Digilang on näiden aineistojen kehittämiseen
             tähtäävä hanke.
           </p>
+          {/*
+          <h2>Lisätietoja</h2>
+          <p>Digilang-projektin yhteyshenkilönä toimii Tommi Kurki (etunimi.sukunimi@utu.fi)</p>
+          */}
         </div>
       </div>
     </div>
