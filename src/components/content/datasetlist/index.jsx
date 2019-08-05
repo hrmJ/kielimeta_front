@@ -17,7 +17,7 @@ import Splash from '../../layout/splash';
 import styles from './datasetlist.scss';
 
 class DatasetList extends Component {
-  state = { useGrid: false };
+  state = { useGrid: false, useGroups: false };
 
   activeTitle = '';
 
@@ -49,32 +49,35 @@ class DatasetList extends Component {
 
   renderList() {
     const { datasets, groupNames } = this.props;
-    const { useGrid } = this.state;
+    const { useGrid, useGroups } = this.state;
     let dataSetsInGroups = [];
     const groupedDatasets = [];
-    groupNames.forEach(thisGroup => {
-      const { datasets: datasetsInThisGroup } = thisGroup;
-      const ids = datasetsInThisGroup.reduce((prev, thisDs) => [...prev, thisDs.dataset], []);
-      dataSetsInGroups = [...dataSetsInGroups, ...ids];
-      groupedDatasets.push({
-        title: thisGroup.name,
-        ds: datasets.filter(ds => ids.includes(ds.id)).map(dataset => this.renderDataset(dataset))
+    if (useGroups) {
+      groupNames.forEach(thisGroup => {
+        const { datasets: datasetsInThisGroup } = thisGroup;
+        const ids = datasetsInThisGroup.reduce((prev, thisDs) => [...prev, thisDs.dataset], []);
+        dataSetsInGroups = [...dataSetsInGroups, ...ids];
+        groupedDatasets.push({
+          title: thisGroup.name,
+          ds: datasets.filter(ds => ids.includes(ds.id)).map(dataset => this.renderDataset(dataset))
+        });
       });
-    });
-    console.log(dataSetsInGroups);
-    return [
-      ...groupedDatasets.map(group => (
-        <section className={styles.groupContainer}>
+      groupedDatasets.push({
+        title: 'Yksittäiset aineistot',
+        ds: datasets
+          .filter(ds => !dataSetsInGroups.includes(ds.id))
+          .map(dataset => this.renderDataset(dataset))
+      });
+      return groupedDatasets.map(group => (
+        <section key={group.title} className={styles.groupContainer}>
           <div className={styles.groupTitle}>{group.title}</div>
           <div className={`${styles.groupedDatasets} ${useGrid && styles.groupedDatasetsGrid}`}>
             {group.ds}
           </div>
         </section>
-      )),
-      ...datasets
-        .filter(ds => !dataSetsInGroups.includes(ds.id))
-        .map(dataset => this.renderDataset(dataset))
-    ];
+      ));
+    }
+    return datasets.map(dataset => this.renderDataset(dataset));
   }
 
   renderDataset(dataset) {
@@ -146,7 +149,7 @@ class DatasetList extends Component {
 
     const { FILTER_DATASETS: filterState } = loadingState;
 
-    const { useGrid } = this.state;
+    const { useGrid, useGroups } = this.state;
 
     if (showSplash) {
       return <Splash />;
@@ -186,7 +189,10 @@ class DatasetList extends Component {
             onClick={() => this.setState({ useGrid: !useGrid })}
             iconName={useGrid ? 'faThList' : 'faThLarge'}
           />
-          <BasicButton text="Näytä ryhminä" onClick={() => dispatch(listAsGroups())} />
+          <BasicButton
+            text={useGroups ? 'Näytä yksittäin' : 'Näytä ryhminä'}
+            onClick={() => this.setState({ useGroups: !useGroups })}
+          />
           <OrderMenu dispatch={dispatch} filters={filters} />
         </section>
         <section className={`${styles.datasetList} ${useGrid && styles.datasetListGrid}`}>
