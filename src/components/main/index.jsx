@@ -2,6 +2,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import React, { Component, Suspense, lazy } from 'react';
 
+import DataProtection from '../content/DataProtection';
 import Footer from '../layout/footer';
 import Loader from '../ui/loader';
 import Login from '../auth/login';
@@ -62,6 +63,8 @@ class main extends Component {
                 <Switch>
                   <Route path="/test" render={() => <Loader />} exact />
                   <Route path="/login" render={() => <Login />} exact />
+                  <Route path="/tietosuojaseloste" render={() => <DataProtection />} exact />
+                  <Route path="/dataprotection" render={() => <DataProtection />} exact />
                   <Route
                     path="/newdataset"
                     render={() => (

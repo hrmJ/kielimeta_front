@@ -27,6 +27,26 @@ export default {
               {
                 search: '%%API_SERVER_PROTOCOL%%',
                 replace: process.env.API_SERVER_PROTOCOL
+              },
+              {
+                search: '%%REGISTER_MAINTAINER1%%',
+                replace: process.env.REGISTER_MAINTAINER1
+              },
+              {
+                search: '%%REGISTER_MAINTAINER2%%',
+                replace: process.env.REGISTER_MAINTAINER2
+              },
+              {
+                search: '%%REGISTER_MAINTAINER_ADDRESS%%',
+                replace: process.env.REGISTER_MAINTAINER_ADDRESS
+              },
+              {
+                search: '%%REGISTER_CONTACTPERSON%%',
+                replace: process.env.REGISTER_CONTACTPERSON
+              },
+              {
+                search: '%%REGISTER_CONTACTPERSON_EMAIL%%',
+                replace: process.env.REGISTER_CONTACTPERSON_EMAIL
               }
             ]
           }
