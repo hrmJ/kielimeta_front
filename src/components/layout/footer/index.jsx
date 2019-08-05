@@ -18,9 +18,6 @@ export default () => (
             laaja: joukkoon kuuluu niin tekstikokoelmia, sanalistoja kuin esimerkiksi
             käännösprosessia kartottavia prosessiaineistojakin.
           </p>
-          <p>
-            <Link to="tietosuojaseloste">Tietosuojaseloste</Link>
-          </p>
           <h2>Digilang</h2>
           <p>
             Turun yliopiston kieli- ja käännöstieteiden laitoksessa on erityisaloillaan
@@ -34,6 +31,9 @@ export default () => (
           <h2>Lisätietoja</h2>
           <p>Digilang-projektin yhteyshenkilönä toimii Tommi Kurki (etunimi.sukunimi@utu.fi)</p>
           */}
+          <p className={styles.bottomInfo}>
+            <Link to="tietosuojaseloste">Tietosuojaseloste</Link>
+          </p>
         </div>
       </div>
     </div>
