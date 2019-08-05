@@ -1,4 +1,4 @@
-import { HashRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import React, { Component, Suspense, lazy } from 'react';
 
@@ -53,15 +53,15 @@ class main extends Component {
     }
 
     return (
-      <HashRouter>
+      <BrowserRouter>
         <Suspense fallback={<div style={{ backround: 'black' }} />}>
           <div>
             <div className={styles.outerContainer}>
               {!showSplash && <TopBar toggleClusterTool={() => this.toggleClusterTool()} />}
               <main>
                 <Switch>
-                  <Route path="/test" render={() => <Loader />} />
-                  <Route path="/login" render={() => <Login />} />
+                  <Route path="/test" render={() => <Loader />} exact />
+                  <Route path="/login" render={() => <Login />} exact />
                   <Route
                     path="/newdataset"
                     render={() => (
@@ -75,6 +75,7 @@ class main extends Component {
                         languageNames={languageNames}
                       />
                     )}
+                    exact
                   />
                   <Route
                     path="/edit/:id/:versionId?"
@@ -92,6 +93,7 @@ class main extends Component {
                         datasets={datasets}
                       />
                     )}
+                    exact
                   />
                   <Route
                     path="/:title?"
@@ -112,6 +114,7 @@ class main extends Component {
                         languageVarieties={languageVarieties}
                       />
                     )}
+                    exact
                   />
                 </Switch>
               </main>
@@ -119,7 +122,7 @@ class main extends Component {
           </div>
           {!showSplash && <Footer />}
         </Suspense>
-      </HashRouter>
+      </BrowserRouter>
     );
   }
 }
