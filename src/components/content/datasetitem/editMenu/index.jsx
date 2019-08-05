@@ -104,7 +104,22 @@ class EditMenu extends Component {
                     onClick={() => this.initializeEdit()}
                     text="Muokkaa tietoja"
                     noBackground
+                    customClass={styles.buttonClass}
                     iconName="faPencilAlt"
+                  />
+                </Tooltip>
+              </li>
+              <li>
+                <Tooltip
+                  content="Määrittele, kenellä on oikeus muokata tätä aineistoa"
+                  direction="right"
+                >
+                  <BasicButton
+                    onClick={() => this.initializeEdit()}
+                    text="Muokkaa käyttäjäoikeuksia"
+                    noBackground
+                    customClass={styles.buttonClass}
+                    iconName="faUsers"
                   />
                 </Tooltip>
               </li>
@@ -120,6 +135,7 @@ class EditMenu extends Component {
                     onClick={() => this.initializeSubversion()}
                     text="Kopioi aliversioksi"
                     noBackground
+                    customClass={styles.buttonClass}
                     iconName="faCodeBranch"
                   />
                 </Tooltip>
@@ -136,6 +152,7 @@ class EditMenu extends Component {
                     text="Kopioi itsenäiseksi versioksi"
                     noBackground
                     onClick={ev => this.initializeCopy(ev)}
+                    customClass={styles.buttonClass}
                     iconName="faCopy"
                   />
                 </Tooltip>
@@ -146,6 +163,7 @@ class EditMenu extends Component {
                     onClick={ev => this.toggleDeleteModal(ev, true)}
                     text="Poista aineisto"
                     noBackground
+                    customClass={styles.buttonClass}
                     iconName="faTrash"
                   />
                 </Tooltip>
@@ -155,6 +173,7 @@ class EditMenu extends Component {
                   onClick={ev => this.toggleHistorySubWindow(ev, !historyWindowOpen)}
                   text="Muutoshistoria"
                   noBackground
+                  customClass={styles.buttonClass}
                   iconName="faHistory"
                 />
                 {historyWindowOpen && (
