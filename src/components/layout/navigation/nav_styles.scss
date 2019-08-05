@@ -16,12 +16,21 @@
   padding-left: 0px;
   font-size: 0.8em;
   @media screen and (min-width: 900px) {
-    border-top: 1px solid $logodark;
+    // border-top: 1px solid $logodark;
     padding-top: 1em;
   }
   a,
-  button {
-    color: black;
+  button,
+  a:visited,
+  a:active {
+    color: white;
+    background: $utupurple;
+    padding: 0.4em;
+    border-radius: 2px;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
   }
   li {
     display: inline-block;

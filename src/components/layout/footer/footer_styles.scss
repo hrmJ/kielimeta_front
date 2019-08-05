@@ -3,13 +3,34 @@
 .sitefooter {
   width: 100%;
   color: white;
-  font-size: 0.6em;
+  font-size: 0.9em;
   background: $navbg;
   min-height: 10em;
   padding: 3em;
   margin-top: 15em;
+  @include center_container(column nowrap);
+  h1,
+  h2 {
+    font-weight: 400;
+    color: $utupurple;
+  }
+}
+
+.outerContainer {
+  @include center_contained();
+  max-width: 1200px;
+}
+
+.innerContainer {
+  @include center_container();
 }
 
 .footerContent {
   margin-left: 2em;
+  @include center_contained_relative();
+  a,
+  a:active,
+  a:visited {
+    color: white;
+  }
 }

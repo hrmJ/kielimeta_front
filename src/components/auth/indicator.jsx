@@ -1,6 +1,6 @@
 import React from 'react';
-import { getCookie } from '../../utils';
 import { Link } from 'react-router-dom';
+import { getCookie } from '../../utils';
 
 export default () => {
   const user = getCookie('current_user');
