@@ -68,14 +68,16 @@ class DatasetList extends Component {
           .filter(ds => !dataSetsInGroups.includes(ds.id))
           .map(dataset => this.renderDataset(dataset))
       });
-      return groupedDatasets.map(group => (
-        <section key={group.title} className={styles.groupContainer}>
-          <div className={styles.groupTitle}>{group.title}</div>
-          <div className={`${styles.groupedDatasets} ${useGrid && styles.groupedDatasetsGrid}`}>
-            {group.ds}
-          </div>
-        </section>
-      ));
+      return groupedDatasets
+        .filter(group => Array.isArray(group.ds) && group.ds.length > 0)
+        .map(group => (
+          <section key={group.title} className={styles.groupContainer}>
+            <div className={styles.groupTitle}>{group.title}</div>
+            <div className={`${styles.groupedDatasets} ${useGrid && styles.groupedDatasetsGrid}`}>
+              {group.ds}
+            </div>
+          </section>
+        ));
     }
     return datasets.map(dataset => this.renderDataset(dataset));
   }
