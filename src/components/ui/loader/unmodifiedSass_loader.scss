@@ -1,8 +1,14 @@
 @import '~loaders.css/src/animations/ball-pulse.scss';
 
+.loader {
+  display: flex;
+  justify-content: center;
+}
+
 .loader-hidden {
   display: none;
 }
+
 .loader-active {
-  display: block;
+  display: flex;
 }

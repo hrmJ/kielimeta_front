@@ -1,0 +1,24 @@
+.subMenuContainer {
+  margin-top: 1em;
+  background: lightgrey;
+  padding: 0.4em;
+  width: 20em;
+  h5 {
+    margin: 0.2em 0.2em 0.2em 0.2em;
+  }
+}
+
+.subCategoryList {
+  padding: 0.2em 0.2em 0.2em 0.2em;
+}
+
+.subCategoryListItem {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+
+  font-size: 0.8em;
+  > *:first-child {
+    margin-right: 0.7em;
+  }
+}

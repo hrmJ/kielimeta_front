@@ -54,11 +54,11 @@ class main extends Component {
 
     return (
       <HashRouter>
-        <div>
-          <div className={styles.outerContainer}>
-            {!showSplash && <TopBar toggleClusterTool={() => this.toggleClusterTool()} />}
-            <main>
-              <Suspense fallback={<Loader center />}>
+        <Suspense fallback={<div style={{ backround: 'black' }} />}>
+          <div>
+            <div className={styles.outerContainer}>
+              {!showSplash && <TopBar toggleClusterTool={() => this.toggleClusterTool()} />}
+              <main>
                 <Switch>
                   <Route path="/test" render={() => <Loader />} />
                   <Route path="/login" render={() => <Login />} />
@@ -77,7 +77,7 @@ class main extends Component {
                     )}
                   />
                   <Route
-                    path="/edit/:id"
+                    path="/edit/:id/:versionId?"
                     render={routeProps => (
                       <DatasetForm
                         routeProps={routeProps}
@@ -109,15 +109,16 @@ class main extends Component {
                         loadingState={loadingState}
                         editedId={editedId}
                         datasetVersions={datasetVersions}
+                        languageVarieties={languageVarieties}
                       />
                     )}
                   />
                 </Switch>
-              </Suspense>
-            </main>
+              </main>
+            </div>
           </div>
-        </div>
-        {!showSplash && <Footer />}
+          {!showSplash && <Footer />}
+        </Suspense>
       </HashRouter>
     );
   }

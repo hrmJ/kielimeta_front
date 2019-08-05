@@ -1,0 +1,18 @@
+.container {
+  margin: 1.6em 0em 2em 0em;
+  padding-left: 0em;
+  font-size: 0.8em;
+  li {
+    list-style-type: none;
+    & + & {
+      margin-top: 0.8em;
+    }
+  }
+}
+
+.iconContainer {
+  display: flex;
+  > *:first-child {
+    margin-right: 1.5em;
+  }
+}

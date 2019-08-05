@@ -23,18 +23,9 @@
   list-style-type: none;
 }
 
-.searchBarContainer {
-  margin: 1em 0em 3em 0em;
-  @include center_container();
-  @media screen and (min-width: 900px) {
-    input[type='text'] {
-      width: 95%;
-    }
-  }
-}
-
 .filterContainer {
   @include container();
+  margin: 1em 0em 2em 0em;
 }
 
 .resultNumberContainer {
@@ -47,7 +38,26 @@
   }
 }
 
+.loaderContainer {
+  margin-top: 2em;
+}
+
 .viewSelect {
+  display: flex;
+  align-items: center;
   margin: 1em 0em 1em 0.2em;
   padding: 0em 0.1em 0em 0.7em;
+
+  > * + * {
+    margin-left: 0.3em;
+  }
+}
+
+.dsCount {
+  font-size: 0.8em;
+  background: $logodark;
+  color: white;
+  padding: 0.4em;
+  margin-right: 1em;
+  font-weight: 400;
 }

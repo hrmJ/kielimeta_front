@@ -18,11 +18,25 @@ import {
   faMusic,
   faVideo,
   faFileAlt,
-  faUsers
+  faUsers,
+  faSort,
+  faCheckCircle,
+  faCircle,
+  faSearch,
+  faCaretSquareDown,
+  faCaretSquareUp,
+  faExclamationCircle,
+  faComments,
+  faKeyboard,
+  faHistory
 } from '@fortawesome/free-solid-svg-icons';
 import utilityStyles from '../../../general_styles/utilities.scss';
 
 const icons = {
+  faHistory,
+  faExclamationCircle,
+  faCaretSquareDown,
+  faCaretSquareUp,
   faCaretDown,
   faCaretUp,
   faCaretRight,
@@ -40,7 +54,13 @@ const icons = {
   faVideo,
   faThLarge,
   faFileAlt,
-  faUsers
+  faUsers,
+  faSort,
+  faCheckCircle,
+  faCircle,
+  faSearch,
+  faComments,
+  faKeyboard
 };
 
 const FontAwesomeIconMod = lazy(() => import(/* webpackChunkName: "font-awesome" */ './faBase'));

@@ -2,40 +2,74 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import Filter from '../filter';
-import OrderSelect from '../../ui/orderselect';
 import styles from './datasetlist.scss';
 
 const filtersComponent = props => {
-  const { filters, originalFilterValues, dispatch, dsLength } = props;
+  const {
+    filters,
+    originalFilterValues: {
+      lang,
+      resourcetype,
+      annotations,
+      modality,
+      mediatype,
+      variety_type: varietyType,
+      speakerStatus,
+      keyword
+    },
+    dispatch,
+    languageVarieties
+  } = props;
+
+  const commonProps = {
+    filters,
+    dispatch
+  };
   return (
     <div>
       <section className={styles.filterContainer}>
+        <Filter {...commonProps} keyName="keyword" items={keyword} allowMulti>
+          Avainsanat
+        </Filter>
         <Filter
-          filters={filters}
-          id="langfilter"
+          {...commonProps}
           keyName="lang"
-          items={originalFilterValues.lang}
-          dispatch={dispatch}
+          items={lang}
+          allowMulti
+          hasSubMenu
+          languageVarieties={languageVarieties}
         >
           Kielet
         </Filter>
-        <Filter
-          filters={filters}
-          id="typefilter"
-          keyName="resourcetype"
-          items={originalFilterValues.resourcetype}
-          dispatch={dispatch}
-        >
+        <Filter {...commonProps} keyName="resourcetype" items={resourcetype}>
           Aineistotyypit
         </Filter>
-        <Filter>Koko</Filter>
-        <Filter>Lisää suodattimia </Filter>
-      </section>
-      <section className={styles.resultNumberContainer}>
-        <div>
-          Aineistoja näillä suodattimilla:
-          {dsLength}
-        </div>
+        <Filter {...commonProps} keyName="modality" items={modality} allowMulti>
+          Kielimuoto
+        </Filter>
+        <Filter {...commonProps} keyName="variety_type" items={varietyType} allowMulti>
+          Kielivariantin tyyppi
+        </Filter>
+        <Filter {...commonProps} keyName="speaker_status" items={speakerStatus} allowMulti>
+          Äidinkielisyys
+        </Filter>
+        <Filter
+          {...commonProps}
+          keyName="connections"
+          items={[
+            { label: 'vain käännöksiä sisältävät', value: 'true' },
+            { label: 'vain muut aineistot', value: 'false' }
+          ]}
+          isBoolean
+        >
+          Käännösaineistot
+        </Filter>
+        <Filter {...commonProps} keyName="mediatype" items={mediatype} allowMulti>
+          Media
+        </Filter>
+        <Filter {...commonProps} keyName="annotations" items={annotations} allowMulti>
+          Annotoinnit
+        </Filter>
       </section>
     </div>
   );
@@ -49,13 +83,13 @@ filtersComponent.propTypes = {
     PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.array])
   ),
   dispatch: PropTypes.func.isRequired,
-  dsLength: PropTypes.number
+  languageVarieties: PropTypes.objectOf(PropTypes.any)
 };
 
 filtersComponent.defaultProps = {
   originalFilterValues: {},
   filters: {},
-  dsLength: 0
+  languageVarieties: {}
 };
 
 export default filtersComponent;
