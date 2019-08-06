@@ -33,7 +33,6 @@ class AnnotationSelect extends Component {
 
   render() {
     const { languageIdx, idx, level, description, annotationLevels } = this.props;
-    console.log(annotationLevels);
 
     return (
       <Closable className={styles.annotationSelect} onClose={() => this.removeAnnotation()}>

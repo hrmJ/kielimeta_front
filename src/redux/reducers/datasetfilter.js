@@ -18,7 +18,8 @@ export default (state = { query: '' }, action) => {
       'mediatype',
       'variety_type',
       'speaker_status',
-      'keyword'
+      'keyword',
+      'genre'
     ];
     if ([...listFields, ...listFields.map(f => `${f}A`)].includes(key)) {
       newvals = checked ? [...oldvals, val] : oldvals.filter(thisval => thisval !== val);

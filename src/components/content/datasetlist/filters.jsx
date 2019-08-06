@@ -15,7 +15,8 @@ const filtersComponent = props => {
       mediatype,
       variety_type: varietyType,
       speakerStatus,
-      keyword
+      keyword,
+      genre
     },
     dispatch,
     languageVarieties
@@ -69,6 +70,9 @@ const filtersComponent = props => {
         </Filter>
         <Filter {...commonProps} keyName="annotations" items={annotations} allowMulti>
           Annotoinnit
+        </Filter>
+        <Filter {...commonProps} keyName="genre" items={genre} allowMulti>
+          Tekstien genre
         </Filter>
         <Filter
           {...commonProps}
