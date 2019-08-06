@@ -33,6 +33,7 @@ class AnnotationSelect extends Component {
 
   render() {
     const { languageIdx, idx, level, description, annotationLevels } = this.props;
+    console.log(annotationLevels);
 
     return (
       <Closable className={styles.annotationSelect} onClose={() => this.removeAnnotation()}>
@@ -47,6 +48,7 @@ class AnnotationSelect extends Component {
           <TooltippedSelect
             options={annotationLevels}
             valueName="level"
+            labelName="level"
             id={`annolevel_${languageIdx}_${idx}`}
             tooltipName="definition"
             value={level ? { label: level, value: level } : null}
