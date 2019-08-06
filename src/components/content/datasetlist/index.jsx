@@ -206,11 +206,12 @@ class DatasetList extends Component {
             this.renderList()
           )}
         </section>
-        {hasNext && (
-          <section>
+        {hasNext && filterState !== 'requested' && (
+          <section className={styles.moreButtonContainer}>
             <BasicButton
               text="Lataa listää"
               onClick={() => dispatch(filterDatasets(filters, currentPage + 1))}
+              iconName="faChevronCircleDown"
             />
           </section>
         )}

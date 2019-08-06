@@ -7,7 +7,7 @@ import styles from './ordercategory.scss';
 
 const orderCategory = props => {
   const { label, value, dispatch, filters, active, descending } = props;
-  const newDirection = descending === 'true' ? 'ascending' : 'descending';
+  const newDirection = descending === 'true' || !descending ? 'ascending' : 'descending';
 
   return (
     <div className={styles.container}>
@@ -16,7 +16,7 @@ const orderCategory = props => {
         text={label}
         customClass={styles.buttonClass}
         onClick={() => dispatch(setDirectionAndFilter(value, newDirection, filters))}
-        iconName={active && `faCaret${descending === 'true' ? 'Up' : 'Down'}`}
+        iconName={active ? `faCaret${descending === 'true' ? 'Down' : 'Up'}` : ''}
       />
     </div>
   );
@@ -34,7 +34,7 @@ orderCategory.propTypes = {
 };
 
 orderCategory.defaultProps = {
-  descending: 'false',
+  descending: '',
   active: false
 };
 

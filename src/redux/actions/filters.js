@@ -107,8 +107,10 @@ const updateAndFilter = (keyName, value, checked, filters, replacedVal) => dispa
 };
 
 const setDirectionAndFilter = (category, direction, filters) => dispatch => {
-  dispatch(updateFilter('descending', direction === 'descending' ? 'true' : 'false', true));
-  dispatch(updateAndFilter('orderby', category, true, filters));
+  const newVal = direction === 'descending' ? 'true' : 'false';
+  dispatch(updateFilter('descending', newVal, true));
+  const updatedFilters = filterReducer(filters, updateFilter('descending', newVal));
+  dispatch(updateAndFilter('orderby', category, true, updatedFilters));
 };
 
 const resetFilter = key => {
