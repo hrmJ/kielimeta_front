@@ -209,7 +209,7 @@ class DatasetList extends Component {
         {hasNext && filterState !== 'requested' && (
           <section className={styles.moreButtonContainer}>
             <BasicButton
-              text="Lataa listää"
+              text="Lataa lisää"
               onClick={() => dispatch(filterDatasets(filters, currentPage + 1))}
               iconName="faChevronCircleDown"
             />
