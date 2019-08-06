@@ -2,9 +2,8 @@ import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
-import { filterByQuery, updateAndFilter } from '../../../redux/actions/filters';
+import { updateAndFilter, filterDatasets } from '../../../redux/actions/filters';
 import { getOriginalValuesForFilters } from '../../../redux/actions/utils';
-import { listAll } from '../../../redux/actions/datasets';
 import { listGroups } from '../../../redux/actions/groups';
 import BasicButton from '../../ui/buttons/BasicButton';
 import ClusterTool from '../ClusterTool';
@@ -36,7 +35,7 @@ class DatasetList extends Component {
     }
     dispatch(getOriginalValuesForFilters());
     if (!isTest && !activeTitle) {
-      dispatch(listAll());
+      dispatch(filterDatasets({}));
       // TODO: use cached filter values most of the time?
     } else if (activeTitle) {
       this.activeTitle = activeTitle;
@@ -146,7 +145,8 @@ class DatasetList extends Component {
       groupedDatasets,
       loadingState,
       groupNames,
-      languageVarieties
+      languageVarieties,
+      datasetPage: { currentPage, hasNext }
     } = this.props;
 
     const { FILTER_DATASETS: filterState } = loadingState;
@@ -206,6 +206,14 @@ class DatasetList extends Component {
             this.renderList()
           )}
         </section>
+        {hasNext && (
+          <section>
+            <BasicButton
+              text="Lataa listää"
+              onClick={() => dispatch(filterDatasets(filters, currentPage + 1))}
+            />
+          </section>
+        )}
       </div>
     );
   }
@@ -234,7 +242,8 @@ DatasetList.propTypes = {
   groupNames: PropTypes.arrayOf(PropTypes.object),
   datasetVersions: PropTypes.shape({ activated: PropTypes.object, all: PropTypes.object }),
   languageVarieties: PropTypes.objectOf(PropTypes.any),
-  routeProps: PropTypes.objectOf(PropTypes.any)
+  routeProps: PropTypes.objectOf(PropTypes.any),
+  datasetPage: PropTypes.shape({ currentPage: PropTypes.number, hasNext: PropTypes.bool })
 };
 
 DatasetList.defaultProps = {
@@ -249,7 +258,8 @@ DatasetList.defaultProps = {
   groupNames: [],
   datasetVersions: { activated: {}, all: {} },
   languageVarieties: {},
-  routeProps: {}
+  routeProps: {},
+  datasetPage: { currentPage: 1, hasNext: false }
 };
 
 export default withRouter(DatasetList);

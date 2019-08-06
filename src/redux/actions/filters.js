@@ -18,7 +18,7 @@ const setOriginalFilterValues = vals => {
 };
 
 const formQueryFromFilters = (filters, encode = true) => {
-  let filterstrings = '?';
+  let filterstrings = '&';
   if ('query' in filters) {
     filterstrings += `query=${filters.query}`;
   }
@@ -46,13 +46,12 @@ const formQueryFromFilters = (filters, encode = true) => {
   }
 
   filterstrings = filterstrings.replace('?&', '?').replace('&&', '&');
-  console.log(filterstrings);
 
   return filterstrings;
 };
 
-const filterDatasets = (filters = {}) => {
-  const url = `${baseUrl}/datasets${formQueryFromFilters(filters)}`;
+const filterDatasets = (filters = {}, page = 1) => {
+  const url = `${baseUrl}/datasets?page=${page}${formQueryFromFilters(filters)}`;
   return thunkCreator({
     types: ['FILTER_DATASETS_REQUEST', 'FILTER_DATASETS_SUCCESS', 'FILTER_DATASETS_ERROR'],
     promise: fetch(url, { mode: 'cors' }).then(response => response.json())
@@ -107,31 +106,9 @@ const updateAndFilter = (keyName, value, checked, filters, replacedVal) => dispa
   return dispatch(filterDatasets(updatedFilters));
 };
 
-
-const setDirectionAndFilter = (category, direction, filters) => dispatch =>{
+const setDirectionAndFilter = (category, direction, filters) => dispatch => {
   dispatch(updateFilter('descending', direction === 'descending' ? 'true' : 'false', true));
   dispatch(updateAndFilter('orderby', category, true, filters));
-}
-
-const resetOriginalValuesRaw = () => {
-  const url = `${baseUrl}/datasets`;
-  return fetch(url).then(res => res.json());
-};
-
-const filterByQuery = filters => {
-  // CHECK if filters.query = '' and..
-  return dispatch => {
-    dispatch(filterDatasets(filters)).then(res => {
-      dispatch(updateFilter('query', filters.query));
-      if (filters.query === '') {
-        resetOriginalValuesRaw().then(origRes =>
-          dispatch(setOriginalFilterValues(getOriginalValuesForFilters(origRes)))
-        );
-      } else {
-        dispatch(setOriginalFilterValues(getOriginalValuesForFilters(res)));
-      }
-    });
-  };
 };
 
 const resetFilter = key => {
@@ -150,7 +127,6 @@ const resetFilterAndRefresh = (keyName, filters) => {
 };
 
 export {
-  filterByQuery,
   updateFilter,
   formQueryFromFilters,
   filterDatasets,

@@ -1,9 +1,9 @@
-import { getVarieties, updateLanguageName } from './languageactions';
-import licenseOptions from '../../components/content/datasetform/fieldsets/administration/license/licenceOptions';
-import { setOriginalFilterValues } from './filters';
-import { thunkCreator, getOriginalValuesForFilters, baseUrl } from './utils';
-import { updateField } from './datasetform';
+import { filterDatasets } from './filters';
 import { getCookie } from '../../utils';
+import { getVarieties, updateLanguageName } from './languageactions';
+import { thunkCreator, baseUrl } from './utils';
+import { updateField } from './datasetform';
+import licenseOptions from '../../components/content/datasetform/fieldsets/administration/license/licenceOptions';
 
 const removeDatasetFromStore = id => {
   return { type: 'REMOVE_DATASET_FROM_STORE', id };
@@ -172,14 +172,6 @@ const fetchDatasetForEdit = (
   });
 };
 
-const listAll = () => {
-  const url = `${baseUrl}/datasets`;
-  return thunkCreator({
-    types: ['LIST_DATASETS_REQUEST', 'LIST_DATASETS_SUCCESS', 'LIST_DATASETS_ERROR'],
-    promise: fetch(url, { mode: 'cors' }).then(response => response.json())
-  });
-};
-
 const setActiveVersion = (mainId, activeId) => ({ type: 'SET_ACTIVE_VERSION', mainId, activeId });
 
 const deleteDataset = (id, mainId) => dispatch => {
@@ -187,7 +179,7 @@ const deleteDataset = (id, mainId) => dispatch => {
     // if deleting a subversion, unset the active version
     dispatch(setActiveVersion(mainId, mainId));
   }
-  dispatch(deleteDatasetRaw(id)).then(() => dispatch(listAll(id)));
+  dispatch(deleteDatasetRaw(id)).then(() => dispatch(filterDatasets({})));
 };
 
 const setVersions = (mainId, versions, activeId) => {
@@ -210,17 +202,7 @@ const fetchSubVersions = (mainId, subversionIds, activeId) => dispatch => {
   );
 };
 
-
-const listAsGroups = () => {
-  const url = `${baseUrl}/datasets`;
-  return thunkCreator({
-    types: ['LIST_DATASETS_REQUEST', 'LIST_DATASETS_SUCCESS', 'LIST_DATASETS_ERROR'],
-    promise: fetch(url, { mode: 'cors' }).then(response => response.json())
-  });
-};
-
 export {
-  listAll,
   fetchDatasetForEdit,
   removeDatasetFromStore,
   deleteDataset,

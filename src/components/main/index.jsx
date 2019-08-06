@@ -41,7 +41,8 @@ class main extends Component {
       editedId,
       groupedDatasets,
       groupNames,
-      datasetVersions
+      datasetVersions,
+      datasetPage
     } = this.props;
     const { clusterToolVisible } = this.state;
     const { datasetList, datasetDetails } = loadStatus;
@@ -115,6 +116,7 @@ class main extends Component {
                         editedId={editedId}
                         datasetVersions={datasetVersions}
                         languageVarieties={languageVarieties}
+                        datasetPage={datasetPage}
                       />
                     )}
                     exact
