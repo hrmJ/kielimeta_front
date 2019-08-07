@@ -16,18 +16,19 @@ class scaleFilterCategory extends Component {
   }
 
   render() {
-    const { min, max, label } = this.props;
+    const { min, max, label, reset } = this.props;
     const { value } = this.state;
+    console.log(reset);
 
     return (
       <div className={styles.container}>
-        <div className={styles.label}>{label}</div>
+        {label && <div className={styles.label}>{label}</div>}
         <div>
           <InputRange
             maxValue={max}
             minValue={min}
             onChange={val => this.updateValue(val)}
-            value={value || { min, max }}
+            value={(!reset && value) || { min, max }}
           />
         </div>
       </div>
@@ -38,12 +39,18 @@ class scaleFilterCategory extends Component {
 scaleFilterCategory.propTypes = {
   min: PropTypes.number.isRequired,
   max: PropTypes.number.isRequired,
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
   filterKey: PropTypes.string.isRequired,
   dispatch: PropTypes.func.isRequired,
   filters: PropTypes.objectOf(
     PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.array])
-  ).isRequired
+  ).isRequired,
+  reset: PropTypes.bool
+};
+
+scaleFilterCategory.defaultProps = {
+  label: '',
+  reset: false
 };
 
 export default scaleFilterCategory;

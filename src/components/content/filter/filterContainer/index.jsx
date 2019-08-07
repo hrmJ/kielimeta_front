@@ -59,7 +59,7 @@ FilterContainer.propTypes = {
   children: PropTypes.node.isRequired,
   filterMenuHeader: PropTypes.node,
   isInUse: PropTypes.bool,
-  reset: PropTypes.func.isRequired
+  resetFilter: PropTypes.func.isRequired
 };
 
 FilterContainer.defaultProps = {

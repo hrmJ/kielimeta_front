@@ -108,7 +108,8 @@ const filtersComponent = props => {
         {years && Array.isArray(years) && years.length > 1 && (
           <ScaleFilter
             {...commonProps}
-            items={[{ min: years[0], max: years[1], label: 'vuosi', key: 'years' }]}
+            items={[{ min: years[0], max: years[1], key: 'years' }]}
+            label="Aineiston ajankohta"
           />
         )}
 

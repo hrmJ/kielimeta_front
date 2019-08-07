@@ -1,25 +1,60 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
+import { resetFilter, resetFilterAndRefresh } from '../../../../redux/actions/filters';
 import FilterContainer from '../filterContainer';
 import ScaleFilterCategory from '../scaleFilterCategory';
 
 class ScaleFilter extends Component {
-  test() {
-    this.y = 9;
+  /**
+   *
+   * Resets the filter
+   *
+   * @param {*} ev the event that triggered the function
+   * @memberof Filter
+   */
+  reset(ev) {
+    ev.stopPropagation();
+    const { items, dispatch, filters } = this.props;
+    items.forEach(item => {
+      dispatch(resetFilter(item.key));
+    });
+    if (items.length) {
+      const firstItem = items[0];
+      dispatch(resetFilterAndRefresh(firstItem.key, filters));
+    }
+  }
+
+  /**
+   * Checks if the filter is in use
+   *
+   * @returns boolean based on wether or not meaningful filter values found
+   * @memberof Filter
+   */
+  isInUse() {
+    const { items, filters = {} } = this.props;
+    let inUse = false;
+    items.forEach(item => {
+      if (item.key in filters && Array.isArray(filters[item.key]) && filters[item.key].length) {
+        inUse = true;
+      }
+    });
+    return inUse;
   }
 
   render() {
-    const { items, filters, dispatch } = this.props;
+    const { items, filters, dispatch, label } = this.props;
+    const isInUse = this.isInUse();
     return (
-      <FilterContainer label="testi" isInUse={false} resetFilter={() => null}>
+      <FilterContainer label={label} resetFilter={ev => this.reset(ev)} isInUse={isInUse}>
         {items.map(item => (
           <ScaleFilterCategory
             {...item}
-            key={item.label}
+            key={item.key}
             filterKey={item.key}
             filters={filters}
             dispatch={dispatch}
+            reset={!isInUse}
           />
         ))}
       </FilterContainer>
@@ -34,12 +69,14 @@ ScaleFilter.propTypes = {
   ),
   items: PropTypes.arrayOf(
     PropTypes.shape({ min: PropTypes.number, max: PropTypes.number, label: PropTypes.string })
-  )
+  ),
+  label: PropTypes.string
 };
 
 ScaleFilter.defaultProps = {
   items: [],
-  filters: {}
+  filters: {},
+  label: ''
 };
 
 export default ScaleFilter;
