@@ -6,23 +6,20 @@ import {
   resetFilter,
   resetFilterAndRefresh,
   updateFilterVerbose
-} from '../../../redux/actions/filters';
-import FilterCategory from './filterCategory';
-import Icon from '../../ui/icon';
-import ToggleButton from '../../ui/buttons/toggleButton';
-import filterReducer from '../../../redux/reducers/datasetfilter';
-import styles from './filter.scss';
+} from '../../../../redux/actions/filters';
+import FilterCategory from '../filterCategory';
+import FilterContainer from '../filterContainer';
+import ToggleButton from '../../../ui/buttons/toggleButton';
+import filterReducer from '../../../../redux/reducers/datasetfilter';
+import styles from './arrayfilter.scss';
 
-class Filter extends Component {
+class ArrayFilter extends Component {
   state = {
-    menuOpen: false,
-    insideOneDataset: true,
-    offset: null
+    insideOneDataset: true
   };
 
   componentDidMount() {
     const { allowMulti } = this.props;
-    this.setState({ offset: this.el && this.el.offsetTop });
     if (!allowMulti) {
       this.setState({ insideOneDataset: false });
     }
@@ -107,7 +104,7 @@ class Filter extends Component {
       languageVarieties,
       isBoolean
     } = this.props;
-    const { menuOpen, insideOneDataset, offset } = this.state;
+    const { insideOneDataset } = this.state;
     const actualKeyName = insideOneDataset ? `${keyName}A` : keyName;
 
     let { items } = this.props;
@@ -116,68 +113,41 @@ class Filter extends Component {
       items = [];
     }
 
-    // TODO: search field inside the filter in some cases?
-    // TODO: X icon to reset the filter
+    const andOrSwitch = (
+      <ToggleButton
+        options={['Samassa aineistossa', 'Koko tietokannassa']}
+        customClass={styles.toggleContainer}
+        onClick={idx => this.toggleInOneDataset(idx)}
+      />
+    );
 
     return (
-      <div className={styles.container} id={`${keyName}filter`} ref={el => (this.el = el)}>
-        <button
-          type="button"
-          className={styles.filterButton}
-          onClick={() => this.setState({ menuOpen: !menuOpen })}
-        >
-          <div>{children}</div>
-          <div
-            className={`${styles.closer} clearfilter`}
-            style={{ display: this.isInUse() ? 'block' : 'none' }}
-          >
-            <Icon iconName="faTimesCircle" role="button" onClick={ev => this.reset(ev)} />
-          </div>
-        </button>
-        <div
-          className={styles.menu}
-          style={{
-            display: menuOpen ? 'block' : 'none'
-          }}
-          id={`${keyName}_menu`}
-        >
-          <div>
-            {allowMulti && (
-              <ToggleButton
-                options={['Samassa aineistossa', 'Koko tietokannassa']}
-                customClass={styles.toggleContainer}
-                onClick={idx => this.toggleInOneDataset(idx)}
-              />
-            )}
-          </div>
-          <div
-            className={styles.menuInside}
-            style={{
-              maxHeight: `${offset && offset - 80}${offset && 'px'}`
-            }}
-          >
-            <ul className={styles.menuList}>
-              {items.map((item, itemIdx) => (
-                <FilterCategory
-                  key={itemIdx.toString()}
-                  filters={filters}
-                  dispatch={dispatch}
-                  keyName={actualKeyName}
-                  hasSubMenu={hasSubMenu}
-                  languageVarieties={languageVarieties}
-                  isBoolean={isBoolean}
-                  {...item}
-                />
-              ))}
-            </ul>
-          </div>
-        </div>
-      </div>
+      <FilterContainer
+        label={children}
+        filterMenuHeader={allowMulti ? andOrSwitch : null}
+        isInUse={this.isInUse()}
+        resetFilter={ev => this.reset(ev)}
+      >
+        <ul className={styles.menuList}>
+          {items.map((item, itemIdx) => (
+            <FilterCategory
+              key={itemIdx.toString()}
+              filters={filters}
+              dispatch={dispatch}
+              keyName={actualKeyName}
+              hasSubMenu={hasSubMenu}
+              languageVarieties={languageVarieties}
+              isBoolean={isBoolean}
+              {...item}
+            />
+          ))}
+        </ul>
+      </FilterContainer>
     );
   }
 }
 
-Filter.propTypes = {
+ArrayFilter.propTypes = {
   items: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -197,7 +167,7 @@ Filter.propTypes = {
   isBoolean: PropTypes.bool
 };
 
-Filter.defaultProps = {
+ArrayFilter.defaultProps = {
   items: [],
   children: null,
   id: '',
@@ -208,4 +178,4 @@ Filter.defaultProps = {
   isBoolean: false
 };
 
-export default Filter;
+export default ArrayFilter;
