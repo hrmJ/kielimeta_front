@@ -17,7 +17,8 @@ const filtersComponent = props => {
       variety_type: varietyType,
       speakerStatus,
       keyword,
-      genre
+      genre,
+      years
     },
     dispatch,
     languageVarieties
@@ -104,7 +105,13 @@ const filtersComponent = props => {
           allowMulti
           label="Tekstien genre"
         />
-        <ScaleFilter {...commonProps} items={[{ min: 1900, max: 2000, label: 'testi vaan' }]} />
+        {years && Array.isArray(years) && years.length > 1 && (
+          <ScaleFilter
+            {...commonProps}
+            items={[{ min: years[0], max: years[1], label: 'vuosi', key: 'years' }]}
+          />
+        )}
+
         <ArrayFilter
           {...commonProps}
           keyName="accessibility"

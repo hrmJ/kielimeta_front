@@ -10,11 +10,17 @@ class ScaleFilter extends Component {
   }
 
   render() {
-    const { items } = this.props;
+    const { items, filters, dispatch } = this.props;
     return (
       <FilterContainer label="testi" isInUse={false} resetFilter={() => null}>
         {items.map(item => (
-          <ScaleFilterCategory {...item} key={item.label} />
+          <ScaleFilterCategory
+            {...item}
+            key={item.label}
+            filterKey={item.key}
+            filters={filters}
+            dispatch={dispatch}
+          />
         ))}
       </FilterContainer>
     );
@@ -22,13 +28,18 @@ class ScaleFilter extends Component {
 }
 
 ScaleFilter.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  filters: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.array])
+  ),
   items: PropTypes.arrayOf(
     PropTypes.shape({ min: PropTypes.number, max: PropTypes.number, label: PropTypes.string })
   )
 };
 
 ScaleFilter.defaultProps = {
-  items: []
+  items: [],
+  filters: {}
 };
 
 export default ScaleFilter;
