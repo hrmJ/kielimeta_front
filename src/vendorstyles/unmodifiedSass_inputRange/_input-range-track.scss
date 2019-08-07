@@ -5,7 +5,7 @@
   display: block;
   height: $input-range-track-height;
   position: relative;
-  transition: $input-range-track-transition;
+  // transition: $input-range-track-transition;
 
   .input-range--disabled & {
     background: $input-range-track-disabled-background;

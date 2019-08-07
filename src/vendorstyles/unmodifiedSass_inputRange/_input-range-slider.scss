@@ -11,15 +11,16 @@
   outline: none;
   position: absolute;
   top: 50%;
-  transition: $input-range-slider-transition;
+  // transition: $input-range-slider-transition;
   width: $input-range-slider-width;
 
   &:active {
-    transform: $input-range-slider-active-transform;
+    // transform: $input-range-slider-active-transform;
   }
 
   &:focus {
-    box-shadow: 0 0 0 $input-range-slider-focus-box-shadow-radius $input-range-slider-focus-box-shadow-color;
+    box-shadow: 0 0 0 $input-range-slider-focus-box-shadow-radius
+      $input-range-slider-focus-box-shadow-color;
   }
 
   .input-range--disabled & {
@@ -31,5 +32,5 @@
 }
 
 .input-range__slider-container {
-  transition: $input-range-slider-container-transition;
+  // transition: $input-range-slider-container-transition;
 }
