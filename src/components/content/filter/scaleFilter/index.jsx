@@ -16,12 +16,21 @@ class ScaleFilter extends Component {
   reset(ev) {
     ev.stopPropagation();
     const { items, dispatch, filters } = this.props;
+    const itemKeys = [];
     items.forEach(item => {
       dispatch(resetFilter(item.key));
+      itemKeys.push(item.key);
     });
     if (items.length) {
       const firstItem = items[0];
-      dispatch(resetFilterAndRefresh(firstItem.key, filters));
+      const realFilterKeys = Object.keys(filters).filter(
+        thisFilter => !itemKeys.includes(thisFilter)
+      );
+      const realFilters = {};
+      realFilterKeys.forEach(thisKey => {
+        realFilters[thisKey] = filters[thisKey];
+      });
+      dispatch(resetFilterAndRefresh(firstItem.key, realFilters));
     }
   }
 

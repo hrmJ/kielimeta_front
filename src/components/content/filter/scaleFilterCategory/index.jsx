@@ -22,7 +22,7 @@ class scaleFilterCategory extends Component {
     return (
       <div className={styles.container}>
         {label && <div className={styles.label}>{label}</div>}
-        <div>
+        <div className={styles.rangeContainer}>
           <InputRange
             maxValue={max}
             minValue={min}

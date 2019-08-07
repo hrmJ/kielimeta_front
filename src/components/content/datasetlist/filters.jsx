@@ -5,6 +5,25 @@ import ArrayFilter from '../filter/arrayFilter';
 import ScaleFilter from '../filter/scaleFilter';
 import styles from './datasetlist.scss';
 
+const formatSizeLabel = value => {
+  switch (value) {
+    case 'tokens':
+      return 'Saneita';
+    case 'words':
+      return 'Sanoja';
+    case 'sentences':
+      return 'virkkeitä';
+    case 'texts':
+      return 'Tekstejä';
+    case 'audiohours':
+      return 'Tunteja ääntä';
+    case 'videohours':
+      return 'Tunteja videota';
+    default:
+      return value;
+  }
+};
+
 const filtersComponent = props => {
   const {
     filters,
@@ -112,6 +131,16 @@ const filtersComponent = props => {
             label="Aineiston ajankohta"
           />
         )}
+        <ScaleFilter
+          {...commonProps}
+          items={['tokens', 'words', 'sentences', 'texts', 'audiohours', 'videohours'].map(cat => ({
+            min: 0,
+            max: cat in props.originalFilterValues ? props.originalFilterValues[cat][1] : 0,
+            label: formatSizeLabel(cat),
+            key: cat
+          }))}
+          label="Aineiston koko"
+        />
 
         <ArrayFilter
           {...commonProps}
