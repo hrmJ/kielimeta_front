@@ -16,7 +16,7 @@ $input-range-slider-focus-box-shadow-color: transparentize(
 ) !default;
 $input-range-slider-height: 0.7rem !default;
 $input-range-slider-width: 0.7rem !default;
-// $input-range-slider-transition: transform 0.2s ease-out, box-shadow 0.2s ease-out !default;
+$input-range-slider-transition: transform 0.2s ease-out, box-shadow 0.2s ease-out !default;
 $input-range-slider-container-transition: left 0.2s ease-out !default;
 $input-range-slider-active-transform: scale(1.3) !default;
 $input-range-slider-disabled-background: $input-range-disabled-color !default;

@@ -197,7 +197,11 @@ class DatasetList extends Component {
           />
           <OrderMenu dispatch={dispatch} filters={filters} />
         </section>
-        <section className={`${styles.datasetList} ${useGrid && styles.datasetListGrid}`}>
+        <section
+          className={`${styles.datasetList} ${useGrid &&
+            filterState !== 'requested' &&
+            styles.datasetListGrid}`}
+        >
           {filterState === 'requested' ? (
             <div className={styles.loaderContainer}>
               <Loader />

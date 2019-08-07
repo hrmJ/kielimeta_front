@@ -18,7 +18,6 @@ class scaleFilterCategory extends Component {
   render() {
     const { min, max, label, reset } = this.props;
     const { value } = this.state;
-    console.log(reset);
 
     return (
       <div className={styles.container}>
