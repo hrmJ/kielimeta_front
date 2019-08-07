@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import ArrayFilter from '../filter/arrayFilter';
+import ScaleFilter from '../filter/scaleFilter';
 import styles from './datasetlist.scss';
 
 const filtersComponent = props => {
@@ -29,9 +30,13 @@ const filtersComponent = props => {
   return (
     <div>
       <section className={styles.filterContainer}>
-        <ArrayFilter {...commonProps} keyName="keyword" items={keyword} allowMulti>
-          Avainsanat
-        </ArrayFilter>
+        <ArrayFilter
+          {...commonProps}
+          keyName="keyword"
+          items={keyword}
+          allowMulti
+          label="Avainsanat"
+        />
         <ArrayFilter
           {...commonProps}
           keyName="lang"
@@ -39,21 +44,35 @@ const filtersComponent = props => {
           allowMulti
           hasSubMenu
           languageVarieties={languageVarieties}
-        >
-          Kielet
-        </ArrayFilter>
-        <ArrayFilter {...commonProps} keyName="resourcetype" items={resourcetype}>
-          Aineistotyypit
-        </ArrayFilter>
-        <ArrayFilter {...commonProps} keyName="modality" items={modality} allowMulti>
-          Kielimuoto
-        </ArrayFilter>
-        <ArrayFilter {...commonProps} keyName="variety_type" items={varietyType} allowMulti>
-          Kielivariantin tyyppi
-        </ArrayFilter>
-        <ArrayFilter {...commonProps} keyName="speaker_status" items={speakerStatus} allowMulti>
-          Äidinkielisyys
-        </ArrayFilter>
+          label="Kielet"
+        />
+        <ArrayFilter
+          {...commonProps}
+          keyName="resourcetype"
+          items={resourcetype}
+          label="Aineistotyypit"
+        />
+        <ArrayFilter
+          {...commonProps}
+          keyName="modality"
+          items={modality}
+          allowMulti
+          label="Kielimuoto"
+        />
+        <ArrayFilter
+          {...commonProps}
+          keyName="variety_type"
+          items={varietyType}
+          allowMulti
+          label="Kielivariantin tyyppi"
+        />
+        <ArrayFilter
+          {...commonProps}
+          keyName="speaker_status"
+          items={speakerStatus}
+          allowMulti
+          label="Äidinkielisyys"
+        />
         <ArrayFilter
           {...commonProps}
           keyName="connections"
@@ -62,18 +81,30 @@ const filtersComponent = props => {
             { label: 'vain muut aineistot', value: 'false' }
           ]}
           isBoolean
-        >
-          Käännösaineistot
-        </ArrayFilter>
-        <ArrayFilter {...commonProps} keyName="mediatype" items={mediatype} allowMulti>
-          Media
-        </ArrayFilter>
-        <ArrayFilter {...commonProps} keyName="annotations" items={annotations} allowMulti>
-          Annotoinnit
-        </ArrayFilter>
-        <ArrayFilter {...commonProps} keyName="genre" items={genre} allowMulti>
-          Tekstien genre
-        </ArrayFilter>
+          label="Käännösaineistot"
+        />
+        <ArrayFilter
+          {...commonProps}
+          keyName="mediatype"
+          items={mediatype}
+          allowMulti
+          label="Media"
+        />
+        <ArrayFilter
+          {...commonProps}
+          keyName="annotations"
+          items={annotations}
+          allowMulti
+          label="Annotoinnit"
+        />
+        <ArrayFilter
+          {...commonProps}
+          keyName="genre"
+          items={genre}
+          allowMulti
+          label="Tekstien genre"
+        />
+        <ScaleFilter {...commonProps} />
         <ArrayFilter
           {...commonProps}
           keyName="accessibility"
@@ -83,9 +114,8 @@ const filtersComponent = props => {
             { label: 'muu', value: 'other' }
           ]}
           isBoolean
-        >
-          Saatavuus
-        </ArrayFilter>
+          label="Saatavuus"
+        />
       </section>
     </div>
   );

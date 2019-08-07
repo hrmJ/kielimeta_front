@@ -95,7 +95,7 @@ class ArrayFilter extends Component {
 
   render() {
     const {
-      children,
+      label,
       dispatch,
       keyName,
       filters = {},
@@ -123,7 +123,7 @@ class ArrayFilter extends Component {
 
     return (
       <FilterContainer
-        label={children}
+        label={label}
         filterMenuHeader={allowMulti ? andOrSwitch : null}
         isInUse={this.isInUse()}
         resetFilter={ev => this.reset(ev)}
@@ -155,7 +155,7 @@ ArrayFilter.propTypes = {
     })
   ),
   keyName: PropTypes.string.isRequired,
-  children: PropTypes.node,
+  label: PropTypes.string.isRequired,
   dispatch: PropTypes.func.isRequired,
   id: PropTypes.string,
   filters: PropTypes.objectOf(
