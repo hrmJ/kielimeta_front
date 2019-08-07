@@ -104,7 +104,7 @@ const filtersComponent = props => {
           allowMulti
           label="Tekstien genre"
         />
-        <ScaleFilter {...commonProps} />
+        <ScaleFilter {...commonProps} items={[{ min: 1900, max: 2000, label: 'testi vaan' }]} />
         <ArrayFilter
           {...commonProps}
           keyName="accessibility"
