@@ -18,6 +18,13 @@ class scaleFilterCategory extends Component {
     this.timer = null;
   }
 
+  componentWillReceiveProps() {
+    const { min, max, reset } = this.props;
+    if (reset) {
+      this.setState({ value: { min, max } });
+    }
+  }
+
   handleChange(newValue) {
     clearTimeout(this.timer);
     this.setState({ value: newValue });

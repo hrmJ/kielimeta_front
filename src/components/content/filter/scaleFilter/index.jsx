@@ -8,8 +8,8 @@ import ScaleFilterCategory from '../scaleFilterCategory';
 class ScaleFilter extends Component {
   resetPending = false;
 
-  componentDidMount() {
-    console.log('did mount!');
+  componentDidUpdate() {
+    console.log('did update!');
     this.resetPending = false;
   }
 
