@@ -6,6 +6,13 @@ import FilterContainer from '../filterContainer';
 import ScaleFilterCategory from '../scaleFilterCategory';
 
 class ScaleFilter extends Component {
+  resetPending = false;
+
+  componentDidMount() {
+    console.log('did mount!');
+    this.resetPending = false;
+  }
+
   /**
    *
    * Resets the filter
@@ -17,6 +24,7 @@ class ScaleFilter extends Component {
     ev.stopPropagation();
     const { items, dispatch, filters } = this.props;
     const itemKeys = [];
+    this.resetPending = true;
     items.forEach(item => {
       dispatch(resetFilter(item.key));
       itemKeys.push(item.key);
@@ -32,6 +40,7 @@ class ScaleFilter extends Component {
       });
       dispatch(resetFilterAndRefresh(firstItem.key, realFilters));
     }
+    console.log('reset');
   }
 
   /**
@@ -46,6 +55,7 @@ class ScaleFilter extends Component {
     items.forEach(item => {
       if (item.key in filters && Array.isArray(filters[item.key]) && filters[item.key].length) {
         inUse = true;
+        this.hasBeenUsed = true;
       }
     });
     return inUse;
@@ -54,6 +64,7 @@ class ScaleFilter extends Component {
   render() {
     const { items, filters, dispatch, label } = this.props;
     const isInUse = this.isInUse();
+    console.log('render');
     return (
       <FilterContainer label={label} resetFilter={ev => this.reset(ev)} isInUse={isInUse}>
         {items.map(item => (
@@ -63,7 +74,7 @@ class ScaleFilter extends Component {
             filterKey={item.key}
             filters={filters}
             dispatch={dispatch}
-            reset={!isInUse}
+            reset={this.resetPending}
           />
         ))}
       </FilterContainer>

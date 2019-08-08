@@ -6,12 +6,31 @@ import { updateAndFilter } from '../../../../redux/actions/filters';
 import styles from './scalefiltercategory.scss';
 import rangeStyles from '../../../../vendorstyles/unmodifiedSass_inputRange/input-range.scss';
 
+const WAIT_INTERVAL = 900;
+
 class scaleFilterCategory extends Component {
-  state = { value: undefined };
+  constructor(props) {
+    super();
+    this.state = { value: undefined };
+  }
+
+  componentWillMount() {
+    this.timer = null;
+  }
+
+  handleChange(newValue) {
+    clearTimeout(this.timer);
+    this.setState({ value: newValue });
+    this.timer = setTimeout(this.triggerChange.bind(this), WAIT_INTERVAL);
+  }
+
+  triggerChange() {
+    const { value } = this.state;
+    this.updateValue(value);
+  }
 
   updateValue(val) {
     const { dispatch, filters, filterKey } = this.props;
-    this.setState({ value: val });
     dispatch(updateAndFilter(filterKey, [val.min, val.max], true, filters));
   }
 
@@ -26,7 +45,7 @@ class scaleFilterCategory extends Component {
           <InputRange
             maxValue={max}
             minValue={min}
-            onChange={val => this.updateValue(val)}
+            onChange={val => this.handleChange(val)}
             value={(!reset && value) || { min, max }}
           />
         </div>
