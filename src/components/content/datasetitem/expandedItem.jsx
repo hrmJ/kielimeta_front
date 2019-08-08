@@ -1,4 +1,5 @@
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { Link } from 'react-router-dom';
 import { uid } from 'react-uid';
 import PropTypes from 'prop-types';
 import ReactMarkdown from 'react-markdown';
@@ -13,6 +14,7 @@ import Authors from './authors';
 import Citing from './citing';
 import Content from './content';
 import styles from './datasetitem.scss';
+import generalStyles from '../../../general_styles/general_styles.scss';
 
 class expandedItem extends Component {
   componentDidMount() {
@@ -60,7 +62,8 @@ class expandedItem extends Component {
       genre,
       mediatype,
       media_description: mediaDescription,
-      connections
+      connections,
+      related_datasets: relatedDatasets
     } = this.props;
     const {
       activated: { [id]: activeId },
@@ -106,9 +109,23 @@ class expandedItem extends Component {
             <Tab>Viittaaminen</Tab>
           </TabList>
           <TabPanel>
-            <p className={styles.description}>
+            <div className={styles.description}>
               <ReactMarkdown source={description} />
-            </p>
+            </div>
+            {relatedDatasets.length > 0 && (
+              <div className={generalStyles.labelContainerStacked}>
+                <div>Samanlaisia aineistoja</div>
+                <div>
+                  <ul>
+                    {relatedDatasets.map(ds => (
+                      <li key={ds}>
+                        <Link to={`/${ds}`}>{ds}</Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            )}
           </TabPanel>
           <TabPanel>
             <Content {...{ languages, connections, genre, mediatype, mediaDescription }} />
@@ -147,6 +164,7 @@ expandedItem.propTypes = {
   }),
   license: PropTypes.string,
   access_information: PropTypes.string,
+  related_datasets: PropTypes.arrayOf(PropTypes.string),
   contact_person: PropTypes.arrayOf(
     PropTypes.shape({ name: PropTypes.string, email: PropTypes.string })
   ),
@@ -175,7 +193,8 @@ expandedItem.defaultProps = {
   sensitivity: '',
   genre: [],
   mediatype: [],
-  media_description: ''
+  media_description: '',
+  related_datasets: []
 };
 
 export default expandedItem;

@@ -78,6 +78,8 @@ const validateFields = fields => {
   // Before submitting, also delete the indicator about this being a copy
   // if such was present
   delete validated.isCopy;
+  // ... and other view-only stuff
+  delete validated.related_datasets;
   return validated;
 };
 
