@@ -64,7 +64,6 @@ class InsertForm extends Component {
       datasets
     } = this.props;
     dispatch(prepopulateFormSelects());
-    console.log(routeProps.match);
     if (routeProps.match) {
       const {
         match: {

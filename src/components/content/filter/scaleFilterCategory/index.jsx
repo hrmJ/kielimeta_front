@@ -50,7 +50,7 @@ class scaleFilterCategory extends Component {
         {label && <div className={styles.label}>{label}</div>}
         <div className={styles.rangeContainer}>
           <InputRange
-            maxValue={max}
+            maxValue={max > min ? max : min + 1}
             minValue={min}
             onChange={val => this.handleChange(val)}
             value={(!reset && value) || { min, max }}

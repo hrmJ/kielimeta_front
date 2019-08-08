@@ -9,7 +9,6 @@ class ScaleFilter extends Component {
   resetPending = false;
 
   componentDidUpdate() {
-    console.log('did update!');
     this.resetPending = false;
   }
 
@@ -40,7 +39,6 @@ class ScaleFilter extends Component {
       });
       dispatch(resetFilterAndRefresh(firstItem.key, realFilters));
     }
-    console.log('reset');
   }
 
   /**
@@ -64,7 +62,6 @@ class ScaleFilter extends Component {
   render() {
     const { items, filters, dispatch, label } = this.props;
     const isInUse = this.isInUse();
-    console.log('render');
     return (
       <FilterContainer label={label} resetFilter={ev => this.reset(ev)} isInUse={isInUse}>
         {items.map(item => (
