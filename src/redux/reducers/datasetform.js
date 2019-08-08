@@ -7,6 +7,11 @@ const defaultPayload = {
 
 export default (state = defaultPayload, action) => {
   const { type, ...rest } = action;
+
+  if (type === 'DATASET_FROM_JSON_INPUT') {
+    return { ...rest.dataset };
+  }
+
   if (type === 'RESET_FORM_DATA') {
     return { ...defaultPayload };
   }

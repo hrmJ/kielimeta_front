@@ -64,10 +64,11 @@ class InsertForm extends Component {
       datasets
     } = this.props;
     dispatch(prepopulateFormSelects());
+    console.log(routeProps.match);
     if (routeProps.match) {
       const {
         match: {
-          params: { id, versionId }
+          params: { id, versionId, source }
         }
       } = routeProps;
       if (id) {
@@ -87,7 +88,7 @@ class InsertForm extends Component {
             this.id = id;
           }
         }
-      } else {
+      } else if (!source) {
         dispatch(resetFormData());
       }
     } else {

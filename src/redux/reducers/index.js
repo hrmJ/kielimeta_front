@@ -30,7 +30,7 @@ const appReducer = combineReducers({
   groupedDatasets: datasetGroupReducer,
   groupNames: groupNameReducer,
   datasetVersions: datasetVersionReducer,
-  datasetPage: datasetPageReducer,
+  datasetPage: datasetPageReducer
 });
 
 export default appReducer;

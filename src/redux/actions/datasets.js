@@ -35,7 +35,7 @@ const deleteDatasetRaw = id => {
  *
  * @param datasetRaw - the response that has been parsed from json
  * @param fromHistory - wether or not the data is from version history
- * @returns {undefined}
+ * @returns {undefined}  the parsed dataset
  */
 const parseDataset = (datasetRaw, fromHistory) => {
   const dataset = { ...datasetRaw };
@@ -172,6 +172,18 @@ const fetchDatasetForEdit = (
   });
 };
 
+const startJsonBasedInsert = dataset => ({ type: 'DATASET_FROM_JSON_INPUT', dataset });
+
+const fetchDatasetFromJson = rawString => dispatch => {
+  const datasetRaw = JSON.parse(rawString);
+  const { id, ...datasetUnParsed } = datasetRaw;
+  const dataset = parseDataset(datasetUnParsed, true);
+  updateLanguageNames(dispatch, dataset);
+  dispatch(updateField('main_version_id', null));
+  dispatch(startJsonBasedInsert(dataset));
+  return { ...dataset };
+};
+
 const setActiveVersion = (mainId, activeId) => ({ type: 'SET_ACTIVE_VERSION', mainId, activeId });
 
 const deleteDataset = (id, mainId) => dispatch => {
@@ -204,6 +216,7 @@ const fetchSubVersions = (mainId, subversionIds, activeId) => dispatch => {
 
 export {
   fetchDatasetForEdit,
+  fetchDatasetFromJson,
   removeDatasetFromStore,
   deleteDataset,
   fetchSubVersions,

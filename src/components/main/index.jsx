@@ -4,6 +4,7 @@ import React, { Component, Suspense, lazy } from 'react';
 
 import DataProtection from '../content/DataProtection';
 import Footer from '../layout/footer';
+import JsonInput from '../content/jsonInput';
 import Loader from '../ui/loader';
 import Login from '../auth/login';
 import TopBar from '../layout/navigation/topbar';
@@ -62,13 +63,18 @@ class main extends Component {
               {!showSplash && <TopBar toggleClusterTool={() => this.toggleClusterTool()} />}
               <main>
                 <Switch>
+                  <Route
+                    path="/jsoninput"
+                    render={() => <JsonInput dispatch={dispatch} datasetform={datasetform} />}
+                    exact
+                  />
                   <Route path="/test" render={() => <Loader />} exact />
                   <Route path="/login" render={() => <Login />} exact />
                   <Route path="/tietosuojaseloste" render={() => <DataProtection />} exact />
                   <Route path="/dataprotection" render={() => <DataProtection />} exact />
                   <Route
-                    path="/newdataset"
-                    render={() => (
+                    path="/newdataset/:source?"
+                    render={routeProps => (
                       <DatasetForm
                         fields={datasetform}
                         loadingState={loadingState}
@@ -77,6 +83,7 @@ class main extends Component {
                         languageVarietyTypes={languageVarietyTypes}
                         preloadedSelects={preloadedSelects}
                         languageNames={languageNames}
+                        routeProps={routeProps}
                       />
                     )}
                     exact

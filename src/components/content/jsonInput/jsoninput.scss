@@ -1,0 +1,12 @@
+.container {
+  width: 100%;
+}
+.dataContainer, .buttonContainer {
+  margin-bottom: 2em;
+  display: flex;
+  justify-content: center;
+  textarea {
+    width: 80%;
+    height: 20em;
+  }
+}
