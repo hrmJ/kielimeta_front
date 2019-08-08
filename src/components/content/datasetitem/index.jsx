@@ -11,6 +11,13 @@ import styles from './datasetitem.scss';
 class datasetItem extends Component {
   state = { lifted: 'initial' }; // up, down
 
+  toggleExpanded() {
+    const { liftedByDefault } = this.props;
+    const { lifted } = this.state;
+    const isLifted = lifted === 'up' || (lifted === 'initial' && liftedByDefault);
+    this.setState({ lifted: isLifted ? 'down' : 'up' });
+  }
+
   render() {
     const {
       title,
@@ -44,8 +51,8 @@ class datasetItem extends Component {
             role="button"
             tabIndex={0}
             className={styles.titleLine}
-            onClick={() => this.setState({ lifted: isLifted ? 'down' : 'up' })}
-            onKeyDown={() => this.setState({ lifted: isLifted ? 'down' : 'up' })}
+            onClick={() => this.toggleExpanded()}
+            onKeyDown={() => this.toggleExpanded()}
           >
             <div className={styles.title}>{title}</div>
 

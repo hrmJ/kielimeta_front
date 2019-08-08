@@ -1,6 +1,7 @@
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { uid } from 'react-uid';
 import PropTypes from 'prop-types';
+import ReactMarkdown from 'react-markdown';
 import React, { Component } from 'react';
 import Loader from '../../ui/loader';
 import 'react-tabs/style/react-tabs.css';
@@ -96,7 +97,7 @@ class expandedItem extends Component {
             />
           </div>
         )}
-        <Tabs defaultIndex={1}>
+        <Tabs defaultIndex={0}>
           <TabList>
             <Tab>Kuvaus</Tab>
             <Tab>Sisältö</Tab>
@@ -106,7 +107,7 @@ class expandedItem extends Component {
           </TabList>
           <TabPanel>
             <p className={styles.description}>
-              <em>{description}</em>
+              <ReactMarkdown source={description} />
             </p>
           </TabPanel>
           <TabPanel>
