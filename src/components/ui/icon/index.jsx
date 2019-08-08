@@ -15,7 +15,7 @@ import {
   faTimesCircle,
   faThLarge,
   faThList,
-  faMusic,
+  faMicrophone,
   faVideo,
   faFileAlt,
   faUsers,
@@ -35,6 +35,7 @@ import utilityStyles from '../../../general_styles/utilities.scss';
 
 const icons = {
   faChevronCircleDown,
+  faMicrophone,
   faHistory,
   faExclamationCircle,
   faCaretSquareDown,
@@ -52,7 +53,6 @@ const icons = {
   faWindowClose,
   faTimesCircle,
   faThList,
-  faMusic,
   faVideo,
   faThLarge,
   faFileAlt,

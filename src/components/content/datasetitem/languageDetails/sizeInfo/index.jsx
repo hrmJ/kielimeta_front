@@ -43,7 +43,7 @@ const sizeInfo = props => {
         )}
         {audiohours && (
           <li>
-            <Icon iconName="faMusic" /> {`${formatNo(audiohours)} tuntia ääntä`}
+            <Icon iconName="faMicrophone" /> {`${formatNo(audiohours)} tuntia ääntä`}
           </li>
         )}
         {videohours && (

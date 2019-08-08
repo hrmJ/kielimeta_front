@@ -73,6 +73,7 @@ h6 {
     font-weight: 900;
     font-size: 2em;
     font-variant: small-caps;
+    margin-right: 0.1em;
   }
 
   h3 {
@@ -101,15 +102,18 @@ h6 {
 .kwList {
   margin-top: 1em;
   padding: 0px;
+
   li {
     font-size: 0.8em;
     display: inline-block;
     background: lightgrey;
-    padding: 0.2em;
+    padding: 0.4em;
+    max-width: 38em;
+    margin-bottom: 0.3em;
   }
 
   li + li {
-    margin-left: 1em;
+    margin-right: 1em;
   }
 }
 

@@ -55,16 +55,15 @@ class Content extends Component {
             <div>Aineisto sisältää:</div>
             <div>
               <ul>
-                {mediatype.map(thisType => (
-                  <li key={thisType}>
-                    <MediaType
-                      mediaType={thisType}
-                      languages={languages}
-                      mediaDescription={mediaDescription}
-                    />
-                  </li>
-                ))}
+                {mediatype
+                  .filter(thisType => thisType !== 'other')
+                  .map(thisType => (
+                    <li key={thisType}>
+                      <MediaType mediaType={thisType} mediaDescription={mediaDescription} />
+                    </li>
+                  ))}
               </ul>
+              <div>{mediaDescription}</div>
             </div>
           </div>
         )}

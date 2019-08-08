@@ -24,13 +24,11 @@ class MediaType extends Component {
 }
 
 MediaType.propTypes = {
-  languages: PropTypes.arrayOf(PropTypes.object),
   mediaType: PropTypes.string.isRequired,
   mediaDescription: PropTypes.string
 };
 
 MediaType.defaultProps = {
-  languages: [],
   mediaDescription: ''
 };
 

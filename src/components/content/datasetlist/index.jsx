@@ -16,7 +16,7 @@ import Splash from '../../layout/splash';
 import styles from './datasetlist.scss';
 
 class DatasetList extends Component {
-  state = { useGrid: false, useGroups: false };
+  state = { useGrid: true, useGroups: false };
 
   activeTitle = '';
 
