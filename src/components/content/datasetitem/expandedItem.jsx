@@ -112,7 +112,7 @@ class expandedItem extends Component {
             <div className={styles.description}>
               <ReactMarkdown source={description} />
             </div>
-            {relatedDatasets.length > 0 && (
+            {/*relatedDatasets.length > 0 && (
               <div className={generalStyles.labelContainerStacked}>
                 <div>Samanlaisia aineistoja</div>
                 <div>
@@ -125,7 +125,7 @@ class expandedItem extends Component {
                   </ul>
                 </div>
               </div>
-            )}
+            )*/}
           </TabPanel>
           <TabPanel>
             <Content {...{ languages, connections, genre, mediatype, mediaDescription }} />
