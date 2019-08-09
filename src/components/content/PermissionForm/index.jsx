@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { uid } from 'react-uid';
 
 import { editDatasetUsers } from '../../../redux/actions/datasets';
-import { updateField } from '../../../redux/actions/datasetform';
 import Add from '../../ui/buttons/add';
 import DatasetUser from './DatasetUser';
 import generalStyles from '../../../general_styles/general_styles.scss';
@@ -18,7 +18,9 @@ class permissionForm extends Component {
     const { dispatch, datasetUsers, id } = this.props;
     const theseUsers = datasetUsers[id] || [];
     event.stopPropagation();
-    dispatch(editDatasetUsers(id, [...theseUsers, {}]));
+    dispatch(
+      editDatasetUsers(id, [...theseUsers, { can_edit: false, can_delete: false, username: '' }])
+    );
   }
 
   render() {
@@ -31,7 +33,7 @@ class permissionForm extends Component {
           <section className={generalStyles.someTopMargin}>
             {theseUsers.map((user, idx) => (
               <DatasetUser
-                key={user.username || `${id}_${idx}`}
+                key={`user_${idx}`}
                 {...user}
                 dispatch={dispatch}
                 idx={idx}

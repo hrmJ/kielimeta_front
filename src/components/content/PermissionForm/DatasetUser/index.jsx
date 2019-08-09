@@ -22,18 +22,29 @@ const removeThisUser = (users, idx) => {
 };
 
 const datasetUser = props => {
-  const { dispatch, idx, users, datasetId } = props;
+  const { dispatch, idx, users, datasetId, username } = props;
 
   return (
     <ClosableBox
       onClose={() => dispatch(editDatasetUsers(datasetId, removeThisUser(users, idx)))}
       additionalClass={styles.container}
     >
-      <LabelledInput
-        label="Käyttäjätunnus"
-        tooltip="Käyttäjän utu-tunnus muodossa [tunnus]@utu.fi"
-        value="testi"
-      />
+      <LabelledInput label="Käyttäjätunnus" tooltip="Käyttäjän utu-tunnus muodossa [tunnus]@utu.fi">
+        <input
+          type="text"
+          value={username}
+          onChange={ev =>
+            dispatch(
+              editDatasetUsers(
+                datasetId,
+                users.map((user, userId) =>
+                  userId === idx ? { ...user, username: ev.target.value } : user
+                )
+              )
+            )
+          }
+        />
+      </LabelledInput>
       <div className={styles.rightsContainer}>
         <div className={formStyles.labelDiv}>Oikeudet</div>
         <div>
@@ -43,8 +54,17 @@ const datasetUser = props => {
                 key={perm.value}
                 value={perm.value}
                 id={`permission_${perm.value}`}
-                onChange={ev => dispatch()}
-                // checked={mediaTypes.includes(key)}
+                onChange={ev =>
+                  dispatch(
+                    editDatasetUsers(
+                      datasetId,
+                      users.map((user, userId) =>
+                        userId === idx ? { ...user, [perm.value]: ev.target.checked } : user
+                      )
+                    )
+                  )
+                }
+                checked={props[perm.value]}
               >
                 {perm.label}
               </CbItem>
@@ -67,7 +87,8 @@ datasetUser.propTypes = {
   ),
   dispatch: PropTypes.func.isRequired,
   idx: PropTypes.number.isRequired,
-  datasetId: PropTypes.number.isRequired
+  datasetId: PropTypes.number.isRequired,
+  username: PropTypes.string.isRequired
 };
 
 datasetUser.defaultProps = {
