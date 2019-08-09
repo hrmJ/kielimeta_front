@@ -6,6 +6,7 @@ import CondensedItem from './condensedItem';
 import EditMenu from './editMenu';
 import ExpandedItem from './expandedItem';
 import Icon from '../../ui/icon';
+import Tooltip from '../../ui/tooltip';
 import styles from './datasetitem.scss';
 
 class datasetItem extends Component {
@@ -30,7 +31,8 @@ class datasetItem extends Component {
       subversion,
       clusterToolVisible,
       isAdded,
-      history
+      history,
+      datasetUsers
     } = this.props;
     const { lifted } = this.state;
     const isLifted = lifted === 'up' || (lifted === 'initial' && liftedByDefault);
@@ -47,27 +49,34 @@ class datasetItem extends Component {
           </div>
         )}
         <div className={isLifted ? styles.liftedItem : styles.datasetItem}>
-          <div
-            role="button"
-            tabIndex={0}
-            className={styles.titleLine}
-            onClick={() => this.toggleExpanded()}
-            onKeyDown={() => this.toggleExpanded()}
-          >
-            <div className={styles.title}>{title}</div>
+          <Tooltip content={isLifted ? '' : 'Klikkaa aineiston nimeä saadaksesi laajemman näkymän'}>
+            <div className={styles.titleLine}>
+              <Tooltip content={!isLifted ? '' : 'Kutista aineisto klikkaamalla nimeä'}>
+                <div
+                  className={styles.title}
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => this.toggleExpanded()}
+                  onKeyDown={() => this.toggleExpanded()}
+                >
+                  {title}
+                </div>
+              </Tooltip>
 
-            <div>
-              {isLifted && (
-                <EditMenu
-                  hasSubVersions={subversion.length > 0}
-                  currentVersionId={currentVersionId}
-                  id={id}
-                  dispatch={dispatch}
-                  versionHistory={history}
-                />
-              )}
+              <div>
+                {isLifted && (
+                  <EditMenu
+                    hasSubVersions={subversion.length > 0}
+                    currentVersionId={currentVersionId}
+                    datasetUsers={datasetUsers}
+                    id={id}
+                    dispatch={dispatch}
+                    versionHistory={history}
+                  />
+                )}
+              </div>
             </div>
-          </div>
+          </Tooltip>
           <div>
             {isLifted && wasEdited && (
               <div className={styles.savedIndicator}>
@@ -95,6 +104,14 @@ datasetItem.propTypes = {
   isAdded: PropTypes.bool,
   history: PropTypes.arrayOf(
     PropTypes.shape({ modification_time: PropTypes.string, id: PropTypes.number })
+  ),
+  datasetUsers: PropTypes.arrayOf(
+    PropTypes.shape({
+      username: PropTypes.string,
+      can_edit: PropTypes.bool,
+      can_delete: PropTypes.bool,
+      can_edit_permissions: PropTypes.bool
+    })
   )
 };
 
@@ -106,7 +123,8 @@ datasetItem.defaultProps = {
   subversion: [],
   clusterToolVisible: false,
   isAdded: false,
-  history: []
+  history: [],
+  datasetUsers: []
 };
 
 export default datasetItem;

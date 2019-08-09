@@ -7,6 +7,7 @@ import { fetchDatasetForEdit, deleteDataset } from '../../../../redux/actions/da
 import { updateField } from '../../../../redux/actions/datasetform';
 import BasicButton from '../../../ui/buttons/BasicButton';
 import HistorySubMenu from './historySubmenu';
+import PermissionForm from '../../PermissionForm';
 import Remove from '../../../ui/buttons/remove';
 import Tooltip from '../../../ui/tooltip';
 import styles from './editmenu.scss';
@@ -25,7 +26,7 @@ const modalStyle = {
 ReactModal.setAppElement('#root');
 
 class EditMenu extends Component {
-  state = { open: false, deletePending: false, historyWindowOpen: false };
+  state = { open: false, deletePending: false, historyWindowOpen: false, userWindowOpen: false };
 
   open(ev) {
     const { open } = this.state;
@@ -61,14 +62,21 @@ class EditMenu extends Component {
     this.setState({ deletePending: modalState });
   }
 
-  toggleHistorySubWindow(ev, modalState) {
+  toggleSubWindow(ev, modalName, modalState) {
     ev.stopPropagation();
-    this.setState({ historyWindowOpen: modalState });
+    this.setState({ [modalName]: modalState });
   }
 
   render() {
-    const { id, dispatch, currentVersionId, hasSubVersions, versionHistory } = this.props;
-    const { open, deletePending, historyWindowOpen } = this.state;
+    const {
+      id,
+      dispatch,
+      currentVersionId,
+      hasSubVersions,
+      versionHistory,
+      datasetUsers
+    } = this.props;
+    const { open, deletePending, historyWindowOpen, userWindowOpen } = this.state;
     return (
       <div className={styles.outerContainer}>
         <ReactModal isOpen={deletePending} style={modalStyle}>
@@ -115,13 +123,20 @@ class EditMenu extends Component {
                   direction="right"
                 >
                   <BasicButton
-                    onClick={() => this.initializeEdit()}
-                    text="Muokkaa käyttäjäoikeuksia"
+                    onClick={ev => this.toggleSubWindow(ev, 'userWindowOpen', !userWindowOpen)}
+                    text="Käyttäjät ja oikeudet"
                     noBackground
                     customClass={styles.buttonClass}
                     iconName="faUsers"
                   />
                 </Tooltip>
+                {userWindowOpen && (
+                  <PermissionForm
+                    datasetUsers={datasetUsers}
+                    id={currentVersionId}
+                    dispatch={dispatch}
+                  />
+                )}
               </li>
               <li>
                 <Tooltip
@@ -170,7 +185,7 @@ class EditMenu extends Component {
               </li>
               <li>
                 <BasicButton
-                  onClick={ev => this.toggleHistorySubWindow(ev, !historyWindowOpen)}
+                  onClick={ev => this.toggleSubWindow(ev, 'historyWindowOpen', !historyWindowOpen)}
                   text="Muutoshistoria"
                   noBackground
                   customClass={styles.buttonClass}
@@ -201,11 +216,20 @@ EditMenu.propTypes = {
   hasSubVersions: PropTypes.bool,
   versionHistory: PropTypes.arrayOf(
     PropTypes.shape({ modification_time: PropTypes.string, id: PropTypes.number })
-  ).isRequired
+  ).isRequired,
+  datasetUsers: PropTypes.arrayOf(
+    PropTypes.shape({
+      username: PropTypes.string,
+      can_edit: PropTypes.bool,
+      can_delete: PropTypes.bool,
+      can_edit_permissions: PropTypes.bool
+    })
+  )
 };
 EditMenu.defaultProps = {
   currentVersionId: null,
-  hasSubVersions: false
+  hasSubVersions: false,
+  datasetUsers: []
 };
 
 export default withRouter(EditMenu);

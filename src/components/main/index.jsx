@@ -5,8 +5,8 @@ import React, { Component, Suspense, lazy } from 'react';
 import DataProtection from '../content/DataProtection';
 import Footer from '../layout/footer';
 import JsonInput from '../content/jsonInput';
-import Loader from '../ui/loader';
 import Login from '../auth/login';
+import PermissionForm from '../content/PermissionForm';
 import TopBar from '../layout/navigation/topbar';
 import styles from '../../general_styles/general_styles.scss';
 
@@ -68,7 +68,17 @@ class main extends Component {
                     render={() => <JsonInput dispatch={dispatch} datasetform={datasetform} />}
                     exact
                   />
-                  <Route path="/test" render={() => <Loader />} exact />
+                  <Route
+                    path="/test"
+                    render={() => (
+                      <PermissionForm
+                        dispatch={dispatch}
+                        id={1}
+                        datasetUsers={datasetform.datasetUsers}
+                      />
+                    )}
+                    exact
+                  />
                   <Route path="/login" render={() => <Login />} exact />
                   <Route path="/tietosuojaseloste" render={() => <DataProtection />} exact />
                   <Route path="/dataprotection" render={() => <DataProtection />} exact />
@@ -124,6 +134,7 @@ class main extends Component {
                         datasetVersions={datasetVersions}
                         languageVarieties={languageVarieties}
                         datasetPage={datasetPage}
+                        datasetUsers={datasetform.datasetUsers}
                       />
                     )}
                     exact

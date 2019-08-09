@@ -64,3 +64,15 @@ textarea {
     width: 80vw;
   }
 }
+
+@mixin sideMenu() {
+  position: absolute;
+  right: 100%;
+  background: white;
+  z-index: 9999;
+  margin-right: 4px;
+  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.05), 0 0 2px rgba(0, 0, 0, 0.12),
+    0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 0.5em;
+  overflow-y: auto;
+}

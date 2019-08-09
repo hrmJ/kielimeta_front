@@ -35,9 +35,6 @@ h6 {
 }
 
 .titleLine {
-  &:hover {
-    cursor: pointer;
-  }
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -45,6 +42,9 @@ h6 {
 
 .title {
   font-family: $subheaderfont;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .description {

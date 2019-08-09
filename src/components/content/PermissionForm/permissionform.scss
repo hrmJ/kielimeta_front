@@ -1,0 +1,11 @@
+@import 'src/general_styles/configs.scss';
+
+.container {
+  @include sideMenu();
+  top: -10px;
+  min-width: 10em;
+  padding: 2em;
+  max-height: 30em;
+  // width: 30em;
+  // min-height: 30em;
+}

@@ -88,6 +88,7 @@ class DatasetList extends Component {
       datasetVersions,
       clusterToolVisible,
       dispatch,
+      datasetUsers,
       routeProps: {
         match: {
           params: { title: activeTitle }
@@ -130,6 +131,7 @@ class DatasetList extends Component {
         currentVersionId={versionId}
         clusterToolVisible={clusterToolVisible}
         isAdded={isAdded}
+        datasetUsers={datasetUsers}
       />
     );
   }
@@ -248,7 +250,15 @@ DatasetList.propTypes = {
   datasetVersions: PropTypes.shape({ activated: PropTypes.object, all: PropTypes.object }),
   languageVarieties: PropTypes.objectOf(PropTypes.any),
   routeProps: PropTypes.objectOf(PropTypes.any),
-  datasetPage: PropTypes.shape({ currentPage: PropTypes.number, hasNext: PropTypes.bool })
+  datasetPage: PropTypes.shape({ currentPage: PropTypes.number, hasNext: PropTypes.bool }),
+  datasetUsers: PropTypes.arrayOf(
+    PropTypes.shape({
+      username: PropTypes.string,
+      can_edit: PropTypes.bool,
+      can_delete: PropTypes.bool,
+      can_edit_permissions: PropTypes.bool
+    })
+  )
 };
 
 DatasetList.defaultProps = {
@@ -264,7 +274,8 @@ DatasetList.defaultProps = {
   datasetVersions: { activated: {}, all: {} },
   languageVarieties: {},
   routeProps: {},
-  datasetPage: { currentPage: 1, hasNext: false }
+  datasetPage: { currentPage: 1, hasNext: false },
+  datasetUsers: []
 };
 
 export default withRouter(DatasetList);
