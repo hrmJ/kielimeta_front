@@ -1,10 +1,11 @@
+import { uid } from 'react-uid';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { uid } from 'react-uid';
 
 import { editDatasetUsers } from '../../../redux/actions/datasets';
 import Add from '../../ui/buttons/add';
 import DatasetUser from './DatasetUser';
+import Save from '../../ui/buttons/save';
 import generalStyles from '../../../general_styles/general_styles.scss';
 import styles from './permissionform.scss';
 
@@ -45,6 +46,11 @@ class permissionForm extends Component {
           <section className={generalStyles.someTopMargin}>
             <Add id={`adduser${id}`} onClick={event => this.addUser(event)} text="Lisää käyttäjä" />
           </section>
+          {theseUsers.length > 0 && (
+            <section className={styles.saveButtonContainer}>
+              <Save text="Tallenna tiedot" />
+            </section>
+          )}
         </form>
       </div>
     );
