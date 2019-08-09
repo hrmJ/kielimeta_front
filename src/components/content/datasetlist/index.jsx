@@ -251,14 +251,14 @@ DatasetList.propTypes = {
   languageVarieties: PropTypes.objectOf(PropTypes.any),
   routeProps: PropTypes.objectOf(PropTypes.any),
   datasetPage: PropTypes.shape({ currentPage: PropTypes.number, hasNext: PropTypes.bool }),
-  datasetUsers: PropTypes.arrayOf(
-    PropTypes.shape({
+  datasetUsers: PropTypes.shape({
+    [PropTypes.number]: PropTypes.arrayOf({
       username: PropTypes.string,
       can_edit: PropTypes.bool,
       can_delete: PropTypes.bool,
       can_edit_permissions: PropTypes.bool
     })
-  )
+  })
 };
 
 DatasetList.defaultProps = {
@@ -275,7 +275,7 @@ DatasetList.defaultProps = {
   languageVarieties: {},
   routeProps: {},
   datasetPage: { currentPage: 1, hasNext: false },
-  datasetUsers: []
+  datasetUsers: {}
 };
 
 export default withRouter(DatasetList);

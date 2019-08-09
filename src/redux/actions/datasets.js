@@ -214,6 +214,10 @@ const fetchSubVersions = (mainId, subversionIds, activeId) => dispatch => {
   );
 };
 
+const editDatasetUsers = (id, users) => {
+  return { type: 'EDIT_DATASET_USERS', id, users };
+};
+
 export {
   fetchDatasetForEdit,
   fetchDatasetFromJson,
@@ -222,5 +226,6 @@ export {
   fetchSubVersions,
   setActiveVersion,
   fetchDataset,
-  setVersions
+  setVersions,
+  editDatasetUsers
 };

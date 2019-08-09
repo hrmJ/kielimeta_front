@@ -14,6 +14,7 @@ import datasetGroupReducer from './datasetGroups';
 import groupNameReducer from './groupNames';
 import datasetVersionReducer from './datasetVersions';
 import datasetPageReducer from './datasetPage';
+import datasetUserReducer from './datasetUser';
 
 const appReducer = combineReducers({
   datasets: datasetReducer,
@@ -30,7 +31,8 @@ const appReducer = combineReducers({
   groupedDatasets: datasetGroupReducer,
   groupNames: groupNameReducer,
   datasetVersions: datasetVersionReducer,
-  datasetPage: datasetPageReducer
+  datasetPage: datasetPageReducer,
+  datasetUsers: datasetUserReducer
 });
 
 export default appReducer;

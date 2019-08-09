@@ -105,14 +105,14 @@ datasetItem.propTypes = {
   history: PropTypes.arrayOf(
     PropTypes.shape({ modification_time: PropTypes.string, id: PropTypes.number })
   ),
-  datasetUsers: PropTypes.arrayOf(
-    PropTypes.shape({
+  datasetUsers: PropTypes.shape({
+    [PropTypes.number]: PropTypes.arrayOf({
       username: PropTypes.string,
       can_edit: PropTypes.bool,
       can_delete: PropTypes.bool,
       can_edit_permissions: PropTypes.bool
     })
-  )
+  })
 };
 
 datasetItem.defaultProps = {
@@ -124,7 +124,7 @@ datasetItem.defaultProps = {
   clusterToolVisible: false,
   isAdded: false,
   history: [],
-  datasetUsers: []
+  datasetUsers: {}
 };
 
 export default datasetItem;

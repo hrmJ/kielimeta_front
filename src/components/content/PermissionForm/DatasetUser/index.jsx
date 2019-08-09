@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import { editDatasetUsers } from '../../../../redux/actions/datasets';
 import CbItem from '../../../ui/checkboxlistitem';
 import ClosableBox from '../../../ui/closablebox';
 import LabelledInput from '../../../ui/labelledinput';
@@ -14,13 +15,24 @@ const availablePermissions = [
   { label: 'oikeus antaa oikeuksia', value: 'can_edit_permissions' }
 ];
 
+const removeThisUser = (users, idx) => {
+  const updated = users;
+  updated.splice(idx, 1);
+  return updated;
+};
+
 const datasetUser = props => {
-  const { dispatch } = props;
+  const { dispatch, idx, users, datasetId } = props;
+
   return (
-    <ClosableBox onClose={() => null} additionalClass={styles.container}>
+    <ClosableBox
+      onClose={() => dispatch(editDatasetUsers(datasetId, removeThisUser(users, idx)))}
+      additionalClass={styles.container}
+    >
       <LabelledInput
         label="Käyttäjätunnus"
         tooltip="Käyttäjän utu-tunnus muodossa [tunnus]@utu.fi"
+        value="testi"
       />
       <div className={styles.rightsContainer}>
         <div className={formStyles.labelDiv}>Oikeudet</div>
@@ -45,7 +57,21 @@ const datasetUser = props => {
 };
 
 datasetUser.propTypes = {
-  dispatch: PropTypes.func.isRequired
+  users: PropTypes.arrayOf(
+    PropTypes.shape({
+      username: PropTypes.string,
+      can_edit: PropTypes.bool,
+      can_delete: PropTypes.bool,
+      can_edit_permissions: PropTypes.bool
+    })
+  ),
+  dispatch: PropTypes.func.isRequired,
+  idx: PropTypes.number.isRequired,
+  datasetId: PropTypes.number.isRequired
+};
+
+datasetUser.defaultProps = {
+  users: []
 };
 
 export default datasetUser;

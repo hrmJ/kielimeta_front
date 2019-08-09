@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
+import { editDatasetUsers } from '../../../redux/actions/datasets';
 import { updateField } from '../../../redux/actions/datasetform';
 import Add from '../../ui/buttons/add';
 import DatasetUser from './DatasetUser';
@@ -14,19 +15,29 @@ class permissionForm extends Component {
   }
 
   addUser(event) {
-    const { dispatch, datasetUsers } = this.props;
+    const { dispatch, datasetUsers, id } = this.props;
+    const theseUsers = datasetUsers[id] || [];
     event.stopPropagation();
-    dispatch(updateField('datasetUsers', [...datasetUsers, {}]));
+    dispatch(editDatasetUsers(id, [...theseUsers, {}]));
   }
 
   render() {
     const { dispatch, datasetUsers, id } = this.props;
+    const theseUsers = datasetUsers[id] || [];
+
     return (
       <div className={styles.container}>
         <form onSubmit={event => this.submit(event)}>
           <section className={generalStyles.someTopMargin}>
-            {datasetUsers.map(user => (
-              <DatasetUser {...user} dispatch={dispatch} />
+            {theseUsers.map((user, idx) => (
+              <DatasetUser
+                key={user.username || `${id}_${idx}`}
+                {...user}
+                dispatch={dispatch}
+                idx={idx}
+                datasetId={id}
+                users={theseUsers}
+              />
             ))}
           </section>
           <section className={generalStyles.someTopMargin}>
@@ -40,19 +51,19 @@ class permissionForm extends Component {
 
 permissionForm.propTypes = {
   id: PropTypes.number.isRequired,
-  datasetUsers: PropTypes.arrayOf(
-    PropTypes.shape({
+  datasetUsers: PropTypes.shape({
+    [PropTypes.number]: PropTypes.arrayOf({
       username: PropTypes.string,
       can_edit: PropTypes.bool,
       can_delete: PropTypes.bool,
       can_edit_permissions: PropTypes.bool
     })
-  ),
+  }),
   dispatch: PropTypes.func.isRequired
 };
 
 permissionForm.defaultProps = {
-  datasetUsers: []
+  datasetUsers: {}
 };
 
 export default permissionForm;

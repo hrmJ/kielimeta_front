@@ -43,7 +43,8 @@ class main extends Component {
       groupedDatasets,
       groupNames,
       datasetVersions,
-      datasetPage
+      datasetPage,
+      datasetUsers
     } = this.props;
     const { clusterToolVisible } = this.state;
     const { datasetList, datasetDetails } = loadStatus;
@@ -71,11 +72,7 @@ class main extends Component {
                   <Route
                     path="/test"
                     render={() => (
-                      <PermissionForm
-                        dispatch={dispatch}
-                        id={1}
-                        datasetUsers={datasetform.datasetUsers}
-                      />
+                      <PermissionForm dispatch={dispatch} id={1} datasetUsers={datasetUsers} />
                     )}
                     exact
                   />
@@ -134,7 +131,7 @@ class main extends Component {
                         datasetVersions={datasetVersions}
                         languageVarieties={languageVarieties}
                         datasetPage={datasetPage}
-                        datasetUsers={datasetform.datasetUsers}
+                        datasetUsers={datasetUsers}
                       />
                     )}
                     exact

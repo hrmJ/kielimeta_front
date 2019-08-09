@@ -217,19 +217,19 @@ EditMenu.propTypes = {
   versionHistory: PropTypes.arrayOf(
     PropTypes.shape({ modification_time: PropTypes.string, id: PropTypes.number })
   ).isRequired,
-  datasetUsers: PropTypes.arrayOf(
-    PropTypes.shape({
+  datasetUsers: PropTypes.shape({
+    [PropTypes.number]: PropTypes.arrayOf({
       username: PropTypes.string,
       can_edit: PropTypes.bool,
       can_delete: PropTypes.bool,
       can_edit_permissions: PropTypes.bool
     })
-  )
+  })
 };
 EditMenu.defaultProps = {
   currentVersionId: null,
   hasSubVersions: false,
-  datasetUsers: []
+  datasetUsers: {}
 };
 
 export default withRouter(EditMenu);
