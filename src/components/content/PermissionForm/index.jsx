@@ -31,7 +31,7 @@ class permissionForm extends Component {
     const theseUsers = datasetUsers[id] || [];
     event.preventDefault();
     dispatch(submitDatasetUsersRaw(id, theseUsers));
-    this.lastSavedUsers = theseUsers;
+    this.lastSavedUsers = [...theseUsers];
   }
 
   addUser(event) {
@@ -73,11 +73,12 @@ class permissionForm extends Component {
             <Add id={`adduser${id}`} onClick={event => this.addUser(event)} text="Lisää käyttäjä" />
           </section>
           {loadingState.SUBMITUSERS === id &&
-            JSON.stringify(this.lastSavedUsers) === JSON.stringify(theseUsers) && (
+            JSON.stringify(this.lastSavedUsers) === JSON.stringify(theseUsers) &&
+            this.lastSavedUsers.length === theseUsers.length && (
               <section className={styles.saveButtonContainer}>
                 <div className={styles.savedIndicator}>
                   <Icon iconName="faCheck" />
-                  <div className={styles.savedIndicatorText}>Käyttäjätiedot tallennettu.</div>
+                  <div className={styles.savedIndicatorText}>Kaikki muutokset tallennettu.</div>
                 </div>
               </section>
             )}
