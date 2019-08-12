@@ -218,7 +218,37 @@ const editDatasetUsers = (id, users) => {
   return { type: 'EDIT_DATASET_USERS', id, users };
 };
 
+const submitDatasetUsersRaw = (id, users) => {
+  const url = `${baseUrl}/datasets/${id}/users`;
+  const csrf = getCookie('csrftoken');
+  return thunkCreator({
+    types: ['SUBMITUSERS_REQUEST', 'SUBMITUSERS_SUCCESS', 'SUBMITUSERS_FAILURE'],
+    promise: fetch(url, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrf
+        // Authorization: 'Bearer ' + jwt.token,
+      },
+      body: JSON.stringify(users)
+    }).then(response => response.json())
+  });
+};
+
+const getDatasetUsers = id => {
+  const url = `${baseUrl}/datasets/${id}/users`;
+  return thunkCreator({
+    types: ['GETUSERS_REQUEST', 'GETUSERS_SUCCESS', 'GETUSERS_FAILURE'],
+    promise: fetch(url, { mode: 'cors' })
+      .then(response => response.json())
+      .then(users => ({ id, users }))
+  });
+};
+
 export {
+  getDatasetUsers,
   fetchDatasetForEdit,
   fetchDatasetFromJson,
   removeDatasetFromStore,
@@ -227,5 +257,6 @@ export {
   setActiveVersion,
   fetchDataset,
   setVersions,
-  editDatasetUsers
+  editDatasetUsers,
+  submitDatasetUsersRaw
 };

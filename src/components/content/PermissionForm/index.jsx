@@ -2,7 +2,11 @@ import { uid } from 'react-uid';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
-import { editDatasetUsers } from '../../../redux/actions/datasets';
+import {
+  editDatasetUsers,
+  getDatasetUsers,
+  submitDatasetUsersRaw
+} from '../../../redux/actions/datasets';
 import Add from '../../ui/buttons/add';
 import DatasetUser from './DatasetUser';
 import Save from '../../ui/buttons/save';
@@ -10,9 +14,19 @@ import generalStyles from '../../../general_styles/general_styles.scss';
 import styles from './permissionform.scss';
 
 class permissionForm extends Component {
+  componentDidMount() {
+    const { dispatch, id, datasetUsers } = this.props;
+    const theseUsers = datasetUsers[id];
+    if (!theseUsers) {
+      dispatch(getDatasetUsers(id));
+    }
+  }
+
   submit(event) {
-    const { dispatch } = this.props;
+    const { dispatch, datasetUsers, id } = this.props;
+    const theseUsers = datasetUsers[id] || [];
     event.preventDefault();
+    dispatch(submitDatasetUsersRaw(id, theseUsers));
   }
 
   addUser(event) {
@@ -20,7 +34,10 @@ class permissionForm extends Component {
     const theseUsers = datasetUsers[id] || [];
     event.stopPropagation();
     dispatch(
-      editDatasetUsers(id, [...theseUsers, { can_edit: false, can_delete: false, username: '' }])
+      editDatasetUsers(id, [
+        ...theseUsers,
+        { can_edit: false, can_delete: false, username: '', can_edit_permissions: false }
+      ])
     );
   }
 
