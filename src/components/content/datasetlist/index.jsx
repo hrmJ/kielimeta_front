@@ -89,6 +89,7 @@ class DatasetList extends Component {
       clusterToolVisible,
       dispatch,
       datasetUsers,
+      loadingState,
       routeProps: {
         match: {
           params: { title: activeTitle }
@@ -132,6 +133,7 @@ class DatasetList extends Component {
         clusterToolVisible={clusterToolVisible}
         isAdded={isAdded}
         datasetUsers={datasetUsers}
+        loadingState={loadingState}
       />
     );
   }

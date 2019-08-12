@@ -18,3 +18,19 @@
   justify-content: flex-end;
 }
 
+.savedIndicator {
+  font-size: 0.7em;
+  color: darkgreen;
+  display: flex;
+}
+
+.savedIndicatorText {
+  margin-left: 1em;
+}
+
+.saveInfo {
+  display: flex;
+  > div:first-child {
+    margin-right: 2em;
+  }
+}

@@ -32,7 +32,8 @@ class datasetItem extends Component {
       clusterToolVisible,
       isAdded,
       history,
-      datasetUsers
+      datasetUsers,
+      loadingState
     } = this.props;
     const { lifted } = this.state;
     const isLifted = lifted === 'up' || (lifted === 'initial' && liftedByDefault);
@@ -72,6 +73,7 @@ class datasetItem extends Component {
                     id={id}
                     dispatch={dispatch}
                     versionHistory={history}
+                    loadingState={loadingState}
                   />
                 )}
               </div>
@@ -101,6 +103,7 @@ datasetItem.propTypes = {
   dispatch: PropTypes.func.isRequired,
   subversion: PropTypes.arrayOf(PropTypes.number),
   clusterToolVisible: PropTypes.bool,
+  loadingState: PropTypes.objectOf(PropTypes.any).isRequired,
   isAdded: PropTypes.bool,
   history: PropTypes.arrayOf(
     PropTypes.shape({ modification_time: PropTypes.string, id: PropTypes.number })

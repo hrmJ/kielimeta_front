@@ -74,7 +74,8 @@ class EditMenu extends Component {
       currentVersionId,
       hasSubVersions,
       versionHistory,
-      datasetUsers
+      datasetUsers,
+      loadingState
     } = this.props;
     const { open, deletePending, historyWindowOpen, userWindowOpen } = this.state;
     return (
@@ -135,6 +136,7 @@ class EditMenu extends Component {
                     datasetUsers={datasetUsers}
                     id={currentVersionId}
                     dispatch={dispatch}
+                    loadingState={loadingState}
                   />
                 )}
               </li>
@@ -214,6 +216,7 @@ EditMenu.propTypes = {
   history: PropTypes.objectOf(PropTypes.any).isRequired,
   currentVersionId: PropTypes.number,
   hasSubVersions: PropTypes.bool,
+  loadingState: PropTypes.objectOf(PropTypes.any).isRequired,
   versionHistory: PropTypes.arrayOf(
     PropTypes.shape({ modification_time: PropTypes.string, id: PropTypes.number })
   ).isRequired,

@@ -33,6 +33,7 @@ const datasetUser = props => {
         <input
           type="text"
           value={username}
+          required
           onChange={ev =>
             dispatch(
               editDatasetUsers(

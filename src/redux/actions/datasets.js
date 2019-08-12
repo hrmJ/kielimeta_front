@@ -243,7 +243,15 @@ const getDatasetUsers = id => {
     types: ['GETUSERS_REQUEST', 'GETUSERS_SUCCESS', 'GETUSERS_FAILURE'],
     promise: fetch(url, { mode: 'cors' })
       .then(response => response.json())
-      .then(users => ({ id, users }))
+      .then(users => ({
+        id,
+        users: users.map(user => ({
+          username: user.username,
+          can_edit: user.can_edit,
+          can_edit_permissions: user.can_edit_permissions,
+          can_delete: user.can_delete
+        }))
+      }))
   });
 };
 

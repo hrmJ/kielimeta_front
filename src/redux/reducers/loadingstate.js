@@ -1,4 +1,8 @@
 export default function loadingStateReducer(state = {}, action) {
+  if (action.type === 'SUBMITUSERS_SUCCESS') {
+    return { ...state, SUBMITUSERS: action.result.id };
+  }
+
   if (action.type.endsWith('_RESET')) {
     const requestName = action.type.replace('_RESET', '');
     return { ...state, [requestName]: 'reset' };
