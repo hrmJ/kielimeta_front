@@ -1,7 +1,9 @@
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import React, { Component, Suspense, lazy } from 'react';
+import React, { Component, lazy, Suspense } from 'react';
 
+import { getCookie } from '../../utils';
+import { getUserDetails } from '../../redux/actions/users';
 import DataProtection from '../content/DataProtection';
 import Footer from '../layout/footer';
 import JsonInput from '../content/jsonInput';
@@ -20,6 +22,16 @@ const DatasetForm = lazy(() =>
 
 class main extends Component {
   state = { clusterToolVisible: false };
+
+  componentDidMount() {
+    const { userDetails, dispatch } = this.props;
+    const user = getCookie('current_user');
+    if (user && typeof user === 'string') {
+      if (!userDetails.username || userDetails.username !== user) {
+        dispatch(getUserDetails(user.replace(/"/g, '')));
+      }
+    }
+  }
 
   toggleClusterTool() {
     const { clusterToolVisible } = this.state;
@@ -44,12 +56,14 @@ class main extends Component {
       groupNames,
       datasetVersions,
       datasetPage,
-      datasetUsers
+      datasetUsers,
+      userDetails
     } = this.props;
     const { clusterToolVisible } = this.state;
     const { datasetList, datasetDetails } = loadStatus;
     let showSplash = false;
 
+    // const userDatasets = getCookie('user_datasets');
     // const token = getCookie('jwt_token_access');
 
     if (datasetList === 'loading' || datasetDetails === 'loading') {
@@ -61,7 +75,12 @@ class main extends Component {
         <Suspense fallback={<div style={{ backround: 'black' }} />}>
           <div>
             <div className={styles.outerContainer}>
-              {!showSplash && <TopBar toggleClusterTool={() => this.toggleClusterTool()} />}
+              {!showSplash && (
+                <TopBar
+                  toggleClusterTool={() => this.toggleClusterTool()}
+                  userDetails={userDetails}
+                />
+              )}
               <main>
                 <Switch>
                   <Route
@@ -132,6 +151,7 @@ class main extends Component {
                         languageVarieties={languageVarieties}
                         datasetPage={datasetPage}
                         datasetUsers={datasetUsers}
+                        userDetails={userDetails}
                       />
                     )}
                     exact
@@ -166,7 +186,13 @@ main.propTypes = {
     ),
     name: PropTypes.string
   }),
-  datasetVersions: PropTypes.shape({ activated: PropTypes.object, all: PropTypes.object })
+  datasetVersions: PropTypes.shape({ activated: PropTypes.object, all: PropTypes.object }),
+  userDetails: PropTypes.shape({
+    username: PropTypes.string,
+    datasets: PropTypes.arrayOf(PropTypes.any),
+    is_staff: PropTypes.bool,
+    groups: PropTypes.arrayOf(PropTypes.string)
+  })
 };
 
 main.defaultProps = {
@@ -180,7 +206,8 @@ main.defaultProps = {
   editedId: null,
   groupedDatasets: {},
   groupNames: [],
-  datasetVersions: { activated: {}, all: {} }
+  datasetVersions: { activated: {}, all: {} },
+  userDetails: {}
 };
 
 export default main;

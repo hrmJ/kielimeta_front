@@ -6,7 +6,10 @@ import styles from './nav_styles.scss';
 import logo from '../../../images/digilang-logo.svg';
 
 const TopBar = props => {
-  const { toggleClusterTool } = props;
+  const {
+    toggleClusterTool,
+    userDetails: { username, groups, is_staff: isStaff }
+  } = props;
 
   return (
     <div className={styles.container}>
@@ -27,28 +30,32 @@ const TopBar = props => {
                     Pääsivu
                   </NavLink>
                 </li>
-                <li>
-                  <a href="javascript:void(0)" type="button" onClick={toggleClusterTool}>
-                    Ryhmittele
-                  </a>
-                </li>
-                <li>
-                  <NavLink
-                    to="/newdataset"
-                    id="newdatasetLink"
-                    activeClassName={styles.activeLink}
-                    exact
-                    replace
-                    isActive={match => {
-                      if (!match) {
-                        return false;
-                      }
-                      return true;
-                    }}
-                  >
-                    Uusi aineisto
-                  </NavLink>
-                </li>
+                {groups && groups.includes('grouper') && (
+                  <li>
+                    <a href="javascript:void(0)" type="button" onClick={toggleClusterTool}>
+                      Ryhmittele
+                    </a>
+                  </li>
+                )}
+                {isStaff && (
+                  <li>
+                    <NavLink
+                      to="/newdataset"
+                      id="newdatasetLink"
+                      activeClassName={styles.activeLink}
+                      exact
+                      replace
+                      isActive={match => {
+                        if (!match) {
+                          return false;
+                        }
+                        return true;
+                      }}
+                    >
+                      Uusi aineisto
+                    </NavLink>
+                  </li>
+                )}
                 <li>
                   <LoginIdicator />
                 </li>
@@ -62,7 +69,13 @@ const TopBar = props => {
 };
 
 TopBar.propTypes = {
-  toggleClusterTool: PropTypes.func
+  toggleClusterTool: PropTypes.func,
+  userDetails: PropTypes.shape({
+    username: PropTypes.string,
+    datasets: PropTypes.arrayOf(PropTypes.any),
+    is_staff: PropTypes.bool,
+    groups: PropTypes.arrayOf(PropTypes.string)
+  }).isRequired
 };
 
 TopBar.defaultProps = { toggleClusterTool: null };

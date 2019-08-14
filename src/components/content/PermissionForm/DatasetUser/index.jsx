@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { editDatasetUsers } from '../../../../redux/actions/datasets';
+import { editDatasetUsers } from '../../../../redux/actions/users';
 import CbItem from '../../../ui/checkboxlistitem';
 import ClosableBox from '../../../ui/closablebox';
 import LabelledInput from '../../../ui/labelledinput';
@@ -26,7 +26,9 @@ const datasetUser = props => {
 
   return (
     <ClosableBox
-      onClose={() => dispatch(editDatasetUsers(datasetId, removeThisUser(users, idx)))}
+      onClose={() =>
+        users.length > 1 && dispatch(editDatasetUsers(datasetId, removeThisUser(users, idx)))
+      }
       additionalClass={styles.container}
     >
       <LabelledInput label="Käyttäjätunnus" tooltip="Käyttäjän utu-tunnus muodossa [tunnus]@utu.fi">

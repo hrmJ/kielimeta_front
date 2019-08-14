@@ -1,4 +1,3 @@
-import { uid } from 'react-uid';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
@@ -6,7 +5,7 @@ import {
   editDatasetUsers,
   getDatasetUsers,
   submitDatasetUsersRaw
-} from '../../../redux/actions/datasets';
+} from '../../../redux/actions/users';
 import Add from '../../ui/buttons/add';
 import DatasetUser from './DatasetUser';
 import Icon from '../../ui/icon';

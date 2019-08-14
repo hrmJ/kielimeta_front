@@ -33,11 +33,12 @@ class datasetItem extends Component {
       isAdded,
       history,
       datasetUsers,
-      loadingState
+      loadingState,
+      userDetails: { username, datasets: userDatasets, is_staff: isStaff }
     } = this.props;
     const { lifted } = this.state;
     const isLifted = lifted === 'up' || (lifted === 'initial' && liftedByDefault);
-
+    const userRights = Array.isArray(userDatasets) && userDatasets.find(ds => ds.dataset === id);
     return (
       <article className={` ${styles.container} ${isLifted && styles.liftedContainer}`}>
         {clusterToolVisible && (
@@ -65,8 +66,10 @@ class datasetItem extends Component {
               </Tooltip>
 
               <div>
-                {isLifted && (
+                {isLifted && userRights && (
                   <EditMenu
+                    userRights={userRights}
+                    isStaff={isStaff}
                     hasSubVersions={subversion.length > 0}
                     currentVersionId={currentVersionId}
                     datasetUsers={datasetUsers}
@@ -115,7 +118,13 @@ datasetItem.propTypes = {
       can_delete: PropTypes.bool,
       can_edit_permissions: PropTypes.bool
     })
-  })
+  }),
+  userDetails: PropTypes.shape({
+    username: PropTypes.string,
+    datasets: PropTypes.arrayOf(PropTypes.any),
+    is_staff: PropTypes.bool,
+    groups: PropTypes.arrayOf(PropTypes.string)
+  }).isRequired
 };
 
 datasetItem.defaultProps = {

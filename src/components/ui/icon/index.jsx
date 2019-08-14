@@ -29,11 +29,13 @@ import {
   faComments,
   faKeyboard,
   faHistory,
-  faChevronCircleDown
+  faChevronCircleDown,
+  faSignInAlt
 } from '@fortawesome/free-solid-svg-icons';
 import utilityStyles from '../../../general_styles/utilities.scss';
 
 const icons = {
+  faSignInAlt,
   faChevronCircleDown,
   faMicrophone,
   faHistory,

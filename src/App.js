@@ -18,7 +18,8 @@ function mapStateToProps(state) {
     groupNames: state.groupNames,
     datasetVersions: state.datasetVersions,
     datasetPage: state.datasetPage,
-    datasetUsers: state.datasetUsers
+    datasetUsers: state.datasetUsers,
+    userDetails: state.userDetails
   };
 }
 

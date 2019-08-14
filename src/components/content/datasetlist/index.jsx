@@ -90,6 +90,7 @@ class DatasetList extends Component {
       dispatch,
       datasetUsers,
       loadingState,
+      userDetails,
       routeProps: {
         match: {
           params: { title: activeTitle }
@@ -134,6 +135,7 @@ class DatasetList extends Component {
         isAdded={isAdded}
         datasetUsers={datasetUsers}
         loadingState={loadingState}
+        userDetails={userDetails}
       />
     );
   }
@@ -260,7 +262,13 @@ DatasetList.propTypes = {
       can_delete: PropTypes.bool,
       can_edit_permissions: PropTypes.bool
     })
-  })
+  }),
+  userDetails: PropTypes.shape({
+    username: PropTypes.string,
+    datasets: PropTypes.arrayOf(PropTypes.any),
+    is_staff: PropTypes.bool,
+    groups: PropTypes.arrayOf(PropTypes.string)
+  }).isRequired
 };
 
 DatasetList.defaultProps = {

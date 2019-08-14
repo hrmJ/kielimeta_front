@@ -75,7 +75,13 @@ class EditMenu extends Component {
       hasSubVersions,
       versionHistory,
       datasetUsers,
-      loadingState
+      loadingState,
+      userRights: {
+        can_edit: canEdit,
+        can_delete: canDelete,
+        can_edit_permissions: canEditPermissions
+      },
+      isStaff
     } = this.props;
     const { open, deletePending, historyWindowOpen, userWindowOpen } = this.state;
     return (
@@ -107,101 +113,115 @@ class EditMenu extends Component {
         {open && !deletePending && (
           <div className={styles.menu}>
             <ul className={styles.menuList}>
-              <li>
-                <Tooltip content="Muokkaa tämän aineiston tietoja" direction="right">
+              {canEdit && (
+                <li>
+                  <Tooltip content="Muokkaa tämän aineiston tietoja" direction="right">
+                    <BasicButton
+                      onClick={() => this.initializeEdit()}
+                      text="Muokkaa tietoja"
+                      noBackground
+                      customClass={styles.buttonClass}
+                      iconName="faPencilAlt"
+                    />
+                  </Tooltip>
+                </li>
+              )}
+              {canEditPermissions && (
+                <li>
+                  <Tooltip
+                    content="Määrittele, kenellä on oikeus muokata tätä aineistoa"
+                    direction="right"
+                  >
+                    <BasicButton
+                      onClick={ev => this.toggleSubWindow(ev, 'userWindowOpen', !userWindowOpen)}
+                      text="Käyttäjät ja oikeudet"
+                      noBackground
+                      customClass={styles.buttonClass}
+                      iconName="faUsers"
+                    />
+                  </Tooltip>
+                  {userWindowOpen && (
+                    <PermissionForm
+                      datasetUsers={datasetUsers}
+                      id={currentVersionId}
+                      dispatch={dispatch}
+                      loadingState={loadingState}
+                    />
+                  )}
+                </li>
+              )}
+              {isStaff && (
+                <li>
+                  <Tooltip
+                    direction="right"
+                    content={`Jos aineisto on esimerkiksi saatavilla
+                    useassa eri internetosoitteessa, voit merkitä nämä kaikki omiksi versioikseen valitsemalla
+                    muokkauslomakkeella, mitkä tiedot versiossa ovat erilaisia. Tätä kautta lisätyt versiot ovat 
+                alisteisia nykyiselle versiolle.`}
+                  >
+                    <BasicButton
+                      onClick={() => this.initializeSubversion()}
+                      text="Kopioi aliversioksi"
+                      noBackground
+                      customClass={styles.buttonClass}
+                      iconName="faCodeBranch"
+                    />
+                  </Tooltip>
+                </li>
+              )}
+              {isStaff && (
+                <li>
+                  <Tooltip
+                    direction="right"
+                    content={`Luo uusi itsenäinen aineisto nykyisen
+                    aineiston tietojen pohjalta. Huomaa, että aineistot voi
+                    myöhemmin ryhmitellä toisiinsa liittyviksi käyttämällä yllä
+                näkyvää ryhmittelytyökalua.`}
+                  >
+                    <BasicButton
+                      text="Kopioi itsenäiseksi versioksi"
+                      noBackground
+                      onClick={ev => this.initializeCopy(ev)}
+                      customClass={styles.buttonClass}
+                      iconName="faCopy"
+                    />
+                  </Tooltip>
+                </li>
+              )}
+              {canDelete && (
+                <li>
+                  <Tooltip content="Poistaa aineiston kokonaan" direction="right">
+                    <BasicButton
+                      onClick={ev => this.toggleDeleteModal(ev, true)}
+                      text="Poista aineisto"
+                      noBackground
+                      customClass={styles.buttonClass}
+                      iconName="faTrash"
+                    />
+                  </Tooltip>
+                </li>
+              )}
+              {canEdit && (
+                <li>
                   <BasicButton
-                    onClick={() => this.initializeEdit()}
-                    text="Muokkaa tietoja"
+                    onClick={ev =>
+                      this.toggleSubWindow(ev, 'historyWindowOpen', !historyWindowOpen)
+                    }
+                    text="Muutoshistoria"
                     noBackground
                     customClass={styles.buttonClass}
-                    iconName="faPencilAlt"
+                    iconName="faHistory"
                   />
-                </Tooltip>
-              </li>
-              <li>
-                <Tooltip
-                  content="Määrittele, kenellä on oikeus muokata tätä aineistoa"
-                  direction="right"
-                >
-                  <BasicButton
-                    onClick={ev => this.toggleSubWindow(ev, 'userWindowOpen', !userWindowOpen)}
-                    text="Käyttäjät ja oikeudet"
-                    noBackground
-                    customClass={styles.buttonClass}
-                    iconName="faUsers"
-                  />
-                </Tooltip>
-                {userWindowOpen && (
-                  <PermissionForm
-                    datasetUsers={datasetUsers}
-                    id={currentVersionId}
-                    dispatch={dispatch}
-                    loadingState={loadingState}
-                  />
-                )}
-              </li>
-              <li>
-                <Tooltip
-                  direction="right"
-                  content={`Jos aineisto on esimerkiksi saatavilla
-                  useassa eri internetosoitteessa, voit merkitä nämä kaikki omiksi versioikseen valitsemalla
-                  muokkauslomakkeella, mitkä tiedot versiossa ovat erilaisia. Tätä kautta lisätyt versiot ovat 
-                  alisteisia nykyiselle versiolle.`}
-                >
-                  <BasicButton
-                    onClick={() => this.initializeSubversion()}
-                    text="Kopioi aliversioksi"
-                    noBackground
-                    customClass={styles.buttonClass}
-                    iconName="faCodeBranch"
-                  />
-                </Tooltip>
-              </li>
-              <li>
-                <Tooltip
-                  direction="right"
-                  content={`Luo uusi itsenäinen aineisto nykyisen
-                  aineiston tietojen pohjalta. Huomaa, että aineistot voi
-                  myöhemmin ryhmitellä toisiinsa liittyviksi käyttämällä yllä
-                  näkyvää ryhmittelytyökalua.`}
-                >
-                  <BasicButton
-                    text="Kopioi itsenäiseksi versioksi"
-                    noBackground
-                    onClick={ev => this.initializeCopy(ev)}
-                    customClass={styles.buttonClass}
-                    iconName="faCopy"
-                  />
-                </Tooltip>
-              </li>
-              <li>
-                <Tooltip content="Poistaa aineiston kokonaan" direction="right">
-                  <BasicButton
-                    onClick={ev => this.toggleDeleteModal(ev, true)}
-                    text="Poista aineisto"
-                    noBackground
-                    customClass={styles.buttonClass}
-                    iconName="faTrash"
-                  />
-                </Tooltip>
-              </li>
-              <li>
-                <BasicButton
-                  onClick={ev => this.toggleSubWindow(ev, 'historyWindowOpen', !historyWindowOpen)}
-                  text="Muutoshistoria"
-                  noBackground
-                  customClass={styles.buttonClass}
-                  iconName="faHistory"
-                />
-                {historyWindowOpen && (
-                  <HistorySubMenu
-                    edits={versionHistory}
-                    id={id}
-                    currentVersionId={currentVersionId}
-                    dispatch={dispatch}
-                  />
-                )}
-              </li>
+                  {historyWindowOpen && (
+                    <HistorySubMenu
+                      edits={versionHistory}
+                      id={id}
+                      currentVersionId={currentVersionId}
+                      dispatch={dispatch}
+                    />
+                  )}
+                </li>
+              )}
             </ul>
           </div>
         )}
@@ -220,6 +240,12 @@ EditMenu.propTypes = {
   versionHistory: PropTypes.arrayOf(
     PropTypes.shape({ modification_time: PropTypes.string, id: PropTypes.number })
   ).isRequired,
+  userRights: PropTypes.shape({
+    username: PropTypes.string,
+    can_edit: PropTypes.bool,
+    can_delete: PropTypes.bool,
+    can_edit_permissions: PropTypes.bool
+  }).isRequired,
   datasetUsers: PropTypes.shape({
     [PropTypes.number]: PropTypes.arrayOf({
       username: PropTypes.string,
@@ -227,12 +253,14 @@ EditMenu.propTypes = {
       can_delete: PropTypes.bool,
       can_edit_permissions: PropTypes.bool
     })
-  })
+  }),
+  isStaff: PropTypes.bool
 };
 EditMenu.defaultProps = {
   currentVersionId: null,
   hasSubVersions: false,
-  datasetUsers: {}
+  datasetUsers: {},
+  isStaff: false
 };
 
 export default withRouter(EditMenu);
