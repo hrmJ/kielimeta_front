@@ -57,7 +57,8 @@ class main extends Component {
       datasetVersions,
       datasetPage,
       datasetUsers,
-      userDetails
+      userDetails,
+      datasetDocuments
     } = this.props;
     const { clusterToolVisible } = this.state;
     const { datasetList, datasetDetails } = loadStatus;
@@ -110,6 +111,7 @@ class main extends Component {
                         preloadedSelects={preloadedSelects}
                         languageNames={languageNames}
                         routeProps={routeProps}
+                        datasetDocuments={datasetDocuments}
                       />
                     )}
                     exact
@@ -128,6 +130,7 @@ class main extends Component {
                         languageNames={languageNames}
                         showSplash={showSplash}
                         datasets={datasets}
+                        datasetDocuments={datasetDocuments}
                       />
                     )}
                     exact
@@ -180,6 +183,7 @@ main.propTypes = {
   languageNames: PropTypes.objectOf(PropTypes.any),
   preloadedSelects: PropTypes.objectOf(PropTypes.any),
   editedId: PropTypes.number,
+  datasetDocuments: PropTypes.arrayOf(PropTypes.any),
   groupedDatasets: PropTypes.shape({
     datasets: PropTypes.arrayOf(
       PropTypes.shape({ id: PropTypes.number, title: PropTypes.string, role: PropTypes.string })
@@ -203,6 +207,7 @@ main.defaultProps = {
   languageNames: {},
   preloadedSelects: {},
   datasets: [],
+  datasetDocuments: [],
   editedId: null,
   groupedDatasets: {},
   groupNames: [],

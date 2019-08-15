@@ -178,7 +178,8 @@ class InsertForm extends Component {
       languageNames,
       languageVarietyTypes,
       preloadedSelects,
-      showSplash
+      showSplash,
+      datasetDocuments
     } = this.props;
     const {
       mediatype,
@@ -226,6 +227,7 @@ class InsertForm extends Component {
             genre={genre}
             keywords={keywords}
             mediaDescription={mediaDescription}
+            datasetDocuments={datasetDocuments}
           />
         ),
         isValid: title !== '' && (resourcetype !== '' && resourcetype !== undefined)
@@ -328,7 +330,8 @@ InsertForm.propTypes = {
   routeProps: PropTypes.objectOf(PropTypes.any),
   showSplash: PropTypes.bool,
   datasets: PropTypes.arrayOf(PropTypes.object),
-  history: PropTypes.objectOf(PropTypes.any)
+  history: PropTypes.objectOf(PropTypes.any),
+  datasetDocuments: PropTypes.arrayOf(PropTypes.any).isRequired
 };
 
 InsertForm.defaultProps = {

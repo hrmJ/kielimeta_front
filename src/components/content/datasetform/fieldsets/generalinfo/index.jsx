@@ -1,16 +1,18 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 
+import AttachmentField from '../../attachmentField';
 import AutoCompleteField from '../../../../ui/autocompletefield';
+import DatasetDocumentsInput from './datasetDocumentsInput';
 import Genre from './genre';
 import LabelledInput from '../../../../ui/labelledinput';
 import MediaTypes from './mediatypes';
 import ResourceType from './resourcetype';
 
 const generalInfo = props => {
-  const { handleChange, title, description, keywords } = props;
+  const { handleChange, title, description, keywords, dispatch, datasetDocuments } = props;
 
   const descriptionTooltip = `Kuvaile aineistoa ja pyri kertomaan myös,
     minkälaisiin tutkimustarkoituksiin aineisto eritisesti soveltuu. Tänne voit
@@ -49,6 +51,7 @@ const generalInfo = props => {
       <ResourceType {...props} />
       <MediaTypes {...props} />
       <Genre {...props} />
+      <DatasetDocumentsInput dispatch={dispatch} datasetDocuments={datasetDocuments} />
     </div>
   );
 };
@@ -56,6 +59,7 @@ const generalInfo = props => {
 generalInfo.propTypes = {
   handleChange: PropTypes.func.isRequired,
   dispatch: PropTypes.func.isRequired,
+  datasetDocuments: PropTypes.arrayOf(PropTypes.any).isRequired,
   mediaTypes: PropTypes.arrayOf(PropTypes.string),
   description: PropTypes.string,
   keywords: PropTypes.arrayOf(PropTypes.string),

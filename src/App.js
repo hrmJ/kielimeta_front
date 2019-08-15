@@ -19,7 +19,8 @@ function mapStateToProps(state) {
     datasetVersions: state.datasetVersions,
     datasetPage: state.datasetPage,
     datasetUsers: state.datasetUsers,
-    userDetails: state.userDetails
+    userDetails: state.userDetails,
+    datasetDocuments: state.datasetDocuments
   };
 }
 

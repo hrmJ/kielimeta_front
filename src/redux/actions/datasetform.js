@@ -115,7 +115,30 @@ const resetFormData = () => {
   return { type: 'RESET_FORM_DATA' };
 };
 
+const editFileQueue = files => {
+  return { type: 'EDIT_FILE_QUEUE', files };
+};
+
+const submitFile = file => {
+  const csrf = getCookie('csrftoken');
+  const url = `${baseUrl}/file_upload`;
+  return thunkCreator({
+    types: ['SUBMITFILE_REQUEST', 'SUBMITFILE_SUCCESS', 'SUBMITFILE_FAILURE'],
+    promise: fetch(url, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        // 'Content-Type': 'file??',
+        'X-CSRFToken': csrf
+      },
+      body: file
+    }).then(response => response)
+  });
+};
+
 export {
+  editFileQueue,
+  submitFile,
   updateField,
   submitDataset,
   fetchLanguages,
