@@ -161,11 +161,11 @@ class InsertForm extends Component {
   }
 
   submit(event) {
-    const { dispatch, fields } = this.props;
+    const { dispatch, fields, datasetDocuments } = this.props;
     const { invalidFields } = this.state;
     event.preventDefault();
     if (invalidFields.length === 0) {
-      dispatch(submitDataset(fields, this.id));
+      dispatch(submitDataset(fields, this.id, datasetDocuments));
     }
   }
 

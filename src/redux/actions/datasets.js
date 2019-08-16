@@ -1,8 +1,8 @@
+import { editFileQueue, updateField } from './datasetform';
 import { filterDatasets } from './filters';
 import { getCookie } from '../../utils';
 import { getVarieties, updateLanguageName } from './languageactions';
 import { thunkCreator, baseUrl } from './utils';
-import { updateField } from './datasetform';
 import licenseOptions from '../../components/content/datasetform/fieldsets/administration/license/licenceOptions';
 
 const removeDatasetFromStore = id => {
@@ -167,6 +167,9 @@ const fetchDatasetForEdit = (
       if (subversionIdForHistory) {
         dispatch(updateField('id', subversionIdForHistory));
       }
+    }
+    if (Array.isArray(datasetRaw.documents)) {
+      dispatch(editFileQueue(datasetRaw.documents.map(doc => ({ ...doc, file: undefined }))));
     }
     return { ...datasetRaw };
   });

@@ -34,6 +34,7 @@ class datasetItem extends Component {
       history,
       datasetUsers,
       loadingState,
+      documents,
       userDetails: { username, datasets: userDatasets, is_staff: isStaff }
     } = this.props;
     const { lifted } = this.state;
@@ -124,7 +125,8 @@ datasetItem.propTypes = {
     datasets: PropTypes.arrayOf(PropTypes.any),
     is_staff: PropTypes.bool,
     groups: PropTypes.arrayOf(PropTypes.string)
-  }).isRequired
+  }).isRequired,
+  documents: PropTypes.arrayOf(PropTypes.object)
 };
 
 datasetItem.defaultProps = {
@@ -136,7 +138,8 @@ datasetItem.defaultProps = {
   clusterToolVisible: false,
   isAdded: false,
   history: [],
-  datasetUsers: {}
+  datasetUsers: {},
+  documents: []
 };
 
 export default datasetItem;

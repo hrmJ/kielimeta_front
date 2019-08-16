@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, HashRouter, Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import React, { Component, lazy, Suspense } from 'react';
 

@@ -63,7 +63,8 @@ class expandedItem extends Component {
       mediatype,
       media_description: mediaDescription,
       connections,
-      related_datasets: relatedDatasets
+      related_datasets: relatedDatasets,
+      documents
     } = this.props;
     const {
       activated: { [id]: activeId },
@@ -112,6 +113,13 @@ class expandedItem extends Component {
             <div className={styles.description}>
               <ReactMarkdown source={description} />
             </div>
+            <ul>
+              {documents.map(doc => (
+                <li key={doc.url}>
+                  <a href={`media/${doc.url}`}>{doc.description || 'Lisätietoja aineistosta'}</a>
+                </li>
+              ))}
+            </ul>
             {/*relatedDatasets.length > 0 && (
               <div className={generalStyles.labelContainerStacked}>
                 <div>Samanlaisia aineistoja</div>
@@ -174,7 +182,8 @@ expandedItem.propTypes = {
   media_description: PropTypes.string,
   connections: PropTypes.arrayOf(
     PropTypes.shape({ sl: PropTypes.number, tl: PropTypes.arrayOf(PropTypes.number) })
-  )
+  ),
+  documents: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
 expandedItem.defaultProps = {

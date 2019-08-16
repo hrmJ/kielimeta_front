@@ -80,10 +80,34 @@ const validateFields = fields => {
   delete validated.isCopy;
   // ... and other view-only stuff
   delete validated.related_datasets;
+  delete validated.documents;
   return validated;
 };
 
-const submitDataset = (fields, id) => {
+const submitDatasetDocuments = (datasetDocuments, id) => {
+  const data = new FormData();
+  datasetDocuments.forEach(doc => {
+    data.append('file', doc.file);
+    data.append('description', doc.description);
+    data.append('id', doc.id || '');
+  });
+  const csrf = getCookie('csrftoken');
+  const url = `${baseUrl}/file_upload/${id}`;
+  return thunkCreator({
+    types: ['SUBMITFILE_REQUEST', 'SUBMITFILE_SUCCESS', 'SUBMITFILE_FAILURE'],
+    promise: fetch(url, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        // 'Content-Type': 'file??',
+        'X-CSRFToken': csrf
+      },
+      body: data
+    }).then(response => response)
+  });
+};
+
+const submitDatasetRaw = (fields, id) => {
   const { main_version_id: mainVersion } = fields;
   let isUpdate = false;
   if ((id && !mainVersion) || (id && mainVersion && id * 1 !== mainVersion * 1)) {
@@ -107,7 +131,18 @@ const submitDataset = (fields, id) => {
         // Authorization: 'Bearer ' + jwt.token,
       },
       body: JSON.stringify(validatedFields)
-    }).then(response => response)
+    }).then(response => (isUpdate ? response : response.json()))
+  });
+};
+
+const submitDataset = (fields, id, datasetDocuments) => dispatch => {
+  dispatch(submitDatasetRaw(fields, id)).then(response => {
+    if (response.pk || id) {
+      if (Array.isArray(datasetDocuments)) {
+        // if information about files not changed, skip this step
+        dispatch(submitDatasetDocuments(datasetDocuments, response.pk || id));
+      }
+    }
   });
 };
 
