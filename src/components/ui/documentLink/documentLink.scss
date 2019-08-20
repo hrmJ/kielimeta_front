@@ -1,0 +1,6 @@
+.container {
+  display: flex;
+  > div:first-child {
+    margin-right: 0.5em;
+  }
+}

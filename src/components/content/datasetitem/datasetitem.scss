@@ -139,3 +139,13 @@ h6 {
 .itemProp {
   margin-top: 1.1em;
 }
+
+.documentList {
+  list-style-type: none;
+  padding-left: 0em;
+  margin-top: 1em;
+  margin-left: 1em;
+  li + li {
+    margin-top: 0.5em;
+  }
+}

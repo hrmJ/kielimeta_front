@@ -46,7 +46,11 @@ class DatasetDocument extends Component {
                 onChange={ev => this.onFileChange(ev.target.files)}
                 className={styles.fileInput}
               />
-              {url ? <a href={`media/${url}`}>{filename}</a> : filename}
+              {url ? (
+                <a href={`media/${url}`}>{filename.replace(/.*\//g, '')}</a>
+              ) : (
+                filename.replace(/.*\//g, '')
+              )}
             </div>
           </LabelledInput>
           <LabelledInput

@@ -1,11 +1,11 @@
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
+
 import { Link } from 'react-router-dom';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { uid } from 'react-uid';
 import PropTypes from 'prop-types';
-import ReactMarkdown from 'react-markdown';
 import React, { Component } from 'react';
-import Loader from '../../ui/loader';
-import 'react-tabs/style/react-tabs.css';
+import ReactMarkdown from 'react-markdown';
 
 import { Select } from '../../ui/localizedSelect';
 import { fetchSubVersions, setActiveVersion } from '../../../redux/actions/datasets';
@@ -13,8 +13,10 @@ import Access from './access';
 import Authors from './authors';
 import Citing from './citing';
 import Content from './content';
-import styles from './datasetitem.scss';
+import DocumentLink from '../../ui/documentLink';
+import Loader from '../../ui/loader';
 import generalStyles from '../../../general_styles/general_styles.scss';
+import styles from './datasetitem.scss';
 
 class expandedItem extends Component {
   componentDidMount() {
@@ -113,10 +115,13 @@ class expandedItem extends Component {
             <div className={styles.description}>
               <ReactMarkdown source={description} />
             </div>
-            <ul>
+            <ul className={styles.documentList}>
               {documents.map(doc => (
                 <li key={doc.url}>
-                  <a href={`media/${doc.url}`}>{doc.description || 'Lisätietoja aineistosta'}</a>
+                  <DocumentLink
+                    url={`media/${doc.url}`}
+                    description={doc.description || 'Lisätietoja aineistosta'}
+                  />
                 </li>
               ))}
             </ul>

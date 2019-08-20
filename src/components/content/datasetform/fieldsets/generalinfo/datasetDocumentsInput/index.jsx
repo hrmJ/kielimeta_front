@@ -5,13 +5,14 @@ import React from 'react';
 import { editFileQueue } from '../../../../../../redux/actions/datasetform';
 import Add from '../../../../../ui/buttons/add';
 import DatasetDocument from './datasetDocument';
+import styles from './datasetDocumentsInput.scss'
 
 const DatasetDocumentsInput = props => {
   const { datasetDocuments, dispatch } = props;
   return (
     <div>
       <p>Aineistoon liittyvät tiedostot</p>
-      <ul>
+      <ul className={styles.documentList}>
         {datasetDocuments.map((doc, idx) => (
           <li key={`doc_${idx}`}>
             <DatasetDocument

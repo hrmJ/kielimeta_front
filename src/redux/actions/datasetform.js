@@ -87,9 +87,8 @@ const validateFields = fields => {
 const submitDatasetDocuments = (datasetDocuments, id) => {
   const data = new FormData();
   datasetDocuments.forEach(doc => {
-    data.append('file', doc.file);
-    data.append('description', doc.description);
-    data.append('id', doc.id || '');
+    data.append(`file${doc.id}`, doc.file || 'UNCHANGED');
+    data.append(`description${doc.id}`, doc.description);
   });
   const csrf = getCookie('csrftoken');
   const url = `${baseUrl}/file_upload/${id}`;

@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from 'react';
 import PropTypes from 'prop-types';
 import {
+  faFileWord,
   faCaretDown,
   faCaretUp,
   faCaretRight,
@@ -30,11 +31,15 @@ import {
   faKeyboard,
   faHistory,
   faChevronCircleDown,
-  faSignInAlt
+  faSignInAlt,
+  faFilePdf,
+  faFileImage
 } from '@fortawesome/free-solid-svg-icons';
 import utilityStyles from '../../../general_styles/utilities.scss';
 
 const icons = {
+  faFileImage,
+  faFileWord,
   faSignInAlt,
   faChevronCircleDown,
   faMicrophone,
@@ -64,7 +69,8 @@ const icons = {
   faCircle,
   faSearch,
   faComments,
-  faKeyboard
+  faKeyboard,
+  faFilePdf
 };
 
 const FontAwesomeIconMod = lazy(() => import(/* webpackChunkName: "font-awesome" */ './faBase'));
