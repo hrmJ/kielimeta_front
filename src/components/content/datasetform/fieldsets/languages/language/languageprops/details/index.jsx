@@ -7,6 +7,7 @@ import LabelledInput from '../../../../../../../ui/labelledinput';
 import Variety from './variety';
 import formstyles from '../../../../../datasetform.scss';
 import Speaker from './speaker';
+import styles from './detailstyles.scss';
 
 const detailsComponent = props => {
   const {
@@ -58,6 +59,11 @@ const detailsComponent = props => {
             handleChange={ev => onChange('new_language_code', ev.target.value)}
             value={code}
           />
+          <div className={styles.codeTooltip}>
+            Huom: etsi ensisijaisesti WALSin hausta (
+            <a href="https://wals.info/languoid">wals.info/languoid</a>) ja käytä sieltä saatavaa
+            ISO-6393-koodia, jos sellainen on annettu.
+          </div>
         </AdditionalField>
       </div>
       <Variety
