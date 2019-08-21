@@ -179,7 +179,8 @@ class InsertForm extends Component {
       languageVarietyTypes,
       preloadedSelects,
       showSplash,
-      datasetDocuments
+      datasetDocuments,
+      loadingState
     } = this.props;
     const {
       mediatype,
@@ -206,6 +207,10 @@ class InsertForm extends Component {
       isCopy
     } = fields;
     const { annotationLevels, resourceTypes, textGenres } = preloadedSelects;
+
+    if (loadingState.SUBMITDATASET === 'requested') {
+      return <Loader />;
+    }
 
     if (showSplash) {
       return <Splash />;
