@@ -52,4 +52,23 @@ const getUserDetails = username => {
   });
 };
 
-export { getDatasetUsers, editDatasetUsers, submitDatasetUsersRaw, getUserDetails };
+const filterUserNames = query => {
+  const url = `${baseUrl}/ldap_search/${query}`;
+  return thunkCreator({
+    types: ['FILTER_USERNAMES_REQUEST', 'FILTER_USERNAMES_SUCCESS', 'FILTER_USERNAMES_FAILURE'],
+    promise: fetch(url, { mode: 'cors' }).then(response => response.json())
+  });
+};
+
+const pickUser = (id, details) => {
+  return { type: 'PICK_USER', id, details };
+};
+
+export {
+  getDatasetUsers,
+  editDatasetUsers,
+  submitDatasetUsersRaw,
+  getUserDetails,
+  filterUserNames,
+  pickUser
+};

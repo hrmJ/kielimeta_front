@@ -8,8 +8,8 @@ import DataProtection from '../content/DataProtection';
 import Footer from '../layout/footer';
 import JsonInput from '../content/jsonInput';
 import Login from '../auth/login';
-import PermissionForm from '../content/PermissionForm';
 import TopBar from '../layout/navigation/topbar';
+import UserPicker from '../content/userPicker';
 import styles from '../../general_styles/general_styles.scss';
 
 const DatasetList = lazy(() =>
@@ -58,7 +58,9 @@ class main extends Component {
       datasetPage,
       datasetUsers,
       userDetails,
-      datasetDocuments
+      datasetDocuments,
+      userNames,
+      userPicker
     } = this.props;
     const { clusterToolVisible } = this.state;
     const { datasetList, datasetDetails } = loadStatus;
@@ -91,9 +93,7 @@ class main extends Component {
                   />
                   <Route
                     path="/test"
-                    render={() => (
-                      <PermissionForm dispatch={dispatch} id={1} datasetUsers={datasetUsers} />
-                    )}
+                    render={() => <UserPicker dispatch={dispatch} userNames={userNames} />}
                     exact
                   />
                   <Route path="/login" render={() => <Login />} exact />
@@ -196,7 +196,10 @@ main.propTypes = {
     datasets: PropTypes.arrayOf(PropTypes.any),
     is_staff: PropTypes.bool,
     groups: PropTypes.arrayOf(PropTypes.string)
-  })
+  }),
+  userNames: PropTypes.arrayOf(
+    PropTypes.shape({ cn: PropTypes.string, mail: PropTypes.string, uid: PropTypes.string })
+  )
 };
 
 main.defaultProps = {
@@ -212,7 +215,8 @@ main.defaultProps = {
   groupedDatasets: {},
   groupNames: [],
   datasetVersions: { activated: {}, all: {} },
-  userDetails: {}
+  userDetails: {},
+  userNames: []
 };
 
 export default main;
