@@ -35,6 +35,7 @@ class datasetItem extends Component {
       datasetUsers,
       loadingState,
       documents,
+      userNames,
       userDetails: { username, datasets: userDatasets, is_staff: isStaff }
     } = this.props;
     const { lifted } = this.state;
@@ -67,8 +68,9 @@ class datasetItem extends Component {
               </Tooltip>
 
               <div>
-                {isLifted && userRights && (
+                {isLifted && 1 < 2 && (
                   <EditMenu
+                    userNames={userNames}
                     userRights={userRights}
                     isStaff={isStaff}
                     hasSubVersions={subversion.length > 0}
@@ -126,7 +128,10 @@ datasetItem.propTypes = {
     is_staff: PropTypes.bool,
     groups: PropTypes.arrayOf(PropTypes.string)
   }).isRequired,
-  documents: PropTypes.arrayOf(PropTypes.object)
+  documents: PropTypes.arrayOf(PropTypes.object),
+  userNames: PropTypes.arrayOf(
+    PropTypes.shape({ cn: PropTypes.string, mail: PropTypes.string, uid: PropTypes.string })
+  ).isRequired
 };
 
 datasetItem.defaultProps = {

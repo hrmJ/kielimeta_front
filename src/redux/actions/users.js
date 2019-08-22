@@ -64,11 +64,16 @@ const pickUser = (id, details) => {
   return { type: 'PICK_USER', id, details };
 };
 
+const resetUserNames = () => {
+  return { type: 'RESET_USERNAMES', test: null };
+};
+
 export {
   getDatasetUsers,
   editDatasetUsers,
   submitDatasetUsersRaw,
   getUserDetails,
   filterUserNames,
-  pickUser
+  pickUser,
+  resetUserNames
 };

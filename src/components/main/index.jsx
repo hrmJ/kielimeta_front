@@ -139,6 +139,7 @@ class main extends Component {
                     path="/:title?"
                     render={routeProps => (
                       <DatasetList
+                        userNames={userNames}
                         groupNames={groupNames}
                         groupedDatasets={groupedDatasets}
                         clusterToolVisible={clusterToolVisible}

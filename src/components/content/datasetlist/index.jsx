@@ -91,6 +91,7 @@ class DatasetList extends Component {
       datasetUsers,
       loadingState,
       userDetails,
+      userNames,
       routeProps: {
         match: {
           params: { title: activeTitle }
@@ -122,6 +123,7 @@ class DatasetList extends Component {
     return (
       <DatasetItem
         {...activeDetails}
+        userNames={userNames}
         title={title}
         key={id}
         id={id}
@@ -268,7 +270,10 @@ DatasetList.propTypes = {
     datasets: PropTypes.arrayOf(PropTypes.any),
     is_staff: PropTypes.bool,
     groups: PropTypes.arrayOf(PropTypes.string)
-  }).isRequired
+  }).isRequired,
+  userNames: PropTypes.arrayOf(
+    PropTypes.shape({ cn: PropTypes.string, mail: PropTypes.string, uid: PropTypes.string })
+  ).isRequired
 };
 
 DatasetList.defaultProps = {
