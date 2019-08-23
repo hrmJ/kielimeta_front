@@ -112,6 +112,7 @@ class main extends Component {
                         languageNames={languageNames}
                         routeProps={routeProps}
                         datasetDocuments={datasetDocuments}
+                        userNames={userNames}
                       />
                     )}
                     exact
@@ -131,6 +132,7 @@ class main extends Component {
                         showSplash={showSplash}
                         datasets={datasets}
                         datasetDocuments={datasetDocuments}
+                        userNames={userNames}
                       />
                     )}
                     exact

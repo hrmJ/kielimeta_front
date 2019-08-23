@@ -180,7 +180,8 @@ class InsertForm extends Component {
       preloadedSelects,
       showSplash,
       datasetDocuments,
-      loadingState
+      loadingState,
+      userNames
     } = this.props;
     const {
       mediatype,
@@ -258,7 +259,14 @@ class InsertForm extends Component {
       },
       {
         legend: 'Tekijät',
-        component: <Authors dispatch={dispatch} authors={authors} />,
+        component: (
+          <Authors
+            dispatch={dispatch}
+            authors={authors}
+            userNames={userNames}
+            loadingState={loadingState}
+          />
+        ),
         isValid: authors.length > 0 && authors[0].id !== '',
         doesNotPreventSave: true
       },
@@ -336,7 +344,10 @@ InsertForm.propTypes = {
   showSplash: PropTypes.bool,
   datasets: PropTypes.arrayOf(PropTypes.object),
   history: PropTypes.objectOf(PropTypes.any),
-  datasetDocuments: PropTypes.arrayOf(PropTypes.any).isRequired
+  datasetDocuments: PropTypes.arrayOf(PropTypes.any).isRequired,
+  userNames: PropTypes.arrayOf(
+    PropTypes.shape({ cn: PropTypes.string, mail: PropTypes.string, uid: PropTypes.string })
+  ).isRequired
 };
 
 InsertForm.defaultProps = {

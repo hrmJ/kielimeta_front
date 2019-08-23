@@ -41,6 +41,7 @@ const detailsComponent = props => {
         <AutoCompleteField
           onChange={selectedoption => onChange('language_code', selectedoption)}
           categoryName="code"
+          maxEntries={700}
           labelName="name"
           path="languages"
           id={`lang_${idx}_langselect`}

@@ -29,13 +29,13 @@ class UserPicker extends Component {
   }
 
   render() {
-    const { userNames, dispatch, cancel, loadingState } = this.props;
+    const { userNames, dispatch, cancel, loadingState, customCancelText } = this.props;
     const { query } = this.state;
 
     return (
       <div className={styles.outerContainer}>
         <section className={generalStyles.labelContainerStacked}>
-          <div>Etsi käyttäjän nimellä</div>
+          <div>Käyttäjätietojen haku nimen perusteella</div>
           <div className={styles.container}>
             <div>
               <input type="text" onChange={ev => this.setState({ query: ev.target.value })} />
@@ -70,7 +70,11 @@ class UserPicker extends Component {
           {Array.isArray(userNames) && userNames.length > 0 && (
             <BasicButton text="Vahvista valinta" onClick={() => this.submit()} iconName="faCheck" />
           )}
-          <BasicButton text="Peruuta" iconName="faWindowClose" onClick={cancel} />
+          <BasicButton
+            text={customCancelText || 'Peruuta'}
+            iconName="faWindowClose"
+            onClick={cancel}
+          />
         </section>
       </div>
     );
@@ -84,7 +88,12 @@ UserPicker.propTypes = {
   userNames: PropTypes.arrayOf(
     PropTypes.shape({ cn: PropTypes.string, mail: PropTypes.string, uid: PropTypes.string })
   ).isRequired,
-  loadingState: PropTypes.objectOf(PropTypes.any).isRequired
+  loadingState: PropTypes.objectOf(PropTypes.any).isRequired,
+  customCancelText: PropTypes.string
+};
+
+UserPicker.defaultProps = {
+  customCancelText: ''
 };
 
 export default UserPicker;

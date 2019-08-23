@@ -9,7 +9,7 @@ import generalStyles from '../../../../../general_styles/general_styles.scss';
 import styles from '../../datasetform.scss';
 
 const authorsComponent = props => {
-  const { dispatch, authors } = props;
+  const { dispatch, authors, userNames, loadingState } = props;
 
   return (
     <div>
@@ -20,7 +20,15 @@ const authorsComponent = props => {
         yliopistosta.
       </p>
       {authors.map((author, idx) => (
-        <Author key={uid(author)} dispatch={dispatch} authors={authors} idx={idx} author={author} />
+        <Author
+          key={uid(author)}
+          dispatch={dispatch}
+          authors={authors}
+          idx={idx}
+          author={author}
+          userNames={userNames}
+          loadingState={loadingState}
+        />
       ))}
       <section className={generalStyles.someTopMargin}>
         <Add id="addauthor" onClick={() => dispatch(updateField('authors', [...authors, {}]))} />
@@ -31,7 +39,11 @@ const authorsComponent = props => {
 
 authorsComponent.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  authors: PropTypes.arrayOf(PropTypes.object)
+  authors: PropTypes.arrayOf(PropTypes.object),
+  userNames: PropTypes.arrayOf(
+    PropTypes.shape({ cn: PropTypes.string, mail: PropTypes.string, uid: PropTypes.string })
+  ).isRequired,
+  loadingState: PropTypes.objectOf(PropTypes.any).isRequired
 };
 
 authorsComponent.defaultProps = {
