@@ -274,6 +274,8 @@ class InsertForm extends Component {
         legend: 'Saatavuus',
         component: (
           <Access
+            userNames={userNames}
+            loadingState={loadingState}
             dispatch={dispatch}
             authors={authors}
             contactPersons={contactPerson}

@@ -45,7 +45,11 @@ class UserPicker extends Component {
             </div>
           </div>
         </section>
-        {loadingState.FILTER_USERNAMES === 'requested' && <Loader />}
+        {loadingState.FILTER_USERNAMES === 'requested' && (
+          <div className={styles.loaderContainer}>
+            <Loader />
+          </div>
+        )}
         {loadingState.FILTER_USERNAMES === 'success' && userNames.length === 0 && (
           <p>Käyttäjiä ei löytynyt.</p>
         )}
