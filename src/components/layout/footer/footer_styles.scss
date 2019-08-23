@@ -16,6 +16,12 @@
   }
 }
 
+.logoContainer{
+  img{
+    width: 30vw;
+  }
+}
+
 .outerContainer {
   @include center_contained();
   max-width: 1200px;

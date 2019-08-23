@@ -3,11 +3,15 @@ import React from 'react';
 
 import Icon from '../../ui/icon';
 import styles from './footer_styles.scss';
+import utulogo from '../../../images/UTU_log-FI-RGB.svg';
 
 export default () => (
   <footer className={styles.sitefooter}>
     <div className={styles.outerContainer}>
       <div className={styles.innerContainer}>
+        <div className={styles.logoContainer}>
+          <img src={utulogo} alt="Turun yliopisto" />
+        </div>
         <div className={styles.footerContent}>
           <h1>
             <Icon iconName="faInfoCircle" /> Kieliaineistoportaali
