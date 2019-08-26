@@ -8,6 +8,16 @@ import TooltippedSelect from '../../ui/tooltippedSelect';
 import generalStyles from '../../../general_styles/general_styles.scss';
 import styles from './userpicker.scss';
 
+const ENTER_KEY = 13;
+
+const handleKeyDown = e => {
+  // Preventing a form submission by enter
+  if (e.keyCode === ENTER_KEY) {
+    e.stopPropagation();
+    e.preventDefault();
+  }
+};
+
 class UserPicker extends Component {
   state = { query: '', ou: '', uid: '', mail: '', cn: '' };
 
@@ -38,7 +48,11 @@ class UserPicker extends Component {
           <div>Käyttäjätietojen haku nimen perusteella</div>
           <div className={styles.container}>
             <div>
-              <input type="text" onChange={ev => this.setState({ query: ev.target.value })} />
+              <input
+                type="text"
+                onChange={ev => this.setState({ query: ev.target.value })}
+                onKeyDown={ev => handleKeyDown(ev)}
+              />
             </div>
             <div className={styles.buttonContainer}>
               <BasicButton text="Hae" onClick={() => dispatch(filterUserNames(query))} />
