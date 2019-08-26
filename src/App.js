@@ -22,7 +22,9 @@ function mapStateToProps(state) {
     userDetails: state.userDetails,
     datasetDocuments: state.datasetDocuments,
     userNames: state.userNames,
-    userPicker: state.userPicker
+    userPicker: state.userPicker,
+    datasetTitles: state.datasetTitles,
+    activeTitle: state.activeTitle
   };
 }
 

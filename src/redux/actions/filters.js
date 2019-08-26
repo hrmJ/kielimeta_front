@@ -1,4 +1,5 @@
 import { thunkCreator, getOriginalValuesForFilters } from './utils';
+import { unSetActiveTitle } from './utils';
 import filterReducer from '../reducers/datasetfilter';
 
 let baseUrl = '%%API_SERVER_PROTOCOL%%://%%API_SERVER_HOST%%';
@@ -86,7 +87,7 @@ const updateFilter = (key, val, checked) => {
 
 const updateAndFilter = (keyName, value, checked, filters, replacedVal) => dispatch => {
   let updatedFilters;
-
+  dispatch(unSetActiveTitle());
   if (!replacedVal) {
     const actualValue =
       filters[keyName] && Array.isArray(filters[keyName])

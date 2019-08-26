@@ -4,7 +4,7 @@ import styles from './basicbutton.scss';
 import Icon from '../../icon';
 
 const BasicButton = props => {
-  const { onClick, id, text, iconName, noBackground, customClass } = props;
+  const { onClick, id, text, iconName, noBackground, customClass, iconFirst } = props;
   return (
     <div
       id={id}
@@ -12,11 +12,12 @@ const BasicButton = props => {
       tabIndex={0}
       onClick={onClick}
       onKeyDown={onClick}
-      className={`${styles.container} ${noBackground && styles.noBackground} ${customClass}`}
+      className={`${styles.container} ${noBackground &&
+        styles.noBackground} ${customClass} ${iconFirst && styles.reversed}`}
     >
       <div>{text}</div>
       {iconName && (
-        <div>
+        <div className={styles.iconContainer}>
           <Icon iconName={iconName} />
         </div>
       )}
@@ -30,7 +31,8 @@ BasicButton.propTypes = {
   text: PropTypes.string,
   noBackground: PropTypes.bool,
   customClass: PropTypes.string,
-  iconName: PropTypes.string
+  iconName: PropTypes.string,
+  iconFirst: PropTypes.bool
 };
 BasicButton.defaultProps = {
   onClick: () => null,
@@ -38,7 +40,8 @@ BasicButton.defaultProps = {
   text: 'Muokkaa',
   noBackground: false,
   customClass: '',
-  iconName: ''
+  iconName: '',
+  iconFirst: false
 };
 
 export default BasicButton;

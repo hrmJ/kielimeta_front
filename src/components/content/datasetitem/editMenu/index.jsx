@@ -114,7 +114,7 @@ class EditMenu extends Component {
         {open && !deletePending && (
           <div className={styles.menu}>
             <ul className={styles.menuList}>
-              {1 < 3 && (
+              {canEdit && (
                 <li>
                   <Tooltip content="Muokkaa tämän aineiston tietoja" direction="right">
                     <BasicButton
@@ -127,7 +127,7 @@ class EditMenu extends Component {
                   </Tooltip>
                 </li>
               )}
-              {1 < 2 && (
+              {canEditPermissions && (
                 <li>
                   <Tooltip
                     content="Määrittele, kenellä on oikeus muokata tätä aineistoa"

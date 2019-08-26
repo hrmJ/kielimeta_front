@@ -31,3 +31,10 @@
     text-decoration: none;
   }
 }
+
+.reversed {
+  flex-direction: row-reverse;
+  .iconContainer {
+    margin-right: 0.3em;
+  }
+}

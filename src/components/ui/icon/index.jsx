@@ -33,11 +33,13 @@ import {
   faChevronCircleDown,
   faSignInAlt,
   faFilePdf,
-  faFileImage
+  faFileImage,
+  faUser
 } from '@fortawesome/free-solid-svg-icons';
 import utilityStyles from '../../../general_styles/utilities.scss';
 
 const icons = {
+  faUser,
   faFileImage,
   faFileWord,
   faSignInAlt,

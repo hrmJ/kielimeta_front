@@ -1,5 +1,8 @@
 export default (state = { query: '' }, action) => {
   const { type, checked, key, val } = action;
+  if (type === 'SET_ACTIVE_TITLE') {
+    return { query: action.title };
+  }
   if (type === 'RESET_FILTER') {
     const { [key]: unused, ...rest } = state;
     return rest;

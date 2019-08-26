@@ -81,4 +81,8 @@ const getOriginalValuesForFiltersClientSide = datasets =>
     { lang: [], resourcetype: [], annotations: [], modality: [], speakerStatus: [] }
   );
 
-export { thunkCreator, getOriginalValuesForFilters, baseUrl, setBaseUrl };
+const unSetActiveTitle = () => ({
+  type: 'UNSET_ACTIVE_TITLE'
+});
+
+export { thunkCreator, getOriginalValuesForFilters, baseUrl, setBaseUrl, unSetActiveTitle };

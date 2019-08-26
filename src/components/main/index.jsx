@@ -8,6 +8,7 @@ import DataProtection from '../content/DataProtection';
 import Footer from '../layout/footer';
 import JsonInput from '../content/jsonInput';
 import Login from '../auth/login';
+import Logout from '../auth/logout';
 import TopBar from '../layout/navigation/topbar';
 import UserPicker from '../content/userPicker';
 import styles from '../../general_styles/general_styles.scss';
@@ -60,7 +61,9 @@ class main extends Component {
       userDetails,
       datasetDocuments,
       userNames,
-      userPicker
+      userPicker,
+      datasetTitles,
+      activeTitle
     } = this.props;
     const { clusterToolVisible } = this.state;
     const { datasetList, datasetDetails } = loadStatus;
@@ -82,6 +85,8 @@ class main extends Component {
                 <TopBar
                   toggleClusterTool={() => this.toggleClusterTool()}
                   userDetails={userDetails}
+                  dispatch={dispatch}
+                  datasetTitles={datasetTitles}
                 />
               )}
               <main>
@@ -97,6 +102,7 @@ class main extends Component {
                     exact
                   />
                   <Route path="/login" render={() => <Login />} exact />
+                  <Route path="/logout" render={() => <Logout />} exact />
                   <Route path="/tietosuojaseloste" render={() => <DataProtection />} exact />
                   <Route path="/dataprotection" render={() => <DataProtection />} exact />
                   <Route
@@ -158,6 +164,7 @@ class main extends Component {
                         datasetPage={datasetPage}
                         datasetUsers={datasetUsers}
                         userDetails={userDetails}
+                        activeTitle={activeTitle}
                       />
                     )}
                     exact
@@ -202,7 +209,9 @@ main.propTypes = {
   }),
   userNames: PropTypes.arrayOf(
     PropTypes.shape({ cn: PropTypes.string, mail: PropTypes.string, uid: PropTypes.string })
-  )
+  ),
+  datasetTitles: PropTypes.objectOf(PropTypes.any),
+  activeTitle: PropTypes.string
 };
 
 main.defaultProps = {
@@ -219,7 +228,9 @@ main.defaultProps = {
   groupNames: [],
   datasetVersions: { activated: {}, all: {} },
   userDetails: {},
-  userNames: []
+  userNames: [],
+  datasetTitles: {},
+  activeTitle: ''
 };
 
 export default main;

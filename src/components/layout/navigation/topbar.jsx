@@ -6,11 +6,9 @@ import styles from './nav_styles.scss';
 import logo from '../../../images/digilang-logo.svg';
 
 const TopBar = props => {
-  const {
-    toggleClusterTool,
-    userDetails: { username, groups, is_staff: isStaff }
-  } = props;
+  const { toggleClusterTool, userDetails, dispatch, datasetTitles } = props;
 
+  const { groups, is_staff: isStaff } = userDetails;
   return (
     <div className={styles.container}>
       <div className={styles.topbar}>
@@ -57,7 +55,11 @@ const TopBar = props => {
                   </li>
                 )}
                 <li>
-                  <LoginIdicator />
+                  <LoginIdicator
+                    userDetails={userDetails}
+                    dispatch={dispatch}
+                    datasetTitles={datasetTitles}
+                  />
                 </li>
               </ul>
             </div>
@@ -70,12 +72,14 @@ const TopBar = props => {
 
 TopBar.propTypes = {
   toggleClusterTool: PropTypes.func,
+  dispatch: PropTypes.func.isRequired,
   userDetails: PropTypes.shape({
     username: PropTypes.string,
     datasets: PropTypes.arrayOf(PropTypes.any),
     is_staff: PropTypes.bool,
     groups: PropTypes.arrayOf(PropTypes.string)
-  }).isRequired
+  }).isRequired,
+  datasetTitles: PropTypes.objectOf(PropTypes.any).isRequired
 };
 
 TopBar.defaultProps = { toggleClusterTool: null };

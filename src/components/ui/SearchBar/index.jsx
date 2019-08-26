@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
 import { startFilter, updateAndFilter } from '../../../redux/actions/filters';
+import { unSetActiveTitle } from '../../../redux/actions/utils';
 import BasicButton from '../buttons/BasicButton';
 import styles from './searchbar.scss';
 
@@ -48,7 +49,7 @@ class SearchBar extends Component {
   }
 
   render() {
-    const { id, placeholder, dispatch, filters, initialValue } = this.props;
+    const { id, placeholder, dispatch, filters, initialValue, linkedValue } = this.props;
     const { value } = this.state;
 
     return (
@@ -60,9 +61,10 @@ class SearchBar extends Component {
           onChange={e => this.handleChange(e.target.value)}
           onKeyDown={this.handleKeyDown.bind(this)}
           value={
-            this.valueHistory.filter(val => val).length === 0 && !value && initialValue
+            linkedValue ||
+            (this.valueHistory.filter(val => val).length === 0 && !value && initialValue
               ? initialValue
-              : value
+              : value)
           }
         />
         {'query' in filters && filters.query && (
@@ -74,6 +76,7 @@ class SearchBar extends Component {
                 this.valueHistory.push(initialValue);
               }
               dispatch(updateAndFilter('query', '', false, filters));
+              dispatch(unSetActiveTitle());
               this.setState({ value: '' });
             }}
           />
@@ -92,7 +95,8 @@ SearchBar.propTypes = {
   ),
   value: PropTypes.string,
   onChange: PropTypes.func.isRequired,
-  initialValue: PropTypes.string
+  initialValue: PropTypes.string,
+  linkedValue: PropTypes.string
 };
 
 SearchBar.defaultProps = {
@@ -100,7 +104,8 @@ SearchBar.defaultProps = {
   id: '',
   filters: {},
   value: '',
-  initialValue: ''
+  initialValue: '',
+  linkedValue: ''
 };
 
 export default SearchBar;

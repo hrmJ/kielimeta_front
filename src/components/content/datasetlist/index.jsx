@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { getOriginalValuesForFilters } from '../../../redux/actions/utils';
 import { listGroups } from '../../../redux/actions/groups';
 import { resetFormData } from '../../../redux/actions/datasetform';
+import { unSetActiveTitle } from '../../../redux/actions/datasets';
 import { updateAndFilter, filterDatasets } from '../../../redux/actions/filters';
 import BasicButton from '../../ui/buttons/BasicButton';
 import ClusterTool from '../ClusterTool';
@@ -23,7 +24,7 @@ class DatasetList extends Component {
 
   componentDidMount() {
     const { dispatch, isTest, routeProps, groupNames, filters } = this.props;
-    let activeTitle;
+    let activeTitle = '';
     if (routeProps.match) {
       const {
         match: {
@@ -156,12 +157,15 @@ class DatasetList extends Component {
       loadingState,
       groupNames,
       languageVarieties,
+      activeTitle,
       datasetPage: { currentPage, hasNext }
     } = this.props;
 
     const { FILTER_DATASETS: filterState } = loadingState;
 
     const { useGrid, useGroups } = this.state;
+    console.log(activeTitle);
+    console.log(this.activeTitle);
 
     if (showSplash) {
       return <Splash />;
@@ -183,6 +187,7 @@ class DatasetList extends Component {
           placeholder="Hae nimellä tai avainsanalla"
           value={filters.query}
           initialValue={this.activeTitle}
+          linkedValue={activeTitle !== 'ACTIVE_TITLE_RESET' ? activeTitle : ''}
           filters={filters}
           dispatch={dispatch}
         />
@@ -275,7 +280,8 @@ DatasetList.propTypes = {
   }).isRequired,
   userNames: PropTypes.arrayOf(
     PropTypes.shape({ cn: PropTypes.string, mail: PropTypes.string, uid: PropTypes.string })
-  ).isRequired
+  ).isRequired,
+  activeTitle: PropTypes.string.isRequired
 };
 
 DatasetList.defaultProps = {

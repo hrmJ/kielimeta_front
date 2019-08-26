@@ -1,5 +1,5 @@
 import { editFileQueue, updateField } from './datasetform';
-import { filterDatasets } from './filters';
+import { filterDatasets, formQueryFromFilters } from './filters';
 import { getCookie } from '../../utils';
 import { getVarieties, updateLanguageName } from './languageactions';
 import { thunkCreator, baseUrl } from './utils';
@@ -131,6 +131,20 @@ const fetchDataset = id => {
     .then(parseDataset);
 };
 
+const fetchDatasetTitlesRaw = datasets => {
+  return {
+    type: 'FETCH_DATASET_TITLES',
+    results: datasets.reduce((prev, cur) => ({ ...prev, [cur.id]: cur.title }), {})
+  };
+};
+
+const fetchDatasetTitles = ids => dispatch => {
+  const url = `${baseUrl}/datasets?${formQueryFromFilters({ id: ids })}`;
+  fetch(url, { mode: 'cors' })
+    .then(response => response.json())
+    .then(datasets => dispatch(fetchDatasetTitlesRaw(datasets)));
+};
+
 const fetchDatasetForEditRaw = (id, asHistory) => {
   return thunkCreator({
     types: [
@@ -217,7 +231,13 @@ const fetchSubVersions = (mainId, subversionIds, activeId) => dispatch => {
   );
 };
 
+const setActiveTitle = title => ({
+  type: 'SET_ACTIVE_TITLE',
+  title
+});
+
 export {
+  setActiveTitle,
   fetchDatasetForEdit,
   fetchDatasetFromJson,
   removeDatasetFromStore,
@@ -225,5 +245,6 @@ export {
   fetchSubVersions,
   setActiveVersion,
   fetchDataset,
-  setVersions
+  setVersions,
+  fetchDatasetTitles
 };
