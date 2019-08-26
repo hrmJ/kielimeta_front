@@ -2,9 +2,10 @@ import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
-import { updateAndFilter, filterDatasets } from '../../../redux/actions/filters';
 import { getOriginalValuesForFilters } from '../../../redux/actions/utils';
 import { listGroups } from '../../../redux/actions/groups';
+import { resetFormData } from '../../../redux/actions/datasetform';
+import { updateAndFilter, filterDatasets } from '../../../redux/actions/filters';
 import BasicButton from '../../ui/buttons/BasicButton';
 import ClusterTool from '../ClusterTool';
 import DatasetItem from '../datasetitem';
@@ -44,6 +45,7 @@ class DatasetList extends Component {
     if (groupNames.length === 0) {
       dispatch(listGroups());
     }
+    dispatch(resetFormData());
   }
 
   renderList() {
@@ -91,6 +93,7 @@ class DatasetList extends Component {
       datasetUsers,
       loadingState,
       userDetails,
+      userNames,
       routeProps: {
         match: {
           params: { title: activeTitle }
@@ -122,6 +125,7 @@ class DatasetList extends Component {
     return (
       <DatasetItem
         {...activeDetails}
+        userNames={userNames}
         title={title}
         key={id}
         id={id}
@@ -268,7 +272,10 @@ DatasetList.propTypes = {
     datasets: PropTypes.arrayOf(PropTypes.any),
     is_staff: PropTypes.bool,
     groups: PropTypes.arrayOf(PropTypes.string)
-  }).isRequired
+  }).isRequired,
+  userNames: PropTypes.arrayOf(
+    PropTypes.shape({ cn: PropTypes.string, mail: PropTypes.string, uid: PropTypes.string })
+  ).isRequired
 };
 
 DatasetList.defaultProps = {

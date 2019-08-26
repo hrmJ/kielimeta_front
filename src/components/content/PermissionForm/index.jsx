@@ -46,7 +46,7 @@ class permissionForm extends Component {
   }
 
   render() {
-    const { dispatch, datasetUsers, id, loadingState } = this.props;
+    const { dispatch, datasetUsers, id, loadingState, userNames } = this.props;
     const theseUsers = datasetUsers[id] || [];
 
     return (
@@ -64,6 +64,8 @@ class permissionForm extends Component {
                   idx={idx}
                   datasetId={id}
                   users={theseUsers}
+                  userNames={userNames}
+                  loadingState={loadingState}
                 />
               ))}
             </section>
@@ -103,7 +105,10 @@ permissionForm.propTypes = {
       can_edit_permissions: PropTypes.bool
     })
   }),
-  dispatch: PropTypes.func.isRequired
+  dispatch: PropTypes.func.isRequired,
+  userNames: PropTypes.arrayOf(
+    PropTypes.shape({ cn: PropTypes.string, mail: PropTypes.string, uid: PropTypes.string })
+  ).isRequired
 };
 
 permissionForm.defaultProps = {

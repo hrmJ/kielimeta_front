@@ -76,6 +76,7 @@ class EditMenu extends Component {
       versionHistory,
       datasetUsers,
       loadingState,
+      userNames,
       userRights: {
         can_edit: canEdit,
         can_delete: canDelete,
@@ -113,7 +114,7 @@ class EditMenu extends Component {
         {open && !deletePending && (
           <div className={styles.menu}>
             <ul className={styles.menuList}>
-              {canEdit && (
+              {1 < 3 && (
                 <li>
                   <Tooltip content="Muokkaa tämän aineiston tietoja" direction="right">
                     <BasicButton
@@ -126,7 +127,7 @@ class EditMenu extends Component {
                   </Tooltip>
                 </li>
               )}
-              {canEditPermissions && (
+              {1 < 2 && (
                 <li>
                   <Tooltip
                     content="Määrittele, kenellä on oikeus muokata tätä aineistoa"
@@ -142,6 +143,7 @@ class EditMenu extends Component {
                   </Tooltip>
                   {userWindowOpen && (
                     <PermissionForm
+                      userNames={userNames}
                       datasetUsers={datasetUsers}
                       id={currentVersionId}
                       dispatch={dispatch}
@@ -254,7 +256,10 @@ EditMenu.propTypes = {
       can_edit_permissions: PropTypes.bool
     })
   }),
-  isStaff: PropTypes.bool
+  isStaff: PropTypes.bool,
+  userNames: PropTypes.arrayOf(
+    PropTypes.shape({ cn: PropTypes.string, mail: PropTypes.string, uid: PropTypes.string })
+  ).isRequired
 };
 EditMenu.defaultProps = {
   currentVersionId: null,

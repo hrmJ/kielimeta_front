@@ -8,7 +8,7 @@ import ContactPerson from './contactperson';
 import LabelledInput from '../../../../ui/labelledinput';
 
 const Access = props => {
-  const { dispatch, placeOfPublication, accessInformation } = props;
+  const { dispatch, placeOfPublication, accessInformation, userNames, loadingState } = props;
   const { identifier, citation_info: citationInfo } = placeOfPublication;
   return (
     <div>
@@ -17,6 +17,8 @@ const Access = props => {
         dispatch={dispatch}
         placeOfPublication={placeOfPublication}
         accessInformation={accessInformation}
+        userNames={userNames}
+        loadingState={loadingState}
       />
       <LabelledInput
         label="Aineiston pysyväistunniste (esim. URN tai doi)"
@@ -56,7 +58,11 @@ Access.propTypes = {
     identifier: PropTypes.string,
     citation_info: PropTypes.string
   }),
-  accessInformation: PropTypes.string
+  accessInformation: PropTypes.string,
+  userNames: PropTypes.arrayOf(
+    PropTypes.shape({ cn: PropTypes.string, mail: PropTypes.string, uid: PropTypes.string })
+  ).isRequired,
+  loadingState: PropTypes.objectOf(PropTypes.any).isRequired
 };
 
 Access.defaultProps = {

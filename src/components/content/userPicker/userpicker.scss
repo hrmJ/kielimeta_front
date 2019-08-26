@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.buttonContainer {
+  margin-left: 1em;
+}
+.outerContainer {
+  min-width: 30em;
+}
+
+.confirmContainer {
+  display: flex;
+  > div:first-child {
+    margin-right: 2em;
+  }
+}
+
+.loaderContainer {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}

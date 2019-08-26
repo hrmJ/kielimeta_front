@@ -20,7 +20,9 @@ function mapStateToProps(state) {
     datasetPage: state.datasetPage,
     datasetUsers: state.datasetUsers,
     userDetails: state.userDetails,
-    datasetDocuments: state.datasetDocuments
+    datasetDocuments: state.datasetDocuments,
+    userNames: state.userNames,
+    userPicker: state.userPicker
   };
 }
 
