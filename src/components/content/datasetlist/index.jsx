@@ -2,9 +2,10 @@ import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
-import { updateAndFilter, filterDatasets } from '../../../redux/actions/filters';
 import { getOriginalValuesForFilters } from '../../../redux/actions/utils';
 import { listGroups } from '../../../redux/actions/groups';
+import { resetFormData } from '../../../redux/actions/datasetform';
+import { updateAndFilter, filterDatasets } from '../../../redux/actions/filters';
 import BasicButton from '../../ui/buttons/BasicButton';
 import ClusterTool from '../ClusterTool';
 import DatasetItem from '../datasetitem';
@@ -44,6 +45,7 @@ class DatasetList extends Component {
     if (groupNames.length === 0) {
       dispatch(listGroups());
     }
+    dispatch(resetFormData());
   }
 
   renderList() {
