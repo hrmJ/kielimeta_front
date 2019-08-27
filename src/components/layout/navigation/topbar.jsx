@@ -28,13 +28,13 @@ const TopBar = props => {
                     Pääsivu
                   </NavLink>
                 </li>
-                {groups && groups.includes('grouper') && (
+                {
                   <li>
                     <a href="javascript:void(0)" type="button" onClick={toggleClusterTool}>
                       Ryhmittele
                     </a>
                   </li>
-                )}
+                }
                 {isStaff && (
                   <li>
                     <NavLink

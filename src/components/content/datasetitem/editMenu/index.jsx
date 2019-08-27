@@ -190,7 +190,7 @@ class EditMenu extends Component {
                   </Tooltip>
                 </li>
               )}
-              {canDelete && (
+              {1 < 3 && (
                 <li>
                   <Tooltip content="Poistaa aineiston kokonaan" direction="right">
                     <BasicButton
