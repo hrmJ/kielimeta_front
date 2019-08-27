@@ -16,7 +16,9 @@ const Access = props => {
     license,
     accessInformation,
     contactPerson,
-    sensitivity
+    sensitivity,
+    dataLocation,
+    userDetails: { is_staff: isStaff }
   } = props;
   return (
     <TabContent>
@@ -64,6 +66,12 @@ const Access = props => {
           <div> {getSensitivityInfo(sensitivity)}</div>
         </div>
       )}
+      {isStaff && dataLocation && (
+        <div className={generalStyles.labelContainerStacked}>
+          <div>Aineiston tallennuspaikka</div>
+          <div>{dataLocation}</div>
+        </div>
+      )}
     </TabContent>
   );
 };
@@ -73,9 +81,16 @@ Access.propTypes = {
   license: PropTypes.string,
   accessInformation: PropTypes.string,
   sensitivity: PropTypes.string,
+  dataLocation: PropTypes.string,
   contactPerson: PropTypes.arrayOf(
     PropTypes.shape({ name: PropTypes.string, email: PropTypes.string })
-  )
+  ),
+  userDetails: PropTypes.shape({
+    username: PropTypes.string,
+    datasets: PropTypes.arrayOf(PropTypes.any),
+    is_staff: PropTypes.bool,
+    groups: PropTypes.arrayOf(PropTypes.string)
+  }).isRequired
 };
 
 Access.defaultProps = {
@@ -83,7 +98,8 @@ Access.defaultProps = {
   license: '',
   accessInformation: '',
   contactPerson: [],
-  sensitivity: ''
+  sensitivity: '',
+  dataLocation: ''
 };
 
 export default Access;

@@ -159,6 +159,7 @@ class DatasetList extends Component {
       groupNames,
       languageVarieties,
       activeTitle,
+      userDetails,
       datasetPage: { currentPage, hasNext }
     } = this.props;
 
@@ -197,6 +198,7 @@ class DatasetList extends Component {
           originalFilterValues={originalFilterValues}
           dispatch={dispatch}
           languageVarieties={languageVarieties}
+          userDetails={userDetails}
         />
         <section className={styles.viewSelect}>
           <div className={styles.dsCount}>

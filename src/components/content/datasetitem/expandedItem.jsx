@@ -69,7 +69,9 @@ class expandedItem extends Component {
       related_datasets: relatedDatasets,
       documents,
       groups,
-      setGroupView
+      setGroupView,
+      userDetails,
+      data_location: dataLocation
     } = this.props;
     const {
       activated: { [id]: activeId },
@@ -156,7 +158,15 @@ class expandedItem extends Component {
           </TabPanel>
           <TabPanel>
             <Access
-              {...{ placeOfPublication, license, accessInformation, contactPerson, sensitivity }}
+              {...{
+                placeOfPublication,
+                license,
+                accessInformation,
+                contactPerson,
+                sensitivity,
+                dataLocation,
+                userDetails
+              }}
             />
           </TabPanel>
           <TabPanel>
@@ -198,7 +208,13 @@ expandedItem.propTypes = {
   ),
   documents: PropTypes.arrayOf(PropTypes.object).isRequired,
   setGroupView: PropTypes.func.isRequired,
-  groups: PropTypes.arrayOf(PropTypes.string)
+  groups: PropTypes.arrayOf(PropTypes.string),
+  userDetails: PropTypes.shape({
+    username: PropTypes.string,
+    datasets: PropTypes.arrayOf(PropTypes.any),
+    is_staff: PropTypes.bool,
+    groups: PropTypes.arrayOf(PropTypes.string)
+  }).isRequired
 };
 
 expandedItem.defaultProps = {

@@ -29,10 +29,11 @@ class LoginIndicator extends Component {
 
   render() {
     const {
-      userDetails: { datasets, isStaff, groups },
+      userDetails: { datasets, is_staff: isStaff, groups },
       datasetTitles,
       dispatch
     } = this.props;
+    console.log(this.props.userDetails);
 
     const user = getCookie('current_user');
     const { menuOpen } = this.state;

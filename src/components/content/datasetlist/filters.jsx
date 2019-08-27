@@ -38,8 +38,10 @@ const filtersComponent = props => {
       keyword,
       genre,
       years,
-      group
+      group,
+      locstatus
     },
+    userDetails: { is_staff: isStaff },
     dispatch,
     languageVarieties
   } = props;
@@ -155,6 +157,14 @@ const filtersComponent = props => {
           label="Saatavuus"
         />
         <ArrayFilter {...commonProps} keyName="group" items={group} label="Ryhmät" />
+        {isStaff && (
+          <ArrayFilter
+            {...commonProps}
+            keyName="locstatus"
+            items={locstatus}
+            label="tallennustilanne"
+          />
+        )}
       </section>
     </div>
   );
@@ -168,7 +178,13 @@ filtersComponent.propTypes = {
     PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.array])
   ),
   dispatch: PropTypes.func.isRequired,
-  languageVarieties: PropTypes.objectOf(PropTypes.any)
+  languageVarieties: PropTypes.objectOf(PropTypes.any),
+  userDetails: PropTypes.shape({
+    username: PropTypes.string,
+    datasets: PropTypes.arrayOf(PropTypes.any),
+    is_staff: PropTypes.bool,
+    groups: PropTypes.arrayOf(PropTypes.string)
+  }).isRequired
 };
 
 filtersComponent.defaultProps = {
