@@ -22,7 +22,8 @@ export default (state = { query: '' }, action) => {
       'variety_type',
       'speaker_status',
       'keyword',
-      'genre'
+      'genre',
+      'group'
     ];
     if ([...listFields, ...listFields.map(f => `${f}A`)].includes(key)) {
       newvals = checked ? [...oldvals, val] : oldvals.filter(thisval => thisval !== val);

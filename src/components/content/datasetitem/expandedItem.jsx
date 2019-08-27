@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import 'react-tabs/style/react-tabs.css';
+
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { uid } from 'react-uid';
 import PropTypes from 'prop-types';
@@ -56,7 +57,6 @@ class expandedItem extends Component {
       id,
       dispatch,
       authors,
-      groups,
       access_information: accessInformation,
       place_of_publication: placeOfPublication,
       license,
@@ -68,6 +68,7 @@ class expandedItem extends Component {
       connections,
       related_datasets: relatedDatasets,
       documents,
+      groups,
       setGroupView
     } = this.props;
     const {
@@ -116,6 +117,25 @@ class expandedItem extends Component {
           <TabPanel>
             <div className={styles.description}>
               <ReactMarkdown source={description} />
+              {groups.length > 0 && (
+                <div className={generalStyles.someTopMargin}>
+                  <div>
+                    <ul className={generalStyles.responsiveList}>
+                      {groups.map(group => (
+                        <li key={group}>
+                          <BasicButton
+                            text={group}
+                            onClick={() => {
+                              setGroupView();
+                              dispatch(updateAndFilter('group', group, true, {}));
+                            }}
+                          />
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              )}
             </div>
             <ul className={styles.documentList}>
               {documents.map(doc => (
@@ -127,27 +147,6 @@ class expandedItem extends Component {
                 </li>
               ))}
             </ul>
-            {groups.length > 0 && (
-              <div className={generalStyles.someTopMargin}>
-                <div>Aineisto kuuluu seuraaviin ryhmiin:</div>
-                <div>
-                  <ul>
-                    {groups.map(group => (
-                      <li key={group}>
-                        <BasicButton
-                          noBackground
-                          text={group}
-                          onClick={() => {
-                            setGroupView();
-                            dispatch(updateAndFilter('group', group, true, {}));
-                          }}
-                        />
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            )}
           </TabPanel>
           <TabPanel>
             <Content {...{ languages, connections, genre, mediatype, mediaDescription }} />

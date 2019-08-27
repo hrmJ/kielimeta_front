@@ -37,7 +37,8 @@ const filtersComponent = props => {
       speakerStatus,
       keyword,
       genre,
-      years
+      years,
+      group
     },
     dispatch,
     languageVarieties
@@ -153,6 +154,7 @@ const filtersComponent = props => {
           isBoolean
           label="Saatavuus"
         />
+        <ArrayFilter {...commonProps} keyName="group" items={group} label="Ryhmät" />
       </section>
     </div>
   );
