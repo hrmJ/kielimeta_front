@@ -113,6 +113,7 @@ datasetItem.propTypes = {
   clusterToolVisible: PropTypes.bool,
   loadingState: PropTypes.objectOf(PropTypes.any).isRequired,
   isAdded: PropTypes.bool,
+  setGroupView: PropTypes.func.isRequired,
   history: PropTypes.arrayOf(
     PropTypes.shape({ modification_time: PropTypes.string, id: PropTypes.number })
   ),

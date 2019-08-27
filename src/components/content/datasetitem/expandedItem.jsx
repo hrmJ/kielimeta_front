@@ -1,5 +1,3 @@
-import 'react-tabs/style/react-tabs.css';
-
 import { Link } from 'react-router-dom';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { uid } from 'react-uid';
@@ -9,8 +7,10 @@ import ReactMarkdown from 'react-markdown';
 
 import { Select } from '../../ui/localizedSelect';
 import { fetchSubVersions, setActiveVersion } from '../../../redux/actions/datasets';
+import { updateAndFilter } from '../../../redux/actions/filters';
 import Access from './access';
 import Authors from './authors';
+import BasicButton from '../../ui/buttons/BasicButton';
 import Citing from './citing';
 import Content from './content';
 import DocumentLink from '../../ui/documentLink';
@@ -56,6 +56,7 @@ class expandedItem extends Component {
       id,
       dispatch,
       authors,
+      groups,
       access_information: accessInformation,
       place_of_publication: placeOfPublication,
       license,
@@ -66,7 +67,8 @@ class expandedItem extends Component {
       media_description: mediaDescription,
       connections,
       related_datasets: relatedDatasets,
-      documents
+      documents,
+      setGroupView
     } = this.props;
     const {
       activated: { [id]: activeId },
@@ -125,20 +127,27 @@ class expandedItem extends Component {
                 </li>
               ))}
             </ul>
-            {/*relatedDatasets.length > 0 && (
-              <div className={generalStyles.labelContainerStacked}>
-                <div>Samanlaisia aineistoja</div>
+            {groups.length > 0 && (
+              <div className={generalStyles.someTopMargin}>
+                <div>Aineisto kuuluu seuraaviin ryhmiin:</div>
                 <div>
                   <ul>
-                    {relatedDatasets.map(ds => (
-                      <li key={ds}>
-                        <Link to={`/${ds}`}>{ds}</Link>
+                    {groups.map(group => (
+                      <li key={group}>
+                        <BasicButton
+                          noBackground
+                          text={group}
+                          onClick={() => {
+                            setGroupView();
+                            dispatch(updateAndFilter('group', group, true, {}));
+                          }}
+                        />
                       </li>
                     ))}
                   </ul>
                 </div>
               </div>
-            )*/}
+            )}
           </TabPanel>
           <TabPanel>
             <Content {...{ languages, connections, genre, mediatype, mediaDescription }} />
@@ -188,7 +197,9 @@ expandedItem.propTypes = {
   connections: PropTypes.arrayOf(
     PropTypes.shape({ sl: PropTypes.number, tl: PropTypes.arrayOf(PropTypes.number) })
   ),
-  documents: PropTypes.arrayOf(PropTypes.object).isRequired
+  documents: PropTypes.arrayOf(PropTypes.object).isRequired,
+  setGroupView: PropTypes.func.isRequired,
+  groups: PropTypes.arrayOf(PropTypes.string)
 };
 
 expandedItem.defaultProps = {
@@ -208,7 +219,8 @@ expandedItem.defaultProps = {
   genre: [],
   mediatype: [],
   media_description: '',
-  related_datasets: []
+  related_datasets: [],
+  groups: []
 };
 
 export default expandedItem;

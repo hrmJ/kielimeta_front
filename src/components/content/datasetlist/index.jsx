@@ -141,6 +141,7 @@ class DatasetList extends Component {
         datasetUsers={datasetUsers}
         loadingState={loadingState}
         userDetails={userDetails}
+        setGroupView={() => this.setState({ useGroups: true })}
       />
     );
   }
