@@ -7,53 +7,79 @@ class EditableRow extends Component {
   state = { pending: false, editedVals: {} };
 
   componentDidMount() {
-    const { cells } = this.props;
-    this.setState({ editedVals: cells });
+    const { cells, isAdded } = this.props;
+    let actualCells = cells;
+    if (isAdded) {
+      actualCells = Object.keys(cells).reduce((prev, cur) => ({ ...prev, [cur]: '' }), {});
+    }
+    this.setState({ editedVals: actualCells });
   }
 
   render() {
-    const { cells, onSave } = this.props;
+    const { cells, onSave, onDelete, id, isAdded } = this.props;
     const { pending, editedVals } = this.state;
+    let actualCells = cells;
+    if (isAdded) {
+      actualCells = Object.keys(cells).reduce((prev, cur) => ({ ...prev, [cur]: '' }), {});
+    }
     return (
       <tr>
         <td>
-          {pending ? (
+          {pending || isAdded ? (
             <BasicButton
               text="Tallenna muutokset"
               noBackground
               iconName="faSave"
+              noKeyDown
               onClick={() => {
                 this.setState({ pending: false });
-                onSave(editedVals);
+                if (!isAdded) {
+                  onSave(id, editedVals);
+                } else {
+                  onSave(editedVals);
+                }
               }}
             />
           ) : (
             <div>
-              <BasicButton
-                text=""
-                noBackground
-                iconName="faPencilAlt"
-                onClick={() => this.setState({ pending: true })}
-              />
-              <BasicButton text="" noBackground iconName="faTrash" />
+              {!isAdded && (
+                <BasicButton
+                  text=""
+                  noBackground
+                  iconName="faPencilAlt"
+                  onClick={() => this.setState({ pending: true })}
+                  noKeyDown
+                />
+              )}
+              {!isAdded && (
+                <BasicButton
+                  noKeyDown
+                  text=""
+                  noBackground
+                  iconName="faTrash"
+                  onClick={() => window.confirm('Haluatko varmasti poistaa?') && onDelete(id)}
+                />
+              )}
             </div>
           )}
         </td>
-        {Object.keys(cells).map(cellName => (
-          <td key={cellName}>
-            {pending ? (
-              <input
-                type="text"
-                onChange={ev =>
-                  this.setState({ editedVals: { ...editedVals, [cellName]: ev.target.value } })
-                }
-                defaultValue={cells[cellName]}
-              />
-            ) : (
-              cells[cellName]
-            )}
-          </td>
-        ))}
+        {Object.keys(actualCells)
+          .filter(key => key !== 'id')
+          .map(cellName => (
+            <td key={cellName}>
+              {pending || isAdded ? (
+                <input
+                  type="text"
+                  onChange={ev =>
+                    this.setState({ editedVals: { ...editedVals, [cellName]: ev.target.value } })
+                  }
+                  defaultValue={actualCells[cellName]}
+                />
+              ) : (
+                actualCells[cellName]
+              )}
+            </td>
+          ))}
       </tr>
     );
   }
@@ -61,11 +87,17 @@ class EditableRow extends Component {
 
 EditableRow.propTypes = {
   cells: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
-  onSave: PropTypes.func.isRequired
+  onSave: PropTypes.func.isRequired,
+  onDelete: PropTypes.func,
+  id: PropTypes.number,
+  isAdded: PropTypes.bool
 };
 
 EditableRow.defaultProps = {
-  cells: {}
+  onDelete: () => null,
+  cells: {},
+  id: null,
+  isAdded: false
 };
 
 export default EditableRow;

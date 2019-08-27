@@ -100,7 +100,9 @@ class main extends Component {
                   />
                   <Route
                     path="/admin"
-                    render={() => <Admin dispatch={dispatch} {...adminData} />}
+                    render={() => (
+                      <Admin dispatch={dispatch} {...adminData} loadingState={loadingState} />
+                    )}
                     exact
                   />
                   <Route path="/login" render={() => <Login />} exact />
