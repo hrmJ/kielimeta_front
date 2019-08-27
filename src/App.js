@@ -24,7 +24,8 @@ function mapStateToProps(state) {
     userNames: state.userNames,
     userPicker: state.userPicker,
     datasetTitles: state.datasetTitles,
-    activeTitle: state.activeTitle
+    activeTitle: state.activeTitle,
+    adminData: state.adminData
   };
 }
 

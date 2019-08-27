@@ -21,6 +21,7 @@ import userNameReducer from './userName';
 import userPickerReducer from './userPicker';
 import datasetTitleReducer from './datasetTitle';
 import activeTitleReducer from './activeTitle';
+import adminDataReducer from './adminData';
 
 const appReducer = combineReducers({
   datasets: datasetReducer,
@@ -44,7 +45,8 @@ const appReducer = combineReducers({
   userNames: userNameReducer,
   pickedUsers: userPickerReducer,
   datasetTitles: datasetTitleReducer,
-  activeTitle: activeTitleReducer
+  activeTitle: activeTitleReducer,
+  adminData: adminDataReducer
 });
 
 export default appReducer;
