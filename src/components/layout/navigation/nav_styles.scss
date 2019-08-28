@@ -71,6 +71,8 @@
 }
 
 .headingText {
+  position: relative;
+  z-index: 20;
   margin-left: 0.4em;
   @media screen and (min-width: 900px) {
     margin-top: 4em;
