@@ -13,11 +13,18 @@
   h2 {
     font-weight: 400;
     color: $utupurple;
+    @media screen and (max-width: 900px) {
+      font-size: 1.6em;
+    }
   }
 }
 
 .logoContainer {
   position: relative;
+  cursor: pointer;
+  &:hover {
+    cursor: pointer;
+  }
   z-index: 0;
   img {
     width: 30vw;

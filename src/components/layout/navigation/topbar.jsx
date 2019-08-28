@@ -1,3 +1,4 @@
+import { withRouter } from 'react-router-dom';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
@@ -5,7 +6,7 @@ import styles from './nav_styles.scss';
 import logo from '../../../images/digilang-logo.svg';
 
 const TopBar = props => {
-  const { toggleClusterTool, userDetails, dispatch, datasetTitles } = props;
+  const { toggleClusterTool, userDetails, dispatch, datasetTitles, history } = props;
 
   const { groups, is_staff: isStaff } = userDetails;
   return (
@@ -13,7 +14,13 @@ const TopBar = props => {
       <div className={styles.topbar}>
         <div>
           <div className={styles.siteHeading}>
-            <div className={styles.logoContainer}>
+            <div
+              className={styles.logoContainer}
+              role="button"
+              onKeyDown={() => null}
+              onClick={() => history.push('/')}
+              tabIndex={0}
+            >
               <img src={logo} alt="digilang-portaali" />
             </div>
             <div className={styles.headingText}>
@@ -80,9 +87,10 @@ TopBar.propTypes = {
     is_staff: PropTypes.bool,
     groups: PropTypes.arrayOf(PropTypes.string)
   }).isRequired,
-  datasetTitles: PropTypes.objectOf(PropTypes.any).isRequired
+  datasetTitles: PropTypes.objectOf(PropTypes.any).isRequired,
+  history: PropTypes.objectOf(PropTypes.any).isRequired
 };
 
 TopBar.defaultProps = { toggleClusterTool: null };
 
-export default TopBar;
+export default withRouter(TopBar);
