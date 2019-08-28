@@ -42,9 +42,13 @@ class FilterContainer extends Component {
           <div>{filterMenuHeader}</div>
           <div
             className={styles.menuInside}
-            style={{
-              maxHeight: `${offset && offset - 80}${offset && 'px'}`
-            }}
+            style={
+              offset && offset > 0
+                ? {
+                    maxHeight: `${offset && offset - 80}${offset && 'px'}`
+                  }
+                : {}
+            }
           >
             {children}
           </div>
