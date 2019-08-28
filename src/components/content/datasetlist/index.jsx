@@ -208,6 +208,7 @@ class DatasetList extends Component {
             text={useGrid ? 'Näytä listana' : 'Näytä ruudukkona'}
             onClick={() => this.setState({ useGrid: !useGrid })}
             iconName={useGrid ? 'faThList' : 'faThLarge'}
+            customClass={styles.hideInMobile}
           />
           <BasicButton
             text={useGroups ? 'Näytä yksittäin' : 'Näytä ryhminä'}

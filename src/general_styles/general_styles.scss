@@ -134,5 +134,7 @@ a:active {
   position: absolute;
   right: 1em;
   top: 7px;
+  @media screen and (max-width: 900px) {
+    font-size: 0.8em;
+  }
 }
-

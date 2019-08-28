@@ -96,3 +96,19 @@
   display: flex;
   justify-content: center;
 }
+
+.onlyInMobile {
+  @media screen and (min-width: 900px) {
+    display: none;
+  }
+}
+
+.hideInMobile {
+  @media screen and (max-width: 900px) {
+    display: none;
+  }
+}
+
+.moreButton {
+  margin: 1em 1em 2em 0.7em;
+}
