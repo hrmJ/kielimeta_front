@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
-import LoginIdicator from '../../auth/indicator';
 import styles from './nav_styles.scss';
 import logo from '../../../images/digilang-logo.svg';
 
@@ -23,18 +22,20 @@ const TopBar = props => {
                 portaali
               </h1>
               <ul className={styles.linkList}>
-                <li>
-                  <NavLink to="/" id="fpLink" activeClassName={styles.activeLink}>
-                    Pääsivu
-                  </NavLink>
-                </li>
-                {
+                {isStaff && (
+                  <li>
+                    <NavLink to="/" id="fpLink" activeClassName={styles.activeLink}>
+                      Pääsivu
+                    </NavLink>
+                  </li>
+                )}
+                {groups && groups.includes('grouper') && (
                   <li>
                     <a href="javascript:void(0)" type="button" onClick={toggleClusterTool}>
                       Ryhmittele
                     </a>
                   </li>
-                }
+                )}
                 {isStaff && (
                   <li>
                     <NavLink
@@ -54,13 +55,13 @@ const TopBar = props => {
                     </NavLink>
                   </li>
                 )}
-                <li>
-                  <LoginIdicator
-                    userDetails={userDetails}
-                    dispatch={dispatch}
-                    datasetTitles={datasetTitles}
-                  />
-                </li>
+                {isStaff && (
+                  <li>
+                    <NavLink to="/admin" activeClassName={styles.activeLink}>
+                      Ylläpito
+                    </NavLink>
+                  </li>
+                )}
               </ul>
             </div>
           </div>

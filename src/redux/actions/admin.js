@@ -93,4 +93,25 @@ const addAdminDataRaw = (category, editedVals) => {
 const addAdminData = (category, editedVals) => dispatch =>
   dispatch(addAdminDataRaw(category, editedVals)).then(() => dispatch(fetchAdminData(category)));
 
-export { fetchAdminData, updateAdminData, deleteAdminData, addAdminData };
+const returnDatasetRaw = id => {
+  const url = `${baseUrl}/removeddatasets/admin/${id}`;
+  const csrf = getCookie('csrftoken');
+  return thunkCreator({
+    types: [`RETURN_DATASET_REQUEST`, `RETURN_DATASET_SUCCESS`, `RETURN_DATASET_FAILURE`],
+    promise: fetch(url, {
+      method: 'PUT',
+      mode: 'cors',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrf
+        // Authorization: 'Bearer ' + jwt.token,
+      }
+    }).then(response => response)
+  });
+};
+
+const returnDataset = id => dispatch =>
+  dispatch(returnDatasetRaw(id)).then(() => dispatch(fetchAdminData('removeddatasets')));
+
+export { fetchAdminData, updateAdminData, deleteAdminData, addAdminData, returnDataset };

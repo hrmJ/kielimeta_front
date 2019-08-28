@@ -7,20 +7,20 @@ class EditableRow extends Component {
   state = { pending: false, editedVals: {} };
 
   componentDidMount() {
-    const { cells, isAdded } = this.props;
+    const { cells, isAdded, columnKeys } = this.props;
     let actualCells = cells;
     if (isAdded) {
-      actualCells = Object.keys(cells).reduce((prev, cur) => ({ ...prev, [cur]: '' }), {});
+      actualCells = columnKeys.reduce((prev, cur) => ({ ...prev, [cur]: '' }), {});
     }
     this.setState({ editedVals: actualCells });
   }
 
   render() {
-    const { cells, onSave, onDelete, id, isAdded } = this.props;
+    const { cells, onSave, onDelete, id, isAdded, columnKeys } = this.props;
     const { pending, editedVals } = this.state;
     let actualCells = cells;
     if (isAdded) {
-      actualCells = Object.keys(cells).reduce((prev, cur) => ({ ...prev, [cur]: '' }), {});
+      actualCells = columnKeys.reduce((prev, cur) => ({ ...prev, [cur]: '' }), {});
     }
     return (
       <tr>
@@ -90,7 +90,8 @@ EditableRow.propTypes = {
   onSave: PropTypes.func.isRequired,
   onDelete: PropTypes.func,
   id: PropTypes.number,
-  isAdded: PropTypes.bool
+  isAdded: PropTypes.bool,
+  columnKeys: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
 EditableRow.defaultProps = {

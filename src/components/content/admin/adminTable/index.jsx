@@ -13,7 +13,17 @@ class adminTable extends Component {
   state = { filter: '', addPending: false };
 
   render() {
-    const { header, onOpen, ready, onSave, onDelete, columnNames, data, onAdd } = this.props;
+    const {
+      header,
+      onOpen,
+      ready,
+      onSave,
+      onDelete,
+      columnNames,
+      data,
+      onAdd,
+      columnKeys
+    } = this.props;
     const { filter, addPending } = this.state;
 
     return (
@@ -86,6 +96,7 @@ class adminTable extends Component {
                       this.setState({ addPending: false });
                       onAdd(editedVals);
                     }}
+                    columnKeys={columnKeys}
                     isAdded
                   />
                 </tbody>
@@ -108,6 +119,7 @@ adminTable.propTypes = {
   onAdd: PropTypes.func,
   onDelete: PropTypes.func.isRequired,
   columnNames: PropTypes.arrayOf(PropTypes.string).isRequired,
+  columnKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
   data: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 

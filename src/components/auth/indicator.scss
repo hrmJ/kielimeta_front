@@ -9,6 +9,7 @@
   margin-top: 1em;
   background: white;
   min-width: 300px;
+  right: 0;
 
   box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.05), 0 0 2px rgba(0, 0, 0, 0.12),
     0 2px 4px rgba(0, 0, 0, 0.2);
@@ -17,7 +18,7 @@
 .buttonClass {
   padding: 0.4em;
   border-radius: 2px;
-  font-size: 1em;
+  //font-size: 1em;
 }
 
 .rightsList {

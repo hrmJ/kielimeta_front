@@ -1,15 +1,19 @@
 @import 'src/general_styles/configs.scss';
 
-.description {
-  margin: 2em 0em 2em 0em;
-  font-size: 0.9em;
-  font-weight: 300;
-}
-
 .outerContainer {
-  h3 {
+  section {
+    margin: 2em 0em 2em 0em;
+    font-size: 0.9em;
+    font-weight: 300;
+  }
+  h3,
+  h2 {
     font-weight: 300;
     font-family: $bodyfont;
+    padding: 0.2em;
+  }
+  h2 {
+    color: $utupurple;
   }
   > div:first-child {
     margin-bottom: 1em;
@@ -24,4 +28,28 @@ a,
 a:visited,
 a:active {
   font-size: 0.9em;
+}
+
+.liContainer {
+  margin-bottom: 1em;
+}
+
+.dsList {
+  //padding-left: 0px;
+}
+
+.returnButton {
+  //background: green;
+}
+.removedContainer {
+  margin-left: 3em;
+}
+
+.itemContainer {
+  display: flex;
+  align-items: center;
+  > div:first-child {
+    width: 7em;
+    margin-right: 1em;
+  }
 }

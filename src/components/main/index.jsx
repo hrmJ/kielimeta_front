@@ -1,6 +1,7 @@
 import { BrowserRouter, HashRouter, Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import React, { Component, lazy, Suspense } from 'react';
+import LoginIdicator from '../auth/indicator';
 
 import { getCookie } from '../../utils';
 import { getUserDetails } from '../../redux/actions/users';
@@ -81,6 +82,13 @@ class main extends Component {
     return (
       <BrowserRouter>
         <Suspense fallback={<div style={{ backround: 'black' }} />}>
+          <div className={styles.loginCorner}>
+            <LoginIdicator
+              userDetails={userDetails}
+              dispatch={dispatch}
+              datasetTitles={datasetTitles}
+            />
+          </div>
           <div>
             <div className={styles.outerContainer}>
               {!showSplash && (
@@ -107,8 +115,12 @@ class main extends Component {
                   />
                   <Route path="/login" render={() => <Login />} exact />
                   <Route path="/logout" render={() => <Logout />} exact />
-                  <Route path="/tietosuojaseloste" render={() => <DataProtection />} exact />
-                  <Route path="/dataprotection" render={() => <DataProtection />} exact />
+                  <Route
+                    path="/tietosuojaseloste"
+                    render={() => <DataProtection lang="fi" />}
+                    exact
+                  />
+                  <Route path="/dataprotection" render={() => <DataProtection lang="en" />} exact />
                   <Route
                     path="/newdataset/:source?"
                     render={routeProps => (

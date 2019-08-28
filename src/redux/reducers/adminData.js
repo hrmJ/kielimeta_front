@@ -1,6 +1,11 @@
-export default (state = { languages: [], keywords: [], genre: [] }, action) => {
+export default (
+  state = { languages: [], keywords: [], genre: [], removeddatasets: [] },
+  action
+) => {
   const { type, result } = action;
   switch (type) {
+    case 'FETCH_REMOVEDDATASETS_SUCCESS':
+      return { ...state, removeddatasets: result };
     case 'FETCH_GENRE_SUCCESS':
       return { ...state, genre: result };
     case 'FETCH_LANGUAGES_SUCCESS':
