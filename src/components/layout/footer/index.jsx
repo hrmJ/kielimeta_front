@@ -13,8 +13,11 @@ export default () => (
           <img src={utulogo} alt="Turun yliopisto" />
         </div>
         <div className={styles.footerContent}>
-          <h1>
-            <Icon iconName="faInfoCircle" /> Kieliaineistoportaali
+          <h1 className={styles.footerH1}>
+            <div>
+              <Icon iconName="faInfoCircle" />
+            </div>
+            <div>Kieliaineistoportaali</div>
           </h1>
           <p>
             Kieliaineistoportaalin tarkoituksena on koota tietoa Turun yliopiston kieliaineistoista

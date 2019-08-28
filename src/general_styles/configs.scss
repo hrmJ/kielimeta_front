@@ -24,7 +24,9 @@ textarea {
 }
 
 .react-tabs__tab-panel {
-  padding: 1em 0em 0.5em 1em;
+  @media screen and (min-width: 900px) {
+    padding: 1em 0em 0.5em 1em;
+  }
 }
 
 .react-tooltip-lite {
