@@ -1,11 +1,5 @@
-import { thunkCreator, getOriginalValuesForFilters } from './utils';
-import { unSetActiveTitle } from './utils';
+import { thunkCreator, unSetActiveTitle, baseUrl } from './utils';
 import filterReducer from '../reducers/datasetfilter';
-
-let baseUrl = '%%API_SERVER_PROTOCOL%%://%%API_SERVER_HOST%%';
-if (window.location.href.includes('istest')) {
-  baseUrl = 'http://%%API_SERVER_HOST_TEST%%';
-}
 
 const startFilter = () => ({
   type: 'FILTER_DATASETS_REQUEST'
