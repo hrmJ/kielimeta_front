@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
+import { baseUrl } from '../../../redux/actions/utils';
 import {
   addAdminData,
   deleteAdminData,
@@ -33,9 +34,13 @@ class AdminPage extends Component {
 
     return (
       <div className={styles.outerContainer}>
+        <h2>Portaalin ylläpito</h2>
         <section className={styles.description}>
           Tällä hallintasivulla voit lisätä, muokata tai poistaa esimerkiksi järjestelmässä käytössä
-          olevia kieliä ja avainsanoja.
+          olevia kieliä ja avainsanoja. Käyttäjien hallinta tapahtuu oheisen linkin kautta.
+        </section>
+        <section className={styles.description}>
+          <a href={`${baseUrl}/admin`}>Siirry käyttäjänhallintaan</a>
         </section>
         <section>
           <AdminTable
