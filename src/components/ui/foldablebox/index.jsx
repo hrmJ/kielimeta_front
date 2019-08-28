@@ -26,12 +26,20 @@ export default class FoldableBox extends Component {
       children = '',
       launchertype = 'button',
       headerclass,
-      id
+      id,
+      onOpen = () => null
     } = this.props;
     const { open } = this.state;
     // const open = true;
     let launcher = (
-      <button className={styles.orderButton} onClick={() => this.setState({ open: !open })}>
+      <button
+        className={styles.orderButton}
+        type="button"
+        onClick={() => {
+          onOpen();
+          this.setState({ open: !open });
+        }}
+      >
         <Icon iconName={open ? 'faCaretDown' : 'faCaretRight'} />
         {header}
       </button>

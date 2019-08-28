@@ -4,14 +4,14 @@ import styles from './basicbutton.scss';
 import Icon from '../../icon';
 
 const BasicButton = props => {
-  const { onClick, id, text, iconName, noBackground, customClass, iconFirst } = props;
+  const { onClick, id, text, iconName, noBackground, customClass, iconFirst, noKeyDown } = props;
   return (
     <div
       id={id}
       role="button"
       tabIndex={0}
       onClick={onClick}
-      onKeyDown={onClick}
+      onKeyDown={!noKeyDown ? onClick : () => null}
       className={`${styles.container} ${noBackground &&
         styles.noBackground} ${customClass} ${iconFirst && styles.reversed}`}
     >
@@ -32,7 +32,8 @@ BasicButton.propTypes = {
   noBackground: PropTypes.bool,
   customClass: PropTypes.string,
   iconName: PropTypes.string,
-  iconFirst: PropTypes.bool
+  iconFirst: PropTypes.bool,
+  noKeyDown: PropTypes.bool
 };
 BasicButton.defaultProps = {
   onClick: () => null,
@@ -41,7 +42,8 @@ BasicButton.defaultProps = {
   noBackground: false,
   customClass: '',
   iconName: '',
-  iconFirst: false
+  iconFirst: false,
+  noKeyDown: false
 };
 
 export default BasicButton;

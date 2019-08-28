@@ -1,0 +1,40 @@
+@import 'src/general_styles/configs.scss';
+
+.dataContainer {
+  width: 100%;
+  input {
+    font-size: 0.9em;
+  }
+  font-size: 0.8em;
+  td,
+  input {
+    font-weight: 300;
+  }
+  th {
+    font-weight: 300;
+    text-align: left;
+    font-family: $bodyfont;
+    font-style: italic;
+  }
+  table {
+    margin-left: 3em;
+  }
+}
+.filterContainer {
+  margin: 2em 0em 2em 3em;
+  font-weight: 300;
+  width: 80%;
+}
+.loaderContainer  {
+  display: flex;
+  align-items: center;
+}
+
+.addContainer {
+  margin-top: 2em;
+  margin-left: 3em;
+}
+.tableContainer {
+  max-height: 500px;
+  overflow-y: auto;
+}

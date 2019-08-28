@@ -16,8 +16,10 @@
   }
 }
 
-.logoContainer{
-  img{
+.logoContainer {
+  position: relative;
+  z-index: 0;
+  img {
     width: 30vw;
   }
 }
@@ -41,6 +43,6 @@
   }
 }
 
-.bottomInfo{
-  margin-top:4em;
+.bottomInfo {
+  margin-top: 4em;
 }

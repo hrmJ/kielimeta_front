@@ -1,0 +1,21 @@
+@import 'src/general_styles/configs.scss';
+
+.container {
+  @media screen and (min-width: 900px) {
+    width: 50vw;
+    max-width: 800px;
+  }
+  font-family: $bodyfont;
+  h1,
+  h2,
+  h3 {
+    font-weight: 300;
+    font-family: $bodyfont;
+  }
+  h2 {
+    color: $utupurple;
+  }
+  p {
+    font-weight: 100;
+  }
+}

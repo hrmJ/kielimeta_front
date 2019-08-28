@@ -1,9 +1,11 @@
 import { BrowserRouter, HashRouter, Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import React, { Component, lazy, Suspense } from 'react';
+import LoginIdicator from '../auth/indicator';
 
 import { getCookie } from '../../utils';
 import { getUserDetails } from '../../redux/actions/users';
+import Admin from '../content/admin';
 import DataProtection from '../content/DataProtection';
 import Footer from '../layout/footer';
 import JsonInput from '../content/jsonInput';
@@ -63,7 +65,8 @@ class main extends Component {
       userNames,
       userPicker,
       datasetTitles,
-      activeTitle
+      activeTitle,
+      adminData
     } = this.props;
     const { clusterToolVisible } = this.state;
     const { datasetList, datasetDetails } = loadStatus;
@@ -79,6 +82,13 @@ class main extends Component {
     return (
       <BrowserRouter>
         <Suspense fallback={<div style={{ backround: 'black' }} />}>
+          <div className={styles.loginCorner}>
+            <LoginIdicator
+              userDetails={userDetails}
+              dispatch={dispatch}
+              datasetTitles={datasetTitles}
+            />
+          </div>
           <div>
             <div className={styles.outerContainer}>
               {!showSplash && (
@@ -97,14 +107,20 @@ class main extends Component {
                     exact
                   />
                   <Route
-                    path="/test"
-                    render={() => <UserPicker dispatch={dispatch} userNames={userNames} />}
+                    path="/admin"
+                    render={() => (
+                      <Admin dispatch={dispatch} {...adminData} loadingState={loadingState} />
+                    )}
                     exact
                   />
                   <Route path="/login" render={() => <Login />} exact />
                   <Route path="/logout" render={() => <Logout />} exact />
-                  <Route path="/tietosuojaseloste" render={() => <DataProtection />} exact />
-                  <Route path="/dataprotection" render={() => <DataProtection />} exact />
+                  <Route
+                    path="/tietosuojaseloste"
+                    render={() => <DataProtection lang="fi" />}
+                    exact
+                  />
+                  <Route path="/dataprotection" render={() => <DataProtection lang="en" />} exact />
                   <Route
                     path="/newdataset/:source?"
                     render={routeProps => (
@@ -211,6 +227,7 @@ main.propTypes = {
     PropTypes.shape({ cn: PropTypes.string, mail: PropTypes.string, uid: PropTypes.string })
   ),
   datasetTitles: PropTypes.objectOf(PropTypes.any),
+  adminData: PropTypes.objectOf(PropTypes.any),
   activeTitle: PropTypes.string
 };
 
@@ -230,7 +247,8 @@ main.defaultProps = {
   userDetails: {},
   userNames: [],
   datasetTitles: {},
-  activeTitle: ''
+  activeTitle: '',
+  adminData: {}
 };
 
 export default main;

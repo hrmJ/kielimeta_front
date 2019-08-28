@@ -14,39 +14,48 @@ export default {
             multiple: [
               {
                 search: '%%API_SERVER_HOST%%',
-                replace: process.env.API_SERVER_HOST
+                replace: process.env.API_SERVER_HOST,
+                flags: 'g'
               },
               {
                 search: '%%API_SERVER_HOST_TEST%%',
-                replace: process.env.API_SERVER_HOST_TEST
+                replace: process.env.API_SERVER_HOST_TEST,
+                flags: 'g'
               },
               {
                 search: '%%API_SERVER_PORT%%',
-                replace: process.env.API_SERVER_PORT
+                replace: process.env.API_SERVER_PORT,
+                flags: 'g'
               },
               {
                 search: '%%API_SERVER_PROTOCOL%%',
-                replace: process.env.API_SERVER_PROTOCOL
+                replace: process.env.API_SERVER_PROTOCOL,
+                flags: 'g'
               },
               {
                 search: '%%REGISTER_MAINTAINER1%%',
-                replace: process.env.REGISTER_MAINTAINER1
+                replace: process.env.REGISTER_MAINTAINER1,
+                flags: 'g'
               },
               {
                 search: '%%REGISTER_MAINTAINER2%%',
-                replace: process.env.REGISTER_MAINTAINER2
+                replace: process.env.REGISTER_MAINTAINER2,
+                flags: 'g'
               },
               {
                 search: '%%REGISTER_MAINTAINER_ADDRESS%%',
-                replace: process.env.REGISTER_MAINTAINER_ADDRESS
+                replace: process.env.REGISTER_MAINTAINER_ADDRESS,
+                flags: 'g'
               },
               {
                 search: '%%REGISTER_CONTACTPERSON%%',
-                replace: process.env.REGISTER_CONTACTPERSON
+                replace: process.env.REGISTER_CONTACTPERSON,
+                flags: 'g'
               },
               {
                 search: '%%REGISTER_CONTACTPERSON_EMAIL%%',
-                replace: process.env.REGISTER_CONTACTPERSON_EMAIL
+                replace: process.env.REGISTER_CONTACTPERSON_EMAIL,
+                flags: 'g'
               }
             ]
           }
