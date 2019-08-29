@@ -85,7 +85,7 @@ export default class AutoCompleteField extends Component {
     }
 
     return (
-      <div className={formstyles.fieldContainer}>
+      <div className={formstyles.fieldContainer} onPaste={e => isMulti && e.preventDefault()}>
         {children && <label htmlFor="resourcetype">{children}</label>}
         {select}
         {tooltip && (
