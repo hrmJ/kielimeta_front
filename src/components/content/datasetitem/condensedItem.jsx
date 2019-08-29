@@ -10,7 +10,7 @@ const condensedItem = props => {
   const languageNames = [];
   return (
     <div className={styles.quickDetails}>
-      {languages.map(language => {
+      {languages.map((language, idx) => {
         const {
           details: { language_name: name }
         } = language;
@@ -18,8 +18,10 @@ const condensedItem = props => {
           <LanguageBadge key={uid(language)} name={name} />
         );
         languageNames.push(name);
-        return returnValue;
+
+        return idx < 5 ? returnValue : null;
       })}
+      {languageNames.length > 4 && <div className={styles.extraSignal}>...</div>}
     </div>
   );
 };

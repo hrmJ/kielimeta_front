@@ -60,12 +60,14 @@ const Access = props => {
           <div>{license}</div>
         </div>
       )}
-      {sensitivity && (
-        <div className={generalStyles.labelContainerStacked}>
-          <div>Muuta huomioitavaa</div>
-          <div> {getSensitivityInfo(sensitivity)}</div>
-        </div>
-      )}
+      {sensitivity &&
+        sensitivity !==
+          'none'(
+            <div className={generalStyles.labelContainerStacked}>
+              <div>Muuta huomioitavaa</div>
+              <div> {getSensitivityInfo(sensitivity)}</div>
+            </div>
+          )}
       {isStaff && dataLocation && (
         <div className={generalStyles.labelContainerStacked}>
           <div>Aineiston tallennuspaikka</div>

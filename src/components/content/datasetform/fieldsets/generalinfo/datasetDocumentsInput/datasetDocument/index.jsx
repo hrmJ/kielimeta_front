@@ -47,7 +47,7 @@ class DatasetDocument extends Component {
                 className={styles.fileInput}
               />
               {url ? (
-                <a href={`media/${url}`}>{filename.replace(/.*\//g, '')}</a>
+                <a href={`/media/${url}`}>{filename.replace(/.*\//g, '')}</a>
               ) : (
                 filename.replace(/.*\//g, '')
               )}
