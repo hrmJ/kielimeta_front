@@ -143,7 +143,7 @@ class expandedItem extends Component {
               {documents.map(doc => (
                 <li key={doc.url}>
                   <DocumentLink
-                    url={`media/${doc.url}`}
+                    url={`${doc.url}`}
                     description={doc.description || 'Lisätietoja aineistosta'}
                   />
                 </li>

@@ -38,6 +38,7 @@ const generalInfo = props => {
       <AutoCompleteField
         id="keyword"
         isMulti
+        maxEntries={300}
         onChange={handleChange('keywords')}
         categoryName="flat"
         tooltipName=""
