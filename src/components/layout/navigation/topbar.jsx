@@ -24,10 +24,7 @@ const TopBar = props => {
               <img src={logo} alt="digilang-portaali" />
             </div>
             <div className={styles.headingText}>
-              <h1>
-                Kieliaineisto- <br />
-                portaali
-              </h1>
+              <h1>Kieliaineistoportaali</h1>
               <ul className={styles.linkList}>
                 {isStaff && (
                   <li>
