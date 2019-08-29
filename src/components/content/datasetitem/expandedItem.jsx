@@ -122,11 +122,12 @@ class expandedItem extends Component {
               {groups.length > 0 && (
                 <div className={generalStyles.someTopMargin}>
                   <div>
-                    <ul className={generalStyles.responsiveList}>
+                    <ul className={styles.dsGroupList}>
                       {groups.map(group => (
                         <li key={group}>
                           <BasicButton
                             text={group}
+                            customClass={styles.groupLinkButton}
                             onClick={() => {
                               setGroupView();
                               dispatch(updateAndFilter('group', group, true, {}));

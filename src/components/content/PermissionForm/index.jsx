@@ -7,6 +7,7 @@ import {
   submitDatasetUsersRaw
 } from '../../../redux/actions/users';
 import Add from '../../ui/buttons/add';
+import BasicButton from '../../ui/buttons/BasicButton';
 import DatasetUser from './DatasetUser';
 import Icon from '../../ui/icon';
 import Loader from '../../ui/loader';
@@ -46,11 +47,14 @@ class permissionForm extends Component {
   }
 
   render() {
-    const { dispatch, datasetUsers, id, loadingState, userNames } = this.props;
+    const { dispatch, datasetUsers, id, loadingState, userNames, closeWindow } = this.props;
     const theseUsers = datasetUsers[id] || [];
 
     return (
       <div className={styles.container}>
+        <section className={styles.closeButtonContainer}>
+          <BasicButton noBackground text="Sulje käyttäjähallinta" onClick={closeWindow} />
+        </section>
         <form onSubmit={event => this.submit(event)}>
           {loadingState.GETUSERS === 'requested' || loadingState.SUBMITUSERS === 'requested' ? (
             <Loader />
@@ -108,7 +112,8 @@ permissionForm.propTypes = {
   dispatch: PropTypes.func.isRequired,
   userNames: PropTypes.arrayOf(
     PropTypes.shape({ cn: PropTypes.string, mail: PropTypes.string, uid: PropTypes.string })
-  ).isRequired
+  ).isRequired,
+  closeWindow: PropTypes.func.isRequired
 };
 
 permissionForm.defaultProps = {
