@@ -100,7 +100,7 @@ class datasetItem extends Component {
           </div>
           {isLifted ? <ExpandedItem {...this.props} /> : <CondensedItem languages={languages} />}
         </div>
-        {isLifted &&
+        {isLifted && (
           <div className={styles.bottomCorner}>
             <BasicButton
               text="pienennä"
@@ -108,7 +108,7 @@ class datasetItem extends Component {
               onClick={() => this.setState({ lifted: 'down' })}
             />
           </div>
-        }
+        )}
       </article>
     );
   }
