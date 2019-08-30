@@ -135,7 +135,12 @@ a:active {
   right: 1em;
   top: 7px;
   z-index: 99;
+  display: flex;
   @media screen and (max-width: 900px) {
     font-size: 0.8em;
   }
+}
+
+.helpIcon {
+  margin-right: 1em;
 }
