@@ -27,6 +27,7 @@ main {
 
 .responsiveList {
   padding-left: 0px;
+  display: block;
   @media screen and (min-width: 1180px) {
     > li {
       display: inline-block;
@@ -137,7 +138,17 @@ a:active {
   z-index: 99;
   display: flex;
   @media screen and (max-width: 900px) {
+    top: 1px;
     font-size: 0.8em;
+    width: 100%;
+    left: 0px;
+    justify-content: space-between;
+    > div:first-child {
+      margin-bottom: 0.1em;
+    }
+    > div:last-child {
+      margin-right: 0.1em;
+    }
   }
 }
 

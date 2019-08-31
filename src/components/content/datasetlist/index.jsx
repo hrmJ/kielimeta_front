@@ -166,8 +166,6 @@ class DatasetList extends Component {
     const { FILTER_DATASETS: filterState } = loadingState;
 
     const { useGrid, useGroups } = this.state;
-    console.log(activeTitle);
-    console.log(this.activeTitle);
 
     if (showSplash) {
       return <Splash />;

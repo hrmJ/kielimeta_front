@@ -160,6 +160,9 @@ h6 {
 
 .dsGroupList {
   margin-top: 2.4em;
+  > li {
+    display: block;
+  }
 
   padding-left: 0px;
   @media screen and (min-width: 1180px) {

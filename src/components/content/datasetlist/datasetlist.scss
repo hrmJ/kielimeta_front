@@ -87,7 +87,9 @@
 }
 
 .groupedDatasetsGrid {
-  @include gridContainer();
+  @media screen and (min-width: 900px) {
+    @include gridContainer();
+  }
 }
 
 .groupedDatasets {
