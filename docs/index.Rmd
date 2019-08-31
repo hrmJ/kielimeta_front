@@ -1,0 +1,14 @@
+
+---
+exampleRefFormat: '{}'
+title: 'Kieliaineistoportaalin käyttöopas'
+author: Juho Härme
+date: "`r Sys.Date()`"
+---
+
+# Yleistietoja
+
+
+Tähän käyttöoppaaseen on koottu portaalin ylläpitoon liittyviä ohjeita.  Apua
+portaalin käyttöön voi saada myös esim. twitterin [jharme](https://twitter.com/jharme) tai sähköpostin
+`etunimi.sukunimi@gmail.com` (ä:t a:na) kautta.

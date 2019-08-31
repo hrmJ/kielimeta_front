@@ -4,3 +4,6 @@ dist
 yarn-error.log
 .env.prod
 .env.dev
+docs/**/*png
+.env.lxd
+docs/_book*

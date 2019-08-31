@@ -1,0 +1,118 @@
+# Muu kuin käyttäjiin liittyvä ylläpito
+
+Paitsi käyttäjien hallintaa, portaalin ylläpitoon kuuluu myös 
+esimerkiksi poistettujen aineistojen palauttamista mahdollista avainsanojen, tekstigenrejen
+ja kielien hallintaa. Näitä toimintoja toteutetaan https://digilang.utu.fi/admin-sivun eri 
+välilehdillä
+
+## Miten palautan poistetun aineston
+
+### Pikaohje
+
+1. Avaa https://digilang.utu.fi
+2. Kirjaudu sisään klikkaamalla oikean ylälaidan *Kirjaudu sisään* -linkkiä
+3. Kun olet kirjautunut, Kieliaineistoportaali-otsikon alle (Digilan-logon viereen) ilmestyy *Ylläpitö*-linkki
+4. Klikkaa ylläpitolinkkiä ja valitse Poistetut aineistot -välilehti
+5. Klikkaa haluamasi aineiston viereistä Palauta-linkkiä
+
+
+### Tarkka ohje
+
+1. Avaa https://digilang.utu.fi
+2. Kirjaudu sisään klikkaamalla oikean ylälaidan *Kirjaudu sisään* -linkkiä
+![vaihe2](pictures/help1_1.png)
+3. Kun olet kirjautunut, Kieliaineistoportaali-otsikon alle (Digilan-logon viereen) ilmestyy *Ylläpitö*-linkki
+![](pictures/help2a.png)
+4. Klikkaa ylläpitolinkkiä ja valitse Poistetut aineistot -välilehti
+![](pictures/helpe1.png)
+5. Klikkaa haluamasi aineiston viereistä Palauta-linkkiä
+![](pictures/helpe2.png)
+
+
+## Miten muokkaan jo tallennettuja avainsanoja?
+
+### Pikaohje
+
+1. Avaa https://digilang.utu.fi
+2. Kirjaudu sisään klikkaamalla oikean ylälaidan *Kirjaudu sisään* -linkkiä
+3. Kun olet kirjautunut, Kieliaineistoportaali-otsikon alle (Digilan-logon viereen) ilmestyy *Ylläpitö*-linkki
+4. Klikkaa ylläpitolinkkiä ja valitse Aineistoille yhteiset tiedot -välilehti
+5. Klikkaa Avainsanat-linkiä
+6. Hae avainsanaa alle ilmestyvän tekstikentän avulla
+7. Klikkaa kynäkuvaketta vasemmalla
+8. Tee haluamasi muutokset
+9. Tallenna muutokset
+
+
+### Tarkka ohje
+
+1. Avaa https://digilang.utu.fi
+2. Kirjaudu sisään klikkaamalla oikean ylälaidan *Kirjaudu sisään* -linkkiä
+![vaihe2](pictures/help1_1.png)
+3. Kun olet kirjautunut, Kieliaineistoportaali-otsikon alle (Digilan-logon viereen) ilmestyy *Ylläpitö*-linkki
+![](pictures/help2a.png)
+4. Klikkaa ylläpitolinkkiä ja valitse Aineistoille yhteiset tiedot -välilehti
+![](pictures/helpf1.png)
+5. Klikkaa Avainsanat-linkiä
+![](pictures/helpf2.png)
+6. Hae avainsanaa alle ilmestyvän tekstikentän avulla
+![](pictures/helpf3.png)
+7. Klikkaa kynäkuvaketta vasemmalla
+![](pictures/helpf4.png)
+8. Tee haluamasi muutokset
+9. Tallenna muutokset
+![](pictures/helpf5.png)
+
+
+## Miten lisään uuden avainsanan?
+
+Avainsanojen lisäys tapahtuu yleensä luonnollisesti uusien aineistojen lisäämisen yhteydessä.
+Voit myös lisätä avainsanoja ikään kuin valmiiksi myös ylläpitosivun kautta.
+
+
+### Pikaohje
+
+1. Avaa https://digilang.utu.fi
+2. Kirjaudu sisään klikkaamalla oikean ylälaidan *Kirjaudu sisään* -linkkiä
+3. Kun olet kirjautunut, Kieliaineistoportaali-otsikon alle (Digilan-logon viereen) ilmestyy *Ylläpitö*-linkki
+4. Klikkaa ylläpitolinkkiä ja valitse Aineistoille yhteiset tiedot -välilehti
+5. Klikkaa Avainsanat-linkiä
+6. Klikkaa Lisää-painiketta
+7. Kirjoita haluamasi tiedot
+9. Tallenna muutokset
+
+
+### Tarkka ohje
+
+1. Avaa https://digilang.utu.fi
+2. Kirjaudu sisään klikkaamalla oikean ylälaidan *Kirjaudu sisään* -linkkiä
+![vaihe2](pictures/help1_1.png)
+3. Kun olet kirjautunut, Kieliaineistoportaali-otsikon alle (Digilan-logon viereen) ilmestyy *Ylläpitö*-linkki
+![](pictures/help2a.png)
+4. Klikkaa ylläpitolinkkiä ja valitse Aineistoille yhteiset tiedot -välilehti
+![](pictures/helpf1.png)
+5. Klikkaa Avainsanat-linkiä
+![](pictures/helpf2.png)
+6. Klikkaa Lisää-painiketta
+![](pictures/helpf6.png)
+8. Tee haluamasi muutokset
+![](pictures/helpf7.png)
+9. Tallenna muutokset
+![](pictures/helpf5.png)
+
+
+## Miten lisään uuden kielen?
+
+Vastaavasti kuin [edellä](#miten-lisaan-uuden-avainsanan)
+
+## Miten lisään uuden tekstigenren?
+
+Vastaavasti kuin [edellä](#miten-lisaan-uuden-avainsanan)
+
+## Miten muokkaan jo lisättyä kieltä?
+
+Vastaavasti kuin [edellä](#miten-muokkaan-jo-tallennettuja-avainsanoja)
+
+## Miten muokkaan jo lisättyä tekstigenrejä?
+
+Vastaavasti kuin [edellä](#miten-muokkaan-jo-tallennettuja-avainsanoja)
