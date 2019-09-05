@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
 import { addToGroup } from '../../../redux/actions/groups';
+import BasicButton from '../../ui/buttons/BasicButton';
 import CondensedItem from './condensedItem';
 import EditMenu from './editMenu';
 import ExpandedItem from './expandedItem';
@@ -43,6 +44,17 @@ class datasetItem extends Component {
     const userRights = Array.isArray(userDatasets)
       ? userDatasets.find(ds => ds.dataset === id)
       : {};
+
+    const togglerProps = {
+      role: 'button',
+      tabIndex: 0,
+      onClick: () => this.toggleExpanded(),
+      onKeyDown: () => this.toggleExpanded()
+    };
+
+    const containerProps = !isLifted ? { ...togglerProps } : {};
+    const titleProps = isLifted ? { ...togglerProps } : {};
+
     return (
       <article className={` ${styles.container} ${isLifted && styles.liftedContainer}`}>
         {clusterToolVisible && (
@@ -55,38 +67,30 @@ class datasetItem extends Component {
           </div>
         )}
         <div className={isLifted ? styles.liftedItem : styles.datasetItem}>
-          <Tooltip content={isLifted ? '' : 'Klikkaa aineiston nimeä saadaksesi laajemman näkymän'}>
-            <div className={styles.titleLine}>
-              <Tooltip content={!isLifted ? '' : 'Kutista aineisto klikkaamalla nimeä'}>
-                <div
-                  className={styles.title}
-                  role="button"
-                  tabIndex={0}
-                  onClick={() => this.toggleExpanded()}
-                  onKeyDown={() => this.toggleExpanded()}
-                >
-                  {title}
-                </div>
-              </Tooltip>
-
-              <div>
-                {isLifted && userRights && username && (
-                  <EditMenu
-                    userNames={userNames}
-                    userRights={userRights || {}}
-                    isStaff={isStaff}
-                    hasSubVersions={subversion.length > 0}
-                    currentVersionId={currentVersionId}
-                    datasetUsers={datasetUsers}
-                    id={id}
-                    dispatch={dispatch}
-                    versionHistory={history}
-                    loadingState={loadingState}
-                  />
-                )}
-              </div>
+          <div
+            className={`${styles.titleLine} ${!isLifted ? styles.clickable : ''}`}
+            {...containerProps}
+          >
+            <div className={styles.title} {...titleProps}>
+              {title}
             </div>
-          </Tooltip>
+            <div>
+              {isLifted && userRights && username && (
+                <EditMenu
+                  userNames={userNames}
+                  userRights={userRights || {}}
+                  isStaff={isStaff}
+                  hasSubVersions={subversion.length > 0}
+                  currentVersionId={currentVersionId}
+                  datasetUsers={datasetUsers}
+                  id={id}
+                  dispatch={dispatch}
+                  versionHistory={history}
+                  loadingState={loadingState}
+                />
+              )}
+            </div>
+          </div>
           <div>
             {isLifted && wasEdited && (
               <div className={styles.savedIndicator}>
@@ -96,6 +100,15 @@ class datasetItem extends Component {
           </div>
           {isLifted ? <ExpandedItem {...this.props} /> : <CondensedItem languages={languages} />}
         </div>
+        {isLifted && (
+          <div className={styles.bottomCorner}>
+            <BasicButton
+              text="pienennä"
+              noBackground
+              onClick={() => this.setState({ lifted: 'down' })}
+            />
+          </div>
+        )}
       </article>
     );
   }

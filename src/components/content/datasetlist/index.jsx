@@ -166,8 +166,6 @@ class DatasetList extends Component {
     const { FILTER_DATASETS: filterState } = loadingState;
 
     const { useGrid, useGroups } = this.state;
-    console.log(activeTitle);
-    console.log(this.activeTitle);
 
     if (showSplash) {
       return <Splash />;
@@ -208,6 +206,7 @@ class DatasetList extends Component {
             text={useGrid ? 'Näytä listana' : 'Näytä ruudukkona'}
             onClick={() => this.setState({ useGrid: !useGrid })}
             iconName={useGrid ? 'faThList' : 'faThLarge'}
+            customClass={styles.hideInMobile}
           />
           <BasicButton
             text={useGroups ? 'Näytä yksittäin' : 'Näytä ryhminä'}

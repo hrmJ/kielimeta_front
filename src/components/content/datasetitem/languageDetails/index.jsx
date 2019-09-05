@@ -21,7 +21,8 @@ const languageDetails = props => {
     additionalClassname,
     additionalClassnameClosed,
     isSl,
-    modality
+    modality,
+    notes
   } = props;
   const { language_name: name, variety } = details;
   return (
@@ -61,6 +62,7 @@ const languageDetails = props => {
           </li>
         )}
       </ul>
+      <div className={styles.notes}>{notes}</div>
     </ExplodableBox>
   );
 };
@@ -80,7 +82,8 @@ languageDetails.propTypes = {
   additionalClassname: PropTypes.string,
   additionalClassnameClosed: PropTypes.string,
   isSl: PropTypes.bool,
-  modality: PropTypes.arrayOf(PropTypes.string)
+  modality: PropTypes.arrayOf(PropTypes.string),
+  notes: PropTypes.string
 };
 
 languageDetails.defaultProps = {
@@ -91,7 +94,8 @@ languageDetails.defaultProps = {
   additionalClassname: '',
   additionalClassnameClosed: '',
   isSl: false,
-  modality: []
+  modality: [],
+  notes: ''
 };
 
 export default languageDetails;

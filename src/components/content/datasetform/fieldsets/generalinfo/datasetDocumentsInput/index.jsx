@@ -5,13 +5,14 @@ import React from 'react';
 import { editFileQueue } from '../../../../../../redux/actions/datasetform';
 import Add from '../../../../../ui/buttons/add';
 import DatasetDocument from './datasetDocument';
-import styles from './datasetDocumentsInput.scss'
+import Tooltip from '../../../../../ui/tooltip';
+import styles from './datasetDocumentsInput.scss';
 
 const DatasetDocumentsInput = props => {
   const { datasetDocuments, dispatch } = props;
   return (
     <div>
-      <p>Aineistoon liittyvät tiedostot</p>
+        <p>Aineistoon liittyvät tiedostot</p>
       <ul className={styles.documentList}>
         {datasetDocuments.map((doc, idx) => (
           <li key={`doc_${idx}`}>
@@ -25,6 +26,11 @@ const DatasetDocumentsInput = props => {
         ))}
       </ul>
       <div>
+      <Tooltip
+        content={`Kieliaineistoportaali on vain metatietojen
+        säilyttämistä varten. Älä lataa tätä kautta varsinaisia
+        aineistoja!`}
+      >
         <Add
           onClick={() =>
             dispatch(
@@ -32,6 +38,7 @@ const DatasetDocumentsInput = props => {
             )
           }
         />
+      </Tooltip>
       </div>
     </div>
   );

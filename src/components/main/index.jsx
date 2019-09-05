@@ -1,15 +1,16 @@
 import { BrowserRouter, HashRouter, Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import React, { Component, lazy, Suspense } from 'react';
-import LoginIdicator from '../auth/indicator';
 
 import { getCookie } from '../../utils';
 import { getUserDetails } from '../../redux/actions/users';
 import Admin from '../content/admin';
+import BasicButton from '../ui/buttons/BasicButton';
 import DataProtection from '../content/DataProtection';
 import Footer from '../layout/footer';
 import JsonInput from '../content/jsonInput';
 import Login from '../auth/login';
+import LoginIdicator from '../auth/indicator';
 import Logout from '../auth/logout';
 import TopBar from '../layout/navigation/topbar';
 import UserPicker from '../content/userPicker';
@@ -83,6 +84,14 @@ class main extends Component {
       <BrowserRouter>
         <Suspense fallback={<div style={{ backround: 'black' }} />}>
           <div className={styles.loginCorner}>
+            <div className={styles.helpIcon}>
+              <BasicButton
+                noBackground
+                iconName="faLifeRing"
+                text="Ohjeita"
+                onClick={() => (document.location = '/help')}
+              />
+            </div>
             <LoginIdicator
               userDetails={userDetails}
               dispatch={dispatch}

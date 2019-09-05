@@ -17,6 +17,7 @@ h6 {
   align-items: center;
   justify-content: center;
   width: 100%;
+  position: relative;
 }
 
 .liftedContainer {
@@ -148,4 +149,43 @@ h6 {
   li + li {
     margin-top: 0.5em;
   }
+}
+
+.groupLinkButton {
+  background: #a9a3b3;
+}
+.clickable {
+  cursor: pointer;
+}
+
+.dsGroupList {
+  margin-top: 2.4em;
+  > li {
+    display: block;
+  }
+
+  padding-left: 0px;
+  @media screen and (min-width: 1180px) {
+    > li {
+      display: inline-block;
+    }
+    li + li {
+      margin-left: 1em;
+      display: block;
+    }
+  }
+}
+
+.bottomCorner {
+  font-size: 0.8em;
+  position: absolute;
+  bottom: 1em;
+  right: 0px;
+}
+
+.extraSignal {
+  display: block;
+  align-items: flex-end;
+  margin-left: 0.3em;
+  margin-top: 0.3em;
 }

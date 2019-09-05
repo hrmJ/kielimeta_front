@@ -1,0 +1,49 @@
+.book .book-body .page-wrapper .page-inner section.normal img{
+  border: 2px solid black;
+  margin: 1em 0 1em 0;
+}
+
+.book .book-summary{
+  font-size:0.9em;
+  /*width: 500px;*/
+}
+
+
+.book .book-summary ul.summary li a, .book .book-summary ul.summary li span {
+  text-overflow: initial;
+  overflow: initial;
+  white-space: pre-wrap;
+}
+
+.book.with-summary .book-header.fixed{
+  /*left: 500px;*/
+}
+
+.customBlock {
+  padding: 1em 1em 1em 1em;
+  margin-bottom: 10px;
+  background: #F8F9F9;
+  border-color: #A93226;
+  border-style: solid;
+  border-radius: 10px;
+  border-width: thin;
+}
+
+
+.rmdcaution, .rmdimportant, .rmdnote, .rmdtip, .rmdwarning {
+  padding: 1em 1em 1em 4em;
+  margin-bottom: 10px;
+  background: #f5f5f5 5px center/3em no-repeat;
+}
+.rmdwarning {
+  background-image: url("warning.png");
+}
+
+.rmdcaution {
+  background-image: url("icons/caution.png");
+}
+.rmdimportant {
+  background-image: url("icons/important.png");
+}
+
+

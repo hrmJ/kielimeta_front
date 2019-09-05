@@ -1,0 +1,22 @@
+<script>
+
+var GL = []
+document.addEventListener('DOMContentLoaded', function() {
+  var $ul = $("<ul></ul>")
+  $("h2").each(function(idx, el){
+    var anchor = el.textContent.replace(/ä/g,'a').replace(/ö/g,'o').replace(/ /g,'-').replace(/\?/g,'').replace(/!/g,'').toLowerCase()
+    var $li = $("<li><a href='#"+ anchor + "'>" + el.textContent + "</a></li>")
+    var $subUl = $("<ul></ul>")
+    $(el).parent().find("h3").each(function(idx, subel){
+      console.log('moroo')
+      var id = $(subel).parents("div:eq(0)").attr("id")
+      $subUl.append("<li><a href='#" + id + "'>" + subel.textContent + "</li>")
+    })
+    $li.append($subUl)
+    $ul.append($li)
+  });
+    $ul.insertAfter(".page-inner h1:eq(0)");
+// do some stuff
+}, false);
+
+</script>

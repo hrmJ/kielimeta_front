@@ -80,9 +80,10 @@
   h1 {
     font-family: $headerfont;
     // font-variant: small-caps;
-    font-size: 2.5em;
+    font-size: 2em;
     color: $logodark;
     margin-bottom: 0.3em;
+    font-weight: 300;
     // margin: 0 0 0.1em 0;
     // border-bottom: 9px solid #6875b2;
     // border-top: 9px solid #69adc0;
@@ -102,16 +103,20 @@
 
 .logoContainer {
   flex: 1 0 36%;
+  &:hover {
+    cursor: pointer;
+  }
   @media screen and (min-width: 900px) {
-    transform: rotate(-12deg);
+    // transform: rotate(-12deg);
     // transform: rotate(-7deg);
     margin-right: -4.2em;
   }
   @media screen and (max-width: 900px) {
-    flex: 1 0 90%;
+    flex: 1 0 87%;
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 97vw;
     img {
       width: 90%;
     }

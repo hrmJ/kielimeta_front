@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import PropTypes from 'prop-types';
 import {
   faFileWord,
+  faLifeRing,
   faCaretDown,
   faCaretUp,
   faCaretRight,
@@ -41,6 +42,7 @@ import utilityStyles from '../../../general_styles/utilities.scss';
 
 const icons = {
   faUser,
+  faLifeRing,
   faSave,
   faFileImage,
   faFileWord,

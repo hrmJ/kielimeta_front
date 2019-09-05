@@ -56,7 +56,7 @@ class LoginIndicator extends Component {
                     <div className={styles.rigthLegend}>Oikeus lisätä aineistoja</div>
                   </li>
                 )}
-                {groups && (
+                {Array.isArray(groups) && groups.includes('grouper') && (
                   <li className={styles.listItem}>
                     <Icon iconName="faCheck" />
                     <div className={styles.rigthLegend}>Oikeus ryhmitellä aineistoja</div>

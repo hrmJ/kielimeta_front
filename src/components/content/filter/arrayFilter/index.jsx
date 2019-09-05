@@ -102,7 +102,8 @@ class ArrayFilter extends Component {
       allowMulti,
       hasSubMenu,
       languageVarieties,
-      isBoolean
+      isBoolean,
+      customClass
     } = this.props;
     const { insideOneDataset } = this.state;
     const actualKeyName = insideOneDataset ? `${keyName}A` : keyName;
@@ -127,6 +128,7 @@ class ArrayFilter extends Component {
         filterMenuHeader={allowMulti ? andOrSwitch : null}
         isInUse={this.isInUse()}
         resetFilter={ev => this.reset(ev)}
+        customClass={customClass}
       >
         <ul className={styles.menuList}>
           {items.map((item, itemIdx) => (
@@ -164,7 +166,8 @@ ArrayFilter.propTypes = {
   allowMulti: PropTypes.bool,
   hasSubMenu: PropTypes.bool,
   languageVarieties: PropTypes.objectOf(PropTypes.any),
-  isBoolean: PropTypes.bool
+  isBoolean: PropTypes.bool,
+  customClass: PropTypes.string
 };
 
 ArrayFilter.defaultProps = {
@@ -175,7 +178,8 @@ ArrayFilter.defaultProps = {
   allowMulti: false,
   hasSubMenu: false,
   languageVarieties: {},
-  isBoolean: false
+  isBoolean: false,
+  customClass: ''
 };
 
 export default ArrayFilter;

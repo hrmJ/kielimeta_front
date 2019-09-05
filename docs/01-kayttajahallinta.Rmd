@@ -1,0 +1,341 @@
+
+# Käyttäjähallinta {#users}
+
+Kieliaineistoportaalin[^sslhuom] käyttäjäoikeudet voi jaotella kolmeen kategoriaan:
+
+1. **Aineistokohtaiset käyttäjät**. Voivat muokata / poistaa yksittäisiä aineistoja.
+2. **Ylläpitäjät**. Voivat lisätä uusia aineistoja, mutta eivät päättää
+   käyttäjäoikeuksista. Eivät myöskään voi muokata tai poistaa muita aineistoja
+   kuin niitä, jotka ovat itse lisänneet tai joihin heille on annettu oikeudet.
+3. **Pääkäyttäjät**. Voivat muokata / poistaa kaikkia aineistoja, lisätä ja
+   ryhmitellä aineistoja sekä lisäksi päättää käyttöoikeuksista.
+
+Näiden lisäksi aineistojen ryhmittely on oikeus, joka voidaan antaa
+käyttäjäkategoriasta riippumatta. 
+
+Käyttäjähallinta on toteutettu Turun yliopiston Single sign on -palvelun kautta, niin
+että palveluun kirjaudutaan UTU-tunnuksin. Myöhemmässä vaiheessa mahdollista on myös HAKA-kirjautumisen lisääminen, jolloin kirjautuminen mahdollistuu kaikille yliopistoille.
+
+Kuka tahansa UTU-tunnustuksen haltija voi kirjautua sivulle, mutta oletuksena
+he eivät kuulu mihinkään yllä luetelluista ryhmistä vaan ovat ainoastaan
+kirjautuneita (mutta oikeudettomia) käyttäjiä.
+
+## Miten annan aineiston X käyttöoikeudet henkilölle Y?
+
+
+
+### Pikaohje
+
+1. Avaa https://digilang.utu.fi
+2. Kirjaudu sisään klikkaamalla oikean ylälaidan *Kirjaudu sisään* -linkkiä
+3. Etsi aineisto, jonka oikeuksia haluat muuttaa
+4. Klikkaa aineistoa, jolloin siitä aukeaa laajempi näkymä
+5. Klikkaa *Hallinta*-linkkiä laajemman näkymän oikeassa yläreunassa
+6. Klikkaa *Käyttäjät ja oikeudet* -linkkiä 
+7. Hallintavalikon viereen avautuu lista tämänhetkisistä käyttäjistä ja näiden oikeuksista
+8. Klikkaa *Lisää käyttäjä*-linkkiä
+9. Kirjoita käyttäjän etunimi ja sukunimen alkua
+10. Paina *Hae*-linkkiä
+11. Jos käyttäjiä löytyy kirjoittamallasi nimellä, alle ilmestyy pudotusvalikko
+12. Valitse käyttäjä pudotusvalikosta ja klikkaa *Vahvista valinta* -linkkiä
+13. Klikkaa käyttäjätunnuksen alta, annetaanko muokkaus-, poisto- vai käyttäjien muokkausoikeudet
+14. **Muista lopuksi painaa Tallenna-linkkiä**
+15. Sulje käyttäjähallinta klikkaamalla uudestaan käyttäjät ja oikeudet -linkkiä.
+
+
+
+### Tarkka ohje
+
+
+1. Avaa https://digilang.utu.fi
+2. Kirjaudu sisään klikkaamalla oikean ylälaidan *Kirjaudu sisään* -linkkiä
+![vaihe2](pictures/help1_1.png)
+3. Etsi aineisto, jonka oikeuksia haluat muuttaa
+
+> Vinkki: voit suoraan myös avata osoitteen https://digilang.utu.fi/aineistonnimi
+
+4. Klikkaa aineistoa, jolloin siitä aukeaa laajempi näkymä
+5. Klikkaa *Hallinta*-linkkiä laajemman näkymän oikeassa yläreunassa
+![vaihe5](pictures/help1_2.png)
+6. Klikkaa *Käyttäjät ja oikeudet* -linkkiä 
+![vaihe6](pictures/help1_3.png)
+7. Hallintavalikon viereen avautuu lista tämänhetkisistä käyttäjistä ja näiden oikeuksista
+![vaihe7](pictures/help1_4.png)
+8. Klikkaa *Lisää käyttäjä*-linkkiä
+![vaihe8](pictures/help1_5.png)
+9. Kirjoita käyttäjän etunimi ja sukunimen alkua
+![vaihe9](pictures/help1_6.png)
+10. Paina *Hae*-linkkiä
+![vaihe10](pictures/help1_7.png)
+11. Jos käyttäjiä löytyy kirjoittamallasi nimellä, alle ilmestyy pudotusvalikko
+![vaihe11](pictures/help1_8.png)
+12. Valitse käyttäjä pudotusvalikosta ja klikkaa *Vahvista valinta* -linkkiä
+![vaihe12](pictures/help1_9.png)
+![vaihe12b](pictures/help1_10.png)
+13. Klikkaa käyttäjätunnuksen alta, annetaanko muokkaus-, poisto- vai käyttäjien muokkausoikeudet
+![vaihe13](pictures/help1_11.png)
+14. **Muista lopuksi painaa Tallenna-linkkiä**
+![vaihe14](pictures/help1_12.png)
+15. Sulje käyttäjähallinta klikkaamalla uudestaan käyttäjät ja oikeudet -linkkiä.
+![vaihe6](pictures/help1_3.png)
+
+### Mahdollisia ongelmatilanteita
+
+- Jos hallintavalikkoa ei näy, sinulta itseltäsi puuttuvat oikeudet aineistoon 
+  - pyydä oikeuksia aineiston haltijalta tai pääkäyttäjältä
+- Jos *Käyttäjät ja oikeudet* -linkkiä ei näy, sinulla itselläsi on vain muokkaus-/poisto-oikeudet, muttei
+  oikeutta käyttäjien hallintaan.
+  - pyydä oikeuksia aineiston haltijalta tai pääkäyttäjältä
+- Jos käyttäjätunnusta ei löydy nimen perusteella, voit klikata *syötä käsin* -linkkiä ja syöttää suoraan käyttäjätunnuksen
+  - Ole tarkkana: tunnuksen on oltava merkilleen oikein, jotta se toimisi.
+
+HUOM! Kirjautumisen vaatima toiminnallisuus pelaa ainoastaan, jos käytössä
+on ssl-protokolla eli osoite on muotoa *https* muodon *http* sijaan. Portaalin
+olemassaolon alkuvaiheessa (elokuu 2019) palvelimella ei vielä ole erillistä
+SSL-sertifikaattia, minkä takia selaimet varoittavat turvallisuusriskistä.
+Useimmisssa selaimissa varoitus voidaan ohittaa klikkaamalla 'näytä
+lisätietoja' (tms.) ja lisäämällä digilang.utu.fi-sivua koskevan
+turvallisuuspoikkeuksen.
+
+[^sslhuom]: HUOM! toimii ainoastaan, jos käytössä ssl-protokolla eli osoite on
+muotoa *https* muodon *http* sijaan. Portaalin olemassaolon alkuvaiheessa 
+(elokuu 2019) palvelimella ei vielä ole erillistä SSL-sertifikaattia, minkä takia
+selaimet varoittavat turvallisuusriskistä. Useimmisssa selaimissa varoitus voidaan ohittaa
+klikkaamalla 'näytä lisätietoja' (tms.) ja lisäämällä digilang.utu.fi-sivua
+koskevan turvallisuuspoikkeuksen.
+
+## Miten annan käyttäjälle Y oikeudet uusien aineistojen lisäämiseen?
+
+Aineistojen lisäämiseen tarvitaan ylläpitäjätason oikeudet. Jos sinulla on
+pääkäyttäjäoikeudet, toimi alla olevien ohjeiden mukaan. **Jos et ole
+pääkäyttäjä**, toimita aineistoja lisäävän henkilön utu-tunnus pääkäyttäjälle
+ja pyydä pääkäyttäjää lisäämään henkilölle ylläpitäjän oikeudet.
+
+### Pikaohje
+
+1. Avaa https://digilang.utu.fi
+2. Kirjaudu sisään klikkaamalla oikean ylälaidan *Kirjaudu sisään* -linkkiä
+3. Kun olet kirjautunut, Kieliaineistoportaali-otsikon alle (Digilang-logon viereen) ilmestyy *Ylläpitö*-linkki
+4. *Ylläpito*-linkistä pääset portaalin ylläpitosivulle, josta on linkki
+   käyttäjänhallintaan (suora linkki -- joka toimii kirjautumisen jälkeen --
+   on https://digilang.utu.fi/api/admin)
+
+
+#### Jos kyseessä on kokonaan uusi käyttäjä
+
+1. Käyttäjähallinnan avauduttua klikkaa *Käyttäjät* -kategorian oikealla puolella olevaa *Lisää*-linkkiä
+2. Kirjoita uuden käyttäjän käyttäjätunnus
+3. Klikkaa tallenna ja poistu
+4. Skrollaa alaspäin sen verran, että näet Ylläpitäjä -valintalaatikon
+5. Ruksaa Ylläpitäjä-laatikko
+6. Paina Tallenna ja poistu -painiketta ruudun alalaidassa
+
+#### Jos kyseessä on vähintään kertaalleen jo kirjautunut käyttäjä
+
+...tai käyttäjä, joka on jo lisätty, mutta jolla ei ole ylläpitäjän oikeuksia.
+
+1. Klikkaa *Käyttäjät*-linkkiä api/admin-sivuston pääsivulla
+2. Klikkaa käyttäjätunnusta, jota haluat muokata
+2. Skrollaa alaspäin sen verran, että näet Ylläpitäjä -valintalaatikon
+3. Ruksaa Ylläpitäjä-laatikko
+4. Paina Tallenna-painiketta ruudun alalaidassa
+
+### Tarkka ohje
+
+1. Avaa https://digilang.utu.fi
+2. Kirjaudu sisään klikkaamalla oikean ylälaidan *Kirjaudu sisään* -linkkiä
+![vaihe2](pictures/help1_1.png)
+3. Kun olet kirjautunut, Kieliaineistoportaali-otsikon alle (Digilang-logon viereen) ilmestyy *Ylläpitö*-linkki
+![](pictures/help2a.png)
+4. *Ylläpito*-linkistä pääset portaalin ylläpitosivulle, josta on linkki
+   käyttäjänhallintaan (suora linkki -- joka toimii kirjautumisen jälkeen --
+   on https://digilang.utu.fi/api/admin)
+![](pictures/help2b.png)
+
+
+#### Jos kyseessä on kokonaan uusi käyttäjä
+
+1. Käyttäjähallinnan avauduttua klikkaa *Käyttäjät* -kategorian oikealla puolella olevaa *Lisää*-linkkiä
+![](pictures/help2c.png)
+2. Kirjoita uuden käyttäjän käyttäjätunnus
+![](pictures/help2d.png)
+3. Klikkaa tallenna ja poistu
+![](pictures/help2e.png)
+4. Skrollaa alaspäin sen verran, että näet Ylläpitäjä -valintalaatikon
+5. Ruksaa Ylläpitäjä-laatikko
+![](pictures/help2f.png)
+6. Paina Tallenna ja poistu -painiketta ruudun alalaidassa
+![](pictures/help2g.png)
+
+#### Jos kyseessä on vähintään kertaalleen jo kirjautunut käyttäjä
+
+...tai käyttäjä, joka on jo lisätty, mutta jolla ei ole ylläpitäjän oikeuksia.
+
+1. Klikkaa *Käyttäjät*-linkkiä api/admin-sivuston pääsivulla
+![](pictures/help2h.png)
+2. Klikkaa käyttäjätunnusta, jota haluat muokata
+![](pictures/help2i.png)
+3. Skrollaa alaspäin sen verran, että näet Ylläpitäjä -valintalaatikon
+![](pictures/help2f.png)
+4. Ruksaa Ylläpitäjä-laatikko
+5. Paina Tallenna ja poistu -painiketta ruudun alalaidassa
+![](pictures/help2g.png)
+
+### Mahdollisia ongelmatilanteita
+
+
+- Oikeuksia uusien aineistojen lisäämiseen voivat antaa vain pääkäyttäjät. Jos sinulla 
+  tiedossa henkilö, joka tarvitsee oikeudet, mutta et itse ole pääkäyttäjä, lähetä
+  henkilön utu-tunnus pääkäyttäjälle.
+- Huomaa, että voit tarkistaa käyttäjätunnusten ylläpitäjä-statuksen nopeasti
+  digilang.utu.fi/api/admin-sivuston käyttäjälistan oikeasta nurkasta:
+
+![](pictures/help2j.png)
+
+
+
+## Miten annan ryhmittelyoikeuksia?
+
+Aineistojen ryhmitteleminen kokonaisuuksi vaatii, että käyttäjä kuuluu *grouper*-käyttäjäryhmään.
+
+
+### Pikaohje
+
+
+1. Avaa https://digilang.utu.fi
+2. Kirjaudu sisään klikkaamalla oikean ylälaidan *Kirjaudu sisään* -linkkiä
+3. Kun olet kirjautunut, Kieliaineistoportaali-otsikon alle (Digilang-logon viereen) ilmestyy *Ylläpitö*-linkki
+4. *Ylläpito*-linkistä pääset portaalin ylläpitosivulle, josta on linkki
+   käyttäjänhallintaan (suora linkki -- joka toimii kirjautumisen jälkeen --
+   on https://digilang.utu.fi/api/admin)
+
+
+#### Jos kyseessä on kokonaan uusi käyttäjä
+
+1. Käyttäjähallinnan avauduttua klikkaa *Käyttäjät* -kategorian oikealla puolella olevaa *Lisää*-linkkiä
+2. Kirjoita uuden käyttäjän käyttäjätunnus
+3. Klikkaa tallenna ja poistu
+4. Skrollaa alaspäin sen verran, että näet käyttäjäryhmät. Vasemmalla näkyvät
+   mahdolliset ryhmät, oikealla ryhmät, joihin käyttäjä kuuluu tällä hetkellä.
+5. Klikkaa grouper-kohtaa vasemmalla, niin että rivin väri  muuttuu siniseksi.
+6. Klikkaa laatikoiden välistä (oikealle osoittavaa) nuolta
+7. grouper-rivi on siirtynyt oikeaan laatikkoon
+8. Paina Tallenna ja poistu -painiketta ruudun alalaidassa
+
+#### Jos kyseessä on vähintään kertaalleen jo kirjautunut käyttäjä
+
+...tai käyttäjä, joka on jo lisätty, mutta jolla ei ole ylläpitäjän oikeuksia.
+
+1. Klikkaa *Käyttäjät*-linkkiä api/admin-sivuston pääsivulla
+2. Klikkaa käyttäjätunnusta, jota haluat muokata
+3. Skrollaa alaspäin sen verran, että näet käyttäjäryhmät. Vasemmalla näkyvät
+   mahdolliset ryhmät, oikealla ryhmät, joihin käyttäjä kuuluu tällä hetkellä.
+4. Klikkaa grouper-kohtaa vasemmalla, niin että rivin väri  muuttuu siniseksi.
+5. Klikkaa laatikoiden välistä (oikealle osoittavaa) nuolta
+6. grouper-rivi on siirtynyt oikeaan laatikkoon
+7. Paina Tallenna ja poistu -painiketta ruudun alalaidassa
+
+
+### Tarkka ohje
+
+1. Avaa https://digilang.utu.fi
+2. Kirjaudu sisään klikkaamalla oikean ylälaidan *Kirjaudu sisään* -linkkiä
+![vaihe2](pictures/help1_1.png)
+3. Kun olet kirjautunut, Kieliaineistoportaali-otsikon alle (Digilang-logon viereen) ilmestyy *Ylläpitö*-linkki
+![](pictures/help2a.png)
+4. *Ylläpito*-linkistä pääset portaalin ylläpitosivulle, josta on linkki
+   käyttäjänhallintaan (suora linkki -- joka toimii kirjautumisen jälkeen --
+   on https://digilang.utu.fi/api/admin)
+![](pictures/help2b.png)
+
+
+#### Jos kyseessä on kokonaan uusi käyttäjä
+
+1. Käyttäjähallinnan avauduttua klikkaa *Käyttäjät* -kategorian oikealla puolella olevaa *Lisää*-linkkiä
+![](pictures/help2c.png)
+2. Kirjoita uuden käyttäjän käyttäjätunnus
+![](pictures/help2d.png)
+3. Klikkaa tallenna ja poistu
+![](pictures/help2e.png)
+3. Skrollaa alaspäin sen verran, että näet käyttäjäryhmät. Vasemmalla näkyvät
+   mahdolliset ryhmät, oikealla ryhmät, joihin käyttäjä kuuluu tällä hetkellä.
+![](pictures/helpc1.png)
+4. Klikkaa grouper-kohtaa vasemmalla, niin että rivin väri  muuttuu siniseksi.
+![](pictures/helpc2.png)
+5. Klikkaa laatikoiden välistä (oikealle osoittavaa) nuolta
+![](pictures/helpc3.png)
+6. grouper-rivi on siirtynyt oikeaan laatikkoon
+![](pictures/helpc4.png)
+7. Paina Tallenna ja poistu -painiketta ruudun alalaidassa
+![](pictures/help2g.png)
+
+#### Jos kyseessä on vähintään kertaalleen jo kirjautunut käyttäjä
+
+...tai käyttäjä, joka on jo lisätty, mutta jolla ei ole ylläpitäjän oikeuksia.
+
+1. Klikkaa *Käyttäjät*-linkkiä api/admin-sivuston pääsivulla
+![](pictures/help2h.png)
+2. Klikkaa käyttäjätunnusta, jota haluat muokata
+![](pictures/help2i.png)
+3. Skrollaa alaspäin sen verran, että näet käyttäjäryhmät. Vasemmalla näkyvät
+   mahdolliset ryhmät, oikealla ryhmät, joihin käyttäjä kuuluu tällä hetkellä.
+![](pictures/helpc1.png)
+4. Klikkaa grouper-kohtaa vasemmalla, niin että rivin väri  muuttuu siniseksi.
+![](pictures/helpc2.png)
+5. Klikkaa laatikoiden välistä (oikealle osoittavaa) nuolta
+![](pictures/helpc3.png)
+6. grouper-rivi on siirtynyt oikeaan laatikkoon
+![](pictures/helpc4.png)
+7. Paina Tallenna ja poistu -painiketta ruudun alalaidassa
+![](pictures/help2g.png)
+
+
+### Mahdollisia ongelmatilanteita
+
+
+Käyttäjänhallinnan pääsivulta näet nopeasti, keillä kaikilla on jo ryhmittelyoikeudet. Klikkaa vain 
+käyttäjälistan oikealla puolella olevaa *grouper*-suodatinta.
+
+
+![](pictures/helpc5.png)
+
+
+## Miten teen käyttäjästä pääkäyttäjän?
+
+**VAROITUS**: Pääkäyttäjillä on kaikki oikeudet kaikkiin käyttäjiin ja
+aineistoihin. Jos jokin menee pieleen (pahantahtoinen maanikkokäyttäjä iskee ja poistaa 
+kaikki muut käyttäjätilit tms.) uusia pääkäyttäjiä voi onneksi luoda myös 
+komentoriviltä ilman tässä kuvattuja käyttöliittymiä. Tällaisissa tapauksissa
+ota yhteyttä tekniseen ylläpitoon (ja ehkä FBI:hin).
+
+Luonnollisesti tämä toiminto on mahdollista vain nykyisile pääkäyttäjille.
+
+
+
+1. Avaa https://digilang.utu.fi
+2. Kirjaudu sisään klikkaamalla oikean ylälaidan *Kirjaudu sisään* -linkkiä
+3. Kun olet kirjautunut, Kieliaineistoportaali-otsikon alle (Digilang-logon viereen) ilmestyy *Ylläpitö*-linkki
+4. *Ylläpito*-linkistä pääset portaalin ylläpitosivulle, josta on linkki
+   käyttäjänhallintaan (suora linkki -- joka toimii kirjautumisen jälkeen --
+   on https://digilang.utu.fi/api/admin)
+
+
+#### Jos kyseessä on kokonaan uusi käyttäjä
+
+1. Käyttäjähallinnan avauduttua klikkaa *Käyttäjät* -kategorian oikealla puolella olevaa *Lisää*-linkkiä
+2. Kirjoita uuden käyttäjän käyttäjätunnus
+3. Klikkaa tallenna ja poistu
+4. Skrollaa alaspäin sen verran, että näet Pääkäyttäjä-laatikon.
+5. Ruksaa Pääkäyttäjä-laatikko.
+6. Paina Tallenna ja poistu -painiketta ruudun alalaidassa
+
+#### Jos kyseessä on vähintään kertaalleen jo kirjautunut käyttäjä
+
+...tai käyttäjä, joka on jo lisätty, mutta jolla ei ole ylläpitäjän oikeuksia.
+
+1. Klikkaa *Käyttäjät*-linkkiä api/admin-sivuston pääsivulla
+2. Klikkaa käyttäjätunnusta, jota haluat muokata
+4. Skrollaa alaspäin sen verran, että näet Pääkäyttäjä-laatikon.
+5. Ruksaa Pääkäyttäjä-laatikko.
+6. Paina Tallenna ja poistu -painiketta ruudun alalaidassa
+

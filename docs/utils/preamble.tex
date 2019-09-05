@@ -1,0 +1,45 @@
+\usepackage{tcolorbox}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+% Define the colours to match the CSS above
+\definecolor{background}{HTML}{F8F9F9}
+\definecolor{border}{HTML}{A93226}
+
+% Create our custom box
+\newtcolorbox{customBlock}{
+  colback = background,
+  colframe = border,
+  boxsep=5pt,
+  arc=4pt}
+
+% Create our general design
+\newtcolorbox{customBlockImage}[2][]{
+  enhanced,
+  top=10pt,
+  bottom=10pt,
+  colframe = white,
+  width=\textwidth,
+  boxsep=5pt,
+  arc=4pt,
+  outer arc=4pt,
+  leftupper=1.5cm,
+overlay={
+    \node[anchor=west] 
+      at ([xshift=10pt] $ (interior.north west)!0.5!(interior.south west) $ )
+       {{\setkeys{Gin}{width=3em,keepaspectratio}\includegraphics{#2}}};},
+#1}
+    
+ % Create the new environments for R Markdown
+\newenvironment{rmdnote}
+  {\begin{customBlockImage}{images/note}}
+  {\end{customBlockImage}}
+  
+\newenvironment{rmdimportant}
+  {\begin{customBlockImage}{images/important}}
+  {\end{customBlockImage}}
+         
+% We can also change the colour of the box
+\newenvironment{rmdwarning}
+  {\begin{customBlockImage}[colback=red]{images/important}}
+  {\end{customBlockImage}}

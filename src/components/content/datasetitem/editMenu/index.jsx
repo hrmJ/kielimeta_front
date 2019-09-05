@@ -148,6 +148,7 @@ class EditMenu extends Component {
                       id={currentVersionId}
                       dispatch={dispatch}
                       loadingState={loadingState}
+                      closeWindow={() => this.setState({ userWindowOpen: false })}
                     />
                   )}
                 </li>

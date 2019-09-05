@@ -13,24 +13,50 @@
   h2 {
     font-weight: 400;
     color: $utupurple;
+    @media screen and (max-width: 900px) {
+      font-size: 1.6em;
+    }
   }
 }
 
 .logoContainer {
   position: relative;
+  cursor: pointer;
+  &:hover {
+    cursor: pointer;
+  }
   z-index: 0;
   img {
     width: 30vw;
+    @media screen and (max-width: 900px) {
+      width: 90vw;
+    }
+  }
+}
+
+.footerH1 {
+  display: flex;
+  > div:first-child {
+    margin-right: 0.2em;
+    @media screen and (max-width: 900px) {
+      display: none;
+    }
   }
 }
 
 .outerContainer {
   @include center_contained();
   max-width: 1200px;
+  @media screen and (max-width: 900px) {
+    max-width: 95vw;
+  }
 }
 
 .innerContainer {
   @include center_container();
+  @media screen and (max-width: 900px) {
+    flex-flow: row wrap;
+  }
 }
 
 .footerContent {

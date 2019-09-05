@@ -1,9 +1,9 @@
 import { addIfUnique } from '../../utils';
 import { langReducer } from './filterReduces';
 
-const baseUrl = window.location.href.includes('istest')
-  ? 'http://%%API_SERVER_HOST_TEST%%'
-  : '%%API_SERVER_PROTOCOL%%://%%API_SERVER_HOST%%';
+const baseUrlRaw = '%%API_SERVER_PROTOCOL%%://%%API_SERVER_HOST%%';
+const protocol = window.location.protocol;
+const baseUrl = protocol !== 'https:' ? baseUrlRaw.replace('https', 'http') : baseUrlRaw;
 
 /**
  *

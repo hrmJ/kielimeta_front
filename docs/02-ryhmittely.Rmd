@@ -1,0 +1,149 @@
+
+# Aineistojen ryhmittely {#ryhm}
+
+Kieliaineistoportaalin aineistoja voi järjestellä erilaisiksi ryhmiksi, jota auttavat 
+käyttäjiä näkemään toisiinsa liittyvät aineistot. 
+>Sama aineisto voi kuulua miten moneen ryhmään tahansa. 
+Ryhmittelynäkymän saa käyttöön
+etusivulla klikkaamalla *Näytä ryhminä* -linkkiä.
+
+
+![](pictures/helpd1.png)
+
+
+Aineistot näkyvät tämän jälkeen ryhmissä. Huomaa, että jos päällä on hakuja tai
+suodattimia, tässä näkyvät silti vain suodattimet läpäisevät aineistot (ei
+välttämättä siis koko ryhmää).
+
+![](pictures/helpd2.png)
+
+Huomaa myös, että saa aineiston voi näkyä useamman ryhmän alla.
+
+
+## Miten luon uuden ryhmän?
+
+
+
+### Pikaohje
+
+1. Jos sinulla on ryhmittelyoikeudet, Kieliaineistoportaali-otsikon alla näkyy *Ryhmittele*-linkki.
+2. Klikkaamalla tätä linkkiä Digilang-logon alle avautuu ryhmittelyvalikko.
+3. Kirjoita uuden ryhmän nimi ryhmittelyikkunan vasemman alalaidan pudotusvalikkoon.
+4. Kaikkien aineistojen viereen on ilmestynyt pieniä valintalaatikoita. **Huomaa,
+   että voit edelleen hakea ja suodattaa aineistoja löytääksesi juuri ne, jotka
+   haluat lisätä ryhmään**
+5. Ruksaa ne aineistot, jotka nyt luotavaan ryhmään kuuluvat.
+6. Paina ryhmittelyikkunassa Tallenna ryhmä -painiketta
+7. Sulje ryhmittelynäkymä klikkaamalla uudelleen Ryhmittele-painiketta ylhäällä.
+
+### Tarkka ohje
+
+1. Jos sinulla on ryhmittelyoikeudet, Kieliaineistoportaali-otsikon alla näkyy *Ryhmittele*-linkki.
+![](pictures/helpd3.png)
+2. Klikkaamalla tätä linkkiä Digilang-logon alle avautuu ryhmittelyvalikko.
+**Valikko suljetaan klikkaamalla uudestaan Ryhmittele-linkkiä**.
+![](pictures/helpd4.png)
+3. Kirjoita uuden ryhmän nimi ryhmittelyikkunan vasemman alalaidan pudotusvalikkoon.
+   Napsauta valikon alle ilmestyvää "Uusi kategoria: blablaablaa" -linkkiä.
+![](pictures/helpd5.png)
+4. Kaikkien aineistojen viereen on ilmestynyt pieniä valintalaatikoita. **Huomaa,
+   että voit edelleen hakea ja suodattaa aineistoja löytääksesi juuri ne, jotka
+   haluat lisätä ryhmään**
+![](pictures/helpd6.png)
+5. Ruksaa ne aineistot, jotka nyt luotavaan ryhmään kuuluvat.
+![](pictures/helpd7.png)
+6. Paina ryhmittelyikkunassa Tallenna ryhmä -painiketta
+![](pictures/helpd8.png)
+7. Sulje ryhmittelynäkymä klikkaamalla uudelleen Ryhmittele-painiketta ylhäällä.
+
+
+## Miten muokkaan vanhaa ryhmää?
+
+
+
+### Pikaohje
+
+1. Jos sinulla on ryhmittelyoikeudet, Kieliaineistoportaali-otsikon alla näkyy *Ryhmittele*-linkki.
+2. Klikkaamalla tätä linkkiä Digilang-logon alle avautuu ryhmittelyvalikko.
+3. Valitse ryhmän nimi ryhmittelyikkunan vasemman alalaidan pudotusvalikosta.
+4. Kaikkien aineistojen viereen on ilmestynyt pieniä valintalaatikoita. **Huomaa,
+   että voit edelleen hakea ja suodattaa aineistoja löytääksesi juuri ne, jotka
+   haluat lisätä ryhmään**
+5. Ruksaa ne aineistot, jotka nyt luotavaan ryhmään kuuluvat. 
+6. Jos haluat poistaa aineistoja ryhmästä, poista ruksit niiden vierestä.
+7. Paina ryhmittelyikkunassa Tallenna ryhmä -painiketta
+8. Sulje ryhmittelynäkymä klikkaamalla uudelleen Ryhmittele-painiketta ylhäällä.
+
+### Tarkka ohje
+
+1. Jos sinulla on ryhmittelyoikeudet, Kieliaineistoportaali-otsikon alla näkyy *Ryhmittele*-linkki.
+![](pictures/helpd3.png)
+2. Klikkaamalla tätä linkkiä Digilang-logon alle avautuu ryhmittelyvalikko.
+**Valikko suljetaan klikkaamalla uudestaan Ryhmittele-linkkiä**.
+![](pictures/helpd4.png)
+3. Valitse ryhmän nimi ryhmittelyikkunan vasemman alalaidan pudotusvalikosta.
+4. Kaikkien aineistojen viereen on ilmestynyt pieniä valintalaatikoita. **Huomaa, että voit edelleen hakea ja suodattaa aineistoja löytääksesi juuri ne, jotka haluat lisätä ryhmään**
+![](pictures/helpd6.png)
+5. Ruksaa ne aineistot, jotka nyt luotavaan ryhmään kuuluvat.
+6. Jos haluat poistaa aineistoja ryhmästä, poista ruksit niiden vierestä.
+![](pictures/helpd7.png)
+7. Paina ryhmittelyikkunassa Tallenna ryhmä -painiketta
+![](pictures/helpd8.png)
+![](pictures/helpd10.png)
+8. Sulje ryhmittelynäkymä klikkaamalla uudelleen Ryhmittele-painiketta ylhäällä.
+
+
+
+## Miten muokkaan ryhmän nimeä?
+
+
+
+### Pikaohje
+
+1. Jos sinulla on ryhmittelyoikeudet, Kieliaineistoportaali-otsikon alla näkyy *Ryhmittele*-linkki.
+2. Klikkaamalla tätä linkkiä Digilang-logon alle avautuu ryhmittelyvalikko.
+3. Valitse ryhmän nimi ryhmittelyikkunan vasemman alalaidan pudotusvalikosta.
+4. Kirjoita uusi nimi kohtaan "Muokkaa ryhmän nimeä"
+5. Paina ryhmittelyikkunassa Tallenna ryhmä -painiketta
+6. Sulje ryhmittelynäkymä klikkaamalla uudelleen Ryhmittele-painiketta ylhäällä.
+
+### Tarkka ohje
+
+1. Jos sinulla on ryhmittelyoikeudet, Kieliaineistoportaali-otsikon alla näkyy *Ryhmittele*-linkki.
+![](pictures/helpd3.png)
+2. Klikkaamalla tätä linkkiä Digilang-logon alle avautuu ryhmittelyvalikko.
+**Valikko suljetaan klikkaamalla uudestaan Ryhmittele-linkkiä**.
+![](pictures/helpd4.png)
+3. Valitse ryhmän nimi ryhmittelyikkunan vasemman alalaidan pudotusvalikosta.
+4. Kirjoita uusi nimi kohtaan "Muokkaa ryhmän nimeä"
+![](pictures/helpd9.png)
+7. Paina ryhmittelyikkunassa Tallenna ryhmä -painiketta
+![](pictures/helpd8.png)
+![](pictures/helpd10.png)
+8. Sulje ryhmittelynäkymä klikkaamalla uudelleen Ryhmittele-painiketta ylhäällä.
+
+## Miten poistan ryhmän?
+
+Huomaa, että ryhmän poistaminen on koko lailla vaaraton toimenpide: ryhmän
+poistaminen ei vaikuta siihen kuuluviin aineistoihin.
+
+
+### Pikaohje
+
+1. Jos sinulla on ryhmittelyoikeudet, Kieliaineistoportaali-otsikon alla näkyy *Ryhmittele*-linkki.
+2. Klikkaamalla tätä linkkiä Digilang-logon alle avautuu ryhmittelyvalikko.
+3. Valitse ryhmän nimi ryhmittelyikkunan vasemman alalaidan pudotusvalikosta.
+4. Klikkaa Poista ryhmä -painiketta 
+5. Sulje ryhmittelynäkymä klikkaamalla uudelleen Ryhmittele-painiketta ylhäällä.
+
+### Tarkka ohje
+
+1. Jos sinulla on ryhmittelyoikeudet, Kieliaineistoportaali-otsikon alla näkyy *Ryhmittele*-linkki.
+![](pictures/helpd3.png)
+2. Klikkaamalla tätä linkkiä Digilang-logon alle avautuu ryhmittelyvalikko.
+**Valikko suljetaan klikkaamalla uudestaan Ryhmittele-linkkiä**.
+![](pictures/helpd4.png)
+3. Valitse ryhmän nimi ryhmittelyikkunan vasemman alalaidan pudotusvalikosta.
+4. Klikkaa Poista ryhmä -painiketta 
+![](pictures/helpd11.png)
+5. Sulje ryhmittelynäkymä klikkaamalla uudelleen Ryhmittele-painiketta ylhäällä.

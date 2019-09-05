@@ -81,6 +81,7 @@ const validateFields = fields => {
   // ... and other view-only stuff
   delete validated.related_datasets;
   delete validated.documents;
+  delete validated.groups;
   return validated;
 };
 

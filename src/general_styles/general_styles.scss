@@ -134,5 +134,23 @@ a:active {
   position: absolute;
   right: 1em;
   top: 7px;
+  z-index: 99;
+  display: flex;
+  @media screen and (max-width: 900px) {
+    top: 1px;
+    font-size: 0.8em;
+    width: 100%;
+    left: 0px;
+    justify-content: space-between;
+    > div:first-child {
+      margin-bottom: 0.1em;
+    }
+    > div:last-child {
+      margin-right: 0.1em;
+    }
+  }
 }
 
+.helpIcon {
+  margin-right: 1em;
+}

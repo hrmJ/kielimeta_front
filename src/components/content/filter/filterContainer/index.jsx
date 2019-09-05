@@ -16,10 +16,10 @@ class FilterContainer extends Component {
 
   render() {
     const { menuOpen, offset } = this.state;
-    const { label, children, filterMenuHeader, isInUse, resetFilter } = this.props;
+    const { label, children, filterMenuHeader, isInUse, resetFilter, customClass } = this.props;
 
     return (
-      <div className={styles.container} ref={el => (this.el = el)}>
+      <div className={`${styles.container} ${customClass}`} ref={el => (this.el = el)}>
         <button
           type="button"
           className={styles.filterButton}
@@ -42,9 +42,13 @@ class FilterContainer extends Component {
           <div>{filterMenuHeader}</div>
           <div
             className={styles.menuInside}
-            style={{
-              maxHeight: `${offset && offset - 80}${offset && 'px'}`
-            }}
+            style={
+              offset && offset > 0
+                ? {
+                    maxHeight: `${offset && offset - 80}${offset && 'px'}`
+                  }
+                : {}
+            }
           >
             {children}
           </div>
@@ -59,12 +63,14 @@ FilterContainer.propTypes = {
   children: PropTypes.node.isRequired,
   filterMenuHeader: PropTypes.node,
   isInUse: PropTypes.bool,
-  resetFilter: PropTypes.func.isRequired
+  resetFilter: PropTypes.func.isRequired,
+  customClass: PropTypes.string
 };
 
 FilterContainer.defaultProps = {
   filterMenuHeader: null,
-  isInUse: false
+  isInUse: false,
+  customClass: ''
 };
 
 export default FilterContainer;

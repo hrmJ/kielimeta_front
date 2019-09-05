@@ -19,7 +19,9 @@
 }
 
 .datasetListGrid {
-  @include gridContainer();
+  @media screen and (min-width: 900px) {
+    @include gridContainer();
+  }
 }
 
 .datasetList {
@@ -77,20 +79,41 @@
 .groupTitle {
   // sth
   padding: 0.2em;
+  //font-weight: 300;
   font-weight: 400;
+  //color: $utupurple;
+  color: $logodark;
   margin-bottom: 1em;
 }
 
 .groupedDatasetsGrid {
-  @include gridContainer();
+  @media screen and (min-width: 900px) {
+    @include gridContainer();
+  }
 }
 
 .groupedDatasets {
   // sth
 }
 
-.moreButtonContainer{
-  margin-top:3em;
+.moreButtonContainer {
+  margin-top: 3em;
   display: flex;
   justify-content: center;
+}
+
+.onlyInMobile {
+  @media screen and (min-width: 900px) {
+    display: none;
+  }
+}
+
+.hideInMobile {
+  @media screen and (max-width: 900px) {
+    display: none;
+  }
+}
+
+.moreButton {
+  margin: 1em 1em 2em 0.7em;
 }

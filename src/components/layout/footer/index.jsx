@@ -13,14 +13,17 @@ export default () => (
           <img src={utulogo} alt="Turun yliopisto" />
         </div>
         <div className={styles.footerContent}>
-          <h1>
-            <Icon iconName="faInfoCircle" /> Kieliaineistoportaali
+          <h1 className={styles.footerH1}>
+            <div>
+              <Icon iconName="faInfoCircle" />
+            </div>
+            <div>Kieliaineistoportaali</div>
           </h1>
           <p>
-            Kieliaineistoportaalin tarkoituksena on koota tietoa Turun yliopiston kieliaineistoista
-            yhteen paikkaan helposti selailtavaksi kokonaisuudeksi. Kieliaineisto on käsitteenä
-            laaja: joukkoon kuuluu niin tekstikokoelmia, sanalistoja kuin esimerkiksi
-            käännösprosessia kartottavia prosessiaineistojakin.
+            Kieliaineistoportaalin tarkoituksena on koota tietoa Turun yliopiston digitaalisista
+            kieliaineistoista yhteen paikkaan helposti selailtavaksi kokonaisuudeksi. Digitaalinen
+            kieliaineisto on käsitteenä laaja: joukkoon kuuluu niin tekstikokoelmia, sanalistoja
+            kuin esimerkiksi käännösprosessia kartottavia prosessiaineistojakin.
           </p>
           <h2>Digilang</h2>
           <p>
@@ -31,10 +34,6 @@ export default () => (
             vuosikymmeniä (esim. Lauseopin arkisto). Digilang on näiden aineistojen kehittämiseen
             tähtäävä hanke.
           </p>
-          {/*
-          <h2>Lisätietoja</h2>
-          <p>Digilang-projektin yhteyshenkilönä toimii Tommi Kurki (etunimi.sukunimi@utu.fi)</p>
-          */}
           <p className={styles.bottomInfo}>
             <Link to="tietosuojaseloste">Tietosuojaseloste</Link>
           </p>

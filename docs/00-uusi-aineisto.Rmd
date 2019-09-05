@@ -1,0 +1,662 @@
+
+# Uusien aineistojen lisääminen
+
+Uusien aineistojen lisääminen vaatii käyttäjältä ylläpitäjätason oikeuksia. (tarkemmin ks. [täältä](#users))
+
+Seuraavassa uuden aineiston lisääminen on käsitelty vaihe vaiheelta
+
+## Aineiston lisäämisen aloittaminen
+
+1. Avaa https://digilang.utu.fi
+2. Kirjaudu sisään klikkaamalla oikean ylälaidan *Kirjaudu sisään* -linkkiä
+![](pictures/help1_1.png)
+3. Kun olet kirjautunut, Kieliaineistoportaali-otsikon alle (Digilang-logon viereen) ilmestyy *Uusi aineisto* -linkki
+![](pictures/helpg1.png)
+4. Uusi aineisto -linkin takaa avautuu aineistojen syöttölomake
+![](pictures/helpg2.png)
+
+
+## Syöttölomakkeen rakenne
+
+
+Syöttölomake koostuu viidestä eri osiosta. Osioiden  välillä liikutaan joko
+osion nimeä klikkaamalla tai osion lopussa olevilla Palaa / Jatka
+-painikkeilla. Viimeisen osion lopussa on Tallenna-painike, joka aktivoituu,
+kun kaikki pakolliset tiedot on täytetty. Täysin pakollisia tietoja ovat
+aineioastaan aineiston nimi, aineiston tyyppi ja yhteyshenkilö.
+
+
+![](pictures/helpg3.png)
+
+
+## Yleistiedot-osion täyttäminen {#yleistiedot}
+
+![](pictures/helpg4.png)
+
+Yleistiedot-osio koostuu aineiston nimeä, kuvausta, avainsanoja ja tyyppiä varten 
+varatuista kentistä sekä lisäksi valintalaatikosta aineiston sisältämille mediatyypeille
+sekä mahdollisuudesta lisätä tiedostoja.
+
+### Nimi
+
+![](pictures/helpg5.png)
+
+Lisää aineiston nimi. Hyvä nimi on kuvaileva (ei esim. pelkkä koodi), muttei
+liian pitkä tai eksplisiittinen. Tarkemmat tiedot selviävät kyllä kuvailutiedoista.
+
+
+### Kuvaus
+
+![](pictures/helpg6.png)
+
+Kuvaus-kenttä on pidempi tekstikenttä, joka tukee
+[Markdown-syntaksilla](https://www.markdownguide.org/basic-syntax) syötettyjä
+tietoja. Käytännössä tämä tarkoittaa, että voit vaihtaa kappaletta tyhjällä
+rivivälillä, tehdä listoja ranskalaisilla viivoilla, kursivoida asteriskeilla
+ym.  **TAI voit ihan vain kirjoittaa tavallisesti ajattelematta, mitä ihmettä
+se Markdown tarkoittaa**.
+
+**Huomaa**, että kentän kokoa voi muuttaa isommaksi raahaamalla sen oikeaa 
+alakulmaa.
+
+![](pictures/helpg7.png)
+![](pictures/helpg8.png)
+
+
+### Avainsanat
+
+```{block, type='rmdwarning'}
+Älä erota avainsanoja toisistaan pilkulla vaan käytä pudotusvalikkoa. Pilkulla
+erotettut kategoriat jäävät yhdeksi ainoaksi avainsanaksi.
+```
+
+Avainsanoja syötettäessä järjestelmä ehdottaa automaattisesti ensin jo
+tallennettuja avainsanoja. Kun olet esimerkiksi kirjoittanut *variaa*, tulee
+alle näkyviin *variaatiotutkimus*, *variaatio* jne.
+
+
+![](pictures/helpg9.png)
+
+Jos mahdollista, valitse jokin jo lisätyistä avainsanoista klikkaamalla sitä.
+
+
+![](pictures/helpg10.png)
+
+
+Lisää niin monta avainsanaa kuin haluat samalla periaatteella: 
+
+![](pictures/helpg11.png)
+![](pictures/helpg12.png)
+
+
+**Voit lisätä myös kokonaan uuden avainsanan.** Tämä tapahtuu kirjoittamalla avainsana
+kenttään ja valitsemalla alta "Uusi kategoria: blaablaablaa"
+
+![](pictures/helpg13.png)
+![](pictures/helpg14.png)
+
+Voit poistaa vahingossa lisättyjä tai muuten vääriä avainsanoja tämän aineiston tiedoista
+klikkaamalla ruksia avainsanan vieressä.
+
+![](pictures/helpg61.png)
+
+
+### Aineiston tyyppi
+
+
+![](pictures/helpg15.png)
+
+
+Aineistoille on määritelty muutama valmis tyyppi (esim. korpukset, rinnakkaiskorpukset yms.), jotka
+ovat saatavilla pudotusvalikossa. Voit myös kirjoittaa kokonaan uuden tyypin.
+Valitse tällöin pudotusvalikon alle ilmestyvä kohta "Uusi kategoria: blaabla". 
+Pudotusvalikon lisäksi lomakkeelle ilmestyy nyt uusi tekstikenttä, jonne 
+kaivataan lyhyt kuvaus siitä, mitä ilmoittamasi tyyppiset aineistot ovat.
+
+![](pictures/helpg16.png)
+
+
+
+### Sisältää (mediatyypit) {#mediatypes}
+
+![](pictures/helpg17.png)
+
+*Sisältää*-kohdassa on oletuksena valittuna kohta *Tekstiä.* Tämän valinnan voi poistaa.
+Tarkoitus on tässä kohtaa kuvailla aineiston sisällön olomuotoa: onko kyseessä tekstejä, 
+kuvia, äänitteitä, videota vai kenties kaikkia näistä. Jälleen kerran voit lisätä kokonaan uuden tyypin,
+jolle on myös suotavaa antaa jokin kuvaus.
+
+![](pictures/helpg18.png)
+
+```{block, type='rmdnote'}
+Tekstin käsite on tässä käytössä laajasti tulkittuna. Tekstejä voivat olla myös esimerkiksi kuvamuodossa olevat
+skannaukset sekä yhtä lailla laulut ja runot kuin blogit ja lehtitekstit. Varsinaisten tekstien genre määritetään 
+omalla kentällään.
+```
+
+### Aineiston sisältämien tekstien genre
+
+
+
+![](pictures/helpg19.png)
+
+Jos aineiston tyypiksi on valittu korpus, rinnakkaiskorpus tai verrannollinen korpus, pyytää lomake lisäksi
+määrittämään, minkä tyyppisiä tekstejä korpus sisältää. Näistä on oma valmis listansa (pudotusvalikko), johon 
+voi myös lisätä uusia kategorioita edellisten pudotusvalikoiden tapaan
+
+
+![](pictures/helpg20.png)
+
+
+### Aineistoon liittyvät tiedostot
+
+
+```{block, type='rmdwarning'}
+Kieliaineistoportaali on vain metatietojen säilyttämistä varten. Älä lataa tätä
+kautta varsinaisia aineistoja!
+```
+
+Jossain tapauksissa aineistojen kuvaukset ovat olemassa esimerkiksi pidempinä
+pdf- tai word-tiedostoina, eikä yhtä pitkää kuvausta ole mielekästä kirjoittaa
+erikseen tähän. Tässä tapauksessa tiedostot voi ladata erikseen kieliaineistoportaaliin.
+
+![](pictures/helpg21.png)
+
+
+Lisääminen tapahtuu klikkaamalla Lisää-painiketta. Valitse tämän jälkeen omalta
+koneeltasi tiedosto Selaa/Browse-painikkeen kautta.
+
+![](pictures/helpg22.png)
+
+Anna lyhyt kuvaus kustakin tiedostosta alla olevaan tekstikenttään:
+
+
+![](pictures/helpg23.png)
+
+
+## Kielet-osion täyttäminen
+
+Kielet-osio on lomakkeen tietojen kannalta erityisen oleellinen.
+Perusperiaatteena tätä täytettäessä on hyvä pitää, että "uusia" kieliä
+kannattaa aineistoon lisätä ennemmin liian herkästi kuin säästeliäästi.
+Ajatuksena on, että jokaisesta kielestä tai kielen variantista tai tyypistä 
+voidaan syöttää omia tietojaan.
+
+Voi esimerkiksi olla, että aineisto koostuu suomen-, ruotsin- ja
+venäjänkielisistä teksteistä, jolloin jokainen mainituista on helppo ymmärtää
+omaksi kielekseen. Omia, erillisiä kieliään kannattaa syöttää kuitenkin
+myös seuraavissa tapauksissa:
+
+1. Aineisto sisältää useita eri murteita samasta kielestä.
+2. Aineisto sisältää vaikkapa pelkkää suomea, mutta jakautuu selkeisiin
+   osa-aineistoihin: esimerkiksi L1-kielenään suomea puhuvat ja L2-kielenä
+   suomea puhuvat. 
+3. Aineisto  sisältää esimerkiksi 200 000 sanaa ruotsinkielisiä lehtitekstejä
+   ja 300 000 sanaa ruotsinkielisiä keskusteluaineistoja. Tällöin on hyödyksi syöttää kaksi 
+   omaa ruotsin kieltänsä ja merkitä toisen ominaisuudeksi, että kyseessä on 
+   kirjoitettu kieli ja toisen ominaisuudeksi, että kyseessä on puhuttu kieli.
+
+```{block, type='rmdnote'}
+Jos aineistossa on esimerkiksi suomenkielistä L1-aineistoa ja suomenkielistä L2aineistoa,
+joiden ominaisuudet ovat pääpiirteissään samoja, kannattaa käyttää lomakkeella
+olevaa Luo toinen kieli samoilla ominaisuuksilla -painiketta. Tämä kopioi 
+jo syöttämäsi tiedot toisen kielen pohjaksi, mikä säästää paljon vaivaa.
+Voit muuttaa kopioiduista tiedoista ainoastaan ne kohdat, jotka aineiston osien 
+välillä eroavat.
+```
+
+Ensimmäinen kieli aineistoon syötetään painamalla Kielet-osion alareunassa olevaa Lisää-painiketta.
+
+
+![](pictures/helpg24.png)
+
+
+Voit poistaa  kieliä oikeassa reunassa näkyvistä rukseista.
+
+![](pictures/helpg25.png)
+
+
+### Kielen valinta
+
+Portaaliin on oletuksena tallennettu noin 400 eri kieltä ISO-koodeineen sekä
+suomen- ja englanninkielisine nimineen. Aloita kirjoittamaan Kieli-pudotusvalikkoon 
+haluamasi kielen suomenkielistä nimeä ja valitse valikon ehdotuksista oikea.
+
+
+![](pictures/helpg26.png)
+
+
+```{block, type='rmdcaution'}
+Syötä kieli-kenttään vain yläkategorioita. Älä esimerkiksi tee omaa kategoriaansa
+amerikanenglannista, vaan valitse ainoastaan englanti ja spesifioi seuraavassa
+kentässä tarpeen vaatiessa tarkemmin, mistä variantista on kyse.
+```
+
+Jos aineisto sisältää jotakin eksoottisempaa kieltä, jota ei valikossa ole, sen voi lisätä
+samaan tyyliin kuin muitakin edellä käsiteltyjä pudotusvalikkokategorioita on voinut täydentää.
+Kirjoita portaalista puuttuvan kielen suomenkielinen nimi ja paina "Uusi kategoria: blaablaa"
+
+Jos olet lisännyt uuden kielen, pyytää lomake lisäämään sille myös koodin. Katso 
+olemassa olevia ISO-koodia WALSin listasta: https://wals.info/languoid.
+
+### Tarkempi variantti
+
+Kun olet syöttänyt kielen nimen, avautuu nimen alle Tarkempi variantti -pudotusvalikko.
+Monissa tapauksissa tarkempia variantteja ei vielä ole syötetty. Useissa tapauksissa
+tämän kohdan voi jättää tyhjäksi. Jos kuitenkin kyseessä on esimerkiksi murreaineisto
+tai spesifisti suomenruotsia sisältävä aineisto tai toisaalta jokin vähemmän standardisoitu 
+määritelmä ("2000-luvun satakuntalaisten puhekieli")  niin voit kirjoittaa variantin tähän
+kenttään valitsemalla kirjoittamisen jälkeen Uusi kategoria: 2000-luvun satakuntalaisten puhekieli 
+tai muuta vastaavaa.
+
+
+![](pictures/helpg28.png)
+
+
+
+### Kielimuoto
+
+
+Kielimuoto-pudotusvalikosta voi valita yhden tai useamman kolmesta
+(puhuttu/kirjoitettu/internetkieli).  
+
+![](pictures/helpg29.png)
+
+Jos esimerkiksi kirjoitettu ja puhuttu kieli muodostavat selkeät omat 
+osionsa, joilla on esimerkiksi tietty sanamäärä, on parasta tehdä niistä omat
+kielensä käyttämällä hyväksi "Luo toinen kieli samoilla ominaisuuksilla"
+-painiketta. Jos taas eri kielimuodot ovat vähemmän selkeästi rajattavissa,
+voidaan ne hyvin laittaa saman kielen ominaisuuksiksi. 
+
+### Puhujien / kirjoittajien status
+
+
+![](pictures/helpg30.png)
+
+
+Puhujien tai kirjoittajien statuksella viitataan tässä siihen, ovatko aineiston
+sisältämät tekstit tuottaneet kieltä äidinkielenään puhuvat (L1) kielenkäyttäjät 
+vai henkilöt, joille kieli on vieras kieli (L2). Tämä on relevanttia ennen kaikkea erilaisten
+kielenoppija-aineistojen kannalta. Vaikka oma aineistosi ei sisältäisikään oppijoiden kieltä,
+on hyödyllistä merkitä puhujien statukseksi L1, jos tiedät, että kyseessä on (ainakin pääosin)
+äidinkielisten puhujien tuottama aineisto.
+
+
+Jos valitsit, että puhujat ovat L2-puhujia, pyytää lomake sinua määrittelemään vielä erikseen,
+mitkä ovat puhujien äidinkielet.  Luonnollisesti tämä tieto ilmoitetaan vain, jos se on saatavilla:
+pelkkä tieto L2-statuksesta on arvokas sellaisenaankin.
+
+![](pictures/helpg31.png)
+
+
+L2-puhujien kielet valitaan samanlaisella pudotusvalikolla kuin [Kieli](#kielen-valinta) edellä.
+Erotuksena on, että tässä voit ilmoittaa useamman kielen. Periaate on kuitenkin sama: kirjoita kielen 
+suomenkielistä nimeä ja valitse avautuvasta listasta.
+
+
+### Annotoinnit
+
+Etenkin korpukset voivat sisältää monentasoisia annotointeja, joiksi tässä
+ymmärretään niin lemmatisointi, morfologian tason annotoinnit, syntaksin tason
+annotoinnit kuin semanttiset annotoinnitkin. Toisaalta kyse voi olla jostakin erikoisemmasta 
+ainestoon merkitystä informaatiosta, jolloin tarjola on muu-kategoria lisäselityksineen.
+
+Klikkaa Annotoinnit-linkkiä päästäksesi käsiksi annotointien ilmoittamiseen.
+
+
+![](pictures/helpg32.png)
+
+Oletuksena annotointeja ei ole vielä ilmoitettuna, joten klikkaa Lisää-linkkiä Annotoinnit-otsikon 
+alla.
+
+![](pictures/helpg33.png)
+
+Valitse annotoinnin tyyppi ylemmästä pudotusvalikosta. Määrittele alle
+tarkemmin annotointiin liittyviä ominaisuuksia: esimerkiksi käytetty täggeri /
+parseri tai tägsetin versio.
+
+![](pictures/helpg34.png)
+
+Lisää jokainen annotoinnin taso erikseen. Tarkemmat kuvaukset eivät ole pakollisia!
+
+
+![](pictures/helpg35.png)
+
+```{block, type='rmdnote'}
+Voit poistaa lisättyjä annotoinnin tasoja kielten tapaan klikkaamalla pientä ruksia 
+annotointitietojen oikeassa ylänurkassa
+```
+
+```{block, type='rmdnote'}
+Muistathan, että jos useammassa kielessä on samat annotoinnit, voit kopioida 
+uuden lisättävän kielen pohjaksi ominaisuuksia "Luo toinen kieli samoilla
+ominaisuuksilla" -painikkeella.
+```
+
+### Tekstiaineistojen laajuus
+
+
+![](pictures/helpg36.png)
+
+Korpusten tai muiden tekstiaineistojen koon voi ilmoittaa neljällä eri tavalla. Voit joko 
+ilmoittaa kaikki (sanat, saneet, virkkeet, tekstit) tai ainoastaan ne kategoriat, jotka 
+ovat selvillä tai ovat relevantteja. Ilmoita mieluummin ympäripyöreästi summittaisia lukuja 
+kuin että jättäisit kentät kokonaan tyhjiksi.
+
+![](pictures/helpg37.png)
+
+
+### Ääniaineistojen laajuus
+
+Tämä otsikko tulee näkyviin, jos olet [Yleistiedot-osion](#yleistiedot)
+kohdassa [Sisältää](#mediatypes) ruksannut kohdan "ääntä".
+Klikkaa otsikkoa avataksesi laajemman näkymän
+
+
+![](pictures/helpg38.png)
+
+Merkitse, kuinpa monta tuntia (ainakin suurin piirtein) äänitettyjä aineistoja 
+on.
+
+![](pictures/helpg39.png)
+
+
+### Videoaineistojen laajuus
+
+Tämä otsikko tulee näkyviin, jos olet [Yleistiedot-osion](#yleistiedot)
+kohdassa [Sisältää](#mediatypes) ruksannut kohdan "videota".
+Klikkaa otsikkoa avataksesi laajemman näkymän
+
+
+![](pictures/helpg40.png)
+
+Merkitse, kuinpa monta tuntia (ainakin suurin piirtein) videoaineistoja 
+on.
+
+![](pictures/helpg41.png)
+
+### Ajanjakso
+
+Ajanjakso-kohtaan merkitään, mille ajanjaksolle aineistot sijoittuvat. Avaa syöttövalikko klikkaamalla otsikkoa.
+
+
+![](pictures/helpg42.png)
+
+Yksinkertaisin tapa merkitä ajanjakso on määrittää varhaisin ja myöhäisin vuosi: jos tiedät, 
+että varhaisimmat aineiston osat sijoittuvat esimerkiksi vuodelle 1915 ja tuoreimmat vuodelle
+1980,  voit käyttää seuraavaa merkintätapaa.
+
+![](pictures/helpg43.png)
+
+Tässäkin summittaisuus on parempi kuin merkitsemättä jättäminen.
+
+Jos tiedät tarkemmin vuodet, joille aineistot osuvat, voit ruksata kunkin vuoden 
+erikseen klikkaamalla Tarkempi määrittely -otsikkoa.
+
+![](pictures/helpg44.png)
+
+![](pictures/helpg45.png)
+
+
+### Lisätiedot
+
+
+Tähän kohtaan voit merkitä kaikkea sellaista informaatiota, jolle ei ollut edellä 
+erikseen omaa kenttäänsä. Jos esimerkiksi ääniaineistosi on litteroitu, voit tässä 
+kertoa tarkemmin litteroinnin formaatista yms.
+
+
+![](pictures/helpg46.png)
+
+
+Lisää lopuksi uusi kieli joko lisää-painikkeella tai (luultavasti säästät vaivaa)
+klikkaamalla Luo toinen kieli samoilla ominaisuuksilla -painiketta.
+
+
+## Tekijät-osion täyttäminen
+
+Aineiston tekijät ilmoitetaan tässä osiossa. Kustakin voidaan kertoa nimi, sähköposti (tunniste), oppiaine 
+ja rooli tutkimuksessa, mutta vähintään nimi ja tunniste olisi suotavaa kertoa.
+
+![](pictures/helpg47.png)
+
+Lisää uusi tekijä klikkaamalla Lisää-painiketta
+
+
+![](pictures/helpg48.png)
+
+
+Oletuksena järjestelmä tarjoaa henkilöhakua UTU:n tietokannasta. Kirjoita henkilön etunimi ja 
+ainakin sukunimen alkua ja paina Hae-nappia:
+
+![](pictures/helpg49.png)
+
+
+Alapuolelle ilmestyy pudotusvalikko, josta voit valita haluamasi utulaisen.
+
+![](pictures/helpg50.png)
+
+Vahvista valinta Vahvista valinta -painikkeella.
+
+![](pictures/helpg51.png)
+
+```{block, type='rmdimportant'}
+Jos lisäät muita kuin Turun yliopiston henkilöitä, klikkaa Lisää henkilötiedot käsin -painiketta.
+Tämän jälkeen syötä alle henkilön tunnus: mieluiten ORCID, mutta sen puuttuessa sähköposti.
+```
+
+![](pictures/helpg52.png)
+
+
+Kirjaa myös oppiaine (jos se ei tullut täytetyksi automaattisesti) pudotusvalikkoa käyttäen. Voit lisätä
+valikkoon uuden oppiaineen, jos listasta sellainen puuttuu. Vahvista uuden oppiaineen lisäys 
+klikkaamalla Uusi kategoria: ihan uusi oppiaine -kohtaa pudotusvalikon alla.
+
+
+![](pictures/helpg53.png)
+
+
+```{block, type='rmdnote'}
+Voit poistaa tekijöitä oikean reunan rukseista.
+```
+
+## Saatavuus-osion täyttäminen
+
+Merkitse saatavuus-osioon tiedot yhteyshenkilöistä ja muista tiedoista, jotka auttavat 
+aineiston potentiaalisia  käyttäjiä pääsemään käsiksi aineistoon.
+
+![](pictures/helpg54.png)
+
+
+### Yhteyshenkilö
+
+
+Yhteyshenkilö on usein loogista valita tekijöiden joukosta. Pudotusvalikkoon onkin automaattisesti
+lisätty edellä yhteyshenkilöksi lisätyt henkilöt:
+
+
+![](pictures/helpg55.png)
+
+
+Jos yhteyshenkilö ei ole kukaan tekijöistä, valitse pudotusvalikosta kohta "Uusi henkilö"
+
+
+![](pictures/helpg56.png)
+
+Voit oletuksena hakea Turun yliopistoon kuuluvia henkilöitä etu- ja sukunimen perusteella.
+Kirjoita  etunimi ja vähän sukunimestä tekstikenttään, paina Hae-nappia ja valitse 
+oikea henkilö alle ilmestyvästä pudotusvalikosta. 
+
+![](pictures/helpg57.png)
+
+Jos yhteyshenkilö ei ole Turun yliopistosta tai automaattinen haku ei häntä löydä, klikkaa
+Syötä henkilötiedot käsin -nappia.
+
+
+![](pictures/helpg58.png)
+
+syötä tässä tapauksessa henkilön nimi ja sähköposti ja paina sen jälkeen Tallenna uusi henkilö -painiketta.
+
+
+![](pictures/helpg59.png)
+
+```{block, type='rmdimportant'}
+Huomaa, että voit poistaa pudotusvalikosta henkilöitä klikkaamalla ruksia niiden perässä
+```
+
+![](pictures/helpg60.png)
+
+### Miten aineistoa pääsee käyttämään
+
+
+Tämä pudotusvalikko tarjoaa kolme vaihtoehtoa. Jos aineisto 
+on saatavissa esimerkiksi Kielipankin kautta, valitse kohta *Verkko-osoite*.
+
+![](pictures/helpg62.png)
+
+```{block, type='rmdnote'}
+
+Jos aineisto on saatavilla useista eri paikoista, ne tulkitaan saman aineiston eri
+versioiksi. Lisää tässä tapauksessa aineisto loppuun tällä lomakkeella ja klikkaa
+sitten digilang.utu.fi-sivun päänäkymästä aineistoa ja tämän jälkeen valitse 
+Hallinta-valikosta Lisää aliversio. Eteesi avautuu sama lomake jo täyttämilläsi tiedoilla 
+ja voit muuttaa aineiston saantitavaksi toisen osoitteen.
+
+```
+
+#### Verkko-osoite
+
+Jos valitsit verkko-osoitteen, kirjoita se alle ilmestyvään kenttään.
+
+![](pictures/helpg63.png)
+
+
+#### Yhteyshenkilö
+
+Jos valitsit yhteyshenkilö, merkitään aineiston saatavuustietoihin automaattisesti 
+edellä ilmoitetut yhteyshenkilöt sekä viesti "Aineisto on saatavilla ottamalla
+yhteyttä seuraaviin henkilöihin".
+
+
+#### Muulla tavoin
+
+Jos aineiston saanti on erityisen rajoitettu tai muuten monimutkaisempi kysymys, määrittele 
+se omin sanoin alle ilmestyvään laatikkoon
+
+
+![](pictures/helpg64.png)
+
+### Aineiston pysyväistunniste
+
+
+![](pictures/helpg65.png)
+
+Jos aineistolla on jo pysyväistunniste kuten DOI tai URN-osoite, merkitse se 
+tähän kenttään. Jos aineistosta on merkintä metashare.csc.fi-palvelussa, 
+sillä on metashare-palveluun linkkaava DOI.
+
+### Viittausohje
+
+![](pictures/helpg66.png)
+
+Kirjoita tähän kenttään se tapa, jolla toivot aineistoon viitattavan. Mahdollisesti tämä tieto 
+on jo saatavilla esimerkiksi Kielipankin kautta, jolloin voit käyttää tässä kohtaa joko linkkiä 
+tai, toivottavammin, kopioida viittausohjeen.
+
+## Hallinta-osion täyttäminen
+
+
+Hallinta-osiolle on koottu sellaisia tietoja, jotka liittyvät aineiston hallinointiin, sen tallenukseen ja 
+muuhun sellaiseen, joka ei monesti niinkään ole relevanttia aineiston potentiaalisten käyttäjien 
+kannalta kuin aineiston ylläpitäjien näkökulmasta.
+
+
+### Projekti, johon aineisto kuuluu 
+
+
+![](pictures/helpg67.png)
+
+Valitse pudotusvalikosta jokin portaaliin jo kirjattu projekti tai luo uusi kirjoittamalla projektin nimi
+ja klikkaamalla "Uusi kategoria: projekti xxxx"
+
+
+![](pictures/helpg68.png)
+
+### Käyttölisenssi
+
+
+![](pictures/helpg69.png)
+
+Tähän pudotusvalikkoon on valmiiksi listattu Creative Commons -lisenssien päätyypit. Voit määritellä 
+oman lisenssin valitsemalla kohdan Muu,mikä tai kirjoittaa tarkemman CC-lisenssin tyypin.
+
+![](pictures/helpg71.png)
+
+```{block, type='rmdnote'}
+Lisätietoja Creative Commons-lisensseistä: https://creativecommons.org/share-your-work/licensing-types-examples/
+```
+
+### Suojaustarve tai sensitiivisyys
+
+Jos aineisto sisältää henkilötietoja tai muuta sensitiivistä informaatiota, valitse pudotusvalikosta oikea 
+kategoria. 
+
+![](pictures/helpg72.png)
+
+
+```{block, type='important'}
+Huomaa, että  aineiston *metatietoja* voi olla esillä Kieliaineistoportaalissa,
+vaikka itse aineistoon pääsy olisikin äärimmäisen rajoitettua.
+```
+
+### Aineiston omistaja
+
+
+![](pictures/helpg73.png)
+
+Useimmiten omistajana on Turun yliopisto, mutta myös muita omistajia voi olla. Siinä 
+harvinaisessa mutta mahdollisessa tapauksessa, että omistajia on useita, nämä 
+tulee erottaa toisistaan pilkulla.
+
+
+### Aineiston tallennuspaikka
+
+![](pictures/helpg74.png)
+
+Aineiston tallennuspaikka voi olla esimerkiksi verkkolevy, Seafile tai huonossa tapauksessa
+yksityinen kiintolevy. Tämä tieto ei suoraan näy aineistoa etsiville käyttäjille.
+
+### Nykyisen tallennusratkaisun toimivuus
+
+![](pictures/helpg75.png)
+
+Tämän kentän avulla voidaan kartoittaa sitä, mitkä kaikki aineistot tarvitsisivat uutta ratkaisua 
+tallennuspaikan osalta.
+
+
+
+## Lomakkeen tallentaminen
+
+Lomake ei tallennu, jos siltä puuttuu aineiston nimi, tyyppi tai yhteyshenkilö.
+Pääset lisäämään näitä elementtejä suoraan klikkaamalla punaisella taustalla näkyviä linkkejä.
+
+
+![](pictures/helpg76.png)
+
+
+Jos kaikki tiedot ovat kunnossa, paina Tallenna-painiketta osion 5. lopussa.
+Sinut ohjataan Kieliaineistoportaalin pääsivulle hakunäkymään, jossa hakulauseena 
+on äsken luodun uuden aineiston nimi.
+
+
+
+
+
+
+
+
+
+
+
+
+

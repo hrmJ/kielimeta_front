@@ -1,0 +1,41 @@
+bookdown::gitbook:
+  number_sections: false
+  css: utils/book.css
+  toc_depth: 3
+  includes:
+    after_body: utils/after.html
+  config:
+    toc:
+      collapse: section
+      scroll_highlight: yes
+      after: null
+    toolbar:
+      position: fixed
+    edit : null
+    download: yes
+    search: yes
+    fontsettings:
+      theme: white
+      family: sans
+      size: 2
+    sharing:
+      facebook: no
+      twitter: no
+      google: no
+      linkedin: no
+      weibo: no
+      instapaper: no
+      vk: no
+      all: []
+#bookdown::pdf_book:
+#  includes:
+#    in_header: utils/preamble.tex
+#  toc: true
+#  toc_depth: 6
+#  latex_engine: xelatex
+#  keep_tex: true
+#  pandoc_args:
+#    - --filter
+#    - pangloss
+#    - --filter
+#    - pandoc_avm

@@ -24,7 +24,7 @@ const removeThisUser = (users, idx) => {
 };
 
 class datasetUser extends Component {
-  state = { modalOpen: false };
+  state = { modalOpen: true };
 
   setUserName(newval) {
     const { dispatch, users, idx, datasetId } = this.props;
@@ -57,7 +57,7 @@ class datasetUser extends Component {
             alla olevasta napista.
           </p>
         )}
-        {modalOpen ? (
+        {modalOpen && !username ? (
           <section className={generalStyles.someTopMargin}>
             <UserPicker
               userNames={userNames}
@@ -65,6 +65,7 @@ class datasetUser extends Component {
               onPick={picked => this.setUserName(`${picked.uid}@utu.fi`)}
               cancel={() => this.setState({ modalOpen: false })}
               loadingState={loadingState}
+              customCancelText="Syötä käyttäjätunnus käsin"
             />
           </section>
         ) : (
@@ -81,10 +82,12 @@ class datasetUser extends Component {
               />
             </LabelledInput>
             <div className={generalStyles.someTopMargin}>
-              <BasicButton
-                text="Etsi käyttäjiä"
-                onClick={() => this.setState({ modalOpen: true })}
-              />
+              {!username && (
+                <BasicButton
+                  text="Etsi käyttäjiä"
+                  onClick={() => this.setState({ modalOpen: true })}
+                />
+              )}
             </div>
           </section>
         )}
