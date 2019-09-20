@@ -1,5 +1,5 @@
 import { getCookie } from '../../utils';
-import { thunkCreator } from './utils';
+import { thunkCreator, baseUrl } from './utils';
 
 const baseUrl = '%%API_SERVER_PROTOCOL%%://%%API_SERVER_HOST%%';
 
