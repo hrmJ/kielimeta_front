@@ -1,8 +1,6 @@
 import { getCookie } from '../../utils';
 import { thunkCreator, baseUrl } from './utils';
 
-const baseUrl = '%%API_SERVER_PROTOCOL%%://%%API_SERVER_HOST%%';
-
 const addToGroup = (dataset, isAdded) => {
   return { type: 'ADD_TO_GROUP', dataset, isAdded };
 };
