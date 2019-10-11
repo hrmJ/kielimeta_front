@@ -131,18 +131,20 @@ class ArrayFilter extends Component {
         customClass={customClass}
       >
         <ul className={styles.menuList}>
-          {items.map((item, itemIdx) => (
-            <FilterCategory
-              key={itemIdx.toString()}
-              filters={filters}
-              dispatch={dispatch}
-              keyName={actualKeyName}
-              hasSubMenu={hasSubMenu}
-              languageVarieties={languageVarieties}
-              isBoolean={isBoolean}
-              {...item}
-            />
-          ))}
+          {items
+            .sort((a, b) => a.label.toLowerCase().localeCompare(b.label.toLowerCase()))
+            .map((item, itemIdx) => (
+              <FilterCategory
+                key={itemIdx.toString()}
+                filters={filters}
+                dispatch={dispatch}
+                keyName={actualKeyName}
+                hasSubMenu={hasSubMenu}
+                languageVarieties={languageVarieties}
+                isBoolean={isBoolean}
+                {...item}
+              />
+            ))}
         </ul>
       </FilterContainer>
     );
