@@ -13,6 +13,9 @@ A react frontend for a metadata portal of linguistic datasets.
 
 Quick setup: run `yarn install` in the projects root. 
 
+**Note:** Before building (`yarn run build`), set the correct values for, e.g., the address,
+protocol and port of the API in `.env`  (cf. `.env.example`)
+
 
 ## Overview of the project's structure:
 
