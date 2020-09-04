@@ -88,7 +88,7 @@
     "lodash": "^4.17.11",
     "makecancelable": "^1.1.1",
     "moment": "^2.24.0",
-    "node-sass": "^4.11.0",
+    "node-sass": "^4.13.1",
     "prop-types": "^15.7.2",
     "react": "^16.7.0",
     "react-archer": "^1.1.0",
